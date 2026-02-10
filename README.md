@@ -15,3 +15,12 @@ Lecturer:
   - Adrián Pérez Sánchez  (https://github.com/adrianperez17)
 - **Project description**: Our project analyzes global hydraulic infrastructure (dams, reservoirs, and related works) to study its geographical distribution, temporal evolution, and primary use (e.g., hydroelectric generation, irrigation, water supply, and flood control). The goal is to understand how this infrastructure has expanded and specialized across different regions and the structural characteristics (dam height, storage capacity, reservoir area, installed power, etc.) associated with each use.
 - **Repository**: [gti-sos/SOS2526-27](https://github.com/gti-sos/SOS2526-27)
+
+## SOS2526-26
+
+- **Team**
+  - Ricardo Fernández Rodríguez-Navas (https://github.com/RicardoFernandez2004)
+  - Moisés Guillermo Godoy Nava (https://github.com/Moisguille)
+  - Sergio Díaz Vázquez  (https://github.com/SergioDiazVazquez)
+- **Project description**: "Our project analyzes the correlation between the competitive performance of men's senior national football teams and the quality of life as measured by the Human Development Index (HDI). We study the geographical distribution of football success, its temporal evolution, and its relationship with socioeconomic indicators. The goal is to understand how sporting excellence has expanded or concentrated across different regions and how it is associated with each development tier."
+- **Repository**: [gti-sos/SOS2526-26](https://github.com/gti-sos/SOS2526-26)
