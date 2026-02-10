@@ -16,6 +16,16 @@ Lecturer:
 - **Project description**: Our project analyzes global hydraulic infrastructure (dams, reservoirs, and related works) to study its geographical distribution, temporal evolution, and primary use (e.g., hydroelectric generation, irrigation, water supply, and flood control). The goal is to understand how this infrastructure has expanded and specialized across different regions and the structural characteristics (dam height, storage capacity, reservoir area, installed power, etc.) associated with each use.
 - **Repository**: [gti-sos/SOS2526-27](https://github.com/gti-sos/SOS2526-27)
 
+
+## SOS2526-11
+
+- **Team**
+  - Tomás Gutiérrez García (https://github.com/tomgutgar)
+  - Miguel Ridao Gallardo (https://github.com/Ridawo)
+  - José Fernández Montero  (https://github.com/josfermon)
+- **Project description**: Our project analyzes global traffic accident data to study the relationship between fatality rates, alcohol consumption, and literacy levels, determining how these variables influence road safety outcomes across different world regions.
+- **Repository**: [gti-sos/SOS2526-11](https://github.com/gti-sos/SOS2526-11)
+
 ## SOS2526-26
 
 - **Team**
