@@ -6,6 +6,8 @@ Lecturer:
  - [Pablo Fernandez](https://github.com/pafmon)
  - Alberto Martín López
 
+
+
 ## SOS2526-30
 
 - **Team**
@@ -70,7 +72,7 @@ Lecturer:
 ## SOS2526-12
 
 - **Team**
-  - Lucca 
+  - Lucca (https://github.com/Lucca-Pereira-2)
   - Javier Jiménez García (https://github.com/javier12012001)
   - Francisco de Paula Mediavilla Garcia (https://github.com/CMediavilla16)
 - **Project description**: Our project focuses on the development of an API to analyze global demographic dynamics, integrating data on birth/death rates, age-specific fertility, and population structure by age and sex. The objective is to provide a unified data source to examine temporal evolution and geographical trends in population growth and reproductive patterns across different countries.
