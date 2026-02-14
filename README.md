@@ -116,3 +116,13 @@ Lecturer:
   - --
 - **Project description**: This project examines the relationship between natural objects entering Earth’s atmosphere and the technological footprint humans send into space. The objective is to compare the historical mass of recovered meteorites against the mass of active satellites and current launch costs. We aim to determine if the human "footprint" in outer space is now outpacing natural phenomena in magnitude, while analyzing the global geographic distribution of these events.
 - **Repository**: [gti-sos/SOS2526-10](https://github.com/gti-sos/SOS2526-14)
+
+
+## SOS2526-15
+
+- **Team**
+  - Adrián López Gamboa (https://github.com/Aremanky)
+  - Samanta Montoya Baena (https://github.com/MontoyaBae)
+  - Javier Arroyo (https://github.com/Javieramma)
+- **Project description**: "Our project analyzes the correlation between a country's happiness index and its population density and minimum wage. We study how wages and the possibility of encountering other people, which we measure using density, can affect a nation's happiness. The goal is to understand how happiness varies based on socioeconomic factors and, thanks to this data, nations can establish strategies to improve the happiness of their inhabitants."
+- **Repository**: [gti-sos/SOS2526-15](https://github.com/gti-sos/SOS2526-15)
