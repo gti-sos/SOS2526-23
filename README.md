@@ -188,4 +188,8 @@ Lecturer:
 - **Project description**: Our sources of information are a jumble of unrelated data; our intention will be to find a connection between the three data sources.
 - **Repository**: [gti-sos/SOS2526-28](https://github.com/gti-sos/SOS2526-28)
 
-
+## SOS2526-17
+- **Team**
+  - Pablo Gamero García (https://github.com/pabgamgar1)
+- **Project description**: Our project is going to analyse the impact of water and renewable energy on agricultural productivity in the countries
+- **Repository**: [gti-sos/SOS2526-17](https://github.com/gti-sos/SOS2526-17)
