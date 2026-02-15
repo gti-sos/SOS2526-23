@@ -47,7 +47,9 @@ Lecturer:
   - David Ayllón Vela (https://github.com/davidayllon8)
   - Emilio	Cuevas	Rendón (https://github.com/Cuevas2004)
   - María	Rodríguez	Romero (https://github.com/mariarguezro)
-- **Project description**: Our research focuses on analyzing the complex relationship between Google Ads performance, e-commerce sales flow, and their impact on stock market index fluctuations. Our objective is identify the patterns that drive digital marketplace liquidity and influence investor sentiment.
+
+- **Project description**: Our research focuses on analyzing the complex relationship between Google Ads performance, e-Commerce sales flow, and their impact on stock market index fluctuations. Our objective is identify the patterns that drive digital marketplace liquidity and influence investor sentiment.
+
 - **Repository**: [gti-sos/SOS2526-23](https://github.com/gti-sos/SOS2526-23)
 
 
@@ -181,13 +183,19 @@ Lecturer:
 
 - **Team**
   - Jorge Dayoub Dayoub (https://github.com/)
-  - Alberto Jiménez Mateos (https://github.com/)
+  - Alberto Jiménez Mateos (https://github.com/AlbertoJimenezMateos)
   - Muhammad Zhillan Averous (https://github.com/zaverous)
 - **Project description**: Our sources of information are a jumble of unrelated data; our intention will be to find a connection between the three data sources.
 - **Repository**: [gti-sos/SOS2526-28](https://github.com/gti-sos/SOS2526-28)
 
-
+## SOS2526-17
+- **Team**
+  - Pablo Gamero García (https://github.com/pabgamgar1)
+  - Felipe Morgado Martinez (https://github.com/felmormar)
+- **Project description**: Our project is going to analyse the impact of water and renewable energy on agricultural productivity in the countries
+- **Repository**: [gti-sos/SOS2526-17](https://github.com/gti-sos/SOS2526-17)
 ## SOS2425-19
+
 
 - **Team**
   - Pablo Rodríguez Armesto (https://github.com/PabloRodriguezArmesto)
