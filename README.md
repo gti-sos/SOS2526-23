@@ -190,7 +190,6 @@ Lecturer:
 - **Repository**: [gti-sos/SOS2526-28](https://github.com/gti-sos/SOS2526-28)
 
 ## SOS2526-17
-
 - **Team**
   - Pablo Gamero García (https://github.com/pabgamgar1)
   - Felipe Morgado Martinez (https://github.com/felmormar)
