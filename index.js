@@ -32,16 +32,16 @@ app.get('/samples/MRR', (req, res) => {
     {region: "Asia", date: "2024-07-07", product_category: "Clothing", product_name: "Nike Dri-FIT Training Shorts", quantity_sold: 4, unit_price: 34.99, total: 139.96, payment_method: "Debit Card"},
     {region: "Europe", date: "2024-08-20", product_category: "Beauty Products", product_name: "Fresh Sugar Lip Treatment", quantity_sold: 1, unit_price: 24, total: 24, payment_method: "PayPal"},
     {region: "Europe", date: "2024-04-16", product_category: "Beauty Products", product_name: "The Ordinary Niacinamide Serum", quantity_sold: 1, unit_price: 6.5, total: 6.5, payment_method: "PayPal"}
-];
+  ];
 
-let regionElegida = ["North America", "Asia", "Europe"];
-let texto = "";
+  let regionElegida = ["North America", "Asia", "Europe"];
+  let texto = "";
 
-regionElegida.forEach((n) => {
-    let filtro = datos.filter((d) => d.region === n);
-    let resultado = filtro.reduce((a, d) => a + d.quantity_sold, 0) / filtro.length;
-    texto += "La media de unidades por compra en" + n + "es" + resultado + "<br>";
-});
+  regionElegida.forEach((n) => {
+      let filtro = datos.filter((d) => d.region === n);
+      let resultado = filtro.reduce((a, d) => a + d.quantity_sold, 0) / filtro.length;
+      texto += "La media de unidades por compra en" + n + "es" + resultado + "<br>";
+  });
 
 
   res.send(`<html> <body> ${texto} </body> </html>`);
