@@ -1,7 +1,7 @@
 let cool = require('cool-ascii-faces');
 let express = require('express');
 let bodyParser = require('body-parser');
-let index_MRR = require('index-MRR.js');
+let index_MRR = require('index-MRR');
 let PORT = process.env.PORT || 3000;
 let BASE_URL_API = "/api/v1";
 
