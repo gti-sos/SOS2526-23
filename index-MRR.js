@@ -12,12 +12,10 @@ let datos = [
     {region: "Europe", date: "2024-04-16", product_category: "Beauty Products", product_name: "The Ordinary Niacinamide Serum", quantity_sold: 1, unit_price: 6.5, total: 6.5, payment_method: "PayPal"}
 ];
 
-let regionElegida = "Asia"
+let regionElegida = ["North America", "Asia", "Europe"];
 
-function media(regionElegida){
-    let filtro = datos.filter((d) => d.region === "Asia");
+regionElegida.forEach((n) => {
+    let filtro = datos.filter((d) => d.region === n);
     let resultado = filtro.reduce((a, d) => a + d.quantity_sold, 0) / filtro.length;
-    console.log("La media de unidades por compra en", regionElegida, "es", resultado);
-};
-
-media (regionElegida);
+    console.log("La media de unidades por compra en", n , "es", resultado);
+});
