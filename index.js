@@ -40,7 +40,7 @@ app.get('/samples/MRR', (req, res) => {
   regionElegida.forEach((n) => {
       let filtro = datos.filter((d) => d.region === n);
       let resultado = filtro.reduce((a, d) => a + d.quantity_sold, 0) / filtro.length;
-      texto += "La media de unidades por compra en " + n + " es " + resultado + "<br><br>";
+      texto += "La media de unidades por compra en &nbsp" + n + " &nbsp es &nbsp " + resultado + "<br><br>";
   });
 
 
