@@ -175,7 +175,7 @@ app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
 });
 
 // 3. GET RECURSO ESPECÍFICO (Objeto único)
-app.get(BASE_API_URL+ "/google-ads-performance/:region/:date", (req, res) => {
+app.get(BASE_URL_API+ "/google-ads-performance/:region/:date", (req, res) => {
     const { region, date } = req.params;
     const resource = data.find(d => d.region.toLowerCase() === region.toLowerCase() && d.date === date);
     
@@ -186,7 +186,7 @@ app.get(BASE_API_URL+ "/google-ads-performance/:region/:date", (req, res) => {
     }
 });
 // 4. GET BÚSQUEDA EN RECURSO ESPECÍFICO (Ej: /Asia?from=2024-01-01)
-app.get(BASE_API_URL+ "/google-ads-performance/:region", (req, res) => {
+app.get(BASE_URL_API+ "/google-ads-performance/:region", (req, res) => {
     const { region } = req.params;
     const { from, to } = req.query;
     
@@ -200,7 +200,7 @@ app.get(BASE_API_URL+ "/google-ads-performance/:region", (req, res) => {
 });
 
 // 5. POST (Crear)
-app.post(BASE_API_URL, (req, res) => {
+app.post(BASE_URL_API, (req, res) => {
     const newEntry = req.body;
     const exists = data.some(d => d.region === newEntry.region && d.date === newEntry.date);
     
@@ -213,7 +213,7 @@ app.post(BASE_API_URL, (req, res) => {
 });
 
 // 6. PUT (Actualizar recurso concreto)
-app.put(`${BASE_API_URL}/:region/:date`, (req, res) => {
+app.put(`${BASE_URL_API}/:region/:date`, (req, res) => {
     const { region, date } = req.params;
     const updatedEntry = req.body;
 
@@ -231,7 +231,7 @@ app.put(`${BASE_API_URL}/:region/:date`, (req, res) => {
 });
 
 // 7. DELETE (Uno solo)
-app.delete(`${BASE_API_URL}/:region/:date`, (req, res) => {
+app.delete(`${BASE_URL_API}/:region/:date`, (req, res) => {
     const { region, date } = req.params;
     const initialLength = data.length;
     data = data.filter(d => !(d.region === region && d.date === date));
@@ -240,14 +240,14 @@ app.delete(`${BASE_API_URL}/:region/:date`, (req, res) => {
 });
 
 // 8. DELETE (Colección completa)
-app.delete(BASE_API_URL, (req, res) => {
+app.delete(BASE_URL_API, (req, res) => {
     data = [];
     res.sendStatus(200);
 });
 
 // MÉTODOS PROHIBIDOS
-app.post(`${BASE_API_URL}/:region/:date`, (req, res) => res.sendStatus(405));
-app.put(BASE_API_URL, (req, res) => res.sendStatus(405));
+app.post(`${BASE_URL_API}/:region/:date`, (req, res) => res.sendStatus(405));
+app.put(BASE_URL_API, (req, res) => res.sendStatus(405));
 
 
 // -----------------------------------------------------------------
