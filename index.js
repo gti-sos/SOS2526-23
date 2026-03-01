@@ -56,6 +56,8 @@ const datosIndices = [
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/about', express.static('public'));
 
 app.get('/', (req, res) => {
