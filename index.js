@@ -139,7 +139,7 @@ app.get('/samples/DAV', (req, res) => {
 });
 
 app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
-  res.send(JSON.stringify(dataDAV));
+  res.status(200, "OK").json(dataDAV)
 });
 
 
