@@ -85,13 +85,15 @@ app.get('/samples/MRR', (req, res) => {
 });
 
 app.get(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
-  res.send(JSON.stringify(datosMRR));
+    res.status(200, "OK").json(datosMRR);
 });
 
-
 app.get(BASE_URL_API + "/online-sales-popular-marketplaces/loadInitialData", (req, res) => {
-  if (datosMRR.length === 0) {
-    let newData = [{region: "North America", date: "2024-01-01", product_category: "Electronics", product_name: "iPhone 14 Pro", quantity_sold: 2, unit_price: 999.99, total: 1999.98, payment_method: "Credit Card"},
+  if (datosMRR.length !== 0) {
+    res.status(409, "CONFLICT").json({message: "Ya existen datos"});
+  }
+
+  let newData = [{region: "North America", date: "2024-01-01", product_category: "Electronics", product_name: "iPhone 14 Pro", quantity_sold: 2, unit_price: 999.99, total: 1999.98, payment_method: "Credit Card"},
     {region: "North America", date: "2024-01-16", product_category: "Books", product_name: "Salt, Fat, Acid, Heat by Samin Nosrat", quantity_sold: 3, unit_price:35.99, total: 107.97, payment_method: "Credit Card"},
     {region: "North America", date: "2024-03-25", product_category: "Electronics", product_name: "Ring Video Doorbell", quantity_sold: 1, unit_price: 99.99, total: 99.99, payment_method: "Credit Card"},
     {region: "Asia", date: "2024-02-02", product_category: "Clothing", product_name: "Under Armour HeatGear T-shirt", quantity_sold: 5, unit_price: 29.99, total: 149.95, payment_method: "Debit Card"},
@@ -105,11 +107,17 @@ app.get(BASE_URL_API + "/online-sales-popular-marketplaces/loadInitialData", (re
     ];
 
     datosMRR.push(newData);
-  }
-  res.send(JSON.stringify(datosMRR));
+  res.status(200, "OK").json(datosMRR);
 });
 
+app.post(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
+    
+});
 
+app.get(BASE_URL_API + "/onlines-sales-popular-marketplaces/:region", (req, res) => {
+    let regionName = req.params.region;
+
+});
 
 // -----------------------------------------------------------------
 // RUTA DE DAV
