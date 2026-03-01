@@ -18,6 +18,20 @@ let datosMRR = [
     {region: "Europe", date: "2024-04-16", product_category: "Beauty Products", product_name: "The Ordinary Niacinamide Serum", quantity_sold: 1, unit_price: 6.5, total: 6.5, payment_method: "PayPal"}
   ];
 
+const dataDAV = [
+    { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
+    { region: "Europe", date: "2024-01-22", platform: "TikTok Ads", industry: "EdTech", impression: 135608, click: 5220, ad_spend: 6159.60, conversion: 411, revenue: 64126.68 },
+    { region: "North America", date: "2024-06-15", platform: "TikTok Ads", industry: "Healthcare", impression: 92313, click: 5991, ad_spend: 5092.35, conversion: 267, revenue: 10489.07 },
+    { region: "Europe", date: "2024-01-02", platform: "TikTok Ads", industry: "SaaS", impression: 83953, click: 5935, ad_spend: 7834.20, conversion: 296, revenue: 50505.07 },
+    { region: "Europe", date: "2024-02-22", platform: "TikTok Ads", industry: "Healthcare", impression: 91807, click: 4489, ad_spend: 8663.77, conversion: 107, revenue: 3369.53 },
+    { region: "North America", date: "2024-10-15", platform: "TikTok Ads", industry: "Fintech", impression: 17666, click: 724, ad_spend: 267.88, conversion: 23, revenue: 5220.85 },
+    { region: "North America", date: "2024-08-14", platform: "Meta Ads", industry: "Fintech", impression: 118252, click: 3748, ad_spend: 1574.16, conversion: 152, revenue: 12838.56 },
+    { region: "Asia", date: "2024-04-05", platform: "TikTok Ads", industry: "EdTech", impression: 92939, click: 5176, ad_spend: 3416.16, conversion: 388, revenue: 96298.69 },
+    { region: "Europe", date: "2024-04-17", platform: "Meta Ads", industry: "EdTech", impression: 30939, click: 937, ad_spend: 552.83, conversion: 63, revenue: 16531.03 },
+    { region: "North America", date: "2024-11-13", platform: "Google Ads", industry: "Fintech", impression: 8748, click: 362, ad_spend: 438.02, conversion: 10, revenue: 966.57 },
+    { region: "Asia", date: "2024-04-22", platform: "Meta Ads", industry: "E-commerce", impression: 98264, click: 3144, ad_spend: 4904.64, conversion: 129, revenue: 23127.27 }
+];
+
 const app = express();
 
 app.use('/about', express.static('public'))
@@ -43,6 +57,27 @@ app.get('/samples/MRR', (req, res) => {
       texto += "La media de unidades por compra en &nbsp" + n + " &nbsp es &nbsp " + resultado + "<br><br>";
   });
 
+  res.send(`<html> <body> ${texto} </body> </html>`);
+});
+
+//------------------------------------------------------------------------------------------------------------
+
+app.get('/samples/DAV', (req, res) => {
+let regionElegidaDav = ["North America", "Asia", "Europe"];
+let texto = "";
+
+regionElegidaDav.forEach((n) => {
+    // Filtramos los datos para la región actual
+    let filtro = dataDAV.filter((d) => d.region === n);
+    
+    // Calculamos la media de 'impression' (evitando división por cero si no hay datos)
+    let resultado = filtro.length > 0
+        ? filtro.reduce((a, d) => a + d.impression, 0) / filtro.length 
+        : 0;
+        
+    // Creamos el texto con el formato solicitado
+    texto += "La media de 'impression' en &nbsp" + n + " &nbsp es &nbsp " + resultado.toFixed(2) + "<br><br>";
+});
 
   res.send(`<html> <body> ${texto} </body> </html>`);
 });
