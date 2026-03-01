@@ -10,3 +10,8 @@
 - **Repository**: [gti-sos/SOS2526-23](https://github.com/gti-sos/SOS2526-23)
 
 - **URL**: https://sos2526-23.onrender.com
+
+- **API's**:
+  - David Ayllón Vela: https://sos2526-23.onrender.com/api/v1/global-ads-performance
+  - Emilio	Cuevas	Rendón: https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators
+  - María	Rodríguez	Romero: https://sos2526-23.onrender.com/api/v1/online-sales-popular-marketplaces
