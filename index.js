@@ -138,6 +138,116 @@ app.get('/samples/DAV', (req, res) => {
     res.send(`<html> <body> ${texto} </body> </html>`);
 });
 
+app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
+  res.send(JSON.stringify(dataDAV));
+});
+
+// Carga de datos iniciales
+app.get(BASE_URL_API+`/google-ads-performance/loadInitialData`, (req, res) => {
+    if (dataDAV.length === 0) {
+        newData = [...dataDAV]; //copia de los elementos de DataDav
+        res.status(201).json(newData); // codigo exito creacion
+    } else {
+        res.status(409).json({message: "Ya existen datos"});
+
+    }
+});
+
+// GET COLECCIÓN (Con soporte para filtrado)
+app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
+    let filteredData = [...data];
+    const { region, from, to, platform } = req.query; //son variables de tipo query, lo que va despues de '?' en la URL
+
+    //filtro region
+    if (region) filteredData = filteredData.filter(d => d.region.toLowerCase() === region.toLowerCase());
+
+    //filtro plataforma
+    if (platform) filteredData = filteredData.filter(d => d.platform.toLowerCase() === platform.toLowerCase());
+    
+    // Filtrado por rango de fechas (ISO strings funcionan bien para comparación alfabética)
+    if (from && to) {
+        filteredData = filteredData.filter(d => d.date >= from && d.date <= to);
+    }
+
+    res.json(filteredData); // Siempre devuelve ARRAY (aunque esté vacío)
+});
+
+// 3. GET RECURSO ESPECÍFICO (Objeto único)
+app.get(BASE_API_URL+ "/google-ads-performance/:region/:date", (req, res) => {
+    const { region, date } = req.params;
+    const resource = data.find(d => d.region.toLowerCase() === region.toLowerCase() && d.date === date);
+    
+    if (resource) {
+        res.json(resource);
+    } else {
+        res.sendStatus(404);// errror not found
+    }
+});
+// 4. GET BÚSQUEDA EN RECURSO ESPECÍFICO (Ej: /Asia?from=2024-01-01)
+app.get(BASE_API_URL+ "/google-ads-performance/:region", (req, res) => {
+    const { region } = req.params;
+    const { from, to } = req.query;
+    
+    let filteredData = data.filter(d => d.region.toLowerCase() === region.toLowerCase());
+    
+    if (from && to) {
+        filteredData = filteredData.filter(d => d.date >= from && d.date <= to);
+    }
+    
+    res.json(filteredData); // Devuelve ARRAY
+});
+
+// 5. POST (Crear)
+app.post(BASE_API_URL, (req, res) => {
+    const newEntry = req.body;
+    const exists = data.some(d => d.region === newEntry.region && d.date === newEntry.date);
+    
+    if (exists) {
+        res.sendStatus(409);
+    } else {
+        data.push(newEntry);
+        res.sendStatus(201);
+    }
+});
+
+// 6. PUT (Actualizar recurso concreto)
+app.put(`${BASE_API_URL}/:region/:date`, (req, res) => {
+    const { region, date } = req.params;
+    const updatedEntry = req.body;
+
+    if (updatedEntry.region !== region || updatedEntry.date !== date) {
+        return res.sendStatus(400);
+    }
+
+    const index = data.findIndex(d => d.region === region && d.date === date);
+    if (index !== -1) {
+        data[index] = updatedEntry;
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(404);
+    }
+});
+
+// 7. DELETE (Uno solo)
+app.delete(`${BASE_API_URL}/:region/:date`, (req, res) => {
+    const { region, date } = req.params;
+    const initialLength = data.length;
+    data = data.filter(d => !(d.region === region && d.date === date));
+    
+    res.sendStatus(data.length < initialLength ? 200 : 404);
+});
+
+// 8. DELETE (Colección completa)
+app.delete(BASE_API_URL, (req, res) => {
+    data = [];
+    res.sendStatus(200);
+});
+
+// MÉTODOS PROHIBIDOS
+app.post(`${BASE_API_URL}/:region/:date`, (req, res) => res.sendStatus(405));
+app.put(BASE_API_URL, (req, res) => res.sendStatus(405));
+
+
 // -----------------------------------------------------------------
 // RUTA DE EMILIO CUEVAS (ECR)
 // -----------------------------------------------------------------
