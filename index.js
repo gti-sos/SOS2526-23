@@ -142,11 +142,13 @@ app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
   res.send(JSON.stringify(dataDAV));
 });
 
+
 // Carga de datos iniciales
 app.get(BASE_URL_API+`/google-ads-performance/loadInitialData`, (req, res) => {
     if (dataDAV.length === 0) {
         newData = [...dataDAV]; //copia de los elementos de DataDav
         res.status(201).json(newData); // codigo exito creacion
+        dataDAV.push(newData);
     } else {
         res.status(409).json({message: "Ya existen datos"});
 
