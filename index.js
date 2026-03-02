@@ -134,17 +134,17 @@ app.delete(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
   res.status(200, "OK").json({message: "Datos eliminados"})
 });
 
-app.get(BASE_URL_API + "/onlines-sales-popular-marketplaces/:region", (req, res) => {
+app.get(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
     let regionName = req.params.region;
     let filtro = datosMRR.filter(sale => sale.region === regionName);
     res.status(200, "OK").json(filtro);
 });
 
-app.post(BASE_URL_API + "/onlines-sales-popular-marketplaces/:region", (req, res) => {
+app.post(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
     res.status(405, "METHOD NOT ALLOWED").json({message: "No es posible añadir valores a un dato o varios datos"})
 });
 
-app.put(BASE_URL_API + "/onlines-sales-popular-marketplaces/:region", (req, res) => {
+app.put(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
     let regionName = req.params.region;
     let dateN = req.params.date;
     let id = datosMRR.findIndex(d => d.region === regionName && d.date === dateN);
@@ -157,7 +157,7 @@ app.put(BASE_URL_API + "/onlines-sales-popular-marketplaces/:region", (req, res)
     res.status(200, "OK").json(datosMRR[id]);
 });
 
-app.delete(BASE_URL_API + "/onlines-sales-popular-marketplaces/:region", (req, res) => {
+app.delete(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
     let regionName = req.params.region;
     let dateN = req.params.date;
     let index = datosMRR.findIndex(d => d.region === regionName && d.date === dateN);
