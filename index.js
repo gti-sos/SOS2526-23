@@ -170,7 +170,6 @@ app.delete(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, re
     res.status(200, "OK").json(datosMRR);
 });
 
-
 // -----------------------------------------------------------------
 // RUTA DE DAV
 // -----------------------------------------------------------------
