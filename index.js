@@ -154,9 +154,8 @@ app.put(BASE_URL_API + "/onlines-sales-popular-marketplaces/:region", (req, res)
     }
 
     datosMRR[id] = req.body;
-    res.status(200, "OK").json(datos[id]);
+    res.status(200, "OK").json(datosMRR[id]);
 });
-
 
 app.delete(BASE_URL_API + "/onlines-sales-popular-marketplaces/:region", (req, res) => {
     let regionName = req.params.region;
