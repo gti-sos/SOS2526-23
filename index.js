@@ -214,17 +214,18 @@ app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
     //filtro region
     if (region) filteredData = filteredData.filter(d => d.region.toLowerCase() === region.toLowerCase());
 
+     // Filtrado por rango de fechas (ISO strings funcionan bien para comparación alfabética)
+    if (from && to) {
+        filteredData = filteredData.filter(d => d.date >= from && d.date <= to);
+    }
+
     //filtro plataforma
     if (platform) filteredData = filteredData.filter(d => d.platform.toLowerCase() === platform.toLowerCase());
     
     if (industry) {
         filteredData = filteredData.filter(d => d.industry.toLowerCase() === industry.toLowerCase());
     }
-    // Filtrado por rango de fechas (ISO strings funcionan bien para comparación alfabética)
-    if (from && to) {
-        filteredData = filteredData.filter(d => d.date >= from && d.date <= to);
-    }
-
+   
     res.json(filteredData); // Siempre devuelve ARRAY (aunque esté vacío)
 });
 
