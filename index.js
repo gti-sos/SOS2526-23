@@ -63,7 +63,7 @@ app.get('/cool', (req, res) => {
 app.get('/samples/MRR', (req, res) => {
     let regionElegida = ["North America", "Asia", "Europe"];
     let texto = "";
-    let datosMRR = [
+    let datosSamples = [
     {region: "North America", date: "2024-01-01", product_category: "Electronics", product_name: "iPhone 14 Pro", quantity_sold: 2, unit_price: 999.99, total: 1999.98, payment_method: "Credit Card"},
     {region: "North America", date: "2024-01-16", product_category: "Books", product_name: "Salt, Fat, Acid, Heat by Samin Nosrat", quantity_sold: 3, unit_price:35.99, total: 107.97, payment_method: "Credit Card"},
     {region: "North America", date: "2024-03-25", product_category: "Electronics", product_name: "Ring Video Doorbell", quantity_sold: 1, unit_price: 99.99, total: 99.99, payment_method: "Credit Card"},
@@ -78,7 +78,7 @@ app.get('/samples/MRR', (req, res) => {
     ];
 
     regionElegida.forEach((n) => {
-        let filtro = datosMRR.filter((d) => d.region === n);
+        let filtro = datosSamples.filter((d) => d.region === n);
         let resultado = filtro.reduce((a, d) => a + d.quantity_sold, 0) / filtro.length;
         texto += "La media de unidades por compra en &nbsp;" + n + " &nbsp; es &nbsp; " + resultado + "<br><br>";
     });
