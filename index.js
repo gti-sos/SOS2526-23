@@ -158,7 +158,7 @@ app.put(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req,
     res.status(200, "OK").json(datosMRR[id]);
 });
 
-app.delete(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
+app.delete(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
     let regionName = req.params.region;
     let dateN = req.params.date;
     let index = datosMRR.findIndex(d => d.region === regionName && d.date === dateN);
