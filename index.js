@@ -146,15 +146,21 @@ app.post(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res)
 });
 
 app.put(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
+    let newSale = req.body;
     let regionName = req.params.region;
     let dateN = req.params.date;
     let id = datosMRR.findIndex(d => d.region === regionName && d.date === dateN);
+
+    if (!newSale.region || !newSale.date || !newSale.product_category || !newSale.product_name || !newSale.quantity_sold
+    || !newSale.unit_price || !newSale.total || !newSale.payment_method){
+        return res.status(400, "BAD REQUEST").json({message: "Es posible que falte algún elemento"});
+    };
 
     if (id === -1) {
         return res.status(404, "NOT FOUND").json({ message: "Recurso no encontrado" });
     }
 
-    datosMRR[id] = req.body;
+    datosMRR[id] = newSale;
     res.status(200, "OK").json(datosMRR[id]);
 });
 
