@@ -108,7 +108,7 @@ app.get(BASE_URL_API + "/online-sales-popular-marketplaces/loadInitialData", (re
     {region: "Europe", date: "2024-04-16", product_category: "Beauty Products", product_name: "The Ordinary Niacinamide Serum", quantity_sold: 1, unit_price: 6.5, total: 6.5, payment_method: "PayPal"}
   ];
 
-  datosMRR.push(newData);
+  datosMRR.push(...newData);
   return res.status(200, "OK").json(datosMRR);
 });
 
