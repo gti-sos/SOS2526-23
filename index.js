@@ -145,7 +145,7 @@ app.post(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res)
     res.status(405, "METHOD NOT ALLOWED").json({message: "No es posible añadir valores a un dato o varios datos"})
 });
 
-app.put(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
+app.put(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
     let regionName = req.params.region;
     let dateN = req.params.date;
     let id = datosMRR.findIndex(d => d.region === regionName && d.date === dateN);
