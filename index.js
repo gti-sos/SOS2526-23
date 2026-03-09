@@ -87,7 +87,31 @@ app.get('/samples/MRR', (req, res) => {
 });
 
 app.get(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
-    res.status(200, "OK").json(datosMRR);
+    let filtrado = datosMRR;
+    let regionName = req.query.region;
+    let dateN1 = req.query.from;
+    let dateN2 = req.query.to;
+    let prodCategory = req.query.product_category;
+
+    if (regionName){
+        filtrado = filtrado.filter(d => d.region.toLowerCase() === regionName.toLowerCase());
+    };
+
+    if (dateN1 && dateN2){
+        let from = new Date(dateN1).getTime();
+        let to = new Date(dateN2).getTime();
+
+        filtrado = filtrado.filter(d => {
+            let itemDate = new Date(d.date).getTime();
+            return itemDate >= from && itemDate <= to;
+        });
+    }
+
+    if (prodCategory){
+        filtrado = filtrado.filter(d => d.product_category.toLowerCase() === prodCategory.toLowerCase());
+    };
+
+    res.status(200, "OK").json(filtrado);
 });
 
 app.get(BASE_URL_API + "/online-sales-popular-marketplaces/loadInitialData", (req, res) => {
@@ -136,8 +160,27 @@ app.delete(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
 });
 
 app.get(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
+    let filtrado = datosMRR;
     let regionName = req.params.region;
-    let filtro = datosMRR.filter(sale => sale.region === regionName);
+    let dateN1 = req.query.from;
+    let dateN2 = req.query.to;
+    let prodCategory = req.query.product_category;
+
+    if (dateN1 && dateN2){
+        let from = new Date(dateN1).getTime();
+        let to = new Date(dateN2).getTime();
+
+        filtrado = filtrado.filter(d => {
+            let itemDate = new Date(d.date).getTime();
+            return itemDate >= from && itemDate <= to;
+        });
+    }
+
+    if (prodCategory){
+        filtrado = filtrado.filter(d => d.product_category.toLowerCase() === prodCategory.toLowerCase());
+    };
+    
+    let filtro = filtrado.filter(sale => sale.region === regionName);
     res.status(200, "OK").json(filtro);
 });
 
