@@ -122,7 +122,7 @@ app.post(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
   if (existe){
     return res.status(409, "CONFLICT").json({message: "Existe un dato idéntico al que se quiere añadir"})
   }
-  datosMRR.push(...newSale);
+  datosMRR.push(newSale);
   return res.status(201, "CREATED").json({message: "Dato nuevo creado"});
 });
 
