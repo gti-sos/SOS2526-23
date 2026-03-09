@@ -156,6 +156,10 @@ app.put(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req,
         return res.status(400, "BAD REQUEST").json({message: "Es posible que falte algún elemento"});
     };
 
+    if (regionName !== newSale.region || dateN !== newSale.date ){
+        return res.status(400, "BAD REQUEST").json({message: "No coincide la region o la fecha con la que se quiere actualizar"});
+    }
+
     if (id === -1) {
         return res.status(404, "NOT FOUND").json({ message: "Recurso no encontrado" });
     }
