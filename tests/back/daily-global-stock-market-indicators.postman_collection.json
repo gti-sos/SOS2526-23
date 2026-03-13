@@ -1,0 +1,376 @@
+{
+  "info": {
+    "_postman_id": "888c8f0e-6ac9-46a6-8891-a62b001b6e6d",
+    "name": "SOS2526-23 API daily-global-stock-market-indicators",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52707486",
+    "_collection_link": "https://go.postman.co/collection/52708852-888c8f0e-6ac9-46a6-8891-a62b001b6e6d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "1. Peticiones Correctas",
+      "item": [
+        {
+          "name": "1. GET - Cargar Datos Iniciales",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/loadInitialData",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "loadInitialData"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. GET - Lista de recursos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. POST - Crea un recurso (Equivalente a Crea un pueblo)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-01\",\r\n  \"index_name\": \"IBEX 35\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 10100.50,\r\n  \"high\": 10250.00,\r\n  \"low\": 10020.25,\r\n  \"close\": 10180.75,\r\n  \"volume\": 14500000,\r\n  \"daily_change_percent\": 0.79\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. GET - Datos de un recurso",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/Europe/IBEX 35",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "IBEX 35"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. PUT - Actualiza datos",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-02\",\r\n  \"index_name\": \"IBEX 35\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 10100.50,\r\n  \"high\": 10250.00,\r\n  \"low\": 10020.25,\r\n  \"close\": 10200.00,\r\n  \"volume\": 15500000,\r\n  \"daily_change_percent\": 0.98\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/Europe/IBEX 35",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "IBEX 35"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6. DELETE - Borra un recurso",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-02\",\r\n  \"index_name\": \"IBEX 35\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 10100.50,\r\n  \"high\": 10250.00,\r\n  \"low\": 10020.25,\r\n  \"close\": 10200.00,\r\n  \"volume\": 15500000,\r\n  \"daily_change_percent\": 0.98\r\n}"
+            },
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/Europe/IBEX 35",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "IBEX 35"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "7. DELETE - Borra todos los recursos",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Manejo de Errores",
+      "item": [
+        {
+          "name": "8. POST - Recurso duplicado",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-01\",\r\n  \"index_name\": \"S&P 500\",\r\n  \"region\": \"North America\",\r\n  \"open\": 37740.57,\r\n  \"high\": 38171.04,\r\n  \"low\": 37552.74,\r\n  \"close\": 38125.97,\r\n  \"volume\": 34594679,\r\n  \"daily_change_percent\": 1.02\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "9. POST - Faltan campos esperados",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"index_name\": \"Indice Incompleto\",\r\n  \"region\": \"Oceania\",\r\n  \"high\": 15000.00\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "10. PUT - ID de URL y Body no coinciden",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-01\",\r\n  \"index_name\": \"DAX FALSO\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 19256.09,\r\n  \"high\": 19262.37,\r\n  \"low\": 18884.10,\r\n  \"close\": 18898.03,\r\n  \"volume\": 25254324,\r\n  \"daily_change_percent\": -1.86\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/Europe/DAX",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "DAX"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "11. GET - Recurso inexistente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/RecursoInventado",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "RecursoInventado"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "12. PUT - Método no permitido a la colección",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"mensaje\": \"Intento de hackeo para sobreescribir todo\"\r\n}"
+            },
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "13. POST - Método no permitido a un recurso",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"mensaje\": \"Intento de crear un recurso sobre otro recurso\"\r\n}"
+            },
+            "url": {
+              "raw": "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/Europe/DAX",
+              "protocol": "https",
+              "host": [
+                "sos2526-23",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "DAX"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
