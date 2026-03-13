@@ -1,0 +1,28 @@
+name: CI API Tests
+
+# Indicamos que se ejecute al hacer push o abrir un Pull Request
+on: [push, pull_request]
+
+jobs:
+  test:
+    # Se ejecutará en la última versión de Ubuntu
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Clona tu repositorio en la máquina virtual de GitHub
+      - name: Checkout del código
+        uses: actions/checkout@v4
+        
+      # 2. Configura Node.js (Usamos la versión 22 por compatibilidad con NeDB)
+      - name: Configurar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          
+      # 3. Instala las dependencias (Express, NeDB, Newman, start-server-and-test...)
+      - name: Instalar dependencias
+        run: npm install
+        
+      # 4. Lanza los tests usando el script que ya preparamos
+      - name: Ejecutar pruebas
+        run: npm test
