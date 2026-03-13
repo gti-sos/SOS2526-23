@@ -15,7 +15,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node src/back/index.js",
+    "start": "node index.js",
     "test-daily-global-stock-market-indicators": "npx newman run tests/api/daily-global-stock-market-indicators.postman_collection.json -e tests/api/entorno_local.json",
     "test-global-ads-performance": "npx newman run tests/api/global-ads-performance.postman_collection.json -e tests/api/entorno_local.json",
     "test-online-sales": "npx newman run tests/api/online-sales.postman_collection.json -e tests/api/entorno_local.json",
