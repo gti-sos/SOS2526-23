@@ -34,9 +34,30 @@ export function loadBackEndDAV(app) {
         });
     });
 
-    // 2. GET COLECCIÓN COMPLETA
+   // 2. GET COLECCIÓN COMPLETA (Con Búsquedas - Requisito 3)
     app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
-        db.find({}, (err, data) => {
+        
+        // 1. Inicializamos un objeto vacío para construir nuestra búsqueda
+        const searchQuery = {};
+
+        // 2. Comprobamos qué parámetros nos llegan por la URL (req.query) 
+        // y los añadimos a nuestra búsqueda
+        if (req.query.region) searchQuery.region = req.query.region;
+        if (req.query.date) searchQuery.date = req.query.date;
+        if (req.query.platform) searchQuery.platform = req.query.platform;
+        if (req.query.industry) searchQuery.industry = req.query.industry;
+        
+        //Los parámetros de la URL siempre llegan como Texto (String)
+        // debemos convertirlos con parseInt o parseFloat para que NeDB los encuentre.
+
+        if (req.query.impression) searchQuery.impression = parseInt(req.query.impression);
+        if (req.query.click) searchQuery.click = parseInt(req.query.click);
+        if (req.query.ad_spend) searchQuery.ad_spend = parseFloat(req.query.ad_spend);
+        if (req.query.conversion) searchQuery.conversion = parseInt(req.query.conversion);
+        if (req.query.revenue) searchQuery.revenue = parseFloat(req.query.revenue);
+
+        // 3. Hacemos el db.find pasándole nuestro objeto de búsqueda dinámica
+        db.find(searchQuery, (err, data) => {
             if (err) return res.sendStatus(500);
             
             // Eliminamos el _id de NeDB para el Requisito 11
@@ -44,7 +65,9 @@ export function loadBackEndDAV(app) {
                 delete resource._id;
                 return resource;
             });
-            res.status(200).json(cleanData); // Se devuelve un Array
+            
+            // Devolvemos los datos filtrados
+            res.status(200).json(cleanData);
         });
     });
 
