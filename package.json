@@ -16,9 +16,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test-daily-global-stock-market-indicators": "npx newman run tests/api/daily-global-stock-market-indicators.postman_collection.json -e tests/api/entorno_local.json",
-    "test-global-ads-performance": "npx newman run tests/api/global-ads-performance.postman_collection.json -e tests/api/entorno_local.json",
-    "test-online-sales": "npx newman run tests/api/online-sales.postman_collection.json -e tests/api/entorno_local.json",
+    "test-daily-global-stock-market-indicators": "npx newman run tests/back/daily-global-stock-market-indicators.postman_collection.json -e tests/api/entorno_local.json",
+    "test-global-ads-performance": "npx newman run tests/back/global-ads-performance.postman_collection.json -e tests/api/entorno_local.json",
+    "test-online-sales": "npx newman run tests/back/online-sales.postman_collection.json -e tests/api/entorno_local.json",
     "test-all": "npm run test-global-ads-performance && npm run test-daily-global-stock-market-indicators && npm run test-online-sales",
     "test": "start-server-and-test start http://localhost:3000 test-all"
   },
