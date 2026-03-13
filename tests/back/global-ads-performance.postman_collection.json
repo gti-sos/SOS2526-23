@@ -19,12 +19,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance/loadInitialData",
-              "protocol": "https",
+              "raw": "{{base_url}}/api/v1/global-ads-performance/loadInitialData",
               "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
+                "{{base_url}}"
               ],
               "path": [
                 "api",
@@ -38,6 +35,25 @@
         },
         {
           "name": "2. GET - Lista de recursos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"El código de estado es 200 OK\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"La respuesta debe ser un Array (Requisito 8a)\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.an('array');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "noauth"
@@ -45,12 +61,9 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance",
-              "protocol": "https",
+              "raw": "{{base_url}}/api/v1/global-ads-performance",
               "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
+                "{{base_url}}"
               ],
               "path": [
                 "api",
@@ -63,6 +76,21 @@
         },
         {
           "name": "3. POST - Crea un recurso (Equivalente a Crea un pueblo)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"El código de estado es 201 Created\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "noauth"
@@ -79,247 +107,14 @@
               }
             },
             "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance",
-              "protocol": "https",
+              "raw": "{{base_url}}/api/v1/global-ads-performance",
               "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
+                "{{base_url}}"
               ],
               "path": [
                 "api",
                 "v1",
                 "global-ads-performance"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "4. GET - Datos de un recurso",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance/Asia/Google Ads",
-              "protocol": "https",
-              "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "global-ads-performance",
-                "Asia",
-                "Google Ads"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "5. PUT - Actualiza datos",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"region\": \"Asia\",\r\n  \"date\": \"2024-01-21\",\r\n  \"platform\": \"Google Ads\",\r\n  \"industry\": \"Fintech\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 12,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance/Asia/Google Ads",
-              "protocol": "https",
-              "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "global-ads-performance",
-                "Asia",
-                "Google Ads"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "6. DELETE - Borra un recurso",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": ""
-            },
-            "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance/Asia/Google Ads",
-              "protocol": "https",
-              "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "global-ads-performance",
-                "Asia",
-                "Google Ads"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "7. DELETE - Borra todos los recursos",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance",
-              "protocol": "https",
-              "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "global-ads-performance"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Incorrectas",
-      "item": [
-        {
-          "name": "1. POST - A un recurso",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"region\": \"Asia\",\r\n  \"date\": \"2024-01-21\",\r\n  \"platform\": \"Google Ads\",\r\n  \"industry\": \"Fintech\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 12,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance/Asia/Google Ads",
-              "protocol": "https",
-              "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "global-ads-performance",
-                "Asia",
-                "Google Ads"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "2. PUT- A una colección",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"date\": \"2024-01-02\",\r\n  \"index_name\": \"IBEX 35\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 10100.50,\r\n  \"high\": 10250.00,\r\n  \"low\": 10020.25,\r\n  \"close\": 10200.00,\r\n  \"volume\": 15500000,\r\n  \"daily_change_percent\": 0.98\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance",
-              "protocol": "https",
-              "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "global-ads-performance"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "3. PUT- IDS no coinciden",
-          "request": {
-            "auth": {
-              "type": "noauth"
-            },
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"region\": \"Madrid\",\r\n  \"date\": \"2024-01-21\",\r\n  \"platform\": \"Google Ads\",\r\n  \"industry\": \"Fintech\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 12,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance/Asia/Google Ads",
-              "protocol": "https",
-              "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "global-ads-performance",
-                "Asia",
-                "Google Ads"
               ]
             }
           },
@@ -327,6 +122,21 @@
         },
         {
           "name": "4. POST - Recurso existente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Forzar error de duplicado: 409 Conflict\", function () {\r",
+                  "    pm.response.to.have.status(409);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "noauth"
@@ -343,12 +153,9 @@
               }
             },
             "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance",
-              "protocol": "https",
+              "raw": "{{base_url}}/api/v1/global-ads-performance",
               "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
+                "{{base_url}}"
               ],
               "path": [
                 "api",
@@ -361,6 +168,21 @@
         },
         {
           "name": "5. POST - Campos incorrectos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Si se envían campos incorrectos/incompletos devuelve 400 Bad Request\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "request": {
             "auth": {
               "type": "noauth"
@@ -377,12 +199,9 @@
               }
             },
             "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance",
-              "protocol": "https",
+              "raw": "{{base_url}}/api/v1/global-ads-performance",
               "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
+                "{{base_url}}"
               ],
               "path": [
                 "api",
@@ -394,7 +213,299 @@
           "response": []
         },
         {
-          "name": "6. GET - Recurso inexistente",
+          "name": "6. GET - Datos de un recurso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"El código de estado es 200 OK\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"La respuesta debe ser un Objeto y contener la región (Requisito 8b)\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.be.an('object');\r",
+                  "    pm.expect(jsonData.region).to.eql(\"test-region\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "global-ads-performance",
+                "Asia",
+                "Google Ads"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "7. PUT - A un recurso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"El código de estado es 200 OK\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"region\": \"Asia\",\r\n  \"date\": \"2024-01-21\",\r\n  \"platform\": \"Google Ads\",\r\n  \"industry\": \"Fintech\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 12,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "global-ads-performance",
+                "Asia",
+                "Google Ads"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "8. PUT- IDS no coinciden",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Forzar error de validación: 400 Bad Request\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"region\": \"Madrid\",\r\n  \"date\": \"2024-01-21\",\r\n  \"platform\": \"Google Ads\",\r\n  \"industry\": \"Fintech\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 12,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "global-ads-performance",
+                "Asia",
+                "Google Ads"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "9. POST - A un recurso (405)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Forzar error de método no permitido: 405 Method Not Allowed\", function () {\r",
+                  "    pm.response.to.have.status(405);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"region\": \"Asia\",\r\n  \"date\": \"2024-01-21\",\r\n  \"platform\": \"Google Ads\",\r\n  \"industry\": \"Fintech\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 12,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "global-ads-performance",
+                "Asia",
+                "Google Ads"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "10. PUT- A una colección (405)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Forzar error de método no permitido en colección: 405 Method Not Allowed\", function () {\r",
+                  "    pm.response.to.have.status(405);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-02\",\r\n  \"index_name\": \"IBEX 35\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 10100.50,\r\n  \"high\": 10250.00,\r\n  \"low\": 10020.25,\r\n  \"close\": 10200.00,\r\n  \"volume\": 15500000,\r\n  \"daily_change_percent\": 0.98\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/global-ads-performance",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "global-ads-performance"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "11. DELETE - Borra un recurso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"El recurso se borra correctamente: 200 OK\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "global-ads-performance",
+                "Asia",
+                "Google Ads"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "12. GET - Recurso inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"El recurso ya no existe: 404 Not Found\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
@@ -414,12 +525,9 @@
               }
             },
             "url": {
-              "raw": "https://sos2526-23.onrender.com/api/v1/global-ads-performance/Asia/Google A",
-              "protocol": "https",
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google A",
               "host": [
-                "sos2526-23",
-                "onrender",
-                "com"
+                "{{base_url}}"
               ],
               "path": [
                 "api",
@@ -427,6 +535,28 @@
                 "global-ads-performance",
                 "Asia",
                 "Google A"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "13. DELETE - Borra todos los recursos",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/global-ads-performance",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "global-ads-performance"
               ]
             }
           },
