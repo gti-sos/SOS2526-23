@@ -15,135 +15,119 @@ export function loadBackEndDAV(app){
         { region: "Asia", date: "2024-04-22", platform: "Meta Ads", industry: "E-commerce", impression: 98264, click: 3144, ad_spend: 4904.64, conversion: 129, revenue: 23127.27 }
     ];
 
-    app.get('/samples/DAV', (req, res) => {
-    let regionElegidaDav = ["North America", "Asia", "Europe"];
-    let texto = "";
-
-    regionElegidaDav.forEach((n) => {
-        let filtro = dataDAV.filter((d) => d.region === n);
-        let resultado = filtro.length > 0
-            ? filtro.reduce((a, d) => a + d.impression, 0) / filtro.length 
-            : 0;
-            
-        texto += "La media de 'impression' en &nbsp;" + n + " &nbsp; es &nbsp; " + resultado.toFixed(2) + "<br><br>";
+    app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
+    res.status(200, "OK").json(dataDAV)
     });
 
-    res.send(`<html> <body> ${texto} </body> </html>`);
-});
 
-app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
-  res.status(200, "OK").json(dataDAV)
-});
+    // Carga de datos iniciales
+    app.get(BASE_URL_API + `/google-ads-performance/loadInitialData`, (req, res) => {
+        if (dataDAV.length === 0) {
+            newData = [...dataDAV]; //copia de los elementos de DataDav
+            res.status(201).json(newData); // codigo exito creacion
+            dataDAV.push(newData);
+        } else {
+            res.status(409).json({message: "Ya existen datos"});
 
+        }
+    });
 
-// Carga de datos iniciales
-app.get(BASE_URL_API+`/google-ads-performance/loadInitialData`, (req, res) => {
-    if (dataDAV.length === 0) {
-        newData = [...dataDAV]; //copia de los elementos de DataDav
-        res.status(201).json(newData); // codigo exito creacion
-        dataDAV.push(newData);
-    } else {
-        res.status(409).json({message: "Ya existen datos"});
+    // GET COLECCIÓN (Con soporte para filtrado)
+    app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
+        let filteredData = [...data];
+        const { region, from, to, platform } = req.query; //son variables de tipo query, lo que va despues de '?' en la URL
 
-    }
-});
+        //filtro region
+        if (region) filteredData = filteredData.filter(d => d.region.toLowerCase() === region.toLowerCase());
 
-// GET COLECCIÓN (Con soporte para filtrado)
-app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
-    let filteredData = [...data];
-    const { region, from, to, platform } = req.query; //son variables de tipo query, lo que va despues de '?' en la URL
+        // Filtrado por rango de fechas (ISO strings funcionan bien para comparación alfabética)
+        if (from && to) {
+            filteredData = filteredData.filter(d => d.date >= from && d.date <= to);
+        }
 
-    //filtro region
-    if (region) filteredData = filteredData.filter(d => d.region.toLowerCase() === region.toLowerCase());
-
-     // Filtrado por rango de fechas (ISO strings funcionan bien para comparación alfabética)
-    if (from && to) {
-        filteredData = filteredData.filter(d => d.date >= from && d.date <= to);
-    }
-
-    //filtro plataforma
-    if (platform) filteredData = filteredData.filter(d => d.platform.toLowerCase() === platform.toLowerCase());
+        //filtro plataforma
+        if (platform) filteredData = filteredData.filter(d => d.platform.toLowerCase() === platform.toLowerCase());
+        
+        if (industry) {
+            filteredData = filteredData.filter(d => d.industry.toLowerCase() === industry.toLowerCase());
+        }
     
-    if (industry) {
-        filteredData = filteredData.filter(d => d.industry.toLowerCase() === industry.toLowerCase());
-    }
-   
-    res.json(filteredData); // Siempre devuelve ARRAY (aunque esté vacío)
-});
+        res.json(filteredData); // Siempre devuelve ARRAY (aunque esté vacío)
+    });
 
-// 3. GET RECURSO ESPECÍFICO (Objeto único)
-app.get(BASE_URL_API+ "/google-ads-performance/:region/:date", (req, res) => {
-    const { region, date } = req.params;
-    const resource = data.find(d => d.region.toLowerCase() === region.toLowerCase() && d.date === date);
-    
-    if (resource) {
-        res.json(resource);
-    } else {
-        res.sendStatus(404);// errror not found
-    }
-});
-// 4. GET BÚSQUEDA EN RECURSO ESPECÍFICO (Ej: /Asia?from=2024-01-01)
-app.get(BASE_URL_API+ "/google-ads-performance/:region", (req, res) => {
-    const { region } = req.params;
-    const { from, to } = req.query;
-    
-    let filteredData = data.filter(d => d.region.toLowerCase() === region.toLowerCase());
-    
-    if (from && to) {
-        filteredData = filteredData.filter(d => d.date >= from && d.date <= to);
-    }
-    
-    res.json(filteredData); // Devuelve ARRAY
-});
+    // 3. GET RECURSO ESPECÍFICO (Objeto único)
+    app.get(BASE_URL_API+ "/google-ads-performance/:region/:date", (req, res) => {
+        const { region, date } = req.params;
+        const resource = data.find(d => d.region.toLowerCase() === region.toLowerCase() && d.date === date);
+        
+        if (resource) {
+            res.json(resource);
+        } else {
+            res.sendStatus(404);// errror not found
+        }
+    });
+    // 4. GET BÚSQUEDA EN RECURSO ESPECÍFICO (Ej: /Asia?from=2024-01-01)
+    app.get(BASE_URL_API+ "/google-ads-performance/:region", (req, res) => {
+        const { region } = req.params;
+        const { from, to } = req.query;
+        
+        let filteredData = data.filter(d => d.region.toLowerCase() === region.toLowerCase());
+        
+        if (from && to) {
+            filteredData = filteredData.filter(d => d.date >= from && d.date <= to);
+        }
+        
+        res.json(filteredData); // Devuelve ARRAY
+    });
 
-// 5. POST (Crear)
-app.post(BASE_URL_API, (req, res) => {
-    const newEntry = req.body;
-    const exists = data.some(d => d.region === newEntry.region && d.date === newEntry.date);
-    
-    if (exists) {
-        res.sendStatus(409);
-    } else {
-        data.push(newEntry);
-        res.sendStatus(201);
-    }
-});
+    // 5. POST (Crear)
+    app.post(BASE_URL_API + '/google-ads-performance', (req, res) => {
+        const newEntry = req.body;
+        const exists = data.some(d => d.region === newEntry.region && d.date === newEntry.date);
+        
+        if (exists) {
+            res.sendStatus(409);
+        } else {
+            data.push(newEntry);
+            res.sendStatus(201);
+        }
+    });
 
-// 6. PUT (Actualizar recurso concreto)
-app.put(`${BASE_URL_API}/:region/:date`, (req, res) => {
-    const { region, date } = req.params;
-    const updatedEntry = req.body;
+    // 6. PUT (Actualizar recurso concreto)
+    app.put(BASE_URL_API + `/google-ads-performance/:region/:date`, (req, res) => {
+        const { region, date } = req.params;
+        const updatedEntry = req.body;
 
-    if (updatedEntry.region !== region || updatedEntry.date !== date) {
-        return res.sendStatus(400);
-    }
+        if (updatedEntry.region !== region || updatedEntry.date !== date) {
+            return res.sendStatus(400);
+        }
 
-    const index = data.findIndex(d => d.region === region && d.date === date);
-    if (index !== -1) {
-        data[index] = updatedEntry;
+        const index = data.findIndex(d => d.region === region && d.date === date);
+        if (index !== -1) {
+            data[index] = updatedEntry;
+            res.sendStatus(200);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+
+    // 7. DELETE (Uno solo)
+    app.delete(BASE_URL_API + `/google-ads-performance/:region/:date`, (req, res) => {
+        const { region, date } = req.params;
+        const initialLength = data.length;
+        data = data.filter(d => !(d.region === region && d.date === date));
+        
+        res.sendStatus(data.length < initialLength ? 200 : 404);
+    });
+
+    // 8. DELETE (Colección completa)
+    app.delete(BASE_URL_API + '/google-ads-performance', (req, res) => {
+        data = [];
         res.sendStatus(200);
-    } else {
-        res.sendStatus(404);
-    }
-});
+    });
 
-// 7. DELETE (Uno solo)
-app.delete(`${BASE_URL_API}/:region/:date`, (req, res) => {
-    const { region, date } = req.params;
-    const initialLength = data.length;
-    data = data.filter(d => !(d.region === region && d.date === date));
-    
-    res.sendStatus(data.length < initialLength ? 200 : 404);
-});
-
-// 8. DELETE (Colección completa)
-app.delete(BASE_URL_API, (req, res) => {
-    data = [];
-    res.sendStatus(200);
-});
-
-// MÉTODOS PROHIBIDOS
-app.post(`${BASE_URL_API}/:region/:date`, (req, res) => res.sendStatus(405));
-app.put(BASE_URL_API, (req, res) => res.sendStatus(405));
+    // MÉTODOS PROHIBIDOS
+    app.post(BASE_URL_API + `/google-ads-performance/:region/:date`, (req, res) => res.sendStatus(405));
+    app.put(BASE_URL_API, (req, res) => res.sendStatus(405));
 
 }

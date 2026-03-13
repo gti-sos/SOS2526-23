@@ -1,11 +1,11 @@
-import dataStore from 'nedb';
+//import dataStore from 'nedb';
 
 let BASE_URL_API = "/api/v1";
-let db = new dataStore();
+//let db = new dataStore();
 
 export function loadBackEndMRR(app){
     let datosMRR = [];
-    db.insert(datosMRR);
+    //db.insert(datosMRR);
 
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
         let filtrado = datosMRR;

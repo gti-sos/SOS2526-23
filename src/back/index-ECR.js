@@ -13,37 +13,11 @@ export function loadBackEndECR(app){
         { date: "2024-01-01", index_name: "SSE Composite", region: "Asia", open: 15689.85, high: 16064.29, low: 15579.67, close: 15986.31, volume: 35348196, daily_change_percent: 1.89 },
         { date: "2024-01-01", index_name: "KSE 100", region: "Asia", open: 11151.06, high: 11422.02, low: 11009.70, close: 11312.65, volume: 33074534, daily_change_percent: 1.45 }
     ];
-    
-    app.get('/samples/ECR', (req, res) => {
-        const regionObjetivo = "Europe";
-        const datosEuropa = datosIndices.filter(indice => indice.region === regionObjetivo);
-        
-        let mensajeRespuesta = "";
 
-        if (datosEuropa.length > 0) {
-            const valoresCierre = datosEuropa.map(indice => indice.close);
-            const sumaCierre = valoresCierre.reduce((acumulador, valorActual) => acumulador + valorActual, 0);
-            const mediaCierre = sumaCierre / datosEuropa.length;
-
-            mensajeRespuesta = `La media del valor de cierre (close) para la región de ${regionObjetivo} es: ${mediaCierre.toFixed(2)}`;
-        } else {
-            mensajeRespuesta = `No se encontraron datos para la región: ${regionObjetivo}`;
-        }
-
-        res.send(`<html> <body> <h2>Cálculo de Índices</h2> <p>${mensajeRespuesta}</p> </body> </html>`);
-    });
-
-
-    // =====================================================================
-    // API REST DE EMILIO CUEVAS (ECR) 
-    // Recurso: daily-global-stock-market-indicators (Apartados 10 y 11)
-    // =====================================================================
-
-    const BASE_API_URL_ECR = "/api/v1/daily-global-stock-market-indicators";
     let dailyIndicators = [];
 
     // 12. Carga de datos iniciales
-    app.get(`${BASE_API_URL_ECR}/loadInitialData`, (req, res) => {
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/loadInitialData', (req, res) => {
         if (dailyIndicators.length === 0) {
             dailyIndicators = [
                 { date: "2024-01-01", index_name: "S&P 500", region: "North America", open: 37740.57, high: 38171.04, low: 37552.74, close: 38125.97, volume: 34594679, daily_change_percent: 1.02 },
@@ -69,12 +43,12 @@ export function loadBackEndECR(app){
     // --- 1. COLECCIÓN BASE (/api/v1/daily-global-stock-market-indicators) ---
 
     // GET: Devolver toda la colección
-    app.get(BASE_API_URL_ECR, (req, res) => {
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
         res.status(200).json(dailyIndicators);
     });
 
     // POST: Crear un nuevo recurso
-    app.post(BASE_API_URL_ECR, (req, res) => {
+    app.post(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
         const newData = req.body;
         
         // Validación: Que vengan los campos esenciales
@@ -93,12 +67,12 @@ export function loadBackEndECR(app){
     });
 
     // PUT: Actualizar toda la colección (NO PERMITIDO)
-    app.put(BASE_API_URL_ECR, (req, res) => {
+    app.put(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
         res.status(405).json({ message: "Method Not Allowed" });
     });
 
     // DELETE: Borrar toda la colección
-    app.delete(BASE_API_URL_ECR, (req, res) => {
+    app.delete(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
         dailyIndicators = [];
         res.status(200).json({ message: "All data deleted" });
     });
@@ -106,7 +80,7 @@ export function loadBackEndECR(app){
     // --- 2. BÚSQUEDA POR UN PARÁMETRO (/api/v1/.../Europe) ---
 
     // GET: Devolver todos los datos de una región
-    app.get(`${BASE_API_URL_ECR}/:region`, (req, res) => {
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/:region', (req, res) => {
         const { region } = req.params;
         const filteredData = dailyIndicators.filter(d => d.region === region);
         
@@ -120,7 +94,7 @@ export function loadBackEndECR(app){
     // --- 3. RECURSO CONCRETO (/api/v1/.../Europe/DAX) ---
 
     // GET: Devolver un recurso concreto
-    app.get(`${BASE_API_URL_ECR}/:region/:index_name`, (req, res) => {
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
         const { region, index_name } = req.params;
         const resource = dailyIndicators.find(d => d.region === region && d.index_name === index_name);
         
@@ -132,12 +106,12 @@ export function loadBackEndECR(app){
     });
 
     // POST: Crear un recurso en una URL concreta (NO PERMITIDO)
-    app.post(`${BASE_API_URL_ECR}/:region/:index_name`, (req, res) => {
+    app.post(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
         res.status(405).json({ message: "Method Not Allowed" });
     });
 
     // PUT: Actualizar un recurso concreto
-    app.put(`${BASE_API_URL_ECR}/:region/:index_name`, (req, res) => {
+    app.put(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
         const { region, index_name } = req.params;
         const updatedData = req.body;
 
@@ -157,7 +131,7 @@ export function loadBackEndECR(app){
     });
 
     // DELETE: Borrar un recurso concreto
-    app.delete(`${BASE_API_URL_ECR}/:region/:index_name`, (req, res) => {
+    app.delete(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
         const { region, index_name } = req.params;
         const initialLength = dailyIndicators.length;
         
