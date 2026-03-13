@@ -56,6 +56,23 @@ app.get('/cool', (req, res) => {
     res.send(`<html> <body> <h1> ${cool()} </h1> </body> </html>`);
 });
 
+// --- REDIRECCIONES A LA DOCUMENTACIÓN DE POSTMAN ---
+
+// API de David Ayllón
+app.get('/api/v1/global-ads-performance/docs', (req, res) => {
+    res.redirect('https://documenter.getpostman.com/view/52707486/2sBXigLYQP');
+});
+
+// API de Emilio Cuevas
+app.get('/api/v1/daily-global-stock-market-indicators/docs', (req, res) => {
+    res.redirect('https://documenter.getpostman.com/view/52708852/2sBXigLYL8');
+});
+
+// API de María Rodríguez
+app.get('/api/v1/online-sales-popular-marketplaces/docs', (req, res) => {
+    res.redirect('https://documenter.getpostman.com/view/52406430/2sBXigLYQR');
+});
+
 // -----------------------------------------------------------------
 // MARÍA RODRÍGUEZ ROMERO (MRR)
 // -----------------------------------------------------------------
