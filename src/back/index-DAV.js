@@ -34,9 +34,46 @@ export function loadBackEndDAV(app) {
         });
     });
 
-    // 2. GET COLECCIÓN COMPLETA
+// 2. GET COLECCIÓN COMPLETA (Con Búsquedas y Paginación - Requisitos 3 y 4)
     app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
-        db.find({}, (err, data) => {
+        
+        const searchQuery = {};
+
+        // --- LÓGICA DE BÚSQUEDAS (Requisito 3) ---
+        if (req.query.region) searchQuery.region = req.query.region;
+        if (req.query.date) searchQuery.date = req.query.date;
+        if (req.query.platform) searchQuery.platform = req.query.platform;
+        if (req.query.industry) searchQuery.industry = req.query.industry;
+        
+        if (req.query.impression) searchQuery.impression = parseInt(req.query.impression);
+        if (req.query.click) searchQuery.click = parseInt(req.query.click);
+        if (req.query.ad_spend) searchQuery.ad_spend = parseFloat(req.query.ad_spend);
+        if (req.query.conversion) searchQuery.conversion = parseInt(req.query.conversion);
+        if (req.query.revenue) searchQuery.revenue = parseFloat(req.query.revenue);
+
+        // Preparamos la consulta a la base de datos (SIN el callback todavía)
+        let dbQuery = db.find(searchQuery);
+
+        
+        // --- LÓGICA DE PAGINACIÓN (Requisito 4) ---
+        // Si el usuario envía "?limit=X", limitamos los resultados
+        if (req.query.limit) {
+            const limit = parseInt(req.query.limit);
+            if (!isNaN(limit) && limit >= 0) {
+                dbQuery = dbQuery.limit(limit);
+            }
+        }
+
+        // Si el usuario envía "?offset=X", nos saltamos X resultados
+        if (req.query.offset) {
+            const offset = parseInt(req.query.offset);
+            if (!isNaN(offset) && offset >= 0) {
+                dbQuery = dbQuery.skip(offset); // En NeDB el offset se aplica con .skip()
+            }
+        }
+
+        // --- EJECUCIÓN DE LA CONSULTA ---
+        dbQuery.exec((err, data) => {
             if (err) return res.sendStatus(500);
             
             // Eliminamos el _id de NeDB para el Requisito 11
@@ -44,7 +81,8 @@ export function loadBackEndDAV(app) {
                 delete resource._id;
                 return resource;
             });
-            res.status(200).json(cleanData); // Se devuelve un Array
+            
+            res.status(200).json(cleanData);
         });
     });
 
