@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-//import dataStore from 'nedb';
 import path from 'path';
 import { fileURLToPath } from 'url';
 

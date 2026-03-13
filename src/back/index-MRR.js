@@ -8,6 +8,8 @@ export function loadBackEndMRR(app){
     //db.insert(datosMRR);
 
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
+        
+        //db.find({}, (err, datosMRR) => )
         let filtrado = datosMRR;
         let regionName = req.query.region;
         let dateN1 = req.query.from;
