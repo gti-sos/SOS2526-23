@@ -7,6 +7,11 @@ export function loadBackEndMRR(app){
     let datosMRR = [];
     //db.insert(datosMRR);
 
+    app.get(BASE_URL_API + "/online-sales-popular-marketplaces/docs", (req, res) =>{
+
+        express.redirect('https://documenter.getpostman.com/view/52406430/2sBXigLYQR');
+    });
+
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
         
         //db.find({}, (err, datosMRR) => )
@@ -82,11 +87,6 @@ export function loadBackEndMRR(app){
     res.status(200, "OK").json({message: "Datos eliminados"})
     });
 
-    app.get(BASE_URL_API + "/online-sales-popular-marketplaces/docs", (req, res) =>{
-        res.redirect('https://documenter.getpostman.com/view/52406430/2sBXigLYQR');
-    });
-
-
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
         let filtrado = datosMRR;
         let regionName = req.params.region;
@@ -153,7 +153,7 @@ export function loadBackEndMRR(app){
         res.status(200, "OK").json(datosMRR);
     });
 
-    
+
 }
 
 
