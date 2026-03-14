@@ -85,6 +85,7 @@ export function loadBackEndMRR(app){
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
         let filtrado = datosMRR;
         let regionName = req.params.region;
+        let dateN = req.params.date;
         let dateN1 = req.query.from;
         let dateN2 = req.query.to;
         let prodCategory = req.query.product_category;
@@ -103,7 +104,7 @@ export function loadBackEndMRR(app){
             filtrado = filtrado.filter(d => d.product_category.toLowerCase() === prodCategory.toLowerCase());
         };
         
-        let filtro = filtrado.filter(sale => sale.region === regionName);
+        let filtro = filtrado.filter(sale => sale.region === regionName && sale.date === dateN);
         res.status(200, "OK").json(filtro);
     });
 
