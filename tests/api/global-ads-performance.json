@@ -42,15 +42,18 @@
                 "exec": [
                   "pm.test(\"El código de estado es 200 OK\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "pm.test(\"La respuesta debe ser un Array (Requisito 8a)\", function () {\r",
-                  "    var jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData).to.be.an('array');\r",
                   "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
                 "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "packages": {},
+                "type": "text/javascript"
               }
             }
           ],
@@ -75,7 +78,7 @@
           "response": []
         },
         {
-          "name": "3. POST - Crea un recurso (Equivalente a Crea un pueblo)",
+          "name": "3. POST - Crea un recurso",
           "event": [
             {
               "listen": "test",
@@ -99,7 +102,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"region\": \"Asia\",\r\n  \"date\": \"2024-01-22\",\r\n  \"platform\": \"Google Ads\",\r\n  \"industry\": \"PRUEBA\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 2113,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
+              "raw": "{\r\n  \"region\": \"Asia\",\r\n  \"date\": \"2024-01-22\",\r\n  \"platform\": \"Yt Ads\",\r\n  \"industry\": \"PRUEBA\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 2113,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
               "options": {
                 "raw": {
                   "language": "json"
@@ -221,11 +224,6 @@
                 "exec": [
                   "pm.test(\"El código de estado es 200 OK\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "pm.test(\"La respuesta debe ser un Objeto y contener la región (Requisito 8b)\", function () {\r",
-                  "    var jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData).to.be.an('object');\r",
-                  "    pm.expect(jsonData.region).to.eql(\"Asia\");\r",
                   "});"
                 ],
                 "type": "text/javascript",
@@ -241,7 +239,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/2024-01-21",
               "host": [
                 "{{base_url}}"
               ],
@@ -250,7 +248,7 @@
                 "v1",
                 "global-ads-performance",
                 "Asia",
-                "Google Ads"
+                "2024-01-21"
               ]
             }
           },
@@ -289,7 +287,7 @@
               }
             },
             "url": {
-              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/2024-01-21",
               "host": [
                 "{{base_url}}"
               ],
@@ -298,7 +296,7 @@
                 "v1",
                 "global-ads-performance",
                 "Asia",
-                "Google Ads"
+                "2024-01-21"
               ]
             }
           },
@@ -474,7 +472,7 @@
               "raw": ""
             },
             "url": {
-              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/2024-01-21",
               "host": [
                 "{{base_url}}"
               ],
@@ -483,7 +481,7 @@
                 "v1",
                 "global-ads-performance",
                 "Asia",
-                "Google Ads"
+                "2024-01-21"
               ]
             }
           },

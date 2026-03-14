@@ -171,6 +171,7 @@ export function loadBackEndDAV(app) {
             res.sendStatus(200); // 200 OK
         });
     });
+    
 
     // MÉTODOS PROHIBIDOS (Tabla Azul L05)
     app.post(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
