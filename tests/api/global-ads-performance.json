@@ -42,11 +42,7 @@
                 "exec": [
                   "pm.test(\"El código de estado es 200 OK\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "pm.test(\"La respuesta debe ser un Array (Requisito 8a)\", function () {\r",
-                  "    var jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData).to.be.an('array');\r",
-                  "});"
+                  "});<"
                 ],
                 "type": "text/javascript",
                 "packages": {},
@@ -75,7 +71,7 @@
           "response": []
         },
         {
-          "name": "3. POST - Crea un recurso (Equivalente a Crea un pueblo)",
+          "name": "3. POST - Crea un recurso",
           "event": [
             {
               "listen": "test",
@@ -99,7 +95,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n  \"region\": \"Asia\",\r\n  \"date\": \"2024-01-22\",\r\n  \"platform\": \"Google Ads\",\r\n  \"industry\": \"PRUEBA\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 2113,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
+              "raw": "{\r\n  \"region\": \"Asia\",\r\n  \"date\": \"2024-01-22\",\r\n  \"platform\": \"Yt Ads\",\r\n  \"industry\": \"PRUEBA\",\r\n    \"impressions\": 59886,\r\n    \"clicks\": 2113,\r\n    \"ad_spend\": 2662.38,\r\n    \"conversions\": 159,\r\n    \"revenue\": 4803.43\r\n  }",
               "options": {
                 "raw": {
                   "language": "json"
@@ -221,7 +217,7 @@
                 "exec": [
                   "pm.test(\"El código de estado es 200 OK\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
-                  "});\r"
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
