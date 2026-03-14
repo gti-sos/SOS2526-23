@@ -1,16 +1,23 @@
 import dataStore from "nedb";
 
 const BASE_URL_API = "/api/v1";
+const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 // Inicializamos la base de datos en memoria
 const db = new dataStore();
 
 export function loadBackEndDAV(app) {
 
+    // GET /DOCS
+    app.get(BASE_URL_API + "/docs", (req, res) => {
+        res.redirect(DOC_URL);
+
+    }),
+
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
     app.get(BASE_URL_API + "/global-ads-performance/loadInitialData", (req, res) => {
         db.find({}, (err, docs) => {
             if (docs.length === 0) {
-                // Aquí metemos tu array exacto para que NeDB lo inserte
+                // Aquí metemos el array exacto para que NeDB lo inserte
                 const newData = [
                     { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
                     { region: "Europe", date: "2024-01-22", platform: "TikTok Ads", industry: "EdTech", impression: 135608, click: 5220, ad_spend: 6159.60, conversion: 411, revenue: 64126.68 },
