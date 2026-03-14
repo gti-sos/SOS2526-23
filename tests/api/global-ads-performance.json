@@ -42,7 +42,7 @@
                 "exec": [
                   "pm.test(\"El código de estado es 200 OK\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
-                  "});<"
+                  "});"
                 ],
                 "type": "text/javascript",
                 "packages": {},
