@@ -2,16 +2,10 @@ import dataStore from "nedb";
 
 const BASE_URL_API = "/api/v1";
 const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
+
 // Inicializamos la base de datos en memoria
 const db = new dataStore();
 
-    // GET /DOCS
-    app.get(BASE_URL_API + "/docs", (req, res) => {
-        res.redirect(DOC_URL);
-
-    });
-
-    
 export function loadBackEndDAV(app) {
 
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
@@ -178,4 +172,11 @@ export function loadBackEndDAV(app) {
     app.put(BASE_URL_API + "/global-ads-performance", (req, res) => {
         res.sendStatus(405); // Method Not Allowed
     });
+
+    // GET /DOCS
+    app.get(BASE_URL_API + "/docs", (req, res) => {
+        res.redirect(DOC_URL);
+
+    });
+
 }
