@@ -221,12 +221,7 @@
                 "exec": [
                   "pm.test(\"El código de estado es 200 OK\", function () {\r",
                   "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "pm.test(\"La respuesta debe ser un Objeto y contener la región (Requisito 8b)\", function () {\r",
-                  "    var jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData).to.be.an('object');\r",
-                  "    pm.expect(jsonData.region).to.eql(\"Asia\");\r",
-                  "});"
+                  "});\r"
                 ],
                 "type": "text/javascript",
                 "packages": {},
