@@ -5,13 +5,14 @@ const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 // Inicializamos la base de datos en memoria
 const db = new dataStore();
 
-export function loadBackEndDAV(app) {
-
     // GET /DOCS
     app.get(BASE_URL_API + "/docs", (req, res) => {
         res.redirect(DOC_URL);
 
-    }),
+    });
+
+    
+export function loadBackEndDAV(app) {
 
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
     app.get(BASE_URL_API + "/global-ads-performance/loadInitialData", (req, res) => {
