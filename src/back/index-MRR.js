@@ -9,7 +9,7 @@ export function loadBackEndMRR(app){
 
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces/docs", (req, res) =>{
 
-        express.redirect('https://documenter.getpostman.com/view/52406430/2sBXigLYQR');
+        res.redirect('https://documenter.getpostman.com/view/52406430/2sBXigLYQR');
     });
 
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces", (req, res) => {
