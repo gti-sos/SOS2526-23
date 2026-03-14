@@ -8,6 +8,13 @@ const db = new dataStore();
 
 export function loadBackEndDAV(app) {
 
+       // GET /DOCS
+    app.get(BASE_URL_API + "/global-ads-performance/docs", (req, res) => {
+        res.redirect(DOC_URL);
+
+    });
+
+
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
     app.get(BASE_URL_API + "/global-ads-performance/loadInitialData", (req, res) => {
         db.find({}, (err, docs) => {
@@ -173,10 +180,5 @@ export function loadBackEndDAV(app) {
         res.sendStatus(405); // Method Not Allowed
     });
 
-    // GET /DOCS
-    app.get(BASE_URL_API + "/docs", (req, res) => {
-        res.redirect(DOC_URL);
-
-    });
-
+ 
 }
