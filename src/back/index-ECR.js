@@ -144,8 +144,6 @@ export function loadBackEndECR(app){
         }
     });
 
-    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/docs', (req, res) => {
-        res.redirect('https://documenter.getpostman.com/view/52708852/2sBXigLYL8');
-    });
+    
 
 }
