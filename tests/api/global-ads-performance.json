@@ -48,6 +48,13 @@
                 "packages": {},
                 "requests": {}
               }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "packages": {},
+                "type": "text/javascript"
+              }
             }
           ],
           "request": {
@@ -232,7 +239,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/2024-01-21",
               "host": [
                 "{{base_url}}"
               ],
@@ -241,7 +248,7 @@
                 "v1",
                 "global-ads-performance",
                 "Asia",
-                "Google Ads"
+                "2024-01-21"
               ]
             }
           },
@@ -280,7 +287,7 @@
               }
             },
             "url": {
-              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/2024-01-21",
               "host": [
                 "{{base_url}}"
               ],
@@ -289,7 +296,7 @@
                 "v1",
                 "global-ads-performance",
                 "Asia",
-                "Google Ads"
+                "2024-01-21"
               ]
             }
           },
@@ -465,7 +472,7 @@
               "raw": ""
             },
             "url": {
-              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/Google Ads",
+              "raw": "{{base_url}}/api/v1/global-ads-performance/Asia/2024-01-21",
               "host": [
                 "{{base_url}}"
               ],
@@ -474,7 +481,7 @@
                 "v1",
                 "global-ads-performance",
                 "Asia",
-                "Google Ads"
+                "2024-01-21"
               ]
             }
           },
