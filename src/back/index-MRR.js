@@ -122,7 +122,7 @@ export function loadBackEndMRR(app){
         };
 
         db.find({region: newSale.region, date: newSale.date,}, (err, datosMRR) => {
-            if (datosMRR > 0){
+            if (datosMRR.length > 0){
                 return res.status(409, "CONFLICT").json({message: "Existe un dato idéntico al que se quiere añadir"});
             }
 
@@ -143,10 +143,11 @@ export function loadBackEndMRR(app){
     });
 
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
+        let regionName = req.params.region;
+        let dateN = req.params.date;
+
         db.find({region: regionName, date: dateN}, (err, datosMRR) => {
             let filtrado = datosMRR;
-            let regionName = req.params.region;
-            let dateN = req.params.date;
             let dateN1 = req.query.from;
             let dateN2 = req.query.to;
             let prodCategory = req.query.product_category;
@@ -198,18 +199,18 @@ export function loadBackEndMRR(app){
                 }
 
                 if (min_totalPrice){
-                    filtrado = filtrado.filter(d => d.total > Number(min_total));
+                    filtrado = filtrado.filter(d => d.total > Number(min_totalPrice));
                 }
 
                 if (max_totalPrice){
-                    filtrado = filtrado.filter(d => d.total < Number(max_total));
+                    filtrado = filtrado.filter(d => d.total < Number(max_totalPrice));
                 }
 
                 if (payMethod){
                     filtrado = filtrado.filter(d => d.payment_method.toLowerCase() === payMethod.toLowerCase());
                 }            
 
-            res.status(200, "OK").json(datosMRR);
+            res.status(200, "OK").json(filtrado);
         });
     });
 
@@ -235,9 +236,9 @@ export function loadBackEndMRR(app){
             if (datosMRR === 0) {
                 return res.status(404, "NOT FOUND").json({ message: "Recurso no encontrado" });
             }
+
+            res.status(200, "OK").json(newSale);
         });
-        
-        res.status(200, "OK").json(newSale);
     });
 
     app.delete(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
