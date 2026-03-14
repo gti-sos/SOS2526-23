@@ -166,4 +166,9 @@ export function loadBackEndDAV(app) {
     app.put(BASE_URL_API + "/google-ads-performance", (req, res) => {
         res.sendStatus(405); // Method Not Allowed
     });
+
+    app.get(BASE_URL_API + '/global-ads-performance/docs', (req, res) => {
+        res.redirect('https://documenter.getpostman.com/view/52707486/2sBXigLYQP');
+    });
+
 }

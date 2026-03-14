@@ -82,7 +82,7 @@ export function loadBackEndMRR(app){
     res.status(200, "OK").json({message: "Datos eliminados"})
     });
 
-    app.get(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
+    app.get(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
         let filtrado = datosMRR;
         let regionName = req.params.region;
         let dateN1 = req.query.from;
@@ -107,7 +107,7 @@ export function loadBackEndMRR(app){
         res.status(200, "OK").json(filtro);
     });
 
-    app.post(BASE_URL_API + "/online-sales-popular-marketplaces/:region", (req, res) => {
+    app.post(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
         res.status(405, "METHOD NOT ALLOWED").json({message: "No es posible añadir valores a un dato o varios datos"})
     });
 
@@ -145,6 +145,10 @@ export function loadBackEndMRR(app){
 
         datosMRR.splice(index, 1);
         res.status(200, "OK").json(datosMRR);
+    });
+
+    app.get(BASE_URL_API + "/online-sales-popular-marketplaces/docs", (req, res) =>{
+        res.redirect('https://documenter.getpostman.com/view/52406430/2sBXigLYQR');
     });
 
 }
