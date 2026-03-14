@@ -99,13 +99,13 @@ export function loadBackEndDAV(app) {
     app.post(BASE_URL_API + "/global-ads-performance", (req, res) => {
         const newResource = req.body;
         
-        // Validación de estructura básica: debe tener region y date
+        // Validación de estructura básica: debe tener todos los campos
         if (!newResource.region || !newResource.date || !newResource.platform || !newResource.industry) {
             return res.sendStatus(400); // 400 Bad Request
         }
 
-        // Comprobamos si ya existe la clave primaria (region + date)
-        db.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
+        // Comprobamos si ya existe la clave primaria correcta (region + platform)
+        db.find({ region: newResource.region, platform: newResource.platform }, (err, docs) => {
             if (docs.length > 0) {
                 return res.sendStatus(409); // 409 Conflict (Ya existe)
             }
@@ -114,6 +114,7 @@ export function loadBackEndDAV(app) {
             });
         });
     });
+
 
     // 4. DELETE COLECCIÓN COMPLETA
     app.delete(BASE_URL_API + "/global-ads-performance", (req, res) => {
