@@ -114,7 +114,7 @@ export function loadBackEndDAV(app) {
         });
     });
 
-    // 5. GET RECURSO ESPECÍFICO
+   // 5. GET RECURSO ESPECÍFICO
     app.get(BASE_URL_API + "/google-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
 
@@ -122,9 +122,13 @@ export function loadBackEndDAV(app) {
             if (docs.length === 0) {
                 return res.sendStatus(404); // 404 Not Found
             }
-            // Borramos el _id y devolvemos UN OBJETO, no un array (Requisito 8b)
-            delete docs._id;
-            res.status(200).json(docs); 
+            
+            // Extraemos el único objeto del array
+            const resource = docs;
+            
+            // Borramos el _id y devolvemos UN OBJETO puro (Requisito 8b)
+            delete resource._id;
+            res.status(200).json(resource); 
         });
     });
 
