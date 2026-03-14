@@ -143,74 +143,74 @@ export function loadBackEndMRR(app){
     });
 
     app.get(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
-        let filtrado = datosMRR;
-        let regionName = req.params.region;
-        let dateN = req.params.date;
-        let dateN1 = req.query.from;
-        let dateN2 = req.query.to;
-        let prodCategory = req.query.product_category;
-        let prodName = req.query.product_name;
-        let min_quantSold = req.query.min_quantity_sold;
-        let max_quantSold = req.query.max_quantity_sold;
-        let min_unitPrice = req.query.min_unit_price;
-        let max_unitPrice = req.query.max_unit_price;
-        let min_totalPrice = req.query.min_total;
-        let max_totalPrice = req.query.max_total;
-        let payMethod = req.query.payment_method;
+        db.find({region: regionName, date: dateN}, (err, datosMRR) => {
+            let filtrado = datosMRR;
+            let regionName = req.params.region;
+            let dateN = req.params.date;
+            let dateN1 = req.query.from;
+            let dateN2 = req.query.to;
+            let prodCategory = req.query.product_category;
+            let prodName = req.query.product_name;
+            let min_quantSold = req.query.min_quantity_sold;
+            let max_quantSold = req.query.max_quantity_sold;
+            let min_unitPrice = req.query.min_unit_price;
+            let max_unitPrice = req.query.max_unit_price;
+            let min_totalPrice = req.query.min_total;
+            let max_totalPrice = req.query.max_total;
+            let payMethod = req.query.payment_method;
 
-            if (regionName){
-                filtrado = filtrado.filter(d => d.region.toLowerCase() === regionName.toLowerCase());
-            }
+                if (regionName){
+                    filtrado = filtrado.filter(d => d.region.toLowerCase() === regionName.toLowerCase());
+                }
 
-            if (dateN1 && dateN2){
-                let from = new Date(dateN1).getTime();
-                let to = new Date(dateN2).getTime();
+                if (dateN1 && dateN2){
+                    let from = new Date(dateN1).getTime();
+                    let to = new Date(dateN2).getTime();
 
-                filtrado = filtrado.filter(d => {
-                    let itemDate = new Date(d.date).getTime();
-                    return itemDate >= from && itemDate <= to;
-                });
-            }
+                    filtrado = filtrado.filter(d => {
+                        let itemDate = new Date(d.date).getTime();
+                        return itemDate >= from && itemDate <= to;
+                    });
+                }
 
-            if (prodCategory){
-                filtrado = filtrado.filter(d => d.product_category.toLowerCase() === prodCategory.toLowerCase());
-            }
+                if (prodCategory){
+                    filtrado = filtrado.filter(d => d.product_category.toLowerCase() === prodCategory.toLowerCase());
+                }
 
-            if (prodName){
-                filtrado = filtrado.filter(d => d.product_name.toLowerCase() === prodName.toLowerCase());
-            }
+                if (prodName){
+                    filtrado = filtrado.filter(d => d.product_name.toLowerCase() === prodName.toLowerCase());
+                }
 
-            if (min_quantSold){
-                filtrado = filtrado.filter(d => d.quantity_sold > Number(min_quantSold));
-            }
+                if (min_quantSold){
+                    filtrado = filtrado.filter(d => d.quantity_sold > Number(min_quantSold));
+                }
 
-            if (max_quantSold){
-                filtrado = filtrado.filter(d => d.quantity_sold < Number(max_quantSold));
-            }
+                if (max_quantSold){
+                    filtrado = filtrado.filter(d => d.quantity_sold < Number(max_quantSold));
+                }
 
-            if (min_unitPrice){
-                filtrado = filtrado.filter(d => d.unit_price > Number(min_unitPrice));
-            }
+                if (min_unitPrice){
+                    filtrado = filtrado.filter(d => d.unit_price > Number(min_unitPrice));
+                }
 
-            if (max_unitPrice){
-                filtrado = filtrado.filter(d => d.unit_price < Number(max_unitPrice));
-            }
+                if (max_unitPrice){
+                    filtrado = filtrado.filter(d => d.unit_price < Number(max_unitPrice));
+                }
 
-            if (min_totalPrice){
-                filtrado = filtrado.filter(d => d.total > Number(min_total));
-            }
+                if (min_totalPrice){
+                    filtrado = filtrado.filter(d => d.total > Number(min_total));
+                }
 
-            if (max_totalPrice){
-                filtrado = filtrado.filter(d => d.total < Number(max_total));
-            }
+                if (max_totalPrice){
+                    filtrado = filtrado.filter(d => d.total < Number(max_total));
+                }
 
-            if (payMethod){
-                filtrado = filtrado.filter(d => d.payment_method.toLowerCase() === payMethod.toLowerCase());
-            }            
+                if (payMethod){
+                    filtrado = filtrado.filter(d => d.payment_method.toLowerCase() === payMethod.toLowerCase());
+                }            
 
-        
-        let filtro = filtrado.filter(sale => sale.region === regionName && sale.date === dateN);
-        res.status(200, "OK").json(filtro);
+            res.status(200, "OK").json(datosMRR);
+        });
     });
 
     app.post(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
@@ -221,7 +221,6 @@ export function loadBackEndMRR(app){
         let newSale = req.body;
         let regionName = req.params.region;
         let dateN = req.params.date;
-        let id = datosMRR.findIndex(d => d.region === regionName && d.date === dateN);
 
         if (!newSale.region || !newSale.date || !newSale.product_category || !newSale.product_name || !newSale.quantity_sold
         || !newSale.unit_price || !newSale.total || !newSale.payment_method){
@@ -232,25 +231,26 @@ export function loadBackEndMRR(app){
             return res.status(400, "BAD REQUEST").json({message: "No coincide la region o la fecha con la que se quiere actualizar"});
         }
 
-        if (id === -1) {
-            return res.status(404, "NOT FOUND").json({ message: "Recurso no encontrado" });
-        }
-
-        datosMRR[id] = newSale;
-        res.status(200, "OK").json(datosMRR[id]);
+        db.update({region: regionName, date: dateN}, newSale, {}, (err, datosMRR) => {
+            if (datosMRR === 0) {
+                return res.status(404, "NOT FOUND").json({ message: "Recurso no encontrado" });
+            }
+        });
+        
+        res.status(200, "OK").json(newSale);
     });
 
     app.delete(BASE_URL_API + "/online-sales-popular-marketplaces/:region/:date", (req, res) => {
         let regionName = req.params.region;
         let dateN = req.params.date;
-        let index = datosMRR.findIndex(d => d.region === regionName && d.date === dateN);
 
-        if (index === -1) {
-            return res.status(404).json({ message: "No encontrado" });
-        }
+        db.remove({region: regionName, date: dateN}, {}, (err, datosMRR) => {
+            if (datosMRR === 0) {
+                return res.status(404, "NOT FOUND").json({ message: "Recurso no encontrado" });
+            }
+        });
 
-        datosMRR.splice(index, 1);
-        res.status(200, "OK").json(datosMRR);
+        res.status(200, "OK").json({message: "Dato eliminado"});
     });
 
 
