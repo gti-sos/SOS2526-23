@@ -56,7 +56,7 @@ export function loadBackEndECR(app) {
             res.status(409).json({ message: "Conflict: Ya existen datos" });
         }
     });
-    });
+});
 
     // =====================================================================
     // METODOS DE LA TABLA AZUL Y CUADRO VERDE
@@ -112,19 +112,31 @@ export function loadBackEndECR(app) {
     app.post(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
         const newData = req.body;
         
-        // Validación: Que vengan los campos esenciales
-        if (!newData || !newData.region || !newData.index_name || !newData.date || !newData.close) {
-            return res.status(400).json({ message: "Bad Request: Faltan campos requeridos" });
+        // Validación: Estructura estricta (Requisito F06 - Devolver 400 si faltan campos)
+        if (!newData || !newData.date || !newData.index_name || !newData.region || 
+            !newData.open || !newData.high || !newData.low || !newData.close || 
+            !newData.volume || !newData.daily_change_percent) {
+            return res.status(400).json({ message: "Bad Request: Faltan campos requeridos o la estructura es incorrecta" });
         }
 
-        // Comprobar si ya existe el índice en esa región
-        const exists = dailyIndicators.find(d => d.region === newData.region && d.index_name === newData.index_name);
-        if (exists) {
-            return res.status(409).json({ message: "Conflict: El recurso ya existe" });
+        // Si intentan colar un _id, lo borramos
+        if (newData._id) {
+            delete newData._id;
         }
 
-        dailyIndicators.push(newData);
-        res.status(201).json({ message: "Created" });
+        // Comprobamos conflicto por ID compuesto (region e index_name)
+        db.find({ region: newData.region, index_name: newData.index_name }, (err, docs) => {
+            if (err) return res.status(500).json({ message: "Internal Server Error" });
+            
+            if (docs.length > 0) {
+                return res.status(409).json({ message: "Conflict: El recurso ya existe" });
+            }
+
+            db.insert(newData, (err, newDoc) => {
+                if (err) return res.status(500).json({ message: "Internal Server Error" });
+                res.status(201).json({ message: "Created" });
+            });
+        });
     });
 
     // PUT: Actualizar toda la colección (NO PERMITIDO)
@@ -134,36 +146,28 @@ export function loadBackEndECR(app) {
 
     // DELETE: Borrar toda la colección
     app.delete(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
-        dailyIndicators = [];
-        res.status(200).json({ message: "All data deleted" });
+        db.remove({}, { multi: true }, (err, numRemoved) => {
+            if (err) return res.status(500).json({ message: "Internal Server Error" });
+            res.status(200).json({ message: "All data deleted" });
+        });
     });
 
-    // --- 2. BÚSQUEDA POR UN PARÁMETRO (/api/v1/.../Europe) ---
-
-    // GET: Devolver todos los datos de una región
-    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/:region', (req, res) => {
-        const { region } = req.params;
-        const filteredData = dailyIndicators.filter(d => d.region === region);
-        
-        if (filteredData.length > 0) {
-            res.status(200).json(filteredData);
-        } else {
-            res.status(404).json({ message: "Not Found" });
-        }
-    });
-
-    // --- 3. RECURSO CONCRETO (/api/v1/.../Europe/DAX) ---
+    // --- 2. RECURSO CONCRETO (ID COMPUESTO: /:region/:index_name) ---
 
     // GET: Devolver un recurso concreto
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
         const { region, index_name } = req.params;
-        const resource = dailyIndicators.find(d => d.region === region && d.index_name === index_name);
-        
-        if (resource) {
-            res.status(200).json(resource);
-        } else {
-            res.status(404).json({ message: "Not Found" });
-        }
+        db.find({ region: region, index_name: index_name }, (err, docs) => {
+            if (err) return res.status(500).json({ message: "Internal Server Error" });
+            
+            if (docs.length > 0) {
+                const resource = { ...docs[0] };
+                delete resource._id; // Ocultamos el _id
+                res.status(200).json(resource); // Se devuelve UN OBJETO, no un array (Requisito F06)
+            } else {
+                res.status(404).json({ message: "Not Found" });
+            }
+        });
     });
 
     // POST: Crear un recurso en una URL concreta (NO PERMITIDO)
@@ -176,35 +180,49 @@ export function loadBackEndECR(app) {
         const { region, index_name } = req.params;
         const updatedData = req.body;
 
-        // Validación: El cuerpo debe coincidir con la URL para no liarla
-        if (!updatedData || updatedData.region !== region || updatedData.index_name !== index_name) {
-            return res.status(400).json({ message: "Bad Request: Los IDs del body no coinciden con la URL o faltan datos" });
+        // Validación 400: Campos obligatorios y comprobación de que el ID de la URL coincide con el Body
+        if (!updatedData || !updatedData.date || !updatedData.index_name || !updatedData.region || 
+            !updatedData.open || !updatedData.high || !updatedData.low || !updatedData.close || 
+            !updatedData.volume || !updatedData.daily_change_percent) {
+            return res.status(400).json({ message: "Bad Request: Faltan campos requeridos" });
         }
 
-        const index = dailyIndicators.findIndex(d => d.region === region && d.index_name === index_name);
-        
-        if (index !== -1) {
-            dailyIndicators[index] = { ...dailyIndicators[index], ...updatedData };
-            res.status(200).json({ message: "Updated" });
-        } else {
-            res.status(404).json({ message: "Not Found" });
+        if (updatedData.region !== region || updatedData.index_name !== index_name) {
+            return res.status(400).json({ message: "Bad Request: Los IDs del body no coinciden con la URL" });
         }
+
+        if (updatedData._id) {
+            delete updatedData._id;
+        }
+
+        db.update({ region: region, index_name: index_name }, updatedData, {}, (err, numReplaced) => {
+            if (err) return res.status(500).json({ message: "Internal Server Error" });
+            
+            if (numReplaced > 0) {
+                res.status(200).json({ message: "Updated" });
+            } else {
+                res.status(404).json({ message: "Not Found" });
+            }
+        });
     });
 
     // DELETE: Borrar un recurso concreto
     app.delete(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
         const { region, index_name } = req.params;
-        const initialLength = dailyIndicators.length;
         
-        dailyIndicators = dailyIndicators.filter(d => !(d.region === region && d.index_name === index_name));
-        
-        if (dailyIndicators.length < initialLength) {
-            res.status(200).json({ message: "Deleted" });
-        } else {
-            res.status(404).json({ message: "Not Found" });
-        }
-    });
+        db.remove({ region: region, index_name: index_name }, {}, (err, numRemoved) => {
+            if (err) return res.status(500).json({ message: "Internal Server Error" });
 
+<<<<<<< HEAD
     
 
+=======
+            if (numRemoved > 0) {
+                res.status(200).json({ message: "Deleted" });
+            } else {
+                res.status(404).json({ message: "Not Found" });
+            }
+        });
+    });
+>>>>>>> 2b73c43ca8f2343574d8549d38809c4cf3f2300c
 }
