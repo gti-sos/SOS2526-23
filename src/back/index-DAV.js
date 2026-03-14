@@ -1,16 +1,25 @@
 import dataStore from "nedb";
 
 const BASE_URL_API = "/api/v1";
+const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
+
 // Inicializamos la base de datos en memoria
 const db = new dataStore();
 
 export function loadBackEndDAV(app) {
 
+       // GET /DOCS
+    app.get(BASE_URL_API + "/global-ads-performance/docs", (req, res) => {
+        res.redirect(DOC_URL);
+
+    });
+
+
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
-    app.get(BASE_URL_API + "/google-ads-performance/loadInitialData", (req, res) => {
+    app.get(BASE_URL_API + "/global-ads-performance/loadInitialData", (req, res) => {
         db.find({}, (err, docs) => {
             if (docs.length === 0) {
-                // Aquí metemos tu array exacto para que NeDB lo inserte
+                // Aquí metemos el array exacto para que NeDB lo inserte
                 const newData = [
                     { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
                     { region: "Europe", date: "2024-01-22", platform: "TikTok Ads", industry: "EdTech", impression: 135608, click: 5220, ad_spend: 6159.60, conversion: 411, revenue: 64126.68 },
@@ -35,7 +44,7 @@ export function loadBackEndDAV(app) {
     });
 
 // 2. GET COLECCIÓN COMPLETA (Con Búsquedas y Paginación - Requisitos 3 y 4)
-    app.get(BASE_URL_API + "/google-ads-performance", (req, res) => {
+    app.get(BASE_URL_API + "/global-ads-performance", (req, res) => {
         
         const searchQuery = {};
 
@@ -87,7 +96,7 @@ export function loadBackEndDAV(app) {
     });
 
     // 3. POST A LA COLECCIÓN (Añadir recurso)
-    app.post(BASE_URL_API + "/google-ads-performance", (req, res) => {
+    app.post(BASE_URL_API + "/global-ads-performance", (req, res) => {
         const newResource = req.body;
         
         // Validación de estructura básica: debe tener region y date
@@ -107,29 +116,33 @@ export function loadBackEndDAV(app) {
     });
 
     // 4. DELETE COLECCIÓN COMPLETA
-    app.delete(BASE_URL_API + "/google-ads-performance", (req, res) => {
+    app.delete(BASE_URL_API + "/global-ads-performance", (req, res) => {
         // {} borra todos los documentos, {multi: true} permite borrar más de uno a la vez
         db.remove({}, { multi: true }, (err, numRemoved) => {
             res.sendStatus(200); // 200 OK
         });
     });
 
-    // 5. GET RECURSO ESPECÍFICO
-    app.get(BASE_URL_API + "/google-ads-performance/:region/:date", (req, res) => {
+   // 5. GET RECURSO ESPECÍFICO
+    app.get(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
 
         db.find({ region: region, date: date }, (err, docs) => {
             if (docs.length === 0) {
                 return res.sendStatus(404); // 404 Not Found
             }
-            // Borramos el _id y devolvemos UN OBJETO, no un array (Requisito 8b)
-            delete docs._id;
-            res.status(200).json(docs); 
+            
+            // Extraemos el único objeto del array
+            const resource = docs;
+            
+            // Borramos el _id y devolvemos UN OBJETO puro (Requisito 8b)
+            delete resource._id;
+            res.status(200).json(resource); 
         });
     });
 
     // 6. DELETE RECURSO ESPECÍFICO
-    app.delete(BASE_URL_API + "/google-ads-performance/:region/:date", (req, res) => {
+    app.delete(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
 
         db.remove({ region: region, date: date }, {}, (err, numRemoved) => {
@@ -141,7 +154,7 @@ export function loadBackEndDAV(app) {
     });
 
     // 7. PUT RECURSO ESPECÍFICO (Actualizar)
-    app.put(BASE_URL_API + "/google-ads-performance/:region/:date", (req, res) => {
+    app.put(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
         const updatedResource = req.body;
 
@@ -159,16 +172,13 @@ export function loadBackEndDAV(app) {
     });
 
     // MÉTODOS PROHIBIDOS (Tabla Azul L05)
-    app.post(BASE_URL_API + "/google-ads-performance/:region/:date", (req, res) => {
+    app.post(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
         res.sendStatus(405); // Method Not Allowed
     });
     
-    app.put(BASE_URL_API + "/google-ads-performance", (req, res) => {
+    app.put(BASE_URL_API + "/global-ads-performance", (req, res) => {
         res.sendStatus(405); // Method Not Allowed
     });
 
-    app.get(BASE_URL_API + '/global-ads-performance/docs', (req, res) => {
-        res.redirect('https://documenter.getpostman.com/view/52707486/2sBXigLYQP');
-    });
 
 }
