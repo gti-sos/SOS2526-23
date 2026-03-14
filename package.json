@@ -16,17 +16,22 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test-daily-global-stock-market-indicators": "npx newman run tests/back/daily-global-stock-market-indicators.postman_collection.json -e tests/api/entorno_local.json",
-    "test-global-ads-performance": "npx newman run tests/back/global-ads-performance.postman_collection.json -e tests/api/entorno_local.json",
-    "test-online-sales": "npx newman run tests/back/online-sales.postman_collection.json -e tests/api/entorno_local.json",
-    "test-all": "npm run test-global-ads-performance && npm run test-daily-global-stock-market-indicators && npm run test-online-sales",
-    "test": "start-server-and-test start http://localhost:3000 test-all"
+    "test-api-local-MRR": "npx newman run tests/api/online-sales-popular-marketplaces.json -e tests/api/api-test-local.json",
+    "test-api-local-DAV": "npx newman run tests/api/global-ads-performance.json -e tests/api/api-test-local.json",
+    "test-api-local-ECR": "npx newman run tests/api/daily-global-stock-market-indicators.json -e tests/api/api-test-local.json",
+
+    "test-online-sales-popular-marketplaces": "start-server-and-test start http://localhost:3000 test-api-local-MRR",
+    "test-global-ads-performance": "start-server-and-test start http://localhost:3000 test-api-local-DAV",
+    "test-daily-global-stock-market-indicators": "start-server-and-test start http://localhost:3000 test-api-local-ECR",
+
+    "test": "npm run test-online-sales-popular-marketplaces && npm run test-global-ads-performance && npm run test-daily-global-stock-market-indicators"
   },
   "dependencies": {
     "body-parser": "^2.2.2",
     "cool-ascii-faces": "^1.3.4",
     "express": "^5.2.1",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "start-server-and-test": "^2.1.5"

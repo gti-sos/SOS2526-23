@@ -1,28 +1,288 @@
-const datosIndices = [
-    { date: "2024-01-01", index_name: "S&P 500", region: "North America", open: 37740.57, high: 38171.04, low: 37552.74, close: 38125.97, volume: 34594679, daily_change_percent: 1.02 },
-    { date: "2024-01-01", index_name: "NASDAQ Composite", region: "North America", open: 12519.37, high: 12926.14, low: 12249.50, close: 12654.15, volume: 39548535, daily_change_percent: 1.08 },
-    { date: "2024-01-01", index_name: "Dow Jones", region: "North America", open: 39555.85, high: 39966.85, low: 39531.34, close: 39740.61, volume: 8398121, daily_change_percent: 0.47 },
-    { date: "2024-01-01", index_name: "FTSE 100", region: "Europe", open: 18850.59, high: 19341.92, low: 18646.31, close: 19214.54, volume: 44763368, daily_change_percent: 1.93 },
-    { date: "2024-01-01", index_name: "Nikkei 225", region: "Asia", open: 15708.36, high: 15734.90, low: 15130.62, close: 15396.17, volume: 41135726, daily_change_percent: -1.99 },
-    { date: "2024-01-01", index_name: "Hang Seng", region: "Asia", open: 4023.53, high: 4218.66, low: 4007.54, close: 4104.75, volume: 39061503, daily_change_percent: 2.02 },
-    { date: "2024-01-01", index_name: "DAX", region: "Europe", open: 19256.09, high: 19262.37, low: 18884.10, close: 18898.03, volume: 25254324, daily_change_percent: -1.86 },
-    { date: "2024-01-01", index_name: "CAC 40", region: "Europe", open: 4264.55, high: 4502.93, low: 3711.50, close: 3997.91, volume: 12578040, daily_change_percent: -6.25 },
-    { date: "2024-01-01", index_name: "SSE Composite", region: "Asia", open: 15689.85, high: 16064.29, low: 15579.67, close: 15986.31, volume: 35348196, daily_change_percent: 1.89 },
-    { date: "2024-01-01", index_name: "KSE 100", region: "Asia", open: 11151.06, high: 11422.02, low: 11009.70, close: 11312.65, volume: 33074534, daily_change_percent: 1.45 }
-];
+let BASE_URL_API = "/api/v1";
 
-const regionObjetivo = "Europe";
+export function loadBackEndECR(app){
+    const datosIndices = [
+        { date: "2024-01-01", index_name: "S&P 500", region: "North America", open: 37740.57, high: 38171.04, low: 37552.74, close: 38125.97, volume: 34594679, daily_change_percent: 1.02 },
+        { date: "2024-01-01", index_name: "NASDAQ Composite", region: "North America", open: 12519.37, high: 12926.14, low: 12249.50, close: 12654.15, volume: 39548535, daily_change_percent: 1.08 },
+        { date: "2024-01-01", index_name: "Dow Jones", region: "North America", open: 39555.85, high: 39966.85, low: 39531.34, close: 39740.61, volume: 8398121, daily_change_percent: 0.47 },
+        { date: "2024-01-01", index_name: "FTSE 100", region: "Europe", open: 18850.59, high: 19341.92, low: 18646.31, close: 19214.54, volume: 44763368, daily_change_percent: 1.93 },
+        { date: "2024-01-01", index_name: "Nikkei 225", region: "Asia", open: 15708.36, high: 15734.90, low: 15130.62, close: 15396.17, volume: 41135726, daily_change_percent: -1.99 },
+        { date: "2024-01-01", index_name: "Hang Seng", region: "Asia", open: 4023.53, high: 4218.66, low: 4007.54, close: 4104.75, volume: 39061503, daily_change_percent: 2.02 },
+        { date: "2024-01-01", index_name: "DAX", region: "Europe", open: 19256.09, high: 19262.37, low: 18884.10, close: 18898.03, volume: 25254324, daily_change_percent: -1.86 },
+        { date: "2024-01-01", index_name: "CAC 40", region: "Europe", open: 4264.55, high: 4502.93, low: 3711.50, close: 3997.91, volume: 12578040, daily_change_percent: -6.25 },
+        { date: "2024-01-01", index_name: "SSE Composite", region: "Asia", open: 15689.85, high: 16064.29, low: 15579.67, close: 15986.31, volume: 35348196, daily_change_percent: 1.89 },
+        { date: "2024-01-01", index_name: "KSE 100", region: "Asia", open: 11151.06, high: 11422.02, low: 11009.70, close: 11312.65, volume: 33074534, daily_change_percent: 1.45 }
+    ];
 
-const datosEuropa = datosIndices.filter(indice => indice.region === regionObjetivo);
+    let dailyIndicators = [];
 
-if (datosEuropa.length > 0) {
-    const valoresCierre = datosEuropa.map(indice => indice.close);
-    
-    const sumaCierre = valoresCierre.reduce((acumulador, valorActual) => acumulador + valorActual, 0);
+    // 12. Carga de datos iniciales
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/loadInitialData', (req, res) => {
+        if (dailyIndicators.length === 0) {
+            dailyIndicators = [
+                { date: "2024-01-01", index_name: "S&P 500", region: "North America", open: 37740.57, high: 38171.04, low: 37552.74, close: 38125.97, volume: 34594679, daily_change_percent: 1.02 },
+                { date: "2024-01-01", index_name: "NASDAQ Composite", region: "North America", open: 12519.37, high: 12926.14, low: 12249.50, close: 12654.15, volume: 39548535, daily_change_percent: 1.08 },
+                { date: "2024-01-01", index_name: "Dow Jones", region: "North America", open: 39555.85, high: 39966.85, low: 39531.34, close: 39740.61, volume: 8398121, daily_change_percent: 0.47 },
+                { date: "2024-01-01", index_name: "FTSE 100", region: "Europe", open: 18850.59, high: 19341.92, low: 18646.31, close: 19214.54, volume: 44763368, daily_change_percent: 1.93 },
+                { date: "2024-01-01", index_name: "Nikkei 225", region: "Asia", open: 15708.36, high: 15734.90, low: 15130.62, close: 15396.17, volume: 41135726, daily_change_percent: -1.99 },
+                { date: "2024-01-01", index_name: "Hang Seng", region: "Asia", open: 4023.53, high: 4218.66, low: 4007.54, close: 4104.75, volume: 39061503, daily_change_percent: 2.02 },
+                { date: "2024-01-01", index_name: "DAX", region: "Europe", open: 19256.09, high: 19262.37, low: 18884.10, close: 18898.03, volume: 25254324, daily_change_percent: -1.86 },
+                { date: "2024-01-01", index_name: "CAC 40", region: "Europe", open: 4264.55, high: 4502.93, low: 3711.50, close: 3997.91, volume: 12578040, daily_change_percent: -6.25 },
+                { date: "2024-01-01", index_name: "SSE Composite", region: "Asia", open: 15689.85, high: 16064.29, low: 15579.67, close: 15986.31, volume: 35348196, daily_change_percent: 1.89 },
+                { date: "2024-01-01", index_name: "KSE 100", region: "Asia", open: 11151.06, high: 11422.02, low: 11009.70, close: 11312.65, volume: 33074534, daily_change_percent: 1.45 }
+            ];
+            res.status(201).json(dailyIndicators); 
+        } else {
+            res.status(200).json(dailyIndicators); 
+        }
+    });
 
-    const mediaCierre = sumaCierre / datosEuropa.length;
+    // 13 y 14. METODOS DE LA TABLA AZUL Y CUADRO VERDE
+    // =====================================================================
 
-    console.log(`La media del valor de cierre (close) para la región de ${regionObjetivo} es: ${mediaCierre.toFixed(2)}`);
-} else {
-    console.log(`No se encontraron datos para la región: ${regionObjetivo}`);
+    // --- 1. COLECCIÓN BASE (/api/v1/daily-global-stock-market-indicators) ---
+
+    // GET: Devolver toda la colección
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
+        res.status(200).json(dailyIndicators);
+    });
+
+    // POST: Crear un nuevo recurso
+    app.post(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
+        const newData = req.body;
+        
+        // Validación: Que vengan los campos esenciales
+        if (!newData || !newData.region || !newData.index_name || !newData.date || !newData.close) {
+            return res.status(400).json({ message: "Bad Request: Faltan campos requeridos" });
+        }
+
+        // Comprobar si ya existe el índice en esa región
+        const exists = dailyIndicators.find(d => d.region === newData.region && d.index_name === newData.index_name);
+        if (exists) {
+            return res.status(409).json({ message: "Conflict: El recurso ya existe" });
+        }
+
+        dailyIndicators.push(newData);
+        res.status(201).json({ message: "Created" });
+    });
+
+    // PUT: Actualizar toda la colección (NO PERMITIDO)
+    app.put(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
+        res.status(405).json({ message: "Method Not Allowed" });
+    });
+
+    // DELETE: Borrar toda la colección
+    app.delete(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
+        dailyIndicators = [];
+        res.status(200).json({ message: "All data deleted" });
+    });
+
+    // --- 2. BÚSQUEDA POR UN PARÁMETRO (/api/v1/.../Europe) ---
+
+    // GET: Devolver todos los datos de una región
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/:region', (req, res) => {
+        const { region } = req.params;
+        const filteredData = dailyIndicators.filter(d => d.region === region);
+        
+        if (filteredData.length > 0) {
+            res.status(200).json(filteredData);
+        } else {
+            res.status(404).json({ message: "Not Found" });
+        }
+    });
+
+    // --- 3. RECURSO CONCRETO (/api/v1/.../Europe/DAX) ---
+
+    // GET: Devolver un recurso concreto
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
+        const { region, index_name } = req.params;
+        const resource = dailyIndicators.find(d => d.region === region && d.index_name === index_name);
+        
+        if (resource) {
+            res.status(200).json(resource);
+        } else {
+            res.status(404).json({ message: "Not Found" });
+        }
+    });
+
+    // POST: Crear un recurso en una URL concreta (NO PERMITIDO)
+    app.post(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
+        res.status(405).json({ message: "Method Not Allowed" });
+    });
+
+    // PUT: Actualizar un recurso concreto
+    app.put(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
+        const { region, index_name } = req.params;
+        const updatedData = req.body;
+
+        // Validación: El cuerpo debe coincidir con la URL para no liarla
+        if (!updatedData || updatedData.region !== region || updatedData.index_name !== index_name) {
+            return res.status(400).json({ message: "Bad Request: Los IDs del body no coinciden con la URL o faltan datos" });
+        }
+
+        const index = dailyIndicators.findIndex(d => d.region === region && d.index_name === index_name);
+        
+        if (index !== -1) {
+            dailyIndicators[index] = { ...dailyIndicators[index], ...updatedData };
+            res.status(200).json({ message: "Updated" });
+        } else {
+            res.status(404).json({ message: "Not Found" });
+        }
+    });
+
+    // DELETE: Borrar un recurso concreto
+    app.delete(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
+        const { region, index_name } = req.params;
+        const initialLength = dailyIndicators.length;
+        
+        dailyIndicators = dailyIndicators.filter(d => !(d.region === region && d.index_name === index_name));
+        
+        if (dailyIndicators.length < initialLength) {
+            res.status(200).json({ message: "Deleted" });
+        } else {
+            res.status(404).json({ message: "Not Found" });
+        }
+    });
+
+    // =====================================================================
+    // API REST DE [DAVID AYLLON VELA / DAV]
+    // Recurso: global-ads-performance
+    // =====================================================================
+
+    const BASE_API_URL_DAV = "/api/v1/global-ads-performance";
+    let adsPerformance = [];
+
+    // 12. Carga de datos iniciales
+    app.get(`${BASE_API_URL_DAV}/loadInitialData`, (req, res) => {
+        if (adsPerformance.length === 0) {
+            adsPerformance = [
+                { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
+                { region: "Europe", date: "2024-01-22", platform: "TikTok Ads", industry: "EdTech", impression: 135608, click: 5220, ad_spend: 6159.60, conversion: 411, revenue: 64126.68 },
+                { region: "North America", date: "2024-06-15", platform: "TikTok Ads", industry: "Healthcare", impression: 92313, click: 5991, ad_spend: 5092.35, conversion: 267, revenue: 10489.07 },
+                { region: "Europe", date: "2024-01-02", platform: "TikTok Ads", industry: "SaaS", impression: 83953, click: 5935, ad_spend: 7834.20, conversion: 296, revenue: 50505.07 },
+                { region: "Europe", date: "2024-02-22", platform: "TikTok Ads", industry: "Healthcare", impression: 91807, click: 4489, ad_spend: 8663.77, conversion: 107, revenue: 3369.53 },
+                { region: "North America", date: "2024-10-15", platform: "TikTok Ads", industry: "Fintech", impression: 17666, click: 724, ad_spend: 267.88, conversion: 23, revenue: 5220.85 },
+                { region: "North America", date: "2024-08-14", platform: "Meta Ads", industry: "Fintech", impression: 118252, click: 3748, ad_spend: 1574.16, conversion: 152, revenue: 12838.56 },
+                { region: "Asia", date: "2024-04-05", platform: "TikTok Ads", industry: "EdTech", impression: 92939, click: 5176, ad_spend: 3416.16, conversion: 388, revenue: 96298.69 },
+                { region: "Europe", date: "2024-04-17", platform: "Meta Ads", industry: "EdTech", impression: 30939, click: 937, ad_spend: 552.83, conversion: 63, revenue: 16531.03 },
+                { region: "North America", date: "2024-11-13", platform: "Google Ads", industry: "Fintech", impression: 8748, click: 362, ad_spend: 438.02, conversion: 10, revenue: 966.57 },
+                { region: "Asia", date: "2024-04-22", platform: "Meta Ads", industry: "E-commerce", impression: 98264, click: 3144, ad_spend: 4904.64, conversion: 129, revenue: 23127.27 }
+            ];
+            res.status(201).json(adsPerformance);
+        } else {
+            res.status(200).json(adsPerformance);
+        }
+    });
+
+    // --- 1. COLECCIÓN BASE (/api/v1/global-ads-performance) ---
+
+    // GET: Devolver toda la colección
+    app.get(BASE_API_URL_DAV, (req, res) => {
+        res.status(200).json(adsPerformance);
+    });
+
+    // POST: Crear un nuevo recurso
+    app.post(BASE_API_URL_DAV, (req, res) => {
+        const newData = req.body;
+
+        // Validación: Campos esenciales (usamos region, platform y date como identificadores)
+        if (!newData || !newData.region || !newData.platform || !newData.date || !newData.industry) {
+            return res.status(400).json({ message: "Bad Request: Faltan campos requeridos" });
+        }
+
+        // Comprobar si ya existe el registro (Combinación de Región, Plataforma y Fecha)
+        const exists = adsPerformance.find(d => 
+            d.region === newData.region && 
+            d.platform === newData.platform && 
+            d.date === newData.date
+        );
+
+        if (exists) {
+            return res.status(409).json({ message: "Conflict: El recurso ya existe" });
+        }
+
+        adsPerformance.push(newData);
+        res.status(201).json({ message: "Created" });
+    });
+
+    // PUT: Actualizar toda la colección (NO PERMITIDO)
+    app.put(BASE_API_URL_DAV, (req, res) => {
+        res.status(405).json({ message: "Method Not Allowed" });
+    });
+
+    // DELETE: Borrar toda la colección
+    app.delete(BASE_API_URL_DAV, (req, res) => {
+        adsPerformance = [];
+        res.status(200).json({ message: "All data deleted" });
+    });
+
+    // --- 2. BÚSQUEDA POR UN PARÁMETRO (/api/v1/.../Europe) ---
+
+    // GET: Devolver todos los datos de una región
+    app.get(`${BASE_API_URL_DAV}/:region`, (req, res) => {
+        const { region } = req.params;
+        const filteredData = adsPerformance.filter(d => d.region.toLowerCase() === region.toLowerCase());
+
+        if (filteredData.length > 0) {
+            res.status(200).json(filteredData);
+        } else {
+            res.status(404).json({ message: "Not Found" });
+        }
+    });
+
+    // --- 3. RECURSO CONCRETO (/api/v1/.../Europe/TikTok Ads) ---
+
+    // GET: Devolver un recurso concreto (Region + Plataforma)
+    app.get(`${BASE_API_URL_DAV}/:region/:platform`, (req, res) => {
+        const { region, platform } = req.params;
+        const resource = adsPerformance.find(d => 
+            d.region.toLowerCase() === region.toLowerCase() && 
+            d.platform.toLowerCase() === platform.toLowerCase()
+        );
+
+        if (resource) {
+            res.status(200).json(resource);
+        } else {
+            res.status(404).json({ message: "Not Found" });
+        }
+    });
+
+    // POST: Crear un recurso en una URL concreta (NO PERMITIDO)
+    app.post(`${BASE_API_URL_DAV}/:region/:platform`, (req, res) => {
+        res.status(405).json({ message: "Method Not Allowed" });
+    });
+
+    // PUT: Actualizar un recurso concreto
+    app.put(`${BASE_API_URL_DAV}/:region/:platform`, (req, res) => {
+        const { region, platform } = req.params;
+        const updatedData = req.body;
+
+        // Validación: Coincidencia de identificadores entre URL y Body
+        if (!updatedData || updatedData.region !== region || updatedData.platform !== platform) {
+            return res.status(400).json({ message: "Bad Request: Los IDs del body no coinciden con la URL o faltan datos" });
+        }
+
+        const index = adsPerformance.findIndex(d => d.region === region && d.platform === platform);
+
+        if (index !== -1) {
+            adsPerformance[index] = { ...adsPerformance[index], ...updatedData };
+            res.status(200).json({ message: "Updated" });
+        } else {
+            res.status(404).json({ message: "Not Found" });
+        }
+    });
+
+    // DELETE: Borrar un recurso concreto
+    app.delete(`${BASE_API_URL_DAV}/:region/:platform`, (req, res) => {
+        const { region, platform } = req.params;
+        const initialLength = adsPerformance.length;
+
+        adsPerformance = adsPerformance.filter(d => !(d.region === region && d.platform === platform));
+
+        if (adsPerformance.length < initialLength) {
+            res.status(200).json({ message: "Deleted" });
+        } else {
+            res.status(404).json({ message: "Not Found" });
+        }
+    });
 }
