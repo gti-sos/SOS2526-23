@@ -1,6 +1,12 @@
-let BASE_URL_API = "/api/v1";
+import util from 'util';
+util.isDate = function(d) { return d instanceof Date; };
+util.isRegExp = function(re) { return re instanceof RegExp; };
 
-export function loadBackEndECR(app){
+import Datastore from 'nedb';
+
+const BASE_URL_API = "/api/v1";
+
+export function loadBackEndECR(app) {
     const datosIndices = [
         { date: "2024-01-01", index_name: "S&P 500", region: "North America", open: 37740.57, high: 38171.04, low: 37552.74, close: 38125.97, volume: 34594679, daily_change_percent: 1.02 },
         { date: "2024-01-01", index_name: "NASDAQ Composite", region: "North America", open: 12519.37, high: 12926.14, low: 12249.50, close: 12654.15, volume: 39548535, daily_change_percent: 1.08 },
@@ -14,37 +20,92 @@ export function loadBackEndECR(app){
         { date: "2024-01-01", index_name: "KSE 100", region: "Asia", open: 11151.06, high: 11422.02, low: 11009.70, close: 11312.65, volume: 33074534, daily_change_percent: 1.45 }
     ];
 
-    let dailyIndicators = [];
+    // INICIALIZAMOS LA BASE DE DATOS NeDB
+    const db = new Datastore({ filename: './dailyIndicators.db', autoload: true });
 
-    // 12. Carga de datos iniciales
-    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/loadInitialData', (req, res) => {
-        if (dailyIndicators.length === 0) {
-            dailyIndicators = [
-                { date: "2024-01-01", index_name: "S&P 500", region: "North America", open: 37740.57, high: 38171.04, low: 37552.74, close: 38125.97, volume: 34594679, daily_change_percent: 1.02 },
-                { date: "2024-01-01", index_name: "NASDAQ Composite", region: "North America", open: 12519.37, high: 12926.14, low: 12249.50, close: 12654.15, volume: 39548535, daily_change_percent: 1.08 },
-                { date: "2024-01-01", index_name: "Dow Jones", region: "North America", open: 39555.85, high: 39966.85, low: 39531.34, close: 39740.61, volume: 8398121, daily_change_percent: 0.47 },
-                { date: "2024-01-01", index_name: "FTSE 100", region: "Europe", open: 18850.59, high: 19341.92, low: 18646.31, close: 19214.54, volume: 44763368, daily_change_percent: 1.93 },
-                { date: "2024-01-01", index_name: "Nikkei 225", region: "Asia", open: 15708.36, high: 15734.90, low: 15130.62, close: 15396.17, volume: 41135726, daily_change_percent: -1.99 },
-                { date: "2024-01-01", index_name: "Hang Seng", region: "Asia", open: 4023.53, high: 4218.66, low: 4007.54, close: 4104.75, volume: 39061503, daily_change_percent: 2.02 },
-                { date: "2024-01-01", index_name: "DAX", region: "Europe", open: 19256.09, high: 19262.37, low: 18884.10, close: 18898.03, volume: 25254324, daily_change_percent: -1.86 },
-                { date: "2024-01-01", index_name: "CAC 40", region: "Europe", open: 4264.55, high: 4502.93, low: 3711.50, close: 3997.91, volume: 12578040, daily_change_percent: -6.25 },
-                { date: "2024-01-01", index_name: "SSE Composite", region: "Asia", open: 15689.85, high: 16064.29, low: 15579.67, close: 15986.31, volume: 35348196, daily_change_percent: 1.89 },
-                { date: "2024-01-01", index_name: "KSE 100", region: "Asia", open: 11151.06, high: 11422.02, low: 11009.70, close: 11312.65, volume: 33074534, daily_change_percent: 1.45 }
-            ];
-            res.status(201).json(dailyIndicators); 
-        } else {
-            res.status(200).json(dailyIndicators); 
-        }
+    // RUTA DE DOCUMENTACIÓN
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/docs', (req, res) => {
+        res.redirect('https://documenter.getpostman.com/view/52708852/2sBXigLYL8');
     });
 
-    // 13 y 14. METODOS DE LA TABLA AZUL Y CUADRO VERDE
+    // 1. CARGA DE DATOS INICIALES
+    app.get(BASE_URL_API + '/daily-global-stock-market-indicators/loadInitialData', (req, res) => {
+    db.find({}, (err, docs) => {
+        if (err) {
+            console.log("🔴 ERROR EN EL FIND:", err);
+            return res.status(500).json({ message: "Internal Server Error" });
+        }
+
+        if (docs.length === 0) {
+            // ¿Existe la variable datosIndices? Si no existe, aquí saltará el error.
+            db.insert(datosIndices, (err, newDocs) => {
+                if (err) {
+                    console.log("🔴 ERROR EN EL INSERT:", err);
+                    return res.status(500).json({ message: "Internal Server Error" });
+                }
+                
+                // Limpiamos el _id antes de devolver (Requisito F06)
+                const docsSinId = newDocs.map(d => {
+                    const copy = { ...d };
+                    delete copy._id;
+                    return copy;
+                });
+                res.status(201).json(docsSinId);
+            });
+        } else {
+            res.status(409).json({ message: "Conflict: Ya existen datos" });
+        }
+    });
+    });
+
+    // =====================================================================
+    // METODOS DE LA TABLA AZUL Y CUADRO VERDE
     // =====================================================================
 
-    // --- 1. COLECCIÓN BASE (/api/v1/daily-global-stock-market-indicators) ---
+    // --- 1. COLECCIÓN BASE ---
 
-    // GET: Devolver toda la colección
+    // GET: Devolver toda la colección (Con Búsquedas y Paginación)
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
-        res.status(200).json(dailyIndicators);
+        const searchQuery = {};
+
+        // LÓGICA DE BÚSQUEDAS POR TODOS LOS CAMPOS (Requisito F06)
+        if (req.query.date) searchQuery.date = req.query.date;
+        if (req.query.index_name) searchQuery.index_name = req.query.index_name;
+        if (req.query.region) searchQuery.region = req.query.region;
+        
+        if (req.query.open) searchQuery.open = parseFloat(req.query.open);
+        if (req.query.high) searchQuery.high = parseFloat(req.query.high);
+        if (req.query.low) searchQuery.low = parseFloat(req.query.low);
+        if (req.query.close) searchQuery.close = parseFloat(req.query.close);
+        if (req.query.volume) searchQuery.volume = parseInt(req.query.volume);
+        if (req.query.daily_change_percent) searchQuery.daily_change_percent = parseFloat(req.query.daily_change_percent);
+
+        let dbQuery = db.find(searchQuery);
+
+        // LÓGICA DE PAGINACIÓN (Requisito F06)
+        if (req.query.limit) {
+            const limit = parseInt(req.query.limit);
+            if (!isNaN(limit) && limit >= 0) dbQuery = dbQuery.limit(limit);
+        }
+
+        if (req.query.offset) {
+            const offset = parseInt(req.query.offset);
+            if (!isNaN(offset) && offset >= 0) dbQuery = dbQuery.skip(offset);
+        }
+
+        // Ejecutamos la consulta
+        dbQuery.exec((err, docs) => {
+            if (err) return res.status(500).json({ message: "Internal Server Error" });
+            
+            // Eliminamos el _id de NeDB para que el usuario no lo vea
+            const cleanData = docs.map(resource => {
+                const copy = { ...resource };
+                delete copy._id;
+                return copy;
+            });
+            
+            res.status(200).json(cleanData); // Siempre devuelve un Array
+        });
     });
 
     // POST: Crear un nuevo recurso
