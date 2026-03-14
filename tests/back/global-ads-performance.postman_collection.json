@@ -225,7 +225,7 @@
                   "pm.test(\"La respuesta debe ser un Objeto y contener la región (Requisito 8b)\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
                   "    pm.expect(jsonData).to.be.an('object');\r",
-                  "    pm.expect(jsonData.region).to.eql(\"test-region\");\r",
+                  "    pm.expect(jsonData.region).to.eql(\"Asia\");\r",
                   "});"
                 ],
                 "type": "text/javascript",
