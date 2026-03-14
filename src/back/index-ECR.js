@@ -205,4 +205,5 @@ export function loadBackEndECR(app) {
             res.sendStatus(204); // Sin body
         });
     });
+>>>>>>> 2b73c43ca8f2343574d8549d38809c4cf3f2300c
 }
