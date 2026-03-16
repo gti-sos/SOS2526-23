@@ -30,6 +30,9 @@ export function loadBackEndMRR(app){
             let max_totalPrice = req.query.max_total;
             let payMethod = req.query.payment_method;
 
+            let offset = Number(req.query.offset) || 0;
+            let limit = Number(req.query.limit) || filtrado.length;
+
             if (regionName){
                 filtrado = filtrado.filter(d => d.region.toLowerCase() === regionName.toLowerCase());
             }
@@ -69,16 +72,18 @@ export function loadBackEndMRR(app){
             }
 
             if (min_totalPrice){
-                filtrado = filtrado.filter(d => d.total > Number(min_total));
+                filtrado = filtrado.filter(d => d.total > Number(min_totaPricel));
             }
 
             if (max_totalPrice){
-                filtrado = filtrado.filter(d => d.total < Number(max_total));
+                filtrado = filtrado.filter(d => d.total < Number(max_totalPrice));
             }
 
             if (payMethod){
                 filtrado = filtrado.filter(d => d.payment_method.toLowerCase() === payMethod.toLowerCase());
             }
+
+            filtrado = filtrado.slice(offset, offset + limit);
 
             res.status(200).json(filtrado.map((c) => {
                 delete c._id; return c;
@@ -146,71 +151,9 @@ export function loadBackEndMRR(app){
         let regionName = req.params.region;
         let dateN = req.params.date;
 
-        db.find({region: regionName, date: dateN}, (err, datosMRR) => {
-            let filtrado = datosMRR;
-            let dateN1 = req.query.from;
-            let dateN2 = req.query.to;
-            let prodCategory = req.query.product_category;
-            let prodName = req.query.product_name;
-            let min_quantSold = req.query.min_quantity_sold;
-            let max_quantSold = req.query.max_quantity_sold;
-            let min_unitPrice = req.query.min_unit_price;
-            let max_unitPrice = req.query.max_unit_price;
-            let min_totalPrice = req.query.min_total;
-            let max_totalPrice = req.query.max_total;
-            let payMethod = req.query.payment_method;
-
-                if (regionName){
-                    filtrado = filtrado.filter(d => d.region.toLowerCase() === regionName.toLowerCase());
-                }
-
-                if (dateN1 && dateN2){
-                    let from = new Date(dateN1).getTime();
-                    let to = new Date(dateN2).getTime();
-
-                    filtrado = filtrado.filter(d => {
-                        let itemDate = new Date(d.date).getTime();
-                        return itemDate >= from && itemDate <= to;
-                    });
-                }
-
-                if (prodCategory){
-                    filtrado = filtrado.filter(d => d.product_category.toLowerCase() === prodCategory.toLowerCase());
-                }
-
-                if (prodName){
-                    filtrado = filtrado.filter(d => d.product_name.toLowerCase() === prodName.toLowerCase());
-                }
-
-                if (min_quantSold){
-                    filtrado = filtrado.filter(d => d.quantity_sold > Number(min_quantSold));
-                }
-
-                if (max_quantSold){
-                    filtrado = filtrado.filter(d => d.quantity_sold < Number(max_quantSold));
-                }
-
-                if (min_unitPrice){
-                    filtrado = filtrado.filter(d => d.unit_price > Number(min_unitPrice));
-                }
-
-                if (max_unitPrice){
-                    filtrado = filtrado.filter(d => d.unit_price < Number(max_unitPrice));
-                }
-
-                if (min_totalPrice){
-                    filtrado = filtrado.filter(d => d.total > Number(min_totalPrice));
-                }
-
-                if (max_totalPrice){
-                    filtrado = filtrado.filter(d => d.total < Number(max_totalPrice));
-                }
-
-                if (payMethod){
-                    filtrado = filtrado.filter(d => d.payment_method.toLowerCase() === payMethod.toLowerCase());
-                }            
-
-            res.status(200, "OK").json(filtrado);
+        db.findOne({region: regionName, date: dateN}, (err, datosMRR) => {
+            delete datosMRR._id;
+            return res.status(200, "OK").json(datosMRR);
         });
     });
 
