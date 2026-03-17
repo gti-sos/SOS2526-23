@@ -125,14 +125,14 @@ export function loadBackEndDAV(app) {
     });
 
     // 5. GET RECURSO ESPECÍFICO (region + date)
-   app.get(BASE_URL_API + '/global-ads-performance/:region/:date', (req, res) => {
+    app.get(BASE_URL_API + '/global-ads-performance/:region/:date', (req, res) => {
         const { region, date } = req.params;
 
         db.find({ region, date }, (err, docs) => {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
             if (docs.length > 0) {
-                res.status(200).json(limpiarId(docs[0])); // Devuelve UN OBJETO
+                res.status(200).json((docs[0])); // Devuelve UN OBJETO
             } else {
                 res.status(404).json({ message: "Not Found" });
             }
