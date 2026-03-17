@@ -124,30 +124,17 @@ export function loadBackEndDAV(app) {
         });
     });
 
-// GET A UN RECURSO CONCRETO (Requisitos 7 y 8b)
-    app.get(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
-        let regionName = req.params.region;
-        let dateName = req.params.date;
+    // 5. GET RECURSO ESPECÍFICO (region + date)
+   app.get(BASE_URL_API + '/global-ads-performance/:region/:date', (req, res) => {
+        const { region, date } = req.params;
 
-        // Búsqueda en NeDB usando los dos parámetros compuestos de la URL
-        db.find({ region: regionName, date: dateName }, (err, docs) => {
-            if (err) {
-                return res.status(500).json({ message: "Error interno del servidor" });
-            }
+        db.find({ region, date }, (err, docs) => {
+            if (err) return res.status(500).json({ message: "Internal Server Error" });
 
-            // Comprobamos si el array tiene algún resultado
             if (docs.length > 0) {
-                // 1. Extraemos el primer (y único) elemento del array devuelto por NeDB
-                let doc = docs[0]; // ¡AQUÍ ESTÁ LA CORRECCIÓN! Añadimos [0]
-                
-                // 2. Borramos el campo _id autogenerado por NeDB (Requisito 11)
-                delete doc._id; 
-                
-                // 3. Devolvemos el Objeto puro al cliente con código 200 OK (Requisito 8b)
-                res.status(200).json(doc);
+                res.status(200).json(limpiarId(docs[0])); // Devuelve UN OBJETO
             } else {
-                // Si el array devuelto está vacío, el recurso no existe (Devolvemos 404 Not Found)
-                res.status(404).json({ message: "Recurso no encontrado" });
+                res.status(404).json({ message: "Not Found" });
             }
         });
     });
