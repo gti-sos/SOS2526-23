@@ -124,7 +124,7 @@ export function loadBackEndDAV(app) {
         });
     });
 
-    // GET A UN RECURSO CONCRETO (Requisitos 7 y 8b)
+// GET A UN RECURSO CONCRETO (Requisitos 7 y 8b)
     app.get(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
         let regionName = req.params.region;
         let dateName = req.params.date;
@@ -138,7 +138,7 @@ export function loadBackEndDAV(app) {
             // Comprobamos si el array tiene algún resultado
             if (docs.length > 0) {
                 // 1. Extraemos el primer (y único) elemento del array devuelto por NeDB
-                let doc = docs;
+                let doc = docs[0]; // ¡AQUÍ ESTÁ LA CORRECCIÓN! Añadimos [0]
                 
                 // 2. Borramos el campo _id autogenerado por NeDB (Requisito 11)
                 delete doc._id; 
