@@ -94,15 +94,15 @@ async function insertAd() {
         <thead>
             <tr>
                 <th>Region</th>
-                <th>Date</th>
-                <th>Platform</th>
-                <th>Industry</th>
-                <th>Impression</th>
-                <th>Click</th>
-                <th>Ad_Spend</th>
-                <th>Conversion</th>
-                <th>Revenue</th>
-                <th>Action</th>
+                <th>Fecha</th>
+                <th>Plataforma</th>
+                <th>Industria</th>
+                <th>Impresiones</th>
+                <th>Clicks</th>
+                <th>Gasto en Anuncios</th>
+                <th>Conversiones</th>
+                <th>Ingresos</th>
+                <th>Acciones</th>
                 </tr>
 
 
@@ -110,19 +110,19 @@ async function insertAd() {
         <tbody>
             <tr>
                 <td><input bind:value={newRegion} placeholder="Region"></td>
-                <td><input bind:value={newDate} placeholder="Date"></td>
-                <td><input bind:value={newPlatform} placeholder="Platform"></td>
-                <td><input bind:value={newIndustry} placeholder="Industry"></td>
-                <td><input bind:value={newImpressions} placeholder="Impressions" type="number"></td>
+                <td><input bind:value={newDate} placeholder="Fecha"></td>
+                <td><input bind:value={newPlatform} placeholder="Plataforma"></td>
+                <td><input bind:value={newIndustry} placeholder="Industria"></td>
+                <td><input bind:value={newImpressions} placeholder="Impresiones" type="number"></td>
                 <td><input bind:value={newClicks} placeholder="Clicks" type="number"></td>
-                <td><input bind:value={newAdSpend} placeholder="Ad Spend" type="number"></td>
-                <td><input bind:value={newConversions} placeholder="Conversions" type="number"></td>
-                <td><input bind:value={newRevenue} placeholder="Revenue" type="number"></td>
-                <td><button onclick={insertAd}>Insert</button></td>
+                <td><input bind:value={newAdSpend} placeholder="Gasto en Anuncios" type="number"></td>
+                <td><input bind:value={newConversions} placeholder="Conversiones" type="number"></td>
+                <td><input bind:value={newRevenue} placeholder="Ingresos" type="number"></td>
+                <td><button onclick={insertAd}>Insertar</button></td>
             </tr>
             {#each global_ad as ad, i (i)}
                 <tr>
-                    <td>{ad.region}</td>
+                    <td><a href="DAV/{ad.region}/{ad.date}">{ad.region}</a></td>
                     <td>{ad.date}</td>
                     <td>{ad.platform}</td>
                     <td>{ad.industry}</td>
@@ -131,7 +131,7 @@ async function insertAd() {
                     <td>{ad.ad_spend}</td>
                     <td>{ad.conversions}</td>
                     <td>{ad.revenue}</td>
-                    <td><button onclick={() => deleteAd(ad)}>Delete</button></td>
+                    <td><button onclick={() => deleteAd(ad)}>Eliminar</button></td>
                 </tr>
             {/each}
         </tbody>
