@@ -1,1 +1,1 @@
-<p> My App </p>
+<p>My App</p>
