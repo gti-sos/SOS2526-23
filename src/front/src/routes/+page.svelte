@@ -1,3 +1,7 @@
+<script>
+    // Tu lógica de script iría aquí si la necesitas en el futuro
+</script>
+
 <style>
     /* Estilos globales básicos aplicados solo a esta vista para mejorar la fuente y el fondo */
     :global(body) {
@@ -101,35 +105,40 @@
         margin-left: 10px;
     }
 </style>
-<h1> SOS2526-23 </h1>
 
-<h2> Team </h2>
-<ul>
-    <li> David Ayllón Vela - global-ads-performance </li>
-    <li> Emilio Cuevas Rendón - daily-global-stock-market-indicators</li>
-    <li> María Rodríguez Romero - online-sales-popular-marketplaces</li>
-</ul>
+<div class="container">
+    <h1>SOS2526-23</h1>
 
-<h2> Repositorio de Github </h2>
-<p> &rarr; <a href="https://github.com/gti-sos/SOS2526-23" target="_blank"> https://github.com/gti-sos/SOS2526-23 </a></p>
+    <h2>Team</h2>
+    <ul class="team-list">
+        <li><strong>David Ayllón Vela</strong> - global-ads-performance</li>
+        <li><strong>Emilio Cuevas Rendón</strong> - daily-global-stock-market-indicators</li>
+        <li><strong>María Rodríguez Romero</strong> - online-sales-popular-marketplaces</li>
+    </ul>
 
-<h2> Front-end individual </h2> REVISAR
-<div>
-    <a class = "buttonEnlace" href="/DAV" target="_blank"> DAV </a>
-    <a class = "buttonEnlace" href="/ECR" target="_blank"> ECR </a>
-    <a class = "buttonEnlace" href="/MRR" target="_blank"> MRR </a>
-</div>
+    <h2>Repositorio de Github</h2>
+    <a class="github-link" href="https://github.com/gti-sos/SOS2526-23" target="_blank">
+        &rarr; https://github.com/gti-sos/SOS2526-23
+    </a>
 
-<h2> API's desarrolladas </h2>
-<div>
-    <a class = "buttonEnlace" href="/api/v1/global-ads-performance" target="_blank"> global-ads-performance </a>
-    <a class = "buttonEnlace" href="/api/v1/daily-global-stock-market-indicators" target="_blank"> daily-global-stock-market-indicators </a>
-    <a class = "buttonEnlace" href="/api/v1/online-sales-popular-marketplaces" target="_blank"> online-sales-popular-marketplaces </a>
-</div>
+    <h2>Front-end individual <span class="nota">(REVISAR)</span></h2>
+    <div class="button-group">
+        <a class="buttonEnlace" href="/DAV" target="_blank">DAV</a>
+        <a class="buttonEnlace" href="/ECR" target="_blank">ECR</a>
+        <a class="buttonEnlace" href="/MRR" target="_blank">MRR</a>
+    </div>
 
-<h2> Documentación de Postman </h2>
-<div>
-    <a class = "buttonEnlace" href="https://documenter.getpostman.com/view/52707486/2sBXigLYQP" target="_blank"> global-ads-performance </a>
-    <a class = "buttonEnlace" href="https://documenter.getpostman.com/view/52708852/2sBXigLYL8" target="_blank"> daily-global-stock-market-indicators </a>
-    <a class = "buttonEnlace" href="https://documenter.getpostman.com/view/52406430/2sBXigLYQR" target="_blank"> online-sales-popular-marketplaces </a>
+    <h2>API's desarrolladas</h2>
+    <div class="button-group">
+        <a class="buttonEnlace" href="/api/v1/global-ads-performance" target="_blank">global-ads-performance</a>
+        <a class="buttonEnlace" href="/api/v1/daily-global-stock-market-indicators" target="_blank">daily-global-stock-market-indicators</a>
+        <a class="buttonEnlace" href="/api/v1/online-sales-popular-marketplaces" target="_blank">online-sales-popular-marketplaces</a>
+    </div>
+
+    <h2>Documentación de Postman</h2>
+    <div class="button-group">
+        <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52707486/2sBXigLYQP" target="_blank">global-ads-performance</a>
+        <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52708852/2sBXigLYL8" target="_blank">daily-global-stock-market-indicators</a>
+        <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52406430/2sBXigLYQR" target="_blank">online-sales-popular-marketplaces</a>
+    </div>
 </div>
