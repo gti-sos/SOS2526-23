@@ -3,8 +3,6 @@
     import { page } from '$app/state';
     import {dev} from '$app/environment';
     import {onMount } from 'svelte';
-    import { error } from '@sveltejs/kit';
-    
 
     // Importamos los mismos componentes de Sveltestrap que en la vista principal
     import { 
@@ -16,6 +14,9 @@
     let date = page.params.date;
 
     let API = "/api/v1/global-ads-performance";
+
+    // Estado para controlar la visualización del mensaje de error 404
+    let notFoundError = $state(false);
 
     let resultStatusCode = $state(0);
     let updatedRegion = $state("newRegion");
@@ -35,39 +36,37 @@
         //FUNCION GET
     async function getData() {
         try {
-            const res = await fetch(API+"/"+region+"/"+date,{
+            const res = await fetch(`${API}/${region}/${date}`,{
                 method: 'GET'
             });
 
-            // Si el servidor responde con 404, lanzamos el error de SvelteKit
+            // 1. Comprobamos si el servidor responde con un 404
             if (res.status === 404) {
-                // Esto redirigirá automáticamente a la página de error por defecto
-                throw error(404, {
-                    message: `No se encontró el anuncio para la región ${region} en la fecha ${date}`
-                });
+                notFoundError = true;
+                return; // Salimos de la función para no intentar procesar el JSON
             }
 
-            // Si hay otro error que no es 2xx ni 404, lo mostramos
             if (!res.ok) {
                 console.error("Error al obtener los datos:", res.status);
                 return;
             }
-        const data = await res.json();
-        updatedRegion = data.region;
-        updatedDate = data.date;
-        updatedPlatform = data.platform;
-        updatedIndustry = data.industry;
-        updatedImpressions = data.impressions;
-        updatedClicks = data.clicks;
-        updatedAdSpend = data.ad_spend;
-        updatedConversions = data.conversions;
-        updatedRevenue = data.revenue;
+
+            // 2. Si todo fue bien, cargamos los datos y nos aseguramos de que el error esté en false
+            notFoundError = false;
+            const data = await res.json();
+            
+            updatedRegion = data.region;
+            updatedDate = data.date;
+            updatedPlatform = data.platform;
+            updatedIndustry = data.industry;
+            updatedImpressions = data.impressions;
+            updatedClicks = data.clicks;
+            updatedAdSpend = data.ad_spend;
+            updatedConversions = data.conversions;
+            updatedRevenue = data.revenue;
 
         } catch (err) {
-            // Re-lanzamos el error de SvelteKit para que lo procese el framework
-            // @ts-ignore
-            if (err.status === 404) throw err;
-            console.error("Error de red:", err);
+            console.error("Error de red al intentar obtener el anuncio:", err);
         }
     }
 
@@ -120,6 +119,20 @@
         </Col>
     </Row>
 
+    {#if notFoundError}
+        <Alert color="danger" class="shadow-sm">
+            <h4 class="alert-heading">Error 404: Anuncio no encontrado</h4>
+            <p>
+                No existe un anuncio registrado en el sistema con región <strong>"{region}"</strong> en la fecha <strong>"{date}"</strong>.
+            </p>
+            <hr>
+            <p class="mb-0">
+                Por favor, comprueba la URL o vuelve al listado principal para seleccionar un registro válido.
+            </p>
+        </Alert>
+
+    {:else}
+
     <Card class="shadow-sm mb-4">
         <CardBody>
             <Table hover responsive class="align-middle">
@@ -167,6 +180,7 @@
             {resultStatusCode >= 200 && resultStatusCode < 300 ? '(Recurso actualizado correctamente)' : ''}
         </Alert>
     {/if}
+{/if}
 </Container>
 
 <style>
