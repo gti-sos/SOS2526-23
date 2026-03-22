@@ -97,13 +97,7 @@
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     }
-
-    .nota {
-        font-size: 0.8rem;
-        color: #e53e3e;
-        font-weight: bold;
-        margin-left: 10px;
-    }
+    
 </style>
 
 <div class="container">
@@ -121,7 +115,7 @@
         &rarr; https://github.com/gti-sos/SOS2526-23
     </a>
 
-    <h2>Front-end individual <span class="nota">(REVISAR)</span></h2>
+    <h2>Front-end individual</h2>
     <div class="button-group">
         <a class="buttonEnlace" href="/DAV" target="_blank">DAV</a>
         <a class="buttonEnlace" href="/daily-global-stock-market-indicators" target="_blank">ECR</a>
