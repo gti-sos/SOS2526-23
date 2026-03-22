@@ -2,7 +2,13 @@
 
     import { page } from '$app/state';
     import {dev} from '$app/environment';
-    import {onMount } from 'svelte';    
+    import {onMount } from 'svelte';  
+
+    // Importamos los mismos componentes de Sveltestrap que en la vista principal
+    import { 
+        Table, Button, Input, Container, Row, Col, 
+        Alert, Badge, Card, CardBody 
+    } from '@sveltestrap/sveltestrap';
     
     let region = page.params.region;
     let date = page.params.date;
@@ -41,9 +47,7 @@
         updatedRevenue = data.revenue;
     }
 
-
-    //FUNCION PUT
-
+        //FUNCION PUT
     async function updateAd() {
         let newAd= {
                 region: updatedRegion,
@@ -77,41 +81,76 @@
 
 </script>
 
-<p>Detalle de Anuncios para la Región: {region} y Fecha: {date}</p>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Region</th>
-                <th>Fecha</th>
-                <th>Plataforma</th>
-                <th>Industria</th>
-                <th>Impresiones</th>
-                <th>Clicks</th>
-                <th>Gasto en Anuncios</th>
-                <th>Conversiones</th>
-                <th>Ingresos</th>
-                <th>Acciones</th>
-                </tr>
+<Container class="mt-4">
+    <Row class="align-items-center mb-4">
+        <Col>
+            <h2 class="text-primary">Edición de Anuncio</h2>
+            <p class="text-muted">
+                Región: <Badge color="info">{region}</Badge> | 
+                Fecha: <Badge color="info">{date}</Badge>
+            </p>
+        </Col>
+        <Col class="text-end">
+            <a href="/DAV" class="btn btn-outline-secondary">⬅ Volver al listado</a>
+        </Col>
+    </Row>
 
+    <Card class="shadow-sm mb-4">
+        <CardBody>
+            <Table hover responsive vertical="middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Region</th>
+                        <th>Fecha</th>
+                        <th>Plataforma</th>
+                        <th>Industria</th>
+                        <th>Impresiones</th>
+                        <th>Clicks</th>
+                        <th>Gasto (€)</th>
+                        <th>Conv.</th>
+                        <th>Ingresos (€)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-light">
+                        <td><Input type="text" bind:value={updatedRegion} bsSize="sm" /></td>
+                        <td><Input type="text" bind:value={updatedDate} bsSize="sm" /></td>
+                        <td><Input type="text" bind:value={updatedPlatform} bsSize="sm" /></td>
+                        <td><Input type="text" bind:value={updatedIndustry} bsSize="sm" /></td>
+                        
+                        <td><Input type="number" bind:value={updatedImpressions} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={updatedClicks} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={updatedAdSpend} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={updatedConversions} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={updatedRevenue} bsSize="sm" /></td>
+                        
+                        <td>
+                            <Button color="primary" size="sm" class="w-100" onclick={updateAd}>
+                                Actualizar
+                            </Button>
+                        </td>
+                    </tr>
+                </tbody>
+            </Table>
+        </CardBody>
+    </Card>
 
-        </thead>
-        <tbody>
-            <tr>
-                <td><input bind:value={updatedRegion}></td>
-                <td><input bind:value={updatedDate}></td>
-                <td><input bind:value={updatedPlatform}></td>
-                <td><input bind:value={updatedIndustry}></td>
-                <td><input bind:value={updatedImpressions}></td>
-                <td><input bind:value={updatedClicks}></td>
-                <td><input bind:value={updatedAdSpend}></td>
-                <td><input bind:value={updatedConversions}></td>
-                <td><input bind:value={updatedRevenue}></td>
-                <td><button onclick={updateAd}>Actualizar</button></td>
-            </tr>
-        </tbody>
-    </table>
+    {#if resultStatusCode !== 0}
+        <Alert color={resultStatusCode >= 200 && resultStatusCode < 300 ? 'success' : 'warning'} dismissible>
+            <strong>Estado de la operación:</strong> {resultStatusCode} 
+            {resultStatusCode >= 200 && resultStatusCode < 300 ? '(Recurso actualizado correctamente)' : ''}
+        </Alert>
+    {/if}
+</Container>
 
-{#if resultStatusCode !=0}
-    <h5>Status Code operation result: {resultStatusCode}</h5>
-{/if}
+<style>
+    /* Estilos globales para mantener la consistencia con la página principal */
+    :global(body) {
+        background-color: #f8f9fa;
+    }
+    .table td {
+        font-size: 0.9rem;
+    }
+</style>

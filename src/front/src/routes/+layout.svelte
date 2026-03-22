@@ -12,9 +12,7 @@
 </svelte:head>
 
 
-<Styles>
-	
-</Styles>
+<Styles></Styles>
 
 <Header></Header>
 <hr>
