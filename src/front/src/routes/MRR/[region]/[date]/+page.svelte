@@ -4,7 +4,6 @@
     let regionName = page.params.region;
     let dateN = page.params.date;
 
-
     import { dev } from '$app/environment';
     import { onMount } from 'svelte';
     import { Button } from '@sveltestrap/sveltestrap';
@@ -18,7 +17,6 @@
     let sale = $state({});
     let resultStatusCode = $state(0);
     let informationText = $state("");
-
 
     let newRegion = $state("newRegion");
     let newDate = $state("newDate");
@@ -46,7 +44,6 @@
 
     async function updateSale(){
         informationText = "";
-
         let updatedSale = {
             region: newRegion,
             date: newDate,
@@ -57,7 +54,6 @@
             total: newTotal,
             payment_method: newPaymentMethod
         };
-
         const res = await fetch(API  + "/" + regionName + "/" + dateN, {
             method: "PUT",
             headers: {
@@ -65,7 +61,6 @@
             },
             body: JSON.stringify(updatedSale)
         });
-
         resultStatusCode = await res.status;
         if (resultStatusCode == 200){
             getSale();
@@ -87,51 +82,185 @@
     onMount(() => {
         getSale();
     });
-
 </script>
 
-<h1> Sale Details </h1>
+<div class="sales-dashboard">
+    <div class="dashboard-header">
+        <div>
+            <h1>Sale Details</h1>
+            <h3 class="subtitle">{regionName} &rarr; {dateN}</h3>
+        </div>
+        
+        <div class="header-actions">
+            <Button href="/MRR" color="secondary" outline>
+                &larr; Volver a la lista
+            </Button>
+        </div>
+    </div>
 
-<h3> {regionName} &rarr; {dateN} </h3>
-
-<div style="padding: 10px; margin-top: 10px; background-color: #e7f3ff; border-left: 5px solid #2196F3;">
-    {#if resultStatusCode != 0}
-        <strong> Status Code of Operation: </strong> {resultStatusCode}
+    {#if resultStatusCode != 0 || informationText != ""}
+        <div class="info-panel">
+            {#if resultStatusCode != 0}
+                <div class="status-badge {resultStatusCode >= 400 ? 'error' : 'success'}">
+                    <strong>Status Code:</strong> {resultStatusCode}
+                </div>
+            {/if}
+            
+            {#if informationText != ""}
+                <div class="info-message">
+                    <strong>Información:</strong> {informationText}
+                </div>
+            {/if}
+        </div>
     {/if}
 
-    {#if informationText != ""}
-    <strong>Información:</strong> {informationText}
-    {/if}
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Región</th>
+                    <th>Fecha</th>
+                    <th>Categoría</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                    <th>Método de pago</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="input-row">
+                    <td><input type="text" bind:value={newRegion}></td>
+                    <td><input type="text" bind:value={newDate}></td>
+                    <td><input type="text" bind:value={newCategory}></td>
+                    <td><input type="text" bind:value={newProduct}></td>
+                    <td><input type="number" bind:value={newQuantity}></td>
+                    <td><input type="number" bind:value={newPrice}></td>
+                    <td><input type="number" bind:value={newTotal}></td>
+                    <td><input type="text" bind:value={newPaymentMethod}></td>
+                    <td class="text-center">
+                        <Button color="primary" onclick={updateSale}> Actualizar </Button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<table>
-    <thead>
-        <tr>
-            <th> Región </th>
-            <th> Fecha </th>
-            <th> Categoría </th>
-            <th> Producto </th>
-            <th> Cantidad </th>
-            <th> Precio </th>
-            <th> Total </th>
-            <th> Método de pago </th>
-            <th>  </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="text" bind:value={newRegion}></td>
-            <td><input type="text" bind:value={newDate}></td>
-            <td><input type="text" bind:value={newCategory}></td>
-            <td><input type="text" bind:value={newProduct}></td>
-            <td><input type="number" bind:value={newQuantity}></td>
-            <td><input type="number" bind:value={newPrice}></td>
-            <td><input type="number" bind:value={newTotal}></td>
-            <td><input type="text" bind:value={newPaymentMethod}></td>
-            <td><Button onclick={updateSale}> Actualizar </Button></td>
-        </tr>
-    </tbody>
-</table>
+<style>
+    /* Contenedor Principal */
+    .sales-dashboard {
+        max-width: 1400px;
+        margin: 2rem auto;
+        padding: 0 20px;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        color: #333;
+    }
 
+    /* Cabecera */
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f0f2f5;
+    }
 
+    h1 {
+        margin: 0;
+        color: #2c3e50;
+        font-weight: 700;
+    }
 
+    .subtitle {
+        color: #6c757d;
+        margin: 5px 0 0 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    /* Panel de Información */
+    .info-panel {
+        background-color: #f8faff;
+        border-left: 5px solid #2196F3;
+        border-radius: 4px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .status-badge.success { color: #2e7d32; }
+    .status-badge.error { color: #d32f2f; }
+    
+    .info-message {
+        font-size: 0.95rem;
+        color: #444;
+    }
+
+    /* Contenedor de la Tabla */
+    .table-container {
+        overflow-x: auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Diseño de la Tabla */
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        white-space: nowrap;
+    }
+
+    .data-table thead {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .data-table th {
+        padding: 15px 12px;
+        text-align: left;
+        color: #495057;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .data-table td {
+        padding: 12px;
+        vertical-align: middle;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    /* Fila de Inputs */
+    .input-row {
+        background-color: #f1f4f8;
+    }
+
+    .input-row input {
+        width: 100%;
+        min-width: 100px;
+        padding: 8px 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        transition: border-color 0.15s ease-in-out;
+        box-sizing: border-box;
+    }
+
+    .input-row input:focus {
+        outline: none;
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    }
+
+    .text-center {
+        text-align: center !important;
+    }
+</style>
