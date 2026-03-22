@@ -142,11 +142,12 @@ async function loadInitialData() {
         }
     }
 
-
+    
         //FUNCION DELETE UN ELEMENTO
     /** @param {{region: string, date: string}} ad */
     async function deleteAd(ad) {
-        const url = `${API}?region=${encodeURIComponent(ad.region)}&date=${encodeURIComponent(ad.date)}`;
+        // CORRECCIÓN: Cambiamos los query params (?region=...) por parámetros de ruta (/.../...)
+        const url = `${API}/${encodeURIComponent(ad.region)}/${encodeURIComponent(ad.date)}`;
         
         try {
             const res = await fetch(url, { method: 'DELETE' });
@@ -158,14 +159,14 @@ async function loadInitialData() {
                     !(item.region === ad.region && item.date === ad.date)
                 );
             } else {
-                alert("No se pudo eliminar el recurso del servidor.");
+                alert("No se pudo eliminar el recurso del servidor. Status: " + res.status);
             }
         } catch (error) {
             console.error('Error de red:', error);
         }
     }
 
-//------------------------------------------------------------------------------    
+//------------------------------------------------------------------------------
 
 
     onMount(() => {
