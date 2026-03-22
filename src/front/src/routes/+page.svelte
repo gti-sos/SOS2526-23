@@ -123,7 +123,7 @@
 
     <h2>Front-end individual <span class="nota">(REVISAR)</span></h2>
     <div class="button-group">
-        <a class="buttonEnlace" href="/DAV" target="_blank">DAV</a>
+        <a class="buttonEnlace" href="/global-ads-performance" target="_blank">DAV</a>
         <a class="buttonEnlace" href="/daily-global-stock-market-indicators" target="_blank">ECR</a>
         <a class="buttonEnlace" href="/MRR" target="_blank">MRR</a>
     </div>

@@ -229,7 +229,7 @@ async function loadInitialData() {
                     {#each global_ad as ad, i (i)}
                     <tr>
                             <td>
-                                <a href="/DAV/{ad.region}/{ad.date}" class="text-decoration-none fw-bold">
+                                <a href="/global-ads-performance/{ad.region}/{ad.date}" class="text-decoration-none fw-bold">
                                     {ad.region}
                                 </a>
                             </td>
