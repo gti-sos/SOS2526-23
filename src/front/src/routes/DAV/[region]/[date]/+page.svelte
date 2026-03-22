@@ -2,7 +2,8 @@
 
     import { page } from '$app/state';
     import {dev} from '$app/environment';
-    import {onMount } from 'svelte';  
+    import {onMount } from 'svelte'; 
+    
 
     // Importamos los mismos componentes de Sveltestrap que en la vista principal
     import { 
@@ -98,7 +99,7 @@
 
     <Card class="shadow-sm mb-4">
         <CardBody>
-            <Table hover responsive vertical="middle">
+            <Table hover responsive class="align-middle">
                 <thead class="table-dark">
                     <tr>
                         <th>Region</th>
@@ -150,7 +151,7 @@
     :global(body) {
         background-color: #f8f9fa;
     }
-    .table td {
-        font-size: 0.9rem;
-    }
+    :global(.table td) {
+    font-size: 0.9rem;
+}
 </style>
