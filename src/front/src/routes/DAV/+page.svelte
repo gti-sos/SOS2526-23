@@ -121,7 +121,7 @@ async function insertAd() {
                 <td><button onclick={insertAd}>Insertar</button></td>
             </tr>
             {#each global_ad as ad, i (i)}
-                <tr>
+                <tr> 
                     <td><a href="DAV/{ad.region}/{ad.date}">{ad.region}</a></td>
                     <td>{ad.date}</td>
                     <td>{ad.platform}</td>

@@ -77,7 +77,7 @@
 
 </script>
 
-<p>Detalle de Anuncios para la Región: {region}</p>
+<p>Detalle de Anuncios para la Región: {region} y Fecha: {date}</p>
 
     <table>
         <thead>
