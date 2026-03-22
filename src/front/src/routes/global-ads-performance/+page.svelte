@@ -18,10 +18,10 @@
     let newDate = $state("newDate");
     let newPlatform = $state("newPlatform");
     let newIndustry = $state("newIndustry");
-    let newImpressions = $state(0);
-    let newClicks = $state(0);
+    let newImpression = $state(0);
+    let newClick = $state(0);
     let newAdSpend = $state(0);
-    let newConversions = $state(0);
+    let newConversion = $state(0);
     let newRevenue = $state(0);
 
     if (dev)
@@ -88,10 +88,10 @@ async function loadInitialData() {
             date: newDate,
             platform: newPlatform,
             industry: newIndustry,
-            impressions: newImpressions,
-            clicks: newClicks,
+            impression: newImpression,
+            click: newClick,
             ad_spend: newAdSpend,
-            conversions: newConversions,
+            conversion: newConversion,
             revenue: newRevenue
         };
 
@@ -215,10 +215,10 @@ async function loadInitialData() {
                         <td><Input type="text" bind:value={newPlatform} placeholder="Plataforma" bsSize="sm" /></td>
                         <td><Input type="text" bind:value={newIndustry} placeholder="Industria" bsSize="sm" /></td>
                         
-                        <td><Input type="number" bind:value={newImpressions} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={newClicks} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={newImpression} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={newClick} bsSize="sm" /></td>
                         <td><Input type="number" bind:value={newAdSpend} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={newConversions} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={newConversion} bsSize="sm" /></td>
                         <td><Input type="number" bind:value={newRevenue} bsSize="sm" /></td>
                         <td>
                             <Button color="success" size="sm" class="w-100" onclick={insertAd}>
@@ -236,10 +236,10 @@ async function loadInitialData() {
                             <td><Badge color="light" class="text-dark">{ad.date}</Badge></td>
                             <td>{ad.platform}</td>
                             <td>{ad.industry}</td>
-                            <td>{ad.impressions}</td>
-                            <td>{ad.clicks}</td>
+                            <td>{ad.impression}</td>
+                            <td>{ad.click}</td>
                             <td class="text-danger">-{ad.ad_spend}</td>
-                            <td>{ad.conversions}</td>
+                            <td>{ad.conversion}</td>
                             <td class="text-success fw-bold">+{ad.revenue}</td>
                             <td>
                                 <Button color="outline-danger" size="sm" onclick={() => deleteAd(ad)}>
