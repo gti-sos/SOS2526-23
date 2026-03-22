@@ -2,7 +2,8 @@
 
     import { page } from '$app/state';
     import {dev} from '$app/environment';
-    import {onMount } from 'svelte'; 
+    import {onMount } from 'svelte';
+    import { error } from '@sveltejs/kit';
     
 
     // Importamos los mismos componentes de Sveltestrap que en la vista principal
@@ -33,9 +34,24 @@
 
         //FUNCION GET
     async function getData() {
-        const res = await fetch(API+"/"+region+"/"+date,{
-            method: 'GET'
-        });
+        try {
+            const res = await fetch(API+"/"+region+"/"+date,{
+                method: 'GET'
+            });
+
+            // Si el servidor responde con 404, lanzamos el error de SvelteKit
+            if (res.status === 404) {
+                // Esto redirigirá automáticamente a la página de error por defecto
+                throw error(404, {
+                    message: `No se encontró el anuncio para la región ${region} en la fecha ${date}`
+                });
+            }
+
+            // Si hay otro error que no es 2xx ni 404, lo mostramos
+            if (!res.ok) {
+                console.error("Error al obtener los datos:", res.status);
+                return;
+            }
         const data = await res.json();
         updatedRegion = data.region;
         updatedDate = data.date;
@@ -46,6 +62,13 @@
         updatedAdSpend = data.ad_spend;
         updatedConversions = data.conversions;
         updatedRevenue = data.revenue;
+
+        } catch (err) {
+            // Re-lanzamos el error de SvelteKit para que lo procese el framework
+            // @ts-ignore
+            if (err.status === 404) throw err;
+            console.error("Error de red:", err);
+        }
     }
 
         //FUNCION PUT
