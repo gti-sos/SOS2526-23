@@ -93,7 +93,7 @@
             </p>
         </Col>
         <Col class="text-end">
-            <a href="/DAV" class="btn btn-outline-secondary">⬅ Volver al listado</a>
+            <a href="/global-ads-performance" class="btn btn-outline-secondary">⬅ Volver al listado</a>
         </Col>
     </Row>
 
