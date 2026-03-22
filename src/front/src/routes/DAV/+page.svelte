@@ -226,9 +226,8 @@ async function loadInitialData() {
                             </Button>
                         </td>
                     </tr>
-                    
-                    {#each global_ad as ad (ad.region + ad.date)}
-                        <tr>
+                    {#each global_ad as ad, i (i)}
+                    <tr>
                             <td>
                                 <a href="/DAV/{ad.region}/{ad.date}" class="text-decoration-none fw-bold">
                                     {ad.region}
