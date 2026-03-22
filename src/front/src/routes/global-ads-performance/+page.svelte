@@ -8,8 +8,6 @@
         Alert, Badge, Card, CardBody 
     } from '@sveltestrap/sveltestrap';
     
-    let API = "/api/v1/global-ads-performance";
-
     // @ts-ignore
     let global_ad= $state([]);
     let resultStatusCode = $state(0);
@@ -24,9 +22,12 @@
     let newConversions = $state(0);
     let newRevenue = $state(0);
 
-    if (dev)
-        API = "http://localhost:3000"+API;
-    
+   const BASE_API_URL = dev 
+    ? "http://localhost:3000" 
+    : "https://tu-url-de-backend.onrender.com"; // Pon aquí tu URL de Render
+
+    let API = BASE_API_URL + "/api/v1/global-ads-performance";
+
 
         //FUNCION CARGAR DATOS INICIALES
     
