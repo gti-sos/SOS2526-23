@@ -104,8 +104,8 @@ export function loadBackEndDAV(app) {
             return res.sendStatus(400); // 400 Bad Request
         }
 
-        // Comprobamos si ya existe la clave primaria correcta (region + platform)
-        db.find({ region: newResource.region, platform: newResource.platform }, (err, docs) => {
+        // Comprobamos si ya existe la clave primaria correcta (region + date)
+        db.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
             if (docs.length > 0) {
                 return res.sendStatus(409); // 409 Conflict (Ya existe)
             }
