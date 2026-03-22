@@ -27,7 +27,7 @@ jobs:
       - name: Instalar dependencias del Frontend y construir
         run: |
           cd src/front
-          npm install
+          npm install --legacy-peer-deps
           npm run build
           
       # 5. Lanza los tests usando el script que ya preparamos
