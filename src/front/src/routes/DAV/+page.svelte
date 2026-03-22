@@ -3,7 +3,7 @@
     import {onMount } from 'svelte';
 
     // Importamos los componentes de Sveltestrap que necesitamos
-    import { 
+    import {
         Table, Button, Input, Container, Row, Col, 
         Alert, Badge, Card, CardBody 
     } from '@sveltestrap/sveltestrap';
@@ -30,62 +30,105 @@
 
         //FUNCION CARGAR DATOS INICIALES
     
-    async function loadInitialData() {
-        const res = await fetch(API+"/loadInitialData",{
-            method: 'GET'
-        }); 
+async function loadInitialData() {
+        // 1. Comprobamos si ya hay datos en la tabla
         if (global_ad.length > 0) {
-            alert("La lista ya contiene los datos iniciales. No se cargarán de nuevo.");
-            resultStatusCode = res.status;
-            return;
+            const userWantsToContinue = confirm("A continuación se borrará el contenido a cambio de los datos iniciales");
+            
+            if (!userWantsToContinue) {
+                return; 
+            }
+
+            // 2. Si acepta, primero borramos TODOS los datos del servidor para evitar el error 409 (Conflicto) al intentar cargar los iniciales.
+            try {
+                await fetch(API, { method: 'DELETE' });
+            } catch (e) {
+                console.error("Error al limpiar la base de datos:", e);
+            }
         }
 
-        const data = await res.json();
-        global_ad = data;
+        // 3. Una vez limpio el backend (o si ya estaba vacío), cargamos los datos por defecto
+        try {
+            const res = await fetch(API + "/loadInitialData", {
+                method: 'GET'
+            }); 
+            
+            resultStatusCode = res.status;
 
+            if (res.ok || res.status === 201) {
+                // En lugar de asignar el json directo, llamamos a getData() 
+                // para asegurarnos de que traemos el estado real y actualizado de la base de datos
+                getData();
+            } else {
+                console.error("Error al cargar los datos iniciales. Status:", res.status);
+            }
+        } catch (error) {
+            console.error("Error de red:", error);
+        }
     }
 
-        //FUNCION GET TODOS LOS DATOS
 
+        //FUNCION GET TODOS LOS DATOS
     async function getData() {
         const res = await fetch(API,{
             method: 'GET'
-        }); 
+        });
         const data = await res.json();
         global_ad = data;
     }
 
+
         //FUNCION POST UN ELEMENTO
-
     async function insertAd() {
-        let newAd= {
-                region: newRegion,
-                date: newDate,
-                platform: newPlatform,
-                industry: newIndustry,
-                impressions: newImpressions,
-                clicks: newClicks,
-                ad_spend: newAdSpend,
-                conversions: newConversions,
-                revenue: newRevenue
-            };
+        // 1. Ocultar alerta de estado anterior para forzar la reactividad
+        resultStatusCode = 0; 
 
-        const res = await fetch(API,{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newAd)
+        let newAd = {
+            region: newRegion,
+            date: newDate,
+            platform: newPlatform,
+            industry: newIndustry,
+            impressions: newImpressions,
+            clicks: newClicks,
+            ad_spend: newAdSpend,
+            conversions: newConversions,
+            revenue: newRevenue
+        };
+
+        try {
+            const res = await fetch(API, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newAd)
             });
 
-            resultStatusCode = await res.status;
+            // 2. Asignamos el nuevo estado devuelto por el servidor
+            resultStatusCode = res.status;
 
-            if(resultStatusCode==201)
-                getData();
+            // 3. Evaluamos la respuesta
+            if (res.ok || res.status === 201) {
+                // Éxito: recargamos la tabla para ver el nuevo dato
+                await getData();
+                console.log("Inserción exitosa (201).");
+            } else if (res.status === 409) {
+                // Conflicto: Ya existe (mismo id o claves compuestas)
+                console.warn("Conflicto: El recurso ya existe (409).");
+                alert("Atención: Ya existe un registro para esta Región y Fecha. (Error 409)");
+            } else {
+                // Otro tipo de error (400, 500, etc.)
+                console.error("El servidor devolvió un código de error:", res.status);
+            }
+
+        } catch (error) {
+            console.error("Fallo la petición fetch:", error);
+            resultStatusCode = 500;
+            alert("Error de conexión con el servidor. Revisa la consola.");
+        }
     }
 
         //FUNCION DELETE TODO
-
     async function deleteAll() {
         if (!confirm("¿Estás seguro de que quieres borrar TODOS los registros?")) return;
         try {
@@ -99,8 +142,8 @@
         }
     }
 
-        //FUNCION DELETE UN ELEMENTO
 
+        //FUNCION DELETE UN ELEMENTO
     /** @param {{region: string, date: string}} ad */
     async function deleteAd(ad) {
         const url = `${API}?region=${encodeURIComponent(ad.region)}&date=${encodeURIComponent(ad.date)}`;
