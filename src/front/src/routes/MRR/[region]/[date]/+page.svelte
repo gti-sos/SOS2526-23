@@ -98,21 +98,13 @@
         </div>
     </div>
 
-    {#if resultStatusCode != 0 || informationText != ""}
-        <div class="info-panel">
-            {#if resultStatusCode != 0}
-                <div class="status-badge {resultStatusCode >= 400 ? 'error' : 'success'}">
-                    <strong>Status Code:</strong> {resultStatusCode}
-                </div>
-            {/if}
-            
-            {#if informationText != ""}
-                <div class="info-message">
-                    <strong>Información:</strong> {informationText}
-                </div>
-            {/if}
-        </div>
-    {/if}
+    <div class="info-panel">
+        {#if informationText != ""}
+            <div class="info-message">
+                <strong>Información:</strong> {informationText}
+            </div>
+        {/if}
+    </div>
 
     <div class="table-container">
         <table class="data-table">
