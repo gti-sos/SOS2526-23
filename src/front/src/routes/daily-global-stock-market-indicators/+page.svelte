@@ -42,32 +42,42 @@
             mostrarMensaje('Error de conexión con el servidor.', true);
         }
     }
-
+  
     // 2. Crear un recurso (Añadir a la tabla)
-    async function crearIndicador() {
-        try {
-            const res = await fetch('/api/v1/daily-global-stock-market-indicators', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(nuevoIndicador)
-            });
+    async function crearIndicador() {
+        // --- NUEVA VALIDACIÓN FRONTEND ---
+        // Comprobamos si algún valor del objeto es una cadena vacía o nulo
+        const camposVacios = Object.values(nuevoIndicador).some(valor => valor === '' || valor === null);
+        
+        if (camposVacios) {
+            mostrarMensaje('Error: Todos los campos son obligatorios. Por favor, rellénalos todos.', true);
+            return; // Esto detiene la función para que no se ejecute el fetch
+        }
+        // ---------------------------------
 
-            if (res.status === 201) {
-                mostrarMensaje('¡Dato del mercado añadido correctamente!');
-                cargarIndicadores(); // Recargar la tabla
-                // Limpiar el formulario
-                nuevoIndicador = { date: '', index_name: '', region: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: '' };
-            } else if (res.status === 409) {
-                mostrarMensaje('Error: Ya existe un registro para esa región y ese índice.', true);
-            } else if (res.status === 400) {
-                mostrarMensaje('Error: Faltan datos por rellenar o el formato es incorrecto.', true);
-            } else {
-                mostrarMensaje('Ocurrió un error inesperado al guardar.', true);
-            }
-        } catch (error) {
-            mostrarMensaje('Error de conexión con el servidor.', true);
-        }
-    }
+        try {
+            const res = await fetch('/api/v1/daily-global-stock-market-indicators', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoIndicador)
+            });
+
+            if (res.status === 201) {
+                mostrarMensaje('¡Dato del mercado añadido correctamente!');
+                cargarIndicadores(); // Recargar la tabla
+                // Limpiar el formulario
+                nuevoIndicador = { date: '', index_name: '', region: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: '' };
+            } else if (res.status === 409) {
+                mostrarMensaje('Error: Ya existe un registro para esa región y ese índice.', true);
+            } else if (res.status === 400) {
+                mostrarMensaje('Error: Faltan datos por rellenar o el formato es incorrecto.', true);
+            } else {
+                mostrarMensaje('Ocurrió un error inesperado al guardar.', true);
+            }
+        } catch (error) {
+            mostrarMensaje('Error de conexión con el servidor.', true);
+        }
+    }
 
     // 3. Borrar un recurso concreto (Eliminar un dato)
     async function borrarIndicador(region, index_name) {
