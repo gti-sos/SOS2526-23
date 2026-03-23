@@ -77,10 +77,10 @@
                 date: updatedDate,
                 platform: updatedPlatform,
                 industry: updatedIndustry,
-                impressions: updatedImpression,
-                clicks: updatedClick,
+                impression: updatedImpression,
+                click: updatedClick,
                 ad_spend: updatedAdSpend,
-                conversions: updatedConversion,
+                conversion: updatedConversion,
                 revenue: updatedRevenue
             };
 
