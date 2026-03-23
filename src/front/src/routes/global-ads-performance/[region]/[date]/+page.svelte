@@ -23,10 +23,10 @@
     let updatedDate = $state("newDate");
     let updatedPlatform = $state("newPlatform");
     let updatedIndustry = $state("newIndustry");
-    let updatedImpressions = $state(0);
-    let updatedClicks = $state(0);
+    let updatedImpression = $state(0);
+    let updatedClick = $state(0);
     let updatedAdSpend = $state(0);
-    let updatedConversions = $state(0);
+    let updatedConversion = $state(0);
     let updatedRevenue = $state(0);
 
     if (dev)
@@ -59,10 +59,10 @@
             updatedDate = data.date;
             updatedPlatform = data.platform;
             updatedIndustry = data.industry;
-            updatedImpressions = data.impressions;
-            updatedClicks = data.clicks;
+            updatedImpression = data.impression;
+            updatedClick = data.click;
             updatedAdSpend = data.ad_spend;
-            updatedConversions = data.conversions;
+            updatedConversion = data.conversion;
             updatedRevenue = data.revenue;
 
         } catch (err) {
@@ -77,10 +77,10 @@
                 date: updatedDate,
                 platform: updatedPlatform,
                 industry: updatedIndustry,
-                impressions: updatedImpressions,
-                clicks: updatedClicks,
+                impressions: updatedImpression,
+                clicks: updatedClick,
                 ad_spend: updatedAdSpend,
-                conversions: updatedConversions,
+                conversions: updatedConversion,
                 revenue: updatedRevenue
             };
 
@@ -157,10 +157,10 @@
                         <td><Input type="text" bind:value={updatedPlatform} bsSize="sm" /></td>
                         <td><Input type="text" bind:value={updatedIndustry} bsSize="sm" /></td>
                         
-                        <td><Input type="number" bind:value={updatedImpressions} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={updatedClicks} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={updatedImpression} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={updatedClick} bsSize="sm" /></td>
                         <td><Input type="number" bind:value={updatedAdSpend} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={updatedConversions} bsSize="sm" /></td>
+                        <td><Input type="number" bind:value={updatedConversion} bsSize="sm" /></td>
                         <td><Input type="number" bind:value={updatedRevenue} bsSize="sm" /></td>
                         
                         <td>
