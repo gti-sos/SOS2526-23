@@ -1,29 +1,34 @@
 <footer>
-    <div class="container">
-        <p>&copy; 2026 SOS2526-23 Team</p>
-        <p class="svelte-tag">Built with <span>Svelte</span></p>
+    <div class="footer-container">
+        <p>&copy; 2026 Equipo SOS2526-23</p>
+        <p class="tech-stack">Built with <span>Svelte</span></p>
     </div>
 </footer>
 
 <style>
     footer {
-        background-color: #f8f9fa;
-        color: #6c757d;
-        padding: 2rem 0;
-        margin-top: 4rem;
-        border-top: 1px solid #eaeaea;
-        font-size: 0.85rem;
+        background-color: #2d3748; /* Tu color oscuro secundario */
+        color: #f8fafc; /* Un gris muy claro/blanco para buen contraste */
+        padding: 30px 0;
+        margin-top: 60px;
     }
-    .container {
-        max-width: 1000px;
+
+    .footer-container {
+        max-width: 800px; /* Alineado con tu contenedor principal */
         margin: 0 auto;
+        padding: 0 40px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 2rem;
+        font-size: 0.95rem;
     }
-    .svelte-tag span {
-        color: #ff3e00; /* Color oficial de Svelte */
+
+    p {
+        margin: 0;
+    }
+
+    .tech-stack span {
+        color: #dbeafe; /* El azul claro de tus hovers para resaltar la tecnología */
         font-weight: bold;
     }
 </style>
