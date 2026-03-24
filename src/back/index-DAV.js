@@ -104,8 +104,8 @@ export function loadBackEndDAV(app) {
             return res.sendStatus(400); // 400 Bad Request
         }
 
-        // Comprobamos si ya existe la clave primaria correcta (region + platform)
-        db.find({ region: newResource.region, platform: newResource.platform }, (err, docs) => {
+        // Comprobamos si ya existe la clave primaria correcta (region + date)
+        db.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
             if (docs.length > 0) {
                 return res.sendStatus(409); // 409 Conflict (Ya existe)
             }
@@ -124,21 +124,18 @@ export function loadBackEndDAV(app) {
         });
     });
 
-   // 5. GET RECURSO ESPECÍFICO
-    app.get(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
+    // 5. GET RECURSO ESPECÍFICO (region + date)
+    app.get(BASE_URL_API + '/global-ads-performance/:region/:date', (req, res) => {
         const { region, date } = req.params;
 
-        db.find({ region: region, date: date }, (err, docs) => {
-            if (docs.length === 0) {
-                return res.sendStatus(404); // 404 Not Found
+        db.find({ region, date }, (err, docs) => {
+            if (err) return res.status(500).json({ message: "Internal Server Error" });
+
+            if (docs.length > 0) {
+                res.status(200).json((docs[0])); // Devuelve UN OBJETO
+            } else {
+                res.status(404).json({ message: "Not Found" });
             }
-            
-            // Extraemos el único objeto del array
-            const resource = docs;
-            
-            // Borramos el _id y devolvemos UN OBJETO puro (Requisito 8b)
-            delete resource._id;
-            res.status(200).json(resource); 
         });
     });
 
@@ -171,6 +168,7 @@ export function loadBackEndDAV(app) {
             res.sendStatus(200); // 200 OK
         });
     });
+    
 
     // MÉTODOS PROHIBIDOS (Tabla Azul L05)
     app.post(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {

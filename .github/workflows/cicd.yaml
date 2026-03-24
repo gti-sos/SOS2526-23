@@ -19,10 +19,17 @@ jobs:
         with:
           node-version: '22'
           
-      # 3. Instala las dependencias (Express, NeDB, Newman, start-server-and-test...)
-      - name: Instalar dependencias
+      # 3. Instala las dependencias del backend (Express, NeDB, Newman...)
+      - name: Instalar dependencias del Backend
         run: npm install
-        
-      # 4. Lanza los tests usando el script que ya preparamos
+
+      # 4. Construye el frontend para que el backend no falle al arrancar
+      - name: Instalar dependencias del Frontend y construir
+        run: |
+          cd src/front
+          npm install --legacy-peer-deps
+          npm run build
+          
+      # 5. Lanza los tests usando el script que ya preparamos
       - name: Ejecutar pruebas
         run: npm test
