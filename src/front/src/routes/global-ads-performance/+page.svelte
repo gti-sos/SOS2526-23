@@ -168,12 +168,17 @@ async function loadInitialData() {
 
 //------------------------------------------------------------------------------
 
-
     onMount(() => {
         getData();
     });
 
 </script>
+
+<svelte:head>
+    <title>Global Ads List</title>
+    <meta name="description" content="Gestión avanzada de métricas publicitarias en el proyecto SOS2526-23" />
+</svelte:head>  
+
 <Container class="mt-4">
     <Row class="align-items-center mb-4">
         <Col>
