@@ -2,6 +2,11 @@
     // Tu lógica de script iría aquí si la necesitas en el futuro
 </script>
 
+<svelte:head>
+    <title>SOS2526-23 - Home</title>
+    <meta name="description" content="Página de inicio del proyecto SOS2526-23>" />
+</svelte:head>
+
 <style>
     /* Estilos globales básicos aplicados solo a esta vista para mejorar la fuente y el fondo */
     :global(body) {
