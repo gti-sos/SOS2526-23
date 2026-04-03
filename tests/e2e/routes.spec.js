@@ -31,5 +31,6 @@ test('global-ads-performance page show some global ads', async ({ page }) => {
 
   const GlobalAdRows =  await newPage.getByTestId('GlobalAd-row').count();
 
-  await expect(GlobalAdRows).toBeGreaterThan(0);
+  await expect(GlobalAdRows).toBeGreaterThan(2);
+
 });
