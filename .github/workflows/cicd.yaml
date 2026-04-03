@@ -37,8 +37,12 @@ jobs:
       # 5. Lanza los tests usando el script que ya preparamos
       - name: Ejecutar pruebas
         run: npm test
+
+      # 6. Lanza el servidor para que los tests E2E puedan interactuar con él
+      - name : Start the server
+        run: npm start &
         
-      # 6. Instala Playwright y sus dependencias para ejecutar los tests E2E  
+      # . Instala Playwright y sus dependencias para ejecutar los tests E2E  
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
