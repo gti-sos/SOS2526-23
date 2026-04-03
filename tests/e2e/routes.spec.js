@@ -27,4 +27,10 @@ test('global-ads-performance page show some global ads', async ({ page }) => {
   
   // Evaluamos el título estrictamente sobre la nueva ventana
   await expect(newPage).toHaveTitle(/Global Ads List/);
+
+
+  const GlobalAdRows =  await newPage.getByTestId('GlobalAd-row').count();
+
+  await expect(GlobalAdRows).toBeGreaterThan(2);
+
 });
