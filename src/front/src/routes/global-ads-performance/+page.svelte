@@ -1,11 +1,12 @@
 <script>
     import {dev} from '$app/environment';
     import {onMount } from 'svelte';
+    import { SvelteURLSearchParams } from 'svelte/reactivity';
 
     // Importamos los componentes de Sveltestrap que necesitamos
     import {
         Table, Button, Input, Container, Row, Col, 
-        Alert, Badge, Card, CardBody 
+        Alert, Badge, Card, CardBody, CardHeader
     } from '@sveltestrap/sveltestrap';
     
     let API = "/api/v1/global-ads-performance";
@@ -23,6 +24,14 @@
     let newAdSpend = $state(0);
     let newConversion = $state(0);
     let newRevenue = $state(0);
+
+    //
+    // 2. Nuevos estados reactivos para los campos de búsqueda
+    let searchRegion = $state("");
+    let searchPlatform = $state("");
+    let searchIndustry = $state("");
+    let searchFrom = $state("");
+    let searchTo = $state("");
 
     if (dev)
         API = "http://localhost:3000"+API;
@@ -166,6 +175,46 @@ async function loadInitialData() {
         }
     }
 
+
+    // 3. Nuevas funciones para manejar la búsqueda y limpiar los filtros
+    async function searchData() {
+        // ⬇️ REEMPLAZAMOS: new URLSearchParams() por new SvelteURLSearchParams()
+        const params = new SvelteURLSearchParams();
+
+        if (searchRegion) params.append("region", searchRegion);
+        if (searchPlatform) params.append("platform", searchPlatform);
+        if (searchIndustry) params.append("industry", searchIndustry);
+        if (searchFrom) params.append("from", searchFrom);
+        if (searchTo) params.append("to", searchTo);
+
+        const queryString = params.toString();
+        const url = queryString ? `${API}?${queryString}` : API;
+
+        try {
+            const res = await fetch(url, { method: 'GET' });
+            resultStatusCode = res.status;
+            
+            if (res.ok) {
+                global_ad = await res.json();
+            } else {
+                console.warn("No se encontraron resultados o hubo un error:", res.status);
+                global_ad = [];
+            }
+        } catch (error) {
+            console.error("Error en la búsqueda:", error);
+            resultStatusCode = 500;
+        }
+    }
+
+    function clearSearch() {
+        searchRegion = "";
+        searchPlatform = "";
+        searchIndustry = "";
+        searchFrom = "";
+        searchTo = "";
+        getData();
+    }
+
 //------------------------------------------------------------------------------
 
     onMount(() => {
@@ -194,6 +243,39 @@ async function loadInitialData() {
             </Button>
         </Col>
     </Row>
+
+        <Card class="shadow-sm mb-4 border-info">
+        <CardHeader class="bg-info text-white fw-bold">
+            🔍 Buscar / Filtrar Recursos
+        </CardHeader>
+        <CardBody>
+            <Row class="g-3">
+                <Col md="2">
+                    <Input type="text" bind:value={searchRegion} placeholder="Región (Ej: Europe)" bsSize="sm" />
+                </Col>
+                <Col md="2">
+                    <Input type="text" bind:value={searchPlatform} placeholder="Plataforma (Ej: Google)" bsSize="sm" />
+                </Col>
+                <Col md="2">
+                    <Input type="text" bind:value={searchIndustry} placeholder="Industria" bsSize="sm" />
+                </Col>
+                <Col md="2">
+                    <Input type="number" bind:value={searchFrom} placeholder="Desde año (Ej: 2000)" bsSize="sm" />
+                </Col>
+                <Col md="2">
+                    <Input type="number" bind:value={searchTo} placeholder="Hasta año (Ej: 2017)" bsSize="sm" />
+                </Col>
+                <Col md="2" class="d-flex gap-2">
+                    <Button color="primary" size="sm" class="w-100" onclick={searchData}>
+                        Buscar
+                    </Button>
+                    <Button color="secondary" size="sm" outline class="w-100" onclick={clearSearch}>
+                        Limpiar
+                    </Button>
+                </Col>
+            </Row>
+        </CardBody>
+    </Card>
 
     <Card class="shadow-sm mb-4">
         <CardBody>

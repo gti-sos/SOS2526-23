@@ -126,3 +126,72 @@ test('global-ads-performance user can delete all ads from the UI', async ({ page
    const GlobalAdRows = await newPage.getByTestId('GlobalAd-row').count();
    expect(GlobalAdRows).toBe(0);
 });
+
+test('global-ads-performance user can edit an ad in a separate view', async ({ page }) => {
+   await page.goto(app);
+   
+   const popupPromise = page.waitForEvent('popup');
+   await page.getByRole('link', { name: 'DAV' }).click();
+   const newPage = await popupPromise;
+   
+   await expect(newPage).toHaveTitle(/Global Ads List/);
+
+   newPage.on('dialog', async dialog => {
+       await dialog.accept();
+   });
+
+   // 1. Asegurar estado inicial de la vista principal
+   await expect(
+       newPage.getByText(/No hay datos disponibles/i).or(newPage.getByTestId('GlobalAd-row').first())
+   ).toBeVisible();
+
+   // 2. Insertar un recurso específico que utilizaremos para editar
+   await newPage.getByPlaceholder('Region').fill('RegionAEditar');
+   await newPage.getByPlaceholder('YYYY-MM-DD').fill('2026-12-12');
+   await newPage.getByPlaceholder('Plataforma').fill('PlataformaOriginal');
+   await newPage.getByPlaceholder('Industria').fill('Gaming');
+   
+   const mainNumberInputs = newPage.locator('input[type="number"]');
+   await mainNumberInputs.nth(0).fill('10'); 
+   await mainNumberInputs.nth(1).fill('10');  
+   await mainNumberInputs.nth(2).fill('10');  
+   await mainNumberInputs.nth(3).fill('10');   
+   await mainNumberInputs.nth(4).fill('10');  
+
+   await newPage.getByRole('button', { name: 'Insertar' }).click();
+
+   // 3. Localizar la nueva fila y hacer clic en el enlace de la región para ir a la vista de edición
+   const targetRow = newPage.locator('tr[data-testid="GlobalAd-row"]', { hasText: 'RegionAEditar' });
+   await expect(targetRow).toBeVisible();
+   await targetRow.getByRole('link', { name: 'RegionAEditar' }).click();
+
+   // 4. Esperar a que cargue la vista dinámica
+   await expect(newPage.getByRole('heading', { name: 'Edición de Anuncio' })).toBeVisible();
+
+   // 5. FIX CRÍTICO: Esperar a que el GET del onMount termine de traer los datos y rellene los inputs.
+   // Como los inputs de texto no tienen placeholders únicos en esta vista, los seleccionamos por índice.
+   // El índice 2 corresponde a la Plataforma. Validamos que tenga el texto original antes de sobrescribirlo.
+   const textInputs = newPage.locator('input[type="text"]');
+   await expect(textInputs.nth(2)).toHaveValue('PlataformaOriginal');
+
+   // 6. Modificar el campo Plataforma
+   await textInputs.nth(2).fill('PlataformaActualizada');
+
+   // 7. Hacer clic en Actualizar y esperar a que la petición PUT finalice con éxito
+   const [putResponse] = await Promise.all([
+       newPage.waitForResponse(res => res.url().includes('/api/v1/global-ads-performance') && res.request().method() === 'PUT'),
+       newPage.getByRole('button', { name: 'Actualizar' }).click()
+   ]);
+   expect(putResponse.ok()).toBeTruthy();
+
+   // 8. Validar el mensaje de éxito en la UI (Tu código lanza 200 o 201)
+   await expect(newPage.getByText(/Estado de la operación: 20/)).toBeVisible(); 
+
+   // 9. Volver al listado principal
+   await newPage.getByRole('link', { name: '⬅ Volver al listado' }).click();
+   
+   // 10. Verificar que el cambio se refleja en la tabla (la fila existe y ahora contiene "PlataformaActualizada")
+   const updatedRow = newPage.locator('tr[data-testid="GlobalAd-row"]', { hasText: 'RegionAEditar' });
+   await expect(updatedRow).toBeVisible();
+   await expect(updatedRow).toContainText('PlataformaActualizada');
+});
