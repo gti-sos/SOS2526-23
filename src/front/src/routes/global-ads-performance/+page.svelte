@@ -232,7 +232,7 @@ async function loadInitialData() {
                         </td>
                     </tr>
                     {#each global_ad as ad, i (i)}
-                    <tr>
+                    <tr data-testid="GlobalAd-row">
                             <td>
                                 <a href="/global-ads-performance/{ad.region}/{ad.date}" class="text-decoration-none fw-bold">
                                     {ad.region}
