@@ -4,7 +4,7 @@
     // Aquí guardaremos los datos que vengan de la API
     let indicadores = $state([]);
     
-    // Objeto para el formulario con tus campos exactos
+    // Objeto para el formulario de creación
     let nuevoIndicador = $state({
         date: '',
         index_name: '',
@@ -17,14 +17,22 @@
         daily_change_percent: ''
     });
 
-    // --- VARIABLES DE BÚSQUEDA ---
+    // --- VARIABLES DE BÚSQUEDA (TODAS las que permite la API) ---
     let busqueda = $state({
         date: '',
         region: '',
-        index_name: ''
+        index_name: '',
+        open: '',
+        high: '',
+        low: '',
+        close: '',
+        volume: '',
+        daily_change_percent: '',
+        limit: 10, // Por defecto 10
+        offset: 0   // Por defecto 0
     });
 
-    // Variables para los mensajes de aviso (Punto 1.d)
+    // Variables para los mensajes de aviso
     let mensaje = $state('');
     let esError = $state(false);
 
@@ -36,7 +44,7 @@
         setTimeout(() => { mensaje = ''; }, 5000);
     }
 
-    // 1. Obtener recursos (Cargar la tabla y aplicar filtros si los hay)
+    // 1. Obtener recursos (Cargar la tabla y aplicar TODOS los filtros)
     async function cargarIndicadores() {
         try {
             // Construimos la URL con los parámetros de búsqueda si están rellenados
@@ -44,6 +52,16 @@
             if (busqueda.date) params.append('date', busqueda.date);
             if (busqueda.region) params.append('region', busqueda.region);
             if (busqueda.index_name) params.append('index_name', busqueda.index_name);
+            if (busqueda.open) params.append('open', busqueda.open);
+            if (busqueda.high) params.append('high', busqueda.high);
+            if (busqueda.low) params.append('low', busqueda.low);
+            if (busqueda.close) params.append('close', busqueda.close);
+            if (busqueda.volume) params.append('volume', busqueda.volume);
+            if (busqueda.daily_change_percent) params.append('daily_change_percent', busqueda.daily_change_percent);
+            
+            // Paginación
+            if (busqueda.limit !== '') params.append('limit', busqueda.limit);
+            if (busqueda.offset !== '') params.append('offset', busqueda.offset);
 
             const queryString = params.toString();
             const url = '/api/v1/daily-global-stock-market-indicators' + (queryString ? `?${queryString}` : '');
@@ -51,7 +69,13 @@
             const res = await fetch(url);
             if (res.ok) {
                 indicadores = await res.json();
-                if (indicadores.length === 0 && queryString) {
+                
+                // Comprobamos si el usuario ha escrito algo en los campos de búsqueda reales (ignorando limit y offset)
+                const hayFiltrosTexto = busqueda.date || busqueda.region || busqueda.index_name || 
+                                        busqueda.open || busqueda.high || busqueda.low || 
+                                        busqueda.close || busqueda.volume || busqueda.daily_change_percent;
+                
+                if (indicadores.length === 0 && hayFiltrosTexto) {
                     mostrarMensaje('No se han encontrado datos con esos filtros.', true);
                 }
             } else {
@@ -62,21 +86,24 @@
         }
     }
 
-    // Limpiar los filtros y recargar todo
+    // Limpiar TODOS los filtros y recargar
     function limpiarFiltros() {
-        busqueda = { date: '', region: '', index_name: '' };
+        busqueda = { 
+            date: '', region: '', index_name: '', 
+            open: '', high: '', low: '', close: '', 
+            volume: '', daily_change_percent: '', 
+            limit: 10, offset: 0 
+        };
         cargarIndicadores();
     }
   
     // 2. Crear un recurso (Añadir a la tabla)
     async function crearIndicador() {
-        // --- VALIDACIÓN FRONTEND ---
-        // Comprobamos si algún valor del objeto es una cadena vacía o nulo
         const camposVacios = Object.values(nuevoIndicador).some(valor => valor === '' || valor === null);
         
         if (camposVacios) {
             mostrarMensaje('Error: Todos los campos son obligatorios. Por favor, rellénalos todos.', true);
-            return; // Esto detiene la función para que no se ejecute el fetch
+            return; 
         }
 
         try {
@@ -88,8 +115,7 @@
 
             if (res.status === 201) {
                 mostrarMensaje('¡Dato del mercado añadido correctamente!');
-                cargarIndicadores(); // Recargar la tabla
-                // Limpiar el formulario
+                cargarIndicadores();
                 nuevoIndicador = { date: '', index_name: '', region: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: '' };
             } else if (res.status === 409) {
                 mostrarMensaje('Error: Ya existe un registro para esa región y ese índice.', true);
@@ -103,7 +129,7 @@
         }
     }
 
-    // 3. Borrar un recurso concreto (Eliminar un dato)
+    // 3. Borrar un recurso concreto
     async function borrarIndicador(region, index_name) {
         try {
             const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
@@ -112,7 +138,7 @@
 
             if (res.status === 204 || res.status === 200) {
                 mostrarMensaje('Dato eliminado con éxito.');
-                cargarIndicadores(); // Recargar la tabla
+                cargarIndicadores(); 
             } else if (res.status === 404) {
                 mostrarMensaje('Error: No se encontró el dato que intentas borrar.', true);
             } else {
@@ -143,14 +169,14 @@
         }
     }
 
-    // 5. Cargar datos iniciales de prueba
+    // 5. Cargar datos iniciales
     async function cargarDatosIniciales() {
         try {
             const res = await fetch('/api/v1/daily-global-stock-market-indicators/loadInitialData');
             
             if (res.ok) {
                 mostrarMensaje('¡Datos iniciales cargados correctamente!');
-                cargarIndicadores(); // Actualizamos la tabla para que se vean al instante
+                cargarIndicadores(); 
             } else {
                 mostrarMensaje('Error al cargar los datos iniciales.', true);
             }
@@ -159,7 +185,6 @@
         }
     }
 
-    // Cargar los datos nada más entrar a la página
     onMount(cargarIndicadores);
 </script>
 
@@ -177,12 +202,25 @@
     <hr style="margin: 20px 0;">
 
     <section style="background-color: #fff9e6; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ffe082;">
-        <h3 style="margin-top: 0;">🔍 Buscar y Filtrar</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 15px;">
-            <input type="text" placeholder="Filtrar por Fecha (ej. 2024)" bind:value={busqueda.date} />
-            <input type="text" placeholder="Filtrar por Región (ej. Europe)" bind:value={busqueda.region} />
-            <input type="text" placeholder="Filtrar por Índice (ej. Dow Jones)" bind:value={busqueda.index_name} />
+        <h3 style="margin-top: 0;">🔍 Buscar y Filtrar (Múltiples criterios)</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 15px;">
+            <input type="text" placeholder="Fecha (ej. 2024)" bind:value={busqueda.date} />
+            <input type="text" placeholder="Región (ej. Europe)" bind:value={busqueda.region} />
+            <input type="text" placeholder="Índice (ej. DAX)" bind:value={busqueda.index_name} />
+            <input type="number" placeholder="Apertura" bind:value={busqueda.open} step="any" />
+            <input type="number" placeholder="Máximo" bind:value={busqueda.high} step="any" />
+            <input type="number" placeholder="Mínimo" bind:value={busqueda.low} step="any" />
+            <input type="number" placeholder="Cierre" bind:value={busqueda.close} step="any" />
+            <input type="number" placeholder="Volumen" bind:value={busqueda.volume} />
+            <input type="number" placeholder="Cambio (%)" bind:value={busqueda.daily_change_percent} step="any" />
         </div>
+        
+        <h4 style="margin: 10px 0 5px 0;">Paginación</h4>
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+            <input type="number" placeholder="Resultados por página" bind:value={busqueda.limit} style="width: 180px;" />
+            <input type="number" placeholder="Saltar (Offset)" bind:value={busqueda.offset} style="width: 180px;" />
+        </div>
+
         <div>
             <button style="background-color: #ff9800; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; margin-right: 10px;" on:click={cargarIndicadores}>
                 Buscar
