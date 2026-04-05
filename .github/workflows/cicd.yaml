@@ -59,3 +59,8 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
+      # 10. Despliegue automático en Render si las pruebas pasan (Punto 6)
+      - name: Deploy to Render
+        if: success()
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
