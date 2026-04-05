@@ -44,19 +44,22 @@ test('ECR page user can insert and delete a specific record', async ({ page }) =
     // Esperar a que salga el mensaje de tabla vacía
     await expect(newPage.getByText('No hay datos en el sistema.')).toBeVisible();
 
-    // 1. Rellenar formulario (usando los placeholders exactos del código Svelte)
-    await newPage.getByPlaceholder('Fecha (Ej. 2024-01-01)').fill('2026-05-05');
-    await newPage.getByPlaceholder('Región', { exact: true }).fill('RegionTestE2E');
-    await newPage.getByPlaceholder('Nombre del Índice').fill('IndexTest');
-    await newPage.getByPlaceholder('Apertura').fill('100.5');
-    await newPage.getByPlaceholder('Máximo').fill('110.0');
-    await newPage.getByPlaceholder('Mínimo').fill('90.0');
-    await newPage.getByPlaceholder('Cierre').fill('105.0');
-    await newPage.getByPlaceholder('Volumen').fill('5000');
-    await newPage.getByPlaceholder('Cambio Diario (%)').fill('4.5');
+    // 🌟 LA CLAVE AQUÍ: Le decimos a Playwright que se enfoque SOLO en la sección de crear
+    const seccionCrear = newPage.locator('section').filter({ hasText: 'Añadir nuevo registro' });
+
+    // 1. Rellenar formulario (buscando los placeholders solo dentro de "seccionCrear")
+    await seccionCrear.getByPlaceholder('Fecha (Ej. 2024-01-01)').fill('2026-05-05');
+    await seccionCrear.getByPlaceholder('Región', { exact: true }).fill('RegionTestE2E');
+    await seccionCrear.getByPlaceholder('Nombre del Índice').fill('IndexTest');
+    await seccionCrear.getByPlaceholder('Apertura').fill('100.5');
+    await seccionCrear.getByPlaceholder('Máximo').fill('110.0');
+    await seccionCrear.getByPlaceholder('Mínimo').fill('90.0');
+    await seccionCrear.getByPlaceholder('Cierre').fill('105.0');
+    await seccionCrear.getByPlaceholder('Volumen').fill('5000');
+    await seccionCrear.getByPlaceholder('Cambio Diario (%)').fill('4.5');
 
     // 2. Guardar dato
-    await newPage.getByRole('button', { name: 'Guardar dato' }).click();
+    await seccionCrear.getByRole('button', { name: 'Guardar dato' }).click();
 
     // 3. Comprobar que aparece el mensaje de éxito y la fila en la tabla
     await expect(newPage.getByText('¡Dato del mercado añadido correctamente!')).toBeVisible();
