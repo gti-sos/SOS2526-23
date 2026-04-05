@@ -46,7 +46,7 @@ test('ECR page user can insert and delete a specific record', async ({ page }) =
 
     // 1. Rellenar formulario (usando los placeholders exactos del código Svelte)
     await newPage.getByPlaceholder('Fecha (Ej. 2024-01-01)').fill('2026-05-05');
-    await newPage.getByPlaceholder('Región').fill('RegionTestE2E');
+    await newPage.getByPlaceholder('Región', { exact: true }).fill('RegionTestE2E');
     await newPage.getByPlaceholder('Nombre del Índice').fill('IndexTest');
     await newPage.getByPlaceholder('Apertura').fill('100.5');
     await newPage.getByPlaceholder('Máximo').fill('110.0');
