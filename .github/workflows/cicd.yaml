@@ -42,7 +42,7 @@ jobs:
       - name: Start the server and wait
         run: |
           npm start &
-          npx wait-on http://localhost:3000
+          npx wait-on http://127.0.0.1:3000
         
       # 7. Instala Playwright y sus dependencias para ejecutar los tests E2E  
       - name: Install Playwright Browsers
