@@ -2,6 +2,7 @@
     import { dev } from '$app/environment';
     import { onMount } from 'svelte';
     import { Button } from '@sveltestrap/sveltestrap';
+    import { SvelteURLSearchParams } from 'svelte/reactivity';
 
     let API = '/api/v1/online-sales-popular-marketplaces';
     if (dev){
@@ -13,7 +14,6 @@
     let resultStatusCode = $state(0);
     let informationText = $state("");
 
-
     let newRegion = $state("");
     let newDate = $state("");
     let newCategory = $state("");
@@ -22,6 +22,21 @@
     let newPrice = $state(0);
     let newTotal = $state(0);
     let newPaymentMethod = $state("");
+
+    let searchRegion = $state("");
+    let searchDateFrom = $state("");
+    let searchDateTo = $state("");
+    let searchCategory = $state("");
+    let searchProduct = $state("");
+    let searchMinQuantity = $state("");
+    let searchMaxQuantity = $state("");
+    let searchMinPrice = $state("");
+    let searchMaxPrice = $state("");
+    let searchMinTotal = $state("");
+    let searchMaxTotal = $state("");
+    let searchPayment = $state("");
+    let searchLimit = $state("");
+    let searchOffset = $state("");
 
     async function loadInitialData() {
         await deleteAll();
@@ -32,22 +47,49 @@
 
         resultStatusCode = await res.status;
         if (resultStatusCode == 200){
-            getSales();
+            await getSales();
             informationText = "¡Datos cargados con éxito!"
         } else if (resultStatusCode == 409){
             informationText = "¡Ya existen datos!";
         } else {
-            informationText = `Error inesperado: ${resultStatusCode}`;
+            informationText = `Error inesperado`;
         }
 
     }
 
-    async function getSales(){
-        const res = await fetch(API, {
-            method: "GET"
-        });
-        const data = await res.json();
-        sales = data;
+    async function getSales(esBusqueda = false){
+
+        let queryParams = new SvelteURLSearchParams();
+
+        // Solo añadimos los parámetros si el usuario ha escrito algo en ellos
+        if (searchRegion) queryParams.append("region", searchRegion);
+        if (searchDateFrom) queryParams.append("from", searchDateFrom);
+        if (searchDateTo) queryParams.append("to", searchDateTo);
+        if (searchCategory) queryParams.append("product_category", searchCategory);
+        if (searchProduct) queryParams.append("product_name", searchProduct);
+        if (searchMinQuantity) queryParams.append("min_quantity_sold", searchMinQuantity);
+        if (searchMaxQuantity) queryParams.append("max_quantity_sold", searchMaxQuantity);
+        if (searchMinPrice) queryParams.append("min_unit_price", searchMinPrice);
+        if (searchMaxPrice) queryParams.append("max_unit_price", searchMaxPrice);
+        if (searchMinTotal) queryParams.append("min_total", searchMinTotal);
+        if (searchMaxTotal) queryParams.append("max_total", searchMaxTotal);
+        if (searchPayment) queryParams.append("payment_method", searchPayment);
+        if (searchLimit) queryParams.append("limit", searchLimit);
+        if (searchOffset) queryParams.append("offset", searchOffset);
+
+        const queryString = queryParams.toString();
+        
+        const url = API + (queryString ? `?${queryString}` : "");
+
+        const res = await fetch(url, { method: "GET" });
+        if (res.ok) {
+            sales = await res.json();
+            if (esBusqueda) {
+                informationText = `Búsqueda completada. Se encontraron ${sales.length} resultados.`;
+            }
+        } else {
+            informationText = "Error al realizar la búsqueda.";
+        }
     }
 
     async function deleteAll(){
@@ -57,7 +99,7 @@
         });
         resultStatusCode = await res.status;
         if (resultStatusCode == 200){
-            getSales();
+            await getSales();
             informationText = "Datos eliminados.";
         }
     }
@@ -104,7 +146,7 @@
         } else if (resultStatusCode == 400){
             informationText = `Faltan los siguientes campos por rellenar: ${missingFields.join(", ")}.`;        
         } else {
-            informationText = `Error inesperado: ${resultStatusCode}`;
+            informationText = `Error inesperado`;
         }
     }
 
@@ -117,7 +159,7 @@
 
         resultStatusCode = await res.status;
         if (resultStatusCode == 200){
-            getSales();
+            await getSales();
             informationText = `El dato con ${regionName} y ${dateN} como region y fecha, respectivamente, ha sido eliminado.`
         }
 
@@ -136,15 +178,34 @@
         } else if (resultStatusCode === 404) {
             informationText = `Error: No se puede actualizar porque el registro de ${regionName} en ${dateN} no existe.`;
         } else {
-            informationText = `Error inesperado al verificar el recurso: ${resultStatusCode}`;
+            informationText = `Error inesperado al verificar el recurso`;
         }
     }
 
-    onMount(() => {
-        getSales();
+    function clearSearch() {
+        searchRegion = ""; searchDateFrom = ""; searchDateTo = "";
+        searchCategory = ""; searchProduct = ""; searchMinQuantity = "";
+        searchMaxQuantity = ""; searchMinPrice = ""; searchMaxPrice = "";
+        searchMinTotal = ""; searchMaxTotal = ""; searchPayment = "";
+        searchLimit = ""; searchOffset = "";
+        getSales(); 
+    }
+
+    onMount(async () => {
+        getSales(); 
+        const mensajePendiente = sessionStorage.getItem('mensajeError');
+        if (mensajePendiente) {
+            informationText = mensajePendiente;
+            sessionStorage.removeItem('mensajeError');
+        }
     });
 
 </script>
+
+<svelte:head>
+    <title>Online Sales List</title>
+    <meta name="description" content="Ventas online en marcas populares en el proyecto SOS2526-23"/>
+</svelte:head> 
 
 <div class="sales-dashboard">
     <div class="dashboard-header">
@@ -155,12 +216,38 @@
         </div>
     </div>
 
-    <div class="info-panel">
-        {#if informationText != ""}
+    {#if informationText != ""}
+        <div class="info-panel">
             <div class="info-message">
                 <strong>Información:</strong> {informationText}
             </div>
-        {/if}
+        </div>
+    {/if}
+
+    <div class="search-panel">
+        <h4>Filtros de Búsqueda</h4>
+        <div class="search-grid">
+            <input type="text" placeholder="Región" bind:value={searchRegion}>
+            
+            <div><small>Fecha Desde</small><input type="date" bind:value={searchDateFrom}></div>
+            <div><small>Fecha Hasta</small><input type="date" bind:value={searchDateTo}></div>
+            
+            <input type="text" placeholder="Categoría" bind:value={searchCategory}>
+            <input type="text" placeholder="Producto" bind:value={searchProduct}>
+            <input type="number" placeholder="Cant. Mínima" bind:value={searchMinQuantity}>
+            <input type="number" placeholder="Cant. Máxima" bind:value={searchMaxQuantity}>
+            <input type="number" placeholder="Precio Mín." bind:value={searchMinPrice}>
+            <input type="number" placeholder="Precio Máx." bind:value={searchMaxPrice}>
+            <input type="number" placeholder="Total Mín." bind:value={searchMinTotal}>
+            <input type="number" placeholder="Total Máx." bind:value={searchMaxTotal}>
+            <input type="text" placeholder= "Método de Pago" bind:value={searchPayment}>
+            <input type="number" placeholder="Límite (Paginación)" bind:value={searchLimit}>
+            <input type="number" placeholder="Offset (Paginación)" bind:value={searchOffset}>
+        </div>
+        <div class="search-actions">
+            <Button color="primary" onclick={() => getSales(true)}>Buscar</Button>
+            <Button color="secondary" outline onclick={clearSearch}>Limpiar Filtros</Button>
+        </div>
     </div>
 
     <div class="table-container">
@@ -204,12 +291,8 @@
                         <td class="total-cell">${sale.total}</td>
                         <td>{sale.payment_method}</td>
                         <td class="action-buttons">
-                            <Button color="danger" outline size="sm" onclick={() => deleteSale(sale.region, sale.date)}>
-                                Eliminar
-                            </Button>
-                            <Button color="info" outline size="sm" onclick={() => goToUpdate(sale.region, sale.date)}>
-                                Actualizar
-                            </Button>
+                            <Button color="danger" outline size="sm" onclick={() => deleteSale(sale.region, sale.date)}>Eliminar</Button>
+                            <Button color="info" outline size="sm" onclick={() => goToUpdate(sale.region, sale.date)}>Actualizar</Button>
                         </td>
                     </tr>
                 {/each}
@@ -349,5 +432,50 @@
         display: flex;
         gap: 5px;
         justify-content: center;
+    }
+
+    /* Panel de Búsqueda */
+    .search-panel {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .search-panel h4 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #2c3e50;
+        font-size: 1.1rem;
+    }
+
+    .search-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+        margin-bottom: 15px;
+        align-items: end; 
+    }
+
+    .search-grid input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        box-sizing: border-box;
+    }
+
+    .search-grid small {
+        display: block;
+        color: #6c757d;
+        margin-bottom: 2px;
+    }
+
+    .search-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
     }
 </style>

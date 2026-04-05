@@ -72,7 +72,7 @@ export function loadBackEndMRR(app){
             }
 
             if (min_totalPrice){
-                filtrado = filtrado.filter(d => d.total > Number(min_totaPricel));
+                filtrado = filtrado.filter(d => d.total > Number(min_totalPrice));
             }
 
             if (max_totalPrice){
@@ -152,6 +152,9 @@ export function loadBackEndMRR(app){
         let dateN = req.params.date;
 
         db.findOne({region: regionName, date: dateN}, (err, datosMRR) => {
+            if (!datosMRR) {
+                return res.status(404, "NOT FOUND").json("Dato no encontrado"); 
+            }
             delete datosMRR._id;
             return res.status(200, "OK").json(datosMRR);
         });

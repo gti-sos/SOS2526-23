@@ -7,6 +7,7 @@
     import { dev } from '$app/environment';
     import { onMount } from 'svelte';
     import { Button } from '@sveltestrap/sveltestrap';
+    import { goto } from '$app/navigation';
 
     let API = '/api/v1/online-sales-popular-marketplaces';
     if (dev){
@@ -31,15 +32,24 @@
         const res = await fetch(API + "/" + regionName + "/" + dateN, {
             method: "GET"
         });
-        const sale = await res.json();
-        newRegion = sale.region;
-        newDate = sale.date;
-        newCategory = sale.product_category;
-        newProduct = sale.product_name;
-        newQuantity = sale.quantity_sold;
-        newPrice = sale.unit_price;
-        newTotal = sale.total;
-        newPaymentMethod = sale.payment_method;
+
+        if (res.status === 404) {
+            sessionStorage.setItem('mensajeError', `No existe el registro de ${regionName} en ${dateN}, créalo.`);
+            goto('/MRR'); 
+            return;
+        }
+
+        if (res.status === 200) {
+            const sale = await res.json();
+            newRegion = sale.region;
+            newDate = sale.date;
+            newCategory = sale.product_category;
+            newProduct = sale.product_name;
+            newQuantity = sale.quantity_sold;
+            newPrice = sale.unit_price;
+            newTotal = sale.total;
+            newPaymentMethod = sale.payment_method;
+        }
     }
 
     async function updateSale(){
@@ -75,7 +85,7 @@
                 informationText = "Error 400: Petición incorrecta.";
             }       
         } else {
-            informationText = `Error inesperado: ${resultStatusCode}`;
+            informationText = `Error inesperado`;
         }
     }
 
@@ -83,6 +93,11 @@
         getSale();
     });
 </script>
+
+<svelte:head>
+    <title>Online Sale update</title>
+    <meta name="description" content="Actualización de la venta online en el proyecto SOS2526-23"/>
+</svelte:head> 
 
 <div class="sales-dashboard">
     <div class="dashboard-header">
@@ -98,13 +113,13 @@
         </div>
     </div>
 
-    <div class="info-panel">
-        {#if informationText != ""}
+    {#if informationText != ""}
+        <div class="info-panel">
             <div class="info-message">
                 <strong>Información:</strong> {informationText}
             </div>
-        {/if}
-    </div>
+        </div>
+    {/if}
 
     <div class="table-container">
         <table class="data-table">
@@ -132,7 +147,7 @@
                     <td><input type="number" bind:value={newTotal}></td>
                     <td><input type="text" bind:value={newPaymentMethod}></td>
                     <td class="text-center">
-                        <Button color="primary" onclick={updateSale}> Actualizar </Button>
+                        <Button color="primary" onclick={updateSale}>Actualizar</Button>
                     </td>
                 </tr>
             </tbody>
