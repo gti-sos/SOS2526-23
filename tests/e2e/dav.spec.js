@@ -63,8 +63,8 @@ test('global-ads-performance user can insert and delete an ad from the UI', asyn
    // 1. Rellenar los campos de texto usando sus placeholders
    await newPage.getByPlaceholder('Region').fill('TestRegion E2E');
    await newPage.getByPlaceholder('YYYY-MM-DD').fill('2026-10-10');
-   await newPage.getByPlaceholder('Plataforma', { exact: true }).fill('Twitch');
-   await newPage.getByPlaceholder('Industria', { exact: true }).fill('Gaming');
+   await newPage.getByPlaceholder('Plataforma', { exact: true }).first().fill('Twitch');
+   await newPage.getByPlaceholder('Industria', { exact: true }).first().fill('Gaming');
    
    // 2. Rellenar los campos numéricos
    const numberInputs = newPage.locator('input[type="number"]');
@@ -148,8 +148,8 @@ test('global-ads-performance user can edit an ad in a separate view', async ({ p
    // 2. Insertar un recurso específico que utilizaremos para editar
    await newPage.getByPlaceholder('Region').fill('RegionAEditar');
    await newPage.getByPlaceholder('YYYY-MM-DD').fill('2026-12-12');
-   await newPage.getByPlaceholder('Plataforma', { exact: true }).fill('PlataformaOriginal');
-   await newPage.getByPlaceholder('Industria', { exact: true }).fill('Gaming');
+   await newPage.getByPlaceholder('Plataforma', { exact: true }).first().fill('PlataformaOriginal');
+   await newPage.getByPlaceholder('Industria', { exact: true }).first().fill('Gaming');
    
    const mainNumberInputs = newPage.locator('input[type="number"]');
    await mainNumberInputs.nth(0).fill('10'); 
