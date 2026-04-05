@@ -17,6 +17,13 @@
         daily_change_percent: ''
     });
 
+    // --- VARIABLES DE BÚSQUEDA ---
+    let busqueda = $state({
+        date: '',
+        region: '',
+        index_name: ''
+    });
+
     // Variables para los mensajes de aviso (Punto 1.d)
     let mensaje = $state('');
     let esError = $state(false);
@@ -29,12 +36,24 @@
         setTimeout(() => { mensaje = ''; }, 5000);
     }
 
-    // 1. Obtener todos los recursos (Cargar la tabla)
+    // 1. Obtener recursos (Cargar la tabla y aplicar filtros si los hay)
     async function cargarIndicadores() {
         try {
-            const res = await fetch('/api/v1/daily-global-stock-market-indicators');
+            // Construimos la URL con los parámetros de búsqueda si están rellenados
+            const params = new URLSearchParams();
+            if (busqueda.date) params.append('date', busqueda.date);
+            if (busqueda.region) params.append('region', busqueda.region);
+            if (busqueda.index_name) params.append('index_name', busqueda.index_name);
+
+            const queryString = params.toString();
+            const url = '/api/v1/daily-global-stock-market-indicators' + (queryString ? `?${queryString}` : '');
+
+            const res = await fetch(url);
             if (res.ok) {
                 indicadores = await res.json();
+                if (indicadores.length === 0 && queryString) {
+                    mostrarMensaje('No se han encontrado datos con esos filtros.', true);
+                }
             } else {
                 mostrarMensaje('No se pudieron cargar los datos del mercado.', true);
             }
@@ -42,42 +61,47 @@
             mostrarMensaje('Error de conexión con el servidor.', true);
         }
     }
+
+    // Limpiar los filtros y recargar todo
+    function limpiarFiltros() {
+        busqueda = { date: '', region: '', index_name: '' };
+        cargarIndicadores();
+    }
   
     // 2. Crear un recurso (Añadir a la tabla)
-    async function crearIndicador() {
-        // --- NUEVA VALIDACIÓN FRONTEND ---
-        // Comprobamos si algún valor del objeto es una cadena vacía o nulo
-        const camposVacios = Object.values(nuevoIndicador).some(valor => valor === '' || valor === null);
-        
-        if (camposVacios) {
-            mostrarMensaje('Error: Todos los campos son obligatorios. Por favor, rellénalos todos.', true);
-            return; // Esto detiene la función para que no se ejecute el fetch
-        }
-        // ---------------------------------
+    async function crearIndicador() {
+        // --- VALIDACIÓN FRONTEND ---
+        // Comprobamos si algún valor del objeto es una cadena vacía o nulo
+        const camposVacios = Object.values(nuevoIndicador).some(valor => valor === '' || valor === null);
+        
+        if (camposVacios) {
+            mostrarMensaje('Error: Todos los campos son obligatorios. Por favor, rellénalos todos.', true);
+            return; // Esto detiene la función para que no se ejecute el fetch
+        }
 
-        try {
-            const res = await fetch('/api/v1/daily-global-stock-market-indicators', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(nuevoIndicador)
-            });
+        try {
+            const res = await fetch('/api/v1/daily-global-stock-market-indicators', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoIndicador)
+            });
 
-            if (res.status === 201) {
-                mostrarMensaje('¡Dato del mercado añadido correctamente!');
-                cargarIndicadores(); // Recargar la tabla
-                // Limpiar el formulario
-                nuevoIndicador = { date: '', index_name: '', region: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: '' };
-            } else if (res.status === 409) {
-                mostrarMensaje('Error: Ya existe un registro para esa región y ese índice.', true);
-            } else if (res.status === 400) {
-                mostrarMensaje('Error: Faltan datos por rellenar o el formato es incorrecto.', true);
-            } else {
-                mostrarMensaje('Ocurrió un error inesperado al guardar.', true);
-            }
-        } catch (error) {
-            mostrarMensaje('Error de conexión con el servidor.', true);
-        }
-    }
+            if (res.status === 201) {
+                mostrarMensaje('¡Dato del mercado añadido correctamente!');
+                cargarIndicadores(); // Recargar la tabla
+                // Limpiar el formulario
+                nuevoIndicador = { date: '', index_name: '', region: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: '' };
+            } else if (res.status === 409) {
+                mostrarMensaje('Error: Ya existe un registro para esa región y ese índice.', true);
+            } else if (res.status === 400) {
+                mostrarMensaje('Error: Faltan datos por rellenar o el formato es incorrecto.', true);
+            } else {
+                mostrarMensaje('Ocurrió un error inesperado al guardar.', true);
+            }
+        } catch (error) {
+            mostrarMensaje('Error de conexión con el servidor.', true);
+        }
+    }
 
     // 3. Borrar un recurso concreto (Eliminar un dato)
     async function borrarIndicador(region, index_name) {
@@ -152,6 +176,23 @@
 
     <hr style="margin: 20px 0;">
 
+    <section style="background-color: #fff9e6; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ffe082;">
+        <h3 style="margin-top: 0;">🔍 Buscar y Filtrar</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 15px;">
+            <input type="text" placeholder="Filtrar por Fecha (ej. 2024)" bind:value={busqueda.date} />
+            <input type="text" placeholder="Filtrar por Región (ej. Europe)" bind:value={busqueda.region} />
+            <input type="text" placeholder="Filtrar por Índice (ej. Dow Jones)" bind:value={busqueda.index_name} />
+        </div>
+        <div>
+            <button style="background-color: #ff9800; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; font-weight: bold; margin-right: 10px;" on:click={cargarIndicadores}>
+                Buscar
+            </button>
+            <button style="background-color: #9e9e9e; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px; font-weight: bold;" on:click={limpiarFiltros}>
+                Limpiar Filtros
+            </button>
+        </div>
+    </section>
+
     <section style="background-color: #f0f8ff; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #cce7ff;">
         <h2>Añadir nuevo registro</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 15px;">
@@ -208,6 +249,9 @@
                         <td style="padding: 10px; border: 1px solid #ccc;">{indicador.volume}</td>
                         <td style="padding: 10px; border: 1px solid #ccc;">{indicador.daily_change_percent}</td>
                         <td style="padding: 10px; border: 1px solid #ccc; text-align: center;">
+                            <a href="/daily-global-stock-market-indicators/{indicador.region}/{indicador.index_name}" style="background-color: #2196F3; color: white; border: none; padding: 6px 12px; cursor: pointer; border-radius: 4px; text-decoration: none; font-size: 13.3333px; display: inline-block; margin-right: 5px;">
+                                Editar
+                            </a>
                             <button style="background-color: #ff9800; color: white; border: none; padding: 6px 12px; cursor: pointer; border-radius: 4px;" on:click={() => borrarIndicador(indicador.region, indicador.index_name)}>
                                 Eliminar
                             </button>
