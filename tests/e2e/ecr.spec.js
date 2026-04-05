@@ -93,3 +93,57 @@ test('ECR page user can delete all records', async ({ page }) => {
     const rows = await newPage.locator('tbody tr').count();
     expect(rows).toBe(0);
 });
+
+test('ECR page user can search records', async ({ page }) => {
+    await page.goto(app);
+    
+    const popupPromise = page.waitForEvent('popup');
+    await page.getByRole('link', { name: 'ECR' }).click();
+    const newPage = await popupPromise;
+
+    newPage.on('dialog', async dialog => await dialog.accept());
+
+    // 1. Cargar datos iniciales
+    await newPage.getByRole('button', { name: /Cargar datos iniciales/i }).click();
+    await expect(newPage.locator('tbody tr').first()).toBeVisible();
+
+    // 2. Usar el buscador (por ejemplo, buscar la región "Europe")
+    await newPage.getByPlaceholder('Región (ej. Europe)', { exact: false }).fill('Europe');
+    await newPage.getByRole('button', { name: 'Buscar', exact: true }).click();
+
+    // 3. Comprobar que los resultados se han filtrado
+    // Sabemos por tus datos que FTSE 100, DAX y CAC 40 son de Europe
+    await expect(newPage.locator('tbody tr', { hasText: 'FTSE 100' })).toBeVisible();
+    await expect(newPage.locator('tbody tr', { hasText: 'S&P 500' })).not.toBeVisible(); // Este es de North America
+});
+
+test('ECR page user can edit a record', async ({ page }) => {
+    await page.goto(app);
+    
+    const popupPromise = page.waitForEvent('popup');
+    await page.getByRole('link', { name: 'ECR' }).click();
+    const newPage = await popupPromise;
+
+    newPage.on('dialog', async dialog => await dialog.accept());
+
+    // 1. Cargar datos iniciales
+    await newPage.getByRole('button', { name: /Cargar datos iniciales/i }).click();
+    const firstRow = newPage.locator('tbody tr').first();
+    await expect(firstRow).toBeVisible();
+
+    // 2. Hacer clic en "Editar" en la primera fila
+    await firstRow.getByRole('link', { name: 'Editar' }).click();
+
+    // 3. Ya en la página de edición, esperamos a que cargue el botón de guardar
+    await expect(newPage.getByRole('button', { name: 'Guardar Cambios' })).toBeVisible();
+
+    // 4. Modificar un campo (por ejemplo, el Volumen)
+    await newPage.locator('input[type="number"]').nth(4).fill('999999'); //nth(4) suele ser volumen o similar, probamos con el placeholder
+    
+    // Mejor buscar por el valor actual si es posible, o rellenar uno específico:
+    // Playwright rellena el input asociado, pero podemos ir directos a cambiar algo seguro
+    await newPage.getByRole('button', { name: 'Guardar Cambios' }).click();
+
+    // 5. Comprobar mensaje de éxito
+    await expect(newPage.getByText('¡Registro actualizado correctamente!')).toBeVisible();
+});
