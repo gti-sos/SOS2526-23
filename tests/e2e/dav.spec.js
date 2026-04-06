@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
-let app = 'http://127.0.0.1:3000';
+let app = 'http://localhost:3000';
 
 test('main page has the right title', async ({ page }) => {
   await page.goto(app);
