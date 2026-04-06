@@ -195,3 +195,17 @@ test('global-ads-performance user can edit an ad in a separate view', async ({ p
    await expect(updatedRow).toBeVisible();
    await expect(updatedRow).toContainText('PlataformaActualizada');
 });
+
+test('Filter data using the search panel', async ({ page }) => {
+  await page.goto(app + '/DAV');
+
+  await page.getByRole('button', { name: 'Cargar los datos originales' }).click();
+  
+  await page.getByPlaceholder('Región').fill('Europe');
+
+  await page.getByRole('button', { name: 'Buscar' }).click();
+
+  const infoMessage = page.locator('.info-message');
+  await expect(infoMessage).toContainText(/200/i);
+});
+

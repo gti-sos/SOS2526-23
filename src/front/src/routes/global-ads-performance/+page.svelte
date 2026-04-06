@@ -348,7 +348,9 @@ async function loadInitialData() {
 
     {#if resultStatusCode !== 0}
         <Alert color={resultStatusCode >= 200 && resultStatusCode < 300 ? 'success' : 'warning'} dismissible>
+        <div class="info-message">
             <strong>Estado de la operación:</strong> {resultStatusCode} 
+        </div>
         </Alert>
     {/if}
 </Container>
