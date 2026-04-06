@@ -92,6 +92,16 @@ test('global-ads-performance user can insert and delete an ad from the UI', asyn
    await expect(newRow).not.toBeVisible();
 });
 
+// Ejecuta esta limpieza antes de CADA test en este archivo
+test.beforeEach(async ({ request }) => {
+  // Llamamos directamente al backend para vaciar la colección en NeDB.
+  // Ajusta la URL base si la tienes configurada globalmente en playwright.config.js
+  const response = await request.delete('http://localhost:3000/api/v1/global-ads-performance');
+  
+  // Opcional: Asegurarnos de que el borrado fue exitoso antes de iniciar el test
+  expect(response.ok()).toBeTruthy();
+});
+
 test('global-ads-performance user can delete all ads from the UI', async ({ page }) => {
    await page.goto(app);
    
@@ -125,6 +135,16 @@ test('global-ads-performance user can delete all ads from the UI', async ({ page
    // 5. Validar estrictamente que ya no existen filas de datos renderizadas
    const GlobalAdRows = await newPage.getByTestId('GlobalAd-row').count();
    expect(GlobalAdRows).toBe(0);
+});
+
+// Ejecuta esta limpieza antes de CADA test en este archivo
+test.beforeEach(async ({ request }) => {
+  // Llamamos directamente al backend para vaciar la colección en NeDB.
+  // Ajusta la URL base si la tienes configurada globalmente en playwright.config.js
+  const response = await request.delete('http://localhost:3000/api/v1/global-ads-performance');
+  
+  // Opcional: Asegurarnos de que el borrado fue exitoso antes de iniciar el test
+  expect(response.ok()).toBeTruthy();
 });
 
 test('global-ads-performance user can edit an ad in a separate view', async ({ page }) => {
@@ -194,6 +214,16 @@ test('global-ads-performance user can edit an ad in a separate view', async ({ p
    const updatedRow = newPage.locator('tr[data-testid="GlobalAd-row"]', { hasText: 'RegionAEditar' });
    await expect(updatedRow).toBeVisible();
    await expect(updatedRow).toContainText('PlataformaActualizada');
+});
+
+// Ejecuta esta limpieza antes de CADA test en este archivo
+test.beforeEach(async ({ request }) => {
+  // Llamamos directamente al backend para vaciar la colección en NeDB.
+  // Ajusta la URL base si la tienes configurada globalmente en playwright.config.js
+  const response = await request.delete('http://localhost:3000/api/v1/global-ads-performance');
+  
+  // Opcional: Asegurarnos de que el borrado fue exitoso antes de iniciar el test
+  expect(response.ok()).toBeTruthy();
 });
 
 test('Filter data using the search panel', async ({ page }) => {
