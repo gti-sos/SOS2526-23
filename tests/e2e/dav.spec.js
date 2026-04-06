@@ -197,15 +197,21 @@ test('global-ads-performance user can edit an ad in a separate view', async ({ p
 });
 
 test('Filter data using the search panel', async ({ page }) => {
-  await page.goto(app + '/DAV');
+   await page.goto(app);
+   
+   const popupPromise = page.waitForEvent('popup');
+   await page.getByRole('link', { name: 'DAV' }).click();
+   const newPage = await popupPromise;
+   
+   await expect(newPage).toHaveTitle(/Global Ads List/);
 
-  await page.getByRole('button', { name: 'Cargar los datos originales' }).click();
+  await newPage.getByRole('button', { name: 'Cargar Datos Iniciales' }).click();
   
-  await page.getByPlaceholder('Región').fill('Europe');
+  await newPage.getByPlaceholder('Región').fill('Europe');
 
-  await page.getByRole('button', { name: 'Buscar' }).click();
+  await newPage.getByRole('button', { name: 'Buscar' }).click();
 
-  const infoMessage = page.locator('.info-message');
+  const infoMessage = newPage.locator('.info-message');
   await expect(infoMessage).toContainText(/200/i);
 });
 
