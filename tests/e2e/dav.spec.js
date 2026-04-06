@@ -1,7 +1,7 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
 
-let app = 'http://127.0.0.1:3000';
+let app = 'http://localhost:3000';
 
 test('main page has the right title', async ({ page }) => {
   await page.goto(app);
@@ -14,7 +14,7 @@ test('main page has the right title', async ({ page }) => {
 test.beforeEach(async ({ request }) => {
   // Llamamos directamente al backend para vaciar la colección en NeDB.
   // Ajusta la URL base si la tienes configurada globalmente en playwright.config.js
-  const response = await request.delete('http://127.0.0.1:3000/api/v1/global-ads-performance');
+  const response = await request.delete('http://localhost:3000/api/v1/global-ads-performance');
   
   // Opcional: Asegurarnos de que el borrado fue exitoso antes de iniciar el test
   expect(response.ok()).toBeTruthy();
