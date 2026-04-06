@@ -14,7 +14,7 @@ test('main page has the right title', async ({ page }) => {
 // por lo que no encuentra el título de la nueva ventana.
 // Con este código, esperamos a que se abra la nueva ventana y luego evaluamos el título.
 test('global-ads-performance page show some global ads', async ({ page }) => {
-   await page.goto(app + 'DAV');
+   await page.goto(app + '/DAV');
    
    await expect(page).toHaveTitle(/Global Ads List/);
 
