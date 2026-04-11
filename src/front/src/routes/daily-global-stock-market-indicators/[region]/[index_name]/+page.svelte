@@ -32,7 +32,14 @@
     // 1. Cargar los datos actuales al entrar en la página
     async function cargarIndicador() {
         try {
-            const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`);
+            // PROTECCIÓN: Leer token de forma segura
+            const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+            const cabeceras = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+            const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
+                headers: cabeceras // ¡Aquí estaba el fallo! Enviamos el token para poder LEER.
+            });
+            
             if (res.ok) {
                 indicador = await res.json();
             } else {
@@ -52,10 +59,19 @@
             return;
         }
 
+        const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        if (!token) {
+            mostrarMensaje('Error: No has iniciado sesión. Por favor, inicia sesión primero.', true);
+            return;
+        }
+
         try {
             const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
                 body: JSON.stringify(indicador)
             });
 

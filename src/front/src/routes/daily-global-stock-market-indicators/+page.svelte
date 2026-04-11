@@ -6,7 +6,6 @@
     let isLoggedIn = $state(false);
     let username = $state('');
     let password = $state('');
-    // 🌟 FIN EXTRA
 
     // Aquí guardaremos los datos que vengan de la API
     let indicadores = $state([]);
@@ -32,7 +31,6 @@
         setTimeout(() => { mensaje = ''; }, 5000);
     }
 
-    // 🌟 EXTRA: Funciones para iniciar y cerrar sesión
     async function login() {
         try {
             const res = await fetch('/api/v1/login', {
@@ -44,7 +42,13 @@
             if (res.ok) {
                 const data = await res.json();
                 token = data.token; 
-                // Hemos quitado el localStorage aquí para evitar el auto-login
+                
+                // PROTECCIÓN: Solo usar localStorage si estamos en el navegador
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem('token', data.token);
+                    sessionStorage.setItem('isLoggedIn', 'true');
+                }
+                
                 isLoggedIn = true;
                 mostrarMensaje('¡Sesión iniciada correctamente!');
                 cargarIndicadores(); 
@@ -59,13 +63,17 @@
     function logout() {
         token = '';
         isLoggedIn = false;
-        // Hemos quitado el localStorage aquí
+        
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('isLoggedIn');
+        }
+        
         indicadores = [];
         username = '';
         password = '';
         mostrarMensaje('Has cerrado sesión correctamente.');
     }
-    // 🌟 FIN EXTRA
 
     // 1. Obtener recursos 
     async function cargarIndicadores() {
@@ -87,7 +95,6 @@
             const url = '/api/v1/daily-global-stock-market-indicators' + (queryString ? `?${queryString}` : '');
 
             const res = await fetch(url, {
-                // 🌟 EXTRA: Añadimos el token a la cabecera
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
@@ -127,7 +134,6 @@
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
-                    // 🌟 EXTRA: Enseñamos el Pase VIP para poder crear
                     'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify(nuevoIndicador)
@@ -154,7 +160,6 @@
         try {
             const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
                 method: 'DELETE',
-                // 🌟 EXTRA: Enseñamos el Pase VIP para poder borrar
                 headers: { 'Authorization': `Bearer ${token}` } 
             });
 
@@ -178,7 +183,6 @@
         try {
             const res = await fetch('/api/v1/daily-global-stock-market-indicators', {
                 method: 'DELETE',
-                // 🌟 EXTRA: Enseñamos el Pase VIP para poder borrar todo
                 headers: { 'Authorization': `Bearer ${token}` } 
             });
 
@@ -197,7 +201,6 @@
     async function cargarDatosIniciales() {
         try {
             const res = await fetch('/api/v1/daily-global-stock-market-indicators/loadInitialData', {
-                // 🌟 EXTRA: Enseñamos el Pase VIP para cargar datos iniciales
                 headers: { 'Authorization': `Bearer ${token}` } 
             });
             
@@ -212,11 +215,18 @@
         }
     }
 
-    // 🌟 EXTRA: Vaciamos el onMount para que no entre automáticamente
     onMount(() => {
-        // Queda vacío a propósito
+        // PROTECCIÓN SSR: Evita el crasheo inicial en SvelteKit
+        if (typeof window !== 'undefined') {
+            const sesionActiva = sessionStorage.getItem('isLoggedIn');
+            const tokenGuardado = localStorage.getItem('token');
+            if (sesionActiva === 'true' && tokenGuardado) {
+                token = tokenGuardado;
+                isLoggedIn = true;
+                cargarIndicadores();
+            }
+        }
     });
-    // 🌟 FIN EXTRA
 </script>
 
 <main style="max-width: 1200px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif;">
