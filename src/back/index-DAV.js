@@ -10,7 +10,6 @@ const db = new dataStore();
 
 // 🟢 CONFIGURACIÓN INTELIGENTE DEL MIDDLEWARE
 const checkJwt = (req, res, next) => {
-    console.log("Modo:", process.env.NODE_ENV, "Actions:", process.env.GITHUB_ACTIONS);
     // Si estamos en GitHub Actions o ejecutando tests locales, saltamos la validación
     if (process.env.GITHUB_ACTIONS === 'true' || process.env.NODE_ENV === 'test') {
         return next();
