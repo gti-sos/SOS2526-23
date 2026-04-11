@@ -9,6 +9,9 @@
         Alert, Badge, Card, CardBody, CardHeader
     } from '@sveltestrap/sveltestrap';
     
+    // Importamos funciones de autenticación (si las necesitamos para proteger ciertas acciones)
+    import { initAuth, login, logout, getToken } from '$lib/auth.js';
+
     let API = "/api/v1/global-ads-performance";
 
     // @ts-ignore
@@ -33,48 +36,68 @@
     let searchFrom = $state("");
     let searchTo = $state("");
 
+
+    // Estado para controlar si el usuario está autenticado (si implementamos autenticación)
+    let isAuthenticated = $state(false);
+
+
+    onMount(async () => {
+        // 🟢 NUEVO: Inicializamos Auth0 al cargar la página
+        const authClient = await initAuth();
+        
+        // Manejamos la redirección si venimos de hacer login
+        if (window.location.search.includes("state=") && window.location.search.includes("code=")) {
+            await authClient.handleRedirectCallback();
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        isAuthenticated = await authClient.isAuthenticated();
+        
+        getData(); // Cargamos los datos públicos
+    });
+
     if (dev)
         API = "http://localhost:3000"+API;
     
-
         //FUNCION CARGAR DATOS INICIALES
     
 async function loadInitialData() {
-        // 1. Comprobamos si ya hay datos en la tabla
-        if (global_ad.length > 0) {
-            const userWantsToContinue = confirm("A continuación se borrará el contenido a cambio de los datos iniciales");
-            
-            if (!userWantsToContinue) {
-                return; 
-            }
-
-            // 2. Si acepta, primero borramos TODOS los datos del servidor para evitar el error 409 (Conflicto) al intentar cargar los iniciales.
-            try {
-                await fetch(API, { method: 'DELETE' });
-            } catch (e) {
-                console.error("Error al limpiar la base de datos:", e);
-            }
+    if (global_ad.length > 0) {
+        const userWantsToContinue = confirm("A continuación se borrará el contenido a cambio de los datos iniciales");
+        
+        if (!userWantsToContinue) {
+            return; 
         }
 
-        // 3. Una vez limpio el backend (o si ya estaba vacío), cargamos los datos por defecto
+        // CORRECCIÓN: Pedimos el token y lo enviamos en el DELETE
+        const token = await getToken();
         try {
-            const res = await fetch(API + "/loadInitialData", {
-                method: 'GET'
-            }); 
-            
-            resultStatusCode = res.status;
-
-            if (res.ok || res.status === 201) {
-                // En lugar de asignar el json directo, llamamos a getData() 
-                // para asegurarnos de que traemos el estado real y actualizado de la base de datos
-                getData();
-            } else {
-                console.error("Error al cargar los datos iniciales. Status:", res.status);
-            }
-        } catch (error) {
-            console.error("Error de red:", error);
+            await fetch(API, { 
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+        } catch (e) {
+            console.error("Error al limpiar la base de datos:", e);
         }
     }
+
+    // 3. Cargamos los datos por defecto (Suele ser GET público)
+    try {
+        const res = await fetch(API + "/loadInitialData", {
+            method: 'GET'
+        }); 
+        
+        resultStatusCode = res.status;
+
+        if (res.ok || res.status === 201) {
+            getData();
+        } else {
+            console.error("Error al cargar los datos iniciales. Status:", res.status);
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+    }
+}
 
 
         //FUNCION GET TODOS LOS DATOS
@@ -91,6 +114,7 @@ async function loadInitialData() {
     async function insertAd() {
         // 1. Ocultar alerta de estado anterior para forzar la reactividad
         resultStatusCode = 0; 
+        const token = await getToken(); // Pedimos la llave a Auth0
 
         let newAd = {
             region: newRegion,
@@ -108,7 +132,8 @@ async function loadInitialData() {
             const res = await fetch(API, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Inyectamos el token
                 },
                 body: JSON.stringify(newAd)
             });
@@ -140,9 +165,17 @@ async function loadInitialData() {
         //FUNCION DELETE TODO
     async function deleteAll() {
         if (!confirm("¿Estás seguro de que quieres borrar TODOS los registros?")) return;
+        const token = await getToken(); // Pedimos la llave
+
         try {
-            const res = await fetch(API, { method: 'DELETE' });
+            const res = await fetch(API, { 
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             resultStatusCode = res.status;
+
             if (res.ok) {
                 global_ad = []; // Vaciamos la lista en el cliente
             }
@@ -157,11 +190,17 @@ async function loadInitialData() {
     async function deleteAd(ad) {
         // CORRECCIÓN: Cambiamos los query params (?region=...) por parámetros de ruta (/.../...)
         const url = `${API}/${encodeURIComponent(ad.region)}/${encodeURIComponent(ad.date)}`;
+        const token = await getToken(); // Pedimos la llave
         
         try {
-            const res = await fetch(url, { method: 'DELETE' });
+            const res = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             resultStatusCode = res.status;
-
+            
             if (res.ok) {
                 // "Filtramos" el array: dejamos todos los que NO coincidan con el que borramos
                 global_ad = global_ad.filter(item => 
@@ -235,16 +274,27 @@ async function loadInitialData() {
             <p class="text-muted">Gestión avanzada de métricas publicitarias</p>
         </Col>
         <Col class="text-end">
+            {#if isAuthenticated}
+                <Button color="warning" class="me-2" onclick={logout}>
+                    🚪 Cerrar Sesión
+                </Button>
+            {:else}
+                <Button color="success" class="me-2" onclick={login}>
+                    🔑 Iniciar Sesión
+                </Button>
+            {/if}
+
             <Button color="info" outline onclick={loadInitialData}>
                 🔄 Cargar Datos Iniciales
             </Button>
-            <Button color="danger" onclick={deleteAll} disabled={global_ad.length === 0}>
+            
+            <Button color="danger" onclick={deleteAll} disabled={global_ad.length === 0 || !isAuthenticated}>
                 🗑️ Borrar Todo
             </Button>
         </Col>
     </Row>
 
-        <Card class="shadow-sm mb-4 border-info">
+    <Card class="shadow-sm mb-4 border-info">
         <CardHeader class="bg-info text-white fw-bold">
             🔍 Buscar / Filtrar Recursos
         </CardHeader>
@@ -260,10 +310,10 @@ async function loadInitialData() {
                     <Input type="text" bind:value={searchIndustry} placeholder="Industria" bsSize="sm" />
                 </Col>
                 <Col md="2">
-                    <Input type="number" bind:value={searchFrom} placeholder="Desde año (Ej: 2000)" bsSize="sm" />
+                    <Input type="number" bind:value={searchFrom} placeholder="Desde año" bsSize="sm" />
                 </Col>
                 <Col md="2">
-                    <Input type="number" bind:value={searchTo} placeholder="Hasta año (Ej: 2017)" bsSize="sm" />
+                    <Input type="number" bind:value={searchTo} placeholder="Hasta año" bsSize="sm" />
                 </Col>
                 <Col md="2" class="d-flex gap-2">
                     <Button color="primary" size="sm" class="w-100" onclick={searchData}>
@@ -308,13 +358,14 @@ async function loadInitialData() {
                         <td><Input type="number" bind:value={newConversion} bsSize="sm" /></td>
                         <td><Input type="number" bind:value={newRevenue} bsSize="sm" /></td>
                         <td>
-                            <Button color="success" size="sm" class="w-100" onclick={insertAd}>
+                            <Button color="success" size="sm" class="w-100" onclick={insertAd} disabled={!isAuthenticated}>
                                 Insertar
                             </Button>
                         </td>
                     </tr>
+                    
                     {#each global_ad as ad, i (i)}
-                    <tr data-testid="GlobalAd-row">
+                        <tr data-testid="GlobalAd-row">
                             <td>
                                 <a href="/global-ads-performance/{ad.region}/{ad.date}" class="text-decoration-none fw-bold">
                                     {ad.region}
@@ -329,7 +380,7 @@ async function loadInitialData() {
                             <td>{ad.conversion}</td>
                             <td class="text-success fw-bold">+{ad.revenue}</td>
                             <td>
-                                <Button color="outline-danger" size="sm" onclick={() => deleteAd(ad)}>
+                                <Button color="outline-danger" size="sm" onclick={() => deleteAd(ad)} disabled={!isAuthenticated}>
                                     Eliminar
                                 </Button>
                             </td>
@@ -348,9 +399,9 @@ async function loadInitialData() {
 
     {#if resultStatusCode !== 0}
         <Alert color={resultStatusCode >= 200 && resultStatusCode < 300 ? 'success' : 'warning'} dismissible>
-        <div class="info-message">
-            <strong>Estado de la operación:</strong> {resultStatusCode} 
-        </div>
+            <div class="info-message">
+                <strong>Estado de la operación:</strong> {resultStatusCode} 
+            </div>
         </Alert>
     {/if}
 </Container>

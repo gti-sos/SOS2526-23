@@ -1,50 +1,30 @@
-//Importamos las librerías necesarias para autenticación JWT y hashing de contraseñas
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
 import dataStore from "nedb";
-
-// Clave secreta para firmar los tokens (en producción, esto DEBE ir en un archivo .env)
-const JWT_SECRET = "mi_super_clave_secreta_para_sos2526"; 
-
-// Inicializamos una nueva base de datos para los usuarios
-const usersDb = new dataStore();
+// Importamos solo lo necesario de Auth0
+import { auth } from "express-oauth2-jwt-bearer";
 
 const BASE_URL_API = "/api/v1";
 const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 
-// Inicializamos la base de datos en memoria
+// Inicializamos la base de datos en memoria para los anuncios
 const db = new dataStore();
 
-// Middleware para verificar el token JWT en las rutas protegidas
-const verifyToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).json({ message: "Acceso denegado. Token no proporcionado." });
-    }
-
-    jwt.verify(token, JWT_SECRET, (err, decoded) => {
-        if (err) return res.status(403).json({ message: "Token inválido o expirado." });
-        req.user = decoded;
-        next();
-    });
-};
+// 🟢 Middleware de Auth0 para verificar los tokens
+const checkJwt = auth({
+    audience: 'https://api.sos2526-23.com',
+    issuerBaseURL: `https://dev-dxwqup0hqj5q6tuz.eu.auth0.com/`,
+});
 
 export function loadBackEndDAV(app) {
 
-       // GET /DOCS
+    // GET /DOCS
     app.get(BASE_URL_API + "/global-ads-performance/docs", (req, res) => {
         res.redirect(DOC_URL);
-
     });
 
-
-    // 1. CARGA DE DATOS INICIALES (loadInitialData)
+    // 1. CARGA DE DATOS INICIALES (loadInitialData) - Público
     app.get(BASE_URL_API + "/global-ads-performance/loadInitialData", (req, res) => {
         db.find({}, (err, docs) => {
             if (docs.length === 0) {
-                // Aquí metemos el array exacto para que NeDB lo inserte
                 const newData = [
                     { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
                     { region: "Europe", date: "2024-01-22", platform: "TikTok Ads", industry: "EdTech", impression: 135608, click: 5220, ad_spend: 6159.60, conversion: 411, revenue: 64126.68 },
@@ -60,37 +40,30 @@ export function loadBackEndDAV(app) {
                 ];
                 
                 db.insert(newData, (err, newDocs) => {
-                    res.status(201).json(newDocs); // 201 Created
+                    res.status(201).json(newDocs); 
                 });
             } else {
-                res.status(409).json({ message: "Ya existen datos" }); // 409 Conflict
+                res.status(409).json({ message: "Ya existen datos" }); 
             }
         });
     });
 
-// 2. GET COLECCIÓN COMPLETA (Con Búsquedas y Paginación - Requisitos 3 y 4)
+    // 2. GET COLECCIÓN COMPLETA (Con Búsquedas y Paginación) - Público
     app.get(BASE_URL_API + "/global-ads-performance", (req, res) => {
-        
         const searchQuery = {};
 
-        // --- LÓGICA DE BÚSQUEDAS (Requisito 3) ---
         if (req.query.region) searchQuery.region = req.query.region;
         if (req.query.date) searchQuery.date = req.query.date;
         if (req.query.platform) searchQuery.platform = req.query.platform;
         if (req.query.industry) searchQuery.industry = req.query.industry;
-        
         if (req.query.impression) searchQuery.impression = parseInt(req.query.impression);
         if (req.query.click) searchQuery.click = parseInt(req.query.click);
         if (req.query.ad_spend) searchQuery.ad_spend = parseFloat(req.query.ad_spend);
         if (req.query.conversion) searchQuery.conversion = parseInt(req.query.conversion);
         if (req.query.revenue) searchQuery.revenue = parseFloat(req.query.revenue);
 
-        // Preparamos la consulta a la base de datos (SIN el callback todavía)
         let dbQuery = db.find(searchQuery);
 
-        
-        // --- LÓGICA DE PAGINACIÓN (Requisito 4) ---
-        // Si el usuario envía "?limit=X", limitamos los resultados
         if (req.query.limit) {
             const limit = parseInt(req.query.limit);
             if (!isNaN(limit) && limit >= 0) {
@@ -98,19 +71,16 @@ export function loadBackEndDAV(app) {
             }
         }
 
-        // Si el usuario envía "?offset=X", nos saltamos X resultados
         if (req.query.offset) {
             const offset = parseInt(req.query.offset);
             if (!isNaN(offset) && offset >= 0) {
-                dbQuery = dbQuery.skip(offset); // En NeDB el offset se aplica con .skip()
+                dbQuery = dbQuery.skip(offset); 
             }
         }
 
-        // --- EJECUCIÓN DE LA CONSULTA ---
         dbQuery.exec((err, data) => {
             if (err) return res.sendStatus(500);
             
-            // Eliminamos el _id de NeDB para el Requisito 11
             const cleanData = data.map(resource => {
                 delete resource._id;
                 return resource;
@@ -120,36 +90,7 @@ export function loadBackEndDAV(app) {
         });
     });
 
-    // 3. POST A LA COLECCIÓN (Añadir recurso)
-    app.post(BASE_URL_API + "/global-ads-performance", verifyToken, (req, res) => {
-        const newResource = req.body;
-        
-        // Validación de estructura básica: debe tener todos los campos
-        if (!newResource.region || !newResource.date || !newResource.platform || !newResource.industry) {
-            return res.sendStatus(400); // 400 Bad Request
-        }
-
-        // Comprobamos si ya existe la clave primaria correcta (region + date)
-        db.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
-            if (docs.length > 0) {
-                return res.sendStatus(409); // 409 Conflict (Ya existe)
-            }
-            db.insert(newResource, (err, newDoc) => {
-                res.sendStatus(201); // 201 Created
-            });
-        });
-    });
-
-
-    // 4. DELETE COLECCIÓN COMPLETA
-    app.delete(BASE_URL_API + "/global-ads-performance", verifyToken, (req, res) => {
-        // {} borra todos los documentos, {multi: true} permite borrar más de uno a la vez
-        db.remove({}, { multi: true }, (err, numRemoved) => {
-            res.sendStatus(200); // 200 OK
-        });
-    });
-
-    // 5. GET RECURSO ESPECÍFICO (region + date)
+    // 5. GET RECURSO ESPECÍFICO (region + date) - Público
     app.get(BASE_URL_API + '/global-ads-performance/:region/:date', (req, res) => {
         const { region, date } = req.params;
 
@@ -157,100 +98,77 @@ export function loadBackEndDAV(app) {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
             if (docs.length > 0) {
-                res.status(200).json((docs[0])); // Devuelve UN OBJETO
+                res.status(200).json((docs[0])); 
             } else {
                 res.status(404).json({ message: "Not Found" });
             }
         });
     });
 
-    // RUTAS DE AUTENTICACIÓN (Registro y Login)
-    app.post(BASE_URL_API + "/auth/register", async (req, res) => {
-        const { username, password } = req.body;
+    // ==========================================
+    // 🔒 RUTAS PROTEGIDAS POR AUTH0
+    // ==========================================
 
-        if (!username || !password) {
-            return res.status(400).json({ message: "Usuario y contraseña son requeridos" });
+    // 3. POST A LA COLECCIÓN (Añadir recurso)
+    app.post(BASE_URL_API + "/global-ads-performance", checkJwt, (req, res) => {
+        const newResource = req.body;
+        
+        if (!newResource.region || !newResource.date || !newResource.platform || !newResource.industry) {
+            return res.sendStatus(400); 
         }
 
-        // Comprobar si el usuario ya existe
-        usersDb.find({ username }, async (err, docs) => {
+        db.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
             if (docs.length > 0) {
-                return res.status(409).json({ message: "El usuario ya existe" });
+                return res.sendStatus(409); 
             }
-
-            // Encriptar la contraseña (salteo de 10 rondas)
-            const hashedPassword = await bcrypt.hash(password, 10);
-            const newUser = { username, password: hashedPassword };
-
-            usersDb.insert(newUser, (err, newDoc) => {
-                res.status(201).json({ message: "Usuario registrado con éxito" });
+            db.insert(newResource, (err, newDoc) => {
+                res.sendStatus(201); 
             });
         });
     });
 
-    // Login: Verificar credenciales y generar token JWT
-    app.post(BASE_URL_API + "/auth/login", (req, res) => {
-        const { username, password } = req.body;
-
-        usersDb.find({ username }, async (err, docs) => {
-            if (docs.length === 0) {
-                return res.status(401).json({ message: "Credenciales inválidas" });
-            }
-
-            const user = docs[0];
-            // Comparamos la contraseña enviada con la encriptada
-            const isMatch = await bcrypt.compare(password, user.password);
-
-            if (!isMatch) {
-                return res.status(401).json({ message: "Credenciales inválidas" });
-            }
-
-            // Si es correcto, generamos el Token (válido por 2 horas)
-            const token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: '2h' });
-
-            res.status(200).json({ token });
+    // 4. DELETE COLECCIÓN COMPLETA
+    app.delete(BASE_URL_API + "/global-ads-performance", checkJwt, (req, res) => {
+        db.remove({}, { multi: true }, (err, numRemoved) => {
+            res.sendStatus(200); 
         });
     });
 
     // 6. DELETE RECURSO ESPECÍFICO
-    app.delete(BASE_URL_API + "/global-ads-performance/:region/:date", verifyToken,(req, res) => {
+    app.delete(BASE_URL_API + "/global-ads-performance/:region/:date", checkJwt, (req, res) => {
         const { region, date } = req.params;
 
         db.remove({ region: region, date: date }, {}, (err, numRemoved) => {
             if (numRemoved === 0) {
-                return res.sendStatus(404); // 404 Not Found si no existía
+                return res.sendStatus(404); 
             }
-            res.sendStatus(200); // 200 OK
+            res.sendStatus(200); 
         });
     });
 
     // 7. PUT RECURSO ESPECÍFICO (Actualizar)
-    app.put(BASE_URL_API + "/global-ads-performance/:region/:date", verifyToken, (req, res) => {
+    app.put(BASE_URL_API + "/global-ads-performance/:region/:date", checkJwt, (req, res) => {
         const { region, date } = req.params;
         const updatedResource = req.body;
 
-        // Comprobar que el ID de la URL coincide con el ID del body (Requisito F06 de errores básicos)
         if (region !== updatedResource.region || date !== updatedResource.date) {
-            return res.sendStatus(400); // 400 Bad Request
+            return res.sendStatus(400); 
         }
 
         db.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => {
             if (numReplaced === 0) {
-                return res.sendStatus(404); // 404 Not Found si no existe el que queremos actualizar
+                return res.sendStatus(404); 
             }
-            res.sendStatus(200); // 200 OK
+            res.sendStatus(200); 
         });
     });
-    
 
     // MÉTODOS PROHIBIDOS (Tabla Azul L05)
     app.post(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
-        res.sendStatus(405); // Method Not Allowed
+        res.sendStatus(405); 
     });
     
     app.put(BASE_URL_API + "/global-ads-performance", (req, res) => {
-        res.sendStatus(405); // Method Not Allowed
+        res.sendStatus(405); 
     });
-
-
 }

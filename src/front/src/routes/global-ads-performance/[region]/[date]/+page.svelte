@@ -72,6 +72,7 @@
 
         //FUNCION PUT
     async function updateAd() {
+        const token = await getToken();
         let newAd= {
                 region: updatedRegion,
                 date: updatedDate,
@@ -87,7 +88,8 @@
         const res = await fetch(API+"/"+region+"/"+date,{
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }, 
             body: JSON.stringify(newAd)
             });
