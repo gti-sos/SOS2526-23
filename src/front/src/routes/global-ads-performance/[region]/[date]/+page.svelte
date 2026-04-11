@@ -1,53 +1,46 @@
 <script>
-
     import { page } from '$app/state';
-    import {dev} from '$app/environment';
-    import {onMount } from 'svelte';
+    import { dev } from '$app/environment';
+    import { onMount } from 'svelte';
+    // Importamos las herramientas de tu librería de auth
     import { initAuth, getToken } from '$lib/auth.js';
 
-    // Importamos los mismos componentes de Sveltestrap que en la vista principal
     import { 
         Table, Button, Input, Container, Row, Col, 
         Alert, Badge, Card, CardBody 
     } from '@sveltestrap/sveltestrap';
     
+    // Parámetros de la URL (claves primarias)
     let region = page.params.region;
     let date = page.params.date;
 
     let API = "/api/v1/global-ads-performance";
+    if (dev) API = "http://localhost:3000" + API;
 
-    // Estado para controlar si el usuario está autenticado o no
+    // Estados reactivos
     let isAuthenticated = $state(false);
-
-    // Estado para controlar la visualización del mensaje de error 404
     let notFoundError = $state(false);
-
     let resultStatusCode = $state(0);
-    let updatedRegion = $state("newRegion");
-    let updatedDate = $state("newDate");
-    let updatedPlatform = $state("newPlatform");
-    let updatedIndustry = $state("newIndustry");
+
+    // Variables de los campos
+    let updatedRegion = $state("");
+    let updatedDate = $state("");
+    let updatedPlatform = $state("");
+    let updatedIndustry = $state("");
     let updatedImpression = $state(0);
     let updatedClick = $state(0);
     let updatedAdSpend = $state(0);
     let updatedConversion = $state(0);
     let updatedRevenue = $state(0);
 
-    if (dev)
-        API = "http://localhost:3000"+API;
-    
-
-        //FUNCION GET
+    // FUNCION GET: Carga los datos actuales del anuncio
     async function getData() {
         try {
-            const res = await fetch(`${API}/${region}/${date}`,{
-                method: 'GET'
-            });
+            const res = await fetch(`${API}/${region}/${date}`);
 
-            // 1. Comprobamos si el servidor responde con un 404
             if (res.status === 404) {
                 notFoundError = true;
-                return; // Salimos de la función para no intentar procesar el JSON
+                return;
             }
 
             if (!res.ok) {
@@ -55,10 +48,10 @@
                 return;
             }
 
-            // 2. Si todo fue bien, cargamos los datos y nos aseguramos de que el error esté en false
             notFoundError = false;
             const data = await res.json();
             
+            // Rellenamos los estados con los datos del servidor
             updatedRegion = data.region;
             updatedDate = data.date;
             updatedPlatform = data.platform;
@@ -70,58 +63,61 @@
             updatedRevenue = data.revenue;
 
         } catch (err) {
-            console.error("Error de red al intentar obtener el anuncio:", err);
+            console.error("Error de red:", err);
         }
     }
 
-        //FUNCION PUT
+    // FUNCION PUT: Envía los cambios al servidor
     async function updateAd() {
+        // 1. Obtenemos el token para autorizar la acción
         const token = await getToken();
-        let newAd= {
-                region: updatedRegion,
-                date: updatedDate,
-                platform: updatedPlatform,
-                industry: updatedIndustry,
-                impression: updatedImpression,
-                click: updatedClick,
-                ad_spend: updatedAdSpend,
-                conversion: updatedConversion,
-                revenue: updatedRevenue
-            };
+        
+        let newAd = {
+            region: updatedRegion,
+            date: updatedDate,
+            platform: updatedPlatform,
+            industry: updatedIndustry,
+            impression: updatedImpression,
+            click: updatedClick,
+            ad_spend: updatedAdSpend,
+            conversion: updatedConversion,
+            revenue: updatedRevenue
+        };
 
-        const res = await fetch(API+"/"+region+"/"+date,{
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }, 
-            body: JSON.stringify(newAd)
+        try {
+            const res = await fetch(`${API}/${region}/${date}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Inyectamos el token de seguridad
+                }, 
+                body: JSON.stringify(newAd)
             });
 
-            resultStatusCode = await res.status;
+            resultStatusCode = res.status;
 
-            if(resultStatusCode==200)
+            // Si el éxito es 200 (como devuelve tu backend DAV), refrescamos
+            if (res.ok) {
                 getData();
+            }
+        } catch (error) {
+            console.error("Fallo en la actualización:", error);
+            resultStatusCode = 500;
+        }
     }
 
 onMount(async () => {
-    // 1. IMPORTANTE: Guardamos el cliente en una variable
-    const auth0 = await initAuth(); 
+        // 1. IMPORTANTE: Guardamos el cliente en una variable
+        const auth0 = await initAuth(); 
+        
+        // 2. Comprobamos la sesión usando esa variable específica
+        isAuthenticated = await auth0.isAuthenticated();
+
+        // 3. Cargamos los datos del anuncio
+        getData();
+    });
     
-    // 2. Comprobamos la sesión usando esa variable
-    isAuthenticated = await auth0.isAuthenticated();
-
-    if (isAuthenticated) {
-        // Solo cargamos datos si estamos dentro
-        getData(); 
-    } else {
-        console.warn("Usuario no autenticado en vista de detalle");
-        // Opcional: alert("Debes estar logueado");
-    }
-});
-
 </script>
-
 
 <Container class="mt-4">
     <Row class="align-items-center mb-4">
@@ -140,73 +136,64 @@ onMount(async () => {
     {#if notFoundError}
         <Alert color="danger" class="shadow-sm">
             <h4 class="alert-heading">Error 404: Anuncio no encontrado</h4>
-            <p>
-                No existe un anuncio registrado en el sistema con región <strong>"{region}"</strong> en la fecha <strong>"{date}"</strong>.
-            </p>
-            <hr>
-            <p class="mb-0">
-                Por favor, comprueba la URL o vuelve al listado principal para seleccionar un registro válido.
-            </p>
+            <p>No existe un registro para <strong>"{region}"</strong> en la fecha <strong>"{date}"</strong>.</p>
         </Alert>
-
     {:else}
+        <Card class="shadow-sm mb-4">
+            <CardBody>
+                <Table hover responsive class="align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Region</th>
+                            <th>Fecha</th>
+                            <th>Plataforma</th>
+                            <th>Industria</th>
+                            <th>Impresiones</th>
+                            <th>Clicks</th>
+                            <th>Gasto (€)</th>
+                            <th>Conv.</th>
+                            <th>Ingresos (€)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-light">
+                            <td><Input type="text" bind:value={updatedRegion} bsSize="sm" disabled /></td>
+                            <td><Input type="text" bind:value={updatedDate} bsSize="sm" disabled /></td>
+                            
+                            <td><Input type="text" bind:value={updatedPlatform} bsSize="sm" /></td>
+                            <td><Input type="text" bind:value={updatedIndustry} bsSize="sm" /></td>
+                            <td><Input type="number" bind:value={updatedImpression} bsSize="sm" /></td>
+                            <td><Input type="number" bind:value={updatedClick} bsSize="sm" /></td>
+                            <td><Input type="number" bind:value={updatedAdSpend} bsSize="sm" /></td>
+                            <td><Input type="number" bind:value={updatedConversion} bsSize="sm" /></td>
+                            <td><Input type="number" bind:value={updatedRevenue} bsSize="sm" /></td>
+                            
+                            <td>
+                                <Button color="primary" size="sm" class="w-100" onclick={updateAd} disabled={!isAuthenticated}>
+                                    Actualizar
+                                </Button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </Table>
+            </CardBody>
+        </Card>
 
-    <Card class="shadow-sm mb-4">
-        <CardBody>
-            <Table hover responsive class="align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Region</th>
-                        <th>Fecha</th>
-                        <th>Plataforma</th>
-                        <th>Industria</th>
-                        <th>Impresiones</th>
-                        <th>Clicks</th>
-                        <th>Gasto (€)</th>
-                        <th>Conv.</th>
-                        <th>Ingresos (€)</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="table-light">
-                        <td><Input type="text" bind:value={updatedRegion} bsSize="sm" disabled/></td>
-                        <td><Input type="text" bind:value={updatedDate} bsSize="sm" disabled /></td>
-                        <td><Input type="text" bind:value={updatedPlatform} bsSize="sm" /></td>
-                        <td><Input type="text" bind:value={updatedIndustry} bsSize="sm" /></td>
-                        
-                        <td><Input type="number" bind:value={updatedImpression} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={updatedClick} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={updatedAdSpend} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={updatedConversion} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={updatedRevenue} bsSize="sm" /></td>
-                        
-                        <td>
-                            <Button color="primary" size="sm" class="w-100" onclick={updateAd} disabled={!isAuthenticated}>
-                                Actualizar
-                            </Button>
-                        </td>
-                    </tr>
-                </tbody>
-            </Table>
-        </CardBody>
-    </Card>
-
-    {#if resultStatusCode !== 0}
-        <Alert color={resultStatusCode >= 200 && resultStatusCode < 300 ? 'success' : 'warning'} dismissible>
-            <strong>Estado de la operación:</strong> {resultStatusCode} 
-            {resultStatusCode >= 200 && resultStatusCode < 300 ? '(Recurso actualizado correctamente)' : ''}
-        </Alert>
+        {#if resultStatusCode !== 0}
+            <Alert color={resultStatusCode >= 200 && resultStatusCode < 300 ? 'success' : 'warning'} dismissible>
+                <strong>Estado:</strong> {resultStatusCode} 
+                {#if resultStatusCode === 200}
+                    (Actualizado correctamente)
+                {:else if resultStatusCode === 401}
+                    (Error: No autorizado. Inicia sesión)
+                {/if}
+            </Alert>
+        {/if}
     {/if}
-{/if}
 </Container>
 
 <style>
-    /* Estilos globales para mantener la consistencia con la página principal */
-    :global(body) {
-        background-color: #f8f9fa;
-    }
-    :global(.table td) {
-    font-size: 0.9rem;
-}
+    :global(body) { background-color: #f8f9fa; }
+    :global(.table td) { font-size: 0.85rem; }
 </style>
