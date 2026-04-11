@@ -1,58 +1,48 @@
 name: CI API Tests
 
-# Indicamos que se ejecute al hacer push o abrir un Pull Request
 on:
   push:
-    branches: [ main ]
+    branches: [ main, '**' ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, '**' ]
 
 jobs:
   test:
-    # Se ejecutará en la última versión de Ubuntu
     runs-on: ubuntu-latest
     
     steps:
-      # 1. Clona tu repositorio en la máquina virtual de GitHub
       - name: Checkout del código
         uses: actions/checkout@v4
         
-      # 2. Configura Node.js (Usamos la versión 22 por compatibilidad con NeDB)
       - name: Configurar Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
           
-      # 3. Instala las dependencias del backend (Express, NeDB, Newman...)
-      - name: Instalar dependencias del Backend
+      - name: Instalar dependencias del Proyecto
         run: npm install
 
-      # 4. Construye el frontend para que el backend no falle al arrancar
       - name: Instalar dependencias del Frontend y construir
         run: |
           cd src/front
           npm install --legacy-peer-deps
           npm run build
-          
-      # 5. Lanza los tests usando el script que ya preparamos
-      - name: Ejecutar pruebas
-        run: npm test
+          cd ../..
 
-      # 6. Lanza el servidor y ESPERA a que esté listo para evitar el Race Condition
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Start the server and wait
         run: |
           npm start &
-          npx wait-on http://127.0.0.1:3000
-        
-      # 7. Instala Playwright y sus dependencias para ejecutar los tests E2E  
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-        
-      # 8. Lanza las pruebas de Playwright
-      - name: Run Playwright tests
-        run: npx playwright test
-        
-      # 9. Guarda el reporte visual si algo falla para poder revisarlo luego
+          npx wait-on http://127.0.0.1:3000 --timeout 60000
+
+      - name: Ejecutar pruebas de API y E2E
+        shell: bash
+        run: |
+          npm test
+          npx playwright test
+
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
@@ -60,7 +50,6 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      # 10. Despliegue automático en Render si las pruebas pasan (Punto 6)
       - name: Deploy to Render
         if: success()
         run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
