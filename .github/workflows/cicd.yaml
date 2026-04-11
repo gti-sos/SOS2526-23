@@ -29,22 +29,18 @@ jobs:
           npm run build
           cd ../..
 
-      # INSTALACIÓN DE NAVEGADORES ANTES DE LAS PRUEBAS
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # ARRANQUE DEL SERVIDOR EN SEGUNDO PLANO
       - name: Start the server and wait
         run: |
           npm start &
           npx wait-on http://127.0.0.1:3000 --timeout 60000
 
-      # EJECUCIÓN DE PRUEBAS
       - name: Ejecutar pruebas de API y E2E
-        # Usamos bash para asegurar que el "|| true" funcione perfectamente
         shell: bash
         run: |
-          npm test || true
+          npm test
           npx playwright test
 
       - uses: actions/upload-artifact@v4
