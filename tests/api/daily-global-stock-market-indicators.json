@@ -1,0 +1,802 @@
+{
+  "info": {
+    "_postman_id": "888c8f0e-6ac9-46a6-8891-a62b001b6e6d",
+    "name": "SOS2526-23 API daily-global-stock-market-indicators",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52708852",
+    "_collection_link": "https://go.postman.co/collection/52708852-888c8f0e-6ac9-46a6-8891-a62b001b6e6d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "1. Peticiones Correctas",
+      "item": [
+        {
+          "name": "1. DELETE - Borra todos los recursos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 204 - Colección limpiada\", () => {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. GET - Cargar Datos Iniciales",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 201 - Datos cargados\", () => {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "pm.test(\"Devuelve un array con 10 elementos\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "    pm.expect(data.length).to.eql(10);\r",
+                  "});\r",
+                  "pm.test(\"Los elementos no tienen _id\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data[0]).to.not.have.property('_id');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/loadInitialData",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "loadInitialData"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. GET - Lista de recursos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Devuelve un array\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "    pm.expect(data.length).to.be.greaterThan(0);\r",
+                  "});\r",
+                  "pm.test(\"Los elementos tienen los campos correctos\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data[0]).to.have.property('date');\r",
+                  "    pm.expect(data[0]).to.have.property('index_name');\r",
+                  "    pm.expect(data[0]).to.have.property('region');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. GET - Lista filtrada por región",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Devuelve un array\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "});\r",
+                  "pm.test(\"Todos los resultados son de region Asia\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    data.forEach(item => {\r",
+                  "        pm.expect(item.region).to.include(\"Asia\");\r",
+                  "    });\r",
+                  "});\r",
+                  "pm.test(\"El array no está vacío\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data.length).to.be.greaterThan(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators?region=Asia",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ],
+              "query": [
+                {
+                  "key": "region",
+                  "value": "Asia"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. GET - Lista paginada",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Devuelve un array\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "});\r",
+                  "pm.test(\"El array tiene como máximo 3 elementos\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data.length).to.be.at.most(3);\r",
+                  "});\r",
+                  "pm.test(\"El array tiene exactamente 3 elementos\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data.length).to.eql(3);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators?limit=3&offset=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "3"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6. POST - Crea un recurso (Equivalente a Crea un pueblo)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 201 - Recurso creado\", () => {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "pm.test(\"Devuelve el objeto creado con los campos correctos\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data).to.be.an('object');\r",
+                  "    pm.expect(data.index_name).to.eql(\"IBEX 35\");\r",
+                  "    pm.expect(data.region).to.eql(\"Europe\");\r",
+                  "    pm.expect(data).to.not.have.property('_id');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-01\",\r\n  \"index_name\": \"IBEX 35\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 10100.50,\r\n  \"high\": 10250.00,\r\n  \"low\": 10020.25,\r\n  \"close\": 10180.75,\r\n  \"volume\": 14500000,\r\n  \"daily_change_percent\": 0.79\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "7. GET - Datos de un recurso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Devuelve un objeto, no un array\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data).to.be.an('object');\r",
+                  "    pm.expect(data).to.not.be.an('array');\r",
+                  "});\r",
+                  "pm.test(\"El objeto tiene los campos esperados\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data.index_name).to.eql(\"IBEX 35\");\r",
+                  "    pm.expect(data.region).to.eql(\"Europe\");\r",
+                  "    pm.expect(data).to.not.have.property('_id');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/Europe/IBEX 35",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "IBEX 35"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "8. PUT - Actualiza datos",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 200 - Recurso actualizado\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"Devuelve el objeto actualizado\", () => {\r",
+                  "    const data = pm.response.json();\r",
+                  "    pm.expect(data).to.be.an('object');\r",
+                  "    pm.expect(data.open).to.eql(10100.50);\r",
+                  "    pm.expect(data.daily_change_percent).to.eql(0.98);\r",
+                  "    pm.expect(data).to.not.have.property('_id');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-02\",\r\n  \"index_name\": \"IBEX 35\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 10100.50,\r\n  \"high\": 10250.00,\r\n  \"low\": 10020.25,\r\n  \"close\": 10200.00,\r\n  \"volume\": 15500000,\r\n  \"daily_change_percent\": 0.98\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/Europe/IBEX 35",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "IBEX 35"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "9. DELETE - Borra un recurso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 204 - Recurso borrado\", () => {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-02\",\r\n  \"index_name\": \"IBEX 35\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 10100.50,\r\n  \"high\": 10250.00,\r\n  \"low\": 10020.25,\r\n  \"close\": 10200.00,\r\n  \"volume\": 15500000,\r\n  \"daily_change_percent\": 0.98\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/Europe/IBEX 35",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "IBEX 35"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2. Manejo de Errores",
+      "item": [
+        {
+          "name": "10. POST - Recurso duplicado",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 409 - Conflicto\", () => {\r",
+                  "    pm.response.to.have.status(409);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-01\",\r\n  \"index_name\": \"S&P 500\",\r\n  \"region\": \"North America\",\r\n  \"open\": 37740.57,\r\n  \"high\": 38171.04,\r\n  \"low\": 37552.74,\r\n  \"close\": 38125.97,\r\n  \"volume\": 34594679,\r\n  \"daily_change_percent\": 1.02\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "11 . POST - Faltan campos esperados",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 400 - Bad Request\", () => {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"index_name\": \"Indice Incompleto\",\r\n  \"region\": \"Oceania\",\r\n  \"high\": 15000.00\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "12. PUT - ID de URL y Body no coinciden",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 400 - Bad Request\", () => {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-01\",\r\n  \"index_name\": \"DAX FALSO\",\r\n  \"region\": \"Europe\",\r\n  \"open\": 19256.09,\r\n  \"high\": 19262.37,\r\n  \"low\": 18884.10,\r\n  \"close\": 18898.03,\r\n  \"volume\": 25254324,\r\n  \"daily_change_percent\": -1.86\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/Europe/DAX",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "DAX"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "13. GET - Recurso inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 404 - Not Found\", () => {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/RecursoInventado",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "RecursoInventado"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "14. PUT - Recurso inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 404 - Recurso no encontrado\", () => {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"date\": \"2024-01-01\",\r\n  \"index_name\": \"IndexFalso\",\r\n  \"region\": \"RegionFalsa\",\r\n  \"open\": 100.0,\r\n  \"high\": 110.0,\r\n  \"low\": 90.0,\r\n  \"close\": 105.0,\r\n  \"volume\": 1000000,\r\n  \"daily_change_percent\": 1.5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/RegionFalsa/IndexFalso",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "RegionFalsa",
+                "IndexFalso"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "15. DELETE - Recurso inexistente",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 404 - Recurso no encontrado\", () => {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/RegionFalsa/IndexFalso",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "RegionFalsa",
+                "IndexFalso"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "16. PUT - Método no permitido a la colección",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 405 - Method Not Allowed\", () => {\r",
+                  "    pm.response.to.have.status(405);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"mensaje\": \"Intento de hackeo para sobreescribir todo\"\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "17. POST - Método no permitido a un recurso",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status 405 - Method Not Allowed\", () => {\r",
+                  "    pm.response.to.have.status(405);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"mensaje\": \"Intento de crear un recurso sobre otro recurso\"\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators/Europe/IBEX 35",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "daily-global-stock-market-indicators",
+                "Europe",
+                "IBEX 35"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "14. DELETE - Limpieza final",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status 204 - Colección limpiada\", () => {\r",
+              "    pm.response.to.have.status(204);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/daily-global-stock-market-indicators",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "daily-global-stock-market-indicators"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
