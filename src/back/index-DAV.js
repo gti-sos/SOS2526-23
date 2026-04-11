@@ -1,10 +1,37 @@
 import dataStore from "nedb";
 
+//Importamos las librerías necesarias para autenticación JWT y hashing de contraseñas
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import dataStore from "nedb";
+
+// Clave secreta para firmar los tokens (en producción, esto DEBE ir en un archivo .env)
+const JWT_SECRET = "mi_super_clave_secreta_para_sos2526"; 
+
+// Inicializamos una nueva base de datos para los usuarios
+const usersDb = new dataStore();
+
 const BASE_URL_API = "/api/v1";
 const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 
 // Inicializamos la base de datos en memoria
 const db = new dataStore();
+
+// Middleware para verificar el token JWT en las rutas protegidas
+const verifyToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ message: "Acceso denegado. Token no proporcionado." });
+    }
+
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) return res.status(403).json({ message: "Token inválido o expirado." });
+        req.user = decoded;
+        next();
+    });
+};
 
 export function loadBackEndDAV(app) {
 
@@ -96,7 +123,7 @@ export function loadBackEndDAV(app) {
     });
 
     // 3. POST A LA COLECCIÓN (Añadir recurso)
-    app.post(BASE_URL_API + "/global-ads-performance", (req, res) => {
+    app.post(BASE_URL_API + "/global-ads-performance", verifyToken, (req, res) => {
         const newResource = req.body;
         
         // Validación de estructura básica: debe tener todos los campos
@@ -117,7 +144,7 @@ export function loadBackEndDAV(app) {
 
 
     // 4. DELETE COLECCIÓN COMPLETA
-    app.delete(BASE_URL_API + "/global-ads-performance", (req, res) => {
+    app.delete(BASE_URL_API + "/global-ads-performance", verifyToken, (req, res) => {
         // {} borra todos los documentos, {multi: true} permite borrar más de uno a la vez
         db.remove({}, { multi: true }, (err, numRemoved) => {
             res.sendStatus(200); // 200 OK
@@ -139,8 +166,56 @@ export function loadBackEndDAV(app) {
         });
     });
 
+    // RUTAS DE AUTENTICACIÓN (Registro y Login)
+    app.post(BASE_URL_API + "/auth/register", async (req, res) => {
+        const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res.status(400).json({ message: "Usuario y contraseña son requeridos" });
+        }
+
+        // Comprobar si el usuario ya existe
+        usersDb.find({ username }, async (err, docs) => {
+            if (docs.length > 0) {
+                return res.status(409).json({ message: "El usuario ya existe" });
+            }
+
+            // Encriptar la contraseña (salteo de 10 rondas)
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const newUser = { username, password: hashedPassword };
+
+            usersDb.insert(newUser, (err, newDoc) => {
+                res.status(201).json({ message: "Usuario registrado con éxito" });
+            });
+        });
+    });
+
+    // Login: Verificar credenciales y generar token JWT
+    app.post(BASE_URL_API + "/auth/login", (req, res) => {
+        const { username, password } = req.body;
+
+        usersDb.find({ username }, async (err, docs) => {
+            if (docs.length === 0) {
+                return res.status(401).json({ message: "Credenciales inválidas" });
+            }
+
+            const user = docs[0];
+            // Comparamos la contraseña enviada con la encriptada
+            const isMatch = await bcrypt.compare(password, user.password);
+
+            if (!isMatch) {
+                return res.status(401).json({ message: "Credenciales inválidas" });
+            }
+
+            // Si es correcto, generamos el Token (válido por 2 horas)
+            const token = jwt.sign({ username: user.username }, JWT_SECRET, { expiresIn: '2h' });
+
+            res.status(200).json({ token });
+        });
+    });
+
     // 6. DELETE RECURSO ESPECÍFICO
-    app.delete(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
+    app.delete(BASE_URL_API + "/global-ads-performance/:region/:date", verifyToken,(req, res) => {
         const { region, date } = req.params;
 
         db.remove({ region: region, date: date }, {}, (err, numRemoved) => {
@@ -152,7 +227,7 @@ export function loadBackEndDAV(app) {
     });
 
     // 7. PUT RECURSO ESPECÍFICO (Actualizar)
-    app.put(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
+    app.put(BASE_URL_API + "/global-ads-performance/:region/:date", verifyToken, (req, res) => {
         const { region, date } = req.params;
         const updatedResource = req.body;
 
