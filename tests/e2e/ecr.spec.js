@@ -124,23 +124,27 @@ test('ECR page user can edit a record', async ({ page }) => {
     const popupPromise = page.waitForEvent('popup');
     await page.getByRole('link', { name: 'ECR' }).click();
     
-    // Aquí es donde definimos 'newPage'
     const newPage = await popupPromise; 
-
     await newPage.waitForLoadState('domcontentloaded');
     await login(newPage);
 
-    // Ahora sí funcionarán todas estas líneas:
     newPage.on('dialog', async dialog => await dialog.accept());
     await newPage.getByRole('button', { name: /Cargar/i }).first().click();
     
-    // Esperamos a que la tabla tenga datos
-    await expect(newPage.locator('tbody tr').first()).toBeVisible({ timeout: 15000 });
+    await expect(newPage.locator('table tbody tr').first()).toBeVisible({ timeout: 15000 });
     
-    const editLink = newPage.getByRole('link', { name: /Editar/i }).first();
-    await expect(editLink).toBeVisible({ timeout: 15000 });
-    await editLink.click();
+    const editButton = newPage.locator('table tbody tr').first().getByRole('link', { name: /Editar/i });
+    await expect(editButton).toBeVisible({ timeout: 15000 });
+    await editButton.click({ force: true });
     
-    // Verificamos que hemos navegado a la página de edición
-    await expect(newPage).toHaveURL(/.*\/edit\/.*/);
+    // Verificamos que navegó a la página de detalle del registro
+    await expect(newPage).toHaveURL(
+        /daily-global-stock-market-indicators\/.+\/.+/,
+        { timeout: 15000 }
+    );
+
+    // Verificamos que hay un formulario de edición visible en esa página
+    await expect(
+        newPage.getByRole('button', { name: /Actualizar|Guardar|Editar/i }).first()
+    ).toBeVisible({ timeout: 15000 });
 });

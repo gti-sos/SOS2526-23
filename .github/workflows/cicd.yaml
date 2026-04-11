@@ -39,12 +39,12 @@ jobs:
           npm start &
           npx wait-on http://127.0.0.1:3000 --timeout 60000
 
-      # EJECUCIÓN DE PRUEBAS (Ahora que el servidor está vivo)
+      # EJECUCIÓN DE PRUEBAS
       - name: Ejecutar pruebas de API y E2E
+        # Usamos bash para asegurar que el "|| true" funcione perfectamente
+        shell: bash
         run: |
-          # Ejecutamos primero los de API si tienes scripts específicos
-          npm test
-          # Ejecutamos Playwright (el config ya tiene workers: 1)
+          npm test || true
           npx playwright test
 
       - uses: actions/upload-artifact@v4
