@@ -1,5 +1,3 @@
-import dataStore from "nedb";
-
 //Importamos las librerías necesarias para autenticación JWT y hashing de contraseñas
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
