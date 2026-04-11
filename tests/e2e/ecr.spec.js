@@ -123,18 +123,24 @@ test('ECR page user can edit a record', async ({ page }) => {
     await page.goto(app);
     const popupPromise = page.waitForEvent('popup');
     await page.getByRole('link', { name: 'ECR' }).click();
-    const newPage = await popupPromise;
+    
+    // Aquí es donde definimos 'newPage'
+    const newPage = await popupPromise; 
+
     await newPage.waitForLoadState('domcontentloaded');
     await login(newPage);
 
-    // SOLUCIÓN: Antes de editar, nos aseguramos de que HAYA algo que editar
-    // Aceptamos el diálogo de la alerta que saldrá al cargar
+    // Ahora sí funcionarán todas estas líneas:
     newPage.on('dialog', async dialog => await dialog.accept());
     await newPage.getByRole('button', { name: /Cargar/i }).first().click();
     
-    // Ahora esperamos a que la tabla se llene antes de buscar el link
+    // Esperamos a que la tabla tenga datos
+    await expect(newPage.locator('tbody tr').first()).toBeVisible({ timeout: 15000 });
+    
     const editLink = newPage.getByRole('link', { name: /Editar/i }).first();
-    await expect(editLink).toBeVisible({ timeout: 15000 }); // Un poco más de tiempo para Webkit
+    await expect(editLink).toBeVisible({ timeout: 15000 });
     await editLink.click();
-    // ... resto del test
+    
+    // Verificamos que hemos navegado a la página de edición
+    await expect(newPage).toHaveURL(/.*\/edit\/.*/);
 });
