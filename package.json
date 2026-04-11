@@ -22,8 +22,7 @@
     "test-api-local-DAV": "npx newman run tests/api/global-ads-performance.json -e tests/api/api-test-local.json",
     "test-api-local-ECR": "npx newman run tests/api/daily-global-stock-market-indicators.json -e tests/api/api-test-local.json",
     "test-online-sales-popular-marketplaces": "start-server-and-test start http://localhost:3000 test-api-local-MRR",
-    "test-global-ads-performance": "start-server-and-test start http://localhost:3000 test-api-local-DAV",
-    "test-daily-global-stock-market-indicators": "start-server-and-test start http://localhost:3000 test-api-local-ECR",
+    "test-global-ads-performance": "cross-env NODE_ENV=test start-server-and-test start http://localhost:3000 test-api-local-DAV",    "test-daily-global-stock-market-indicators": "start-server-and-test start http://localhost:3000 test-api-local-ECR",
     "test": "npm run test-online-sales-popular-marketplaces && npm run test-global-ads-performance && npm run test-daily-global-stock-market-indicators"
   },
   "dependencies": {
