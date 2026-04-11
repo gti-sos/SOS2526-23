@@ -3,6 +3,7 @@
     import { page } from '$app/state';
     import {dev} from '$app/environment';
     import {onMount } from 'svelte';
+    import { initAuth, getToken } from '$lib/auth.js';
 
     // Importamos los mismos componentes de Sveltestrap que en la vista principal
     import { 
@@ -101,6 +102,7 @@
     }
 
     onMount(async () => {
+        await initAuth();
         getData();
     });
 
