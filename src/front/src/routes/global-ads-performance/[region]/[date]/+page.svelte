@@ -16,6 +16,9 @@
 
     let API = "/api/v1/global-ads-performance";
 
+    // Estado para controlar si el usuario está autenticado o no
+    let isAuthenticated = $state(false);
+
     // Estado para controlar la visualización del mensaje de error 404
     let notFoundError = $state(false);
 
@@ -97,12 +100,13 @@
 
             resultStatusCode = await res.status;
 
-            if(resultStatusCode==201)
+            if(resultStatusCode==200)
                 getData();
     }
 
     onMount(async () => {
-        await initAuth();
+        const authClient = await initAuth();
+        isAuthenticated = await authClient.isAuthenticated();
         getData();
     });
 
@@ -156,8 +160,8 @@
                 </thead>
                 <tbody>
                     <tr class="table-light">
-                        <td><Input type="text" bind:value={updatedRegion} bsSize="sm" /></td>
-                        <td><Input type="text" bind:value={updatedDate} bsSize="sm" /></td>
+                        <td><Input type="text" bind:value={updatedRegion} bsSize="sm" disabled/></td>
+                        <td><Input type="text" bind:value={updatedDate} bsSize="sm" disabled /></td>
                         <td><Input type="text" bind:value={updatedPlatform} bsSize="sm" /></td>
                         <td><Input type="text" bind:value={updatedIndustry} bsSize="sm" /></td>
                         
@@ -168,7 +172,7 @@
                         <td><Input type="number" bind:value={updatedRevenue} bsSize="sm" /></td>
                         
                         <td>
-                            <Button color="primary" size="sm" class="w-100" onclick={updateAd}>
+                            <Button color="primary" size="sm" class="w-100" onclick={updateAd} disabled={!isAuthenticated}>
                                 Actualizar
                             </Button>
                         </td>
