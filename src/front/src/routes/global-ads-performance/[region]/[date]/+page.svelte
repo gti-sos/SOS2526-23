@@ -104,11 +104,21 @@
                 getData();
     }
 
-    onMount(async () => {
-        const authClient = await initAuth();
-        isAuthenticated = await authClient.isAuthenticated();
-        getData();
-    });
+onMount(async () => {
+    // 1. IMPORTANTE: Guardamos el cliente en una variable
+    const auth0 = await initAuth(); 
+    
+    // 2. Comprobamos la sesión usando esa variable
+    isAuthenticated = await auth0.isAuthenticated();
+
+    if (isAuthenticated) {
+        // Solo cargamos datos si estamos dentro
+        getData(); 
+    } else {
+        console.warn("Usuario no autenticado en vista de detalle");
+        // Opcional: alert("Debes estar logueado");
+    }
+});
 
 </script>
 
