@@ -246,7 +246,7 @@
             const res = await fetch(`${BASE_URL}/api/v1/auth0-login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: authUser.email, name: authUser.name })
+            body: JSON.stringify({ email: authUser.email || authUser.sub, name: authUser.name || authUser.nickname })
         });
 
         if (res.ok) {
