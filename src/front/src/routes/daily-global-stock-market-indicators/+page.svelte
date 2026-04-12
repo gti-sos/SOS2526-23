@@ -1,6 +1,8 @@
 <script>
     import { onMount } from 'svelte';
 
+    const BASE_URL = import.meta.env.VITE_API_URL || '';
+
     // 🌟 EXTRA: Variables para controlar el login y el token
     let token = $state('');
     let isLoggedIn = $state(false);
@@ -33,7 +35,7 @@
 
     async function login() {
         try {
-            const res = await fetch('/api/v1/login', {
+            const res = await fetch(`${BASE_URL}/api/v1/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
@@ -43,7 +45,6 @@
                 const data = await res.json();
                 token = data.token; 
                 
-                // PROTECCIÓN: Solo usar localStorage si estamos en el navegador
                 if (typeof window !== 'undefined') {
                     localStorage.setItem('token', data.token);
                     sessionStorage.setItem('isLoggedIn', 'true');
@@ -92,7 +93,7 @@
             if (busqueda.offset !== '') params.append('offset', busqueda.offset);
 
             const queryString = params.toString();
-            const url = '/api/v1/daily-global-stock-market-indicators' + (queryString ? `?${queryString}` : '');
+            const url = `${BASE_URL}/api/v1/daily-global-stock-market-indicators` + (queryString ? `?${queryString}` : '');
 
             const res = await fetch(url, {
                 headers: { 'Authorization': `Bearer ${token}` }
@@ -130,7 +131,7 @@
         }
 
         try {
-            const res = await fetch('/api/v1/daily-global-stock-market-indicators', {
+            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -158,7 +159,7 @@
     // 3. Borrar un recurso concreto
     async function borrarIndicador(region, index_name) {
         try {
-            const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
+            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` } 
             });
@@ -181,7 +182,7 @@
         if (!confirm('¿Estás seguro de que quieres borrar TODOS los datos?')) return;
 
         try {
-            const res = await fetch('/api/v1/daily-global-stock-market-indicators', {
+            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` } 
             });
@@ -200,7 +201,7 @@
     // 5. Cargar datos iniciales
     async function cargarDatosIniciales() {
         try {
-            const res = await fetch('/api/v1/daily-global-stock-market-indicators/loadInitialData', {
+            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators/loadInitialData`, {
                 headers: { 'Authorization': `Bearer ${token}` } 
             });
             
@@ -216,7 +217,6 @@
     }
 
     onMount(() => {
-        // PROTECCIÓN SSR: Evita el crasheo inicial en SvelteKit
         if (typeof window !== 'undefined') {
             const sesionActiva = sessionStorage.getItem('isLoggedIn');
             const tokenGuardado = localStorage.getItem('token');
