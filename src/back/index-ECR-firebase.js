@@ -16,6 +16,8 @@ const serviceAccount = process.env.FIREBASE_CREDENTIALS
     ? JSON.parse(process.env.FIREBASE_CREDENTIALS)
     : JSON.parse(readFileSync('./firebase-credentials.json', 'utf8'));
 
+console.log('Firebase credentials loaded:', serviceAccount ? 'OK' : 'FAILED'); // 👈 debug
+
 if (!admin.apps.length) {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
