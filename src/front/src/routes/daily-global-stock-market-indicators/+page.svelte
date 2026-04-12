@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import { createAuth0Client } from '@auth0/auth0-spa-js';
 
-    const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const BASE_URL = import.meta.env.VITE_API_URL || '';
     const BASE_URL_V1 = `${BASE_URL}/api/v1`;
     const BASE_URL_V2 = `${BASE_URL}/api/v2`;
 
