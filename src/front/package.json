@@ -33,6 +33,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-auto": "^7.0.1",
+		"@sveltejs/adapter-vercel": "^6.3.3",
 		"@sveltestrap/sveltestrap": "^7.1.0",
 		"bootstrap": "^5.3.8",
 		"sveltestrap": "^5.11.3"
