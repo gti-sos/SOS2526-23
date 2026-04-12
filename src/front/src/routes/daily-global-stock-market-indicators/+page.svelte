@@ -2,7 +2,7 @@
     import { onMount } from 'svelte';
     import { createAuth0Client } from '@auth0/auth0-spa-js';
 
-    const BASE_URL = import.meta.env.VITE_API_URL || '';
+    const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
     let token = $state('');
     let isLoggedIn = $state(false);
@@ -242,9 +242,22 @@
             await auth0.handleRedirectCallback();
             window.history.replaceState({}, document.title, window.location.pathname);
             const authUser = await auth0.getUser();
+
+            const res = await fetch(`${BASE_URL}/api/v1/auth0-login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: authUser.email, name: authUser.name })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            token = data.token;
+            localStorage.setItem('token', data.token);
+            sessionStorage.setItem('isLoggedIn', 'true');
             isLoggedIn = true;
             mostrarMensaje(`¡Bienvenido ${authUser.name} (Auth0)!`);
             cargarIndicadores();
+        }
         }
     });
 </script>
