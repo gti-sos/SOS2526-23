@@ -3,6 +3,8 @@
     import { createAuth0Client } from '@auth0/auth0-spa-js';
 
     const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const BASE_URL_V1 = `${BASE_URL}/api/v1`;
+    const BASE_URL_V2 = `${BASE_URL}/api/v2`;
 
     let token = $state('');
     let isLoggedIn = $state(false);
@@ -31,7 +33,7 @@
 
     async function login() {
         try {
-            const res = await fetch(`${BASE_URL}/api/v1/login`, {
+            const res = await fetch(`${BASE_URL_V1}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password })
@@ -88,14 +90,16 @@
             if (busqueda.offset !== '') params.append('offset', busqueda.offset);
 
             const queryString = params.toString();
-            const url = `${BASE_URL}/api/v1/daily-global-stock-market-indicators` + (queryString ? `?${queryString}` : '');
+            const urlV1 = `${BASE_URL_V1}/daily-global-stock-market-indicators` + (queryString ? `?${queryString}` : '');
+            const urlV2 = `${BASE_URL_V2}/daily-global-stock-market-indicators` + (queryString ? `?${queryString}` : '');
 
-            const res = await fetch(url, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
+            const [resV1] = await Promise.all([
+                fetch(urlV1, { headers: { 'Authorization': `Bearer ${token}` } }),
+                fetch(urlV2, { headers: { 'Authorization': `Bearer ${token}` } })
+            ]);
 
-            if (res.ok) {
-                indicadores = await res.json();
+            if (resV1.ok) {
+                indicadores = await resV1.json();
                 
                 const hayFiltrosTexto = busqueda.date || busqueda.region || busqueda.index_name || 
                                         busqueda.open || busqueda.high || busqueda.low || 
@@ -125,22 +129,26 @@
         }
 
         try {
-            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators`, {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` 
-                },
-                body: JSON.stringify(nuevoIndicador)
-            });
+            const [resV1, resV2] = await Promise.all([
+                fetch(`${BASE_URL_V1}/daily-global-stock-market-indicators`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(nuevoIndicador)
+                }),
+                fetch(`${BASE_URL_V2}/daily-global-stock-market-indicators`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify(nuevoIndicador)
+                })
+            ]);
 
-            if (res.status === 201) {
+            if (resV1.status === 201 || resV2.status === 201) {
                 mostrarMensaje('¡Dato del mercado añadido correctamente!');
                 cargarIndicadores();
                 nuevoIndicador = { date: '', index_name: '', region: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: '' };
-            } else if (res.status === 409) {
+            } else if (resV1.status === 409) {
                 mostrarMensaje('Error: Ya existe un registro para esa región y ese índice.', true);
-            } else if (res.status === 400) {
+            } else if (resV1.status === 400) {
                 mostrarMensaje('Error: Faltan datos por rellenar o el formato es incorrecto.', true);
             } else {
                 mostrarMensaje('Ocurrió un error inesperado al guardar. Asegúrate de tener permisos.', true);
@@ -152,15 +160,21 @@
 
     async function borrarIndicador(region, index_name) {
         try {
-            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` } 
-            });
+            const [resV1, resV2] = await Promise.all([
+                fetch(`${BASE_URL_V1}/daily-global-stock-market-indicators/${region}/${index_name}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                }),
+                fetch(`${BASE_URL_V2}/daily-global-stock-market-indicators/${region}/${index_name}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+            ]);
 
-            if (res.status === 204 || res.status === 200) {
+            if (resV1.status === 204 || resV2.status === 204) {
                 mostrarMensaje('Dato eliminado con éxito.');
                 cargarIndicadores(); 
-            } else if (res.status === 404) {
+            } else if (resV1.status === 404) {
                 mostrarMensaje('Error: No se encontró el dato que intentas borrar.', true);
             } else {
                 mostrarMensaje('Error al intentar borrar. ¿Tienes permisos?', true);
@@ -174,12 +188,18 @@
         if (!confirm('¿Estás seguro de que quieres borrar TODOS los datos?')) return;
 
         try {
-            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` } 
-            });
+            const [resV1, resV2] = await Promise.all([
+                fetch(`${BASE_URL_V1}/daily-global-stock-market-indicators`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                }),
+                fetch(`${BASE_URL_V2}/daily-global-stock-market-indicators`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+            ]);
 
-            if (res.status === 204 || res.status === 200) {
+            if (resV1.status === 204 || resV2.status === 204) {
                 mostrarMensaje('¡Todos los datos han sido borrados de la base de datos!');
                 cargarIndicadores();
             } else {
@@ -192,11 +212,16 @@
 
     async function cargarDatosIniciales() {
         try {
-            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators/loadInitialData`, {
-                headers: { 'Authorization': `Bearer ${token}` } 
-            });
+            const [resV1, resV2] = await Promise.all([
+                fetch(`${BASE_URL_V1}/daily-global-stock-market-indicators/loadInitialData`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                }),
+                fetch(`${BASE_URL_V2}/daily-global-stock-market-indicators/loadInitialData`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                })
+            ]);
             
-            if (res.ok) {
+            if (resV1.ok || resV2.ok) {
                 mostrarMensaje('¡Datos iniciales cargados correctamente!');
                 cargarIndicadores(); 
             } else {
@@ -243,21 +268,21 @@
             window.history.replaceState({}, document.title, window.location.pathname);
             const authUser = await auth0.getUser();
 
-            const res = await fetch(`${BASE_URL}/api/v1/auth0-login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: authUser.email || authUser.sub, name: authUser.name || authUser.nickname })
-        });
+            const res = await fetch(`${BASE_URL_V1}/auth0-login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: authUser.email || authUser.sub, name: authUser.name || authUser.nickname })
+            });
 
-        if (res.ok) {
-            const data = await res.json();
-            token = data.token;
-            localStorage.setItem('token', data.token);
-            sessionStorage.setItem('isLoggedIn', 'true');
-            isLoggedIn = true;
-            mostrarMensaje(`¡Bienvenido ${authUser.name} (Auth0)!`);
-            cargarIndicadores();
-        }
+            if (res.ok) {
+                const data = await res.json();
+                token = data.token;
+                localStorage.setItem('token', data.token);
+                sessionStorage.setItem('isLoggedIn', 'true');
+                isLoggedIn = true;
+                mostrarMensaje(`¡Bienvenido ${authUser.name} (Auth0)!`);
+                cargarIndicadores();
+            }
         }
     });
 </script>
