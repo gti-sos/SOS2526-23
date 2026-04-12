@@ -3,16 +3,18 @@ util.isDate = function(d) { return d instanceof Date; };
 util.isRegExp = function(re) { return re instanceof RegExp; };
 
 import Datastore from 'nedb';
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { Strategy as GitHubStrategy } from 'passport-github2';
+import session from 'express-session';
 
 // =====================================================================
 // INICIO CÓDIGO EXTRA: Integración de JWT (JSON Web Tokens)
 // =====================================================================
 import jwt from 'jsonwebtoken';
 
-// Clave secreta para firmar los tokens (en producción iría en un archivo .env)
 const SECRET_KEY = "clave_super_secreta_cueva_extra";
 
-// Middleware: Función que intercepta las peticiones para pedir el "Pase VIP"
 function verificarToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     
@@ -20,23 +22,46 @@ function verificarToken(req, res, next) {
         return res.status(403).json({ message: "Forbidden: No se proporcionó un token de autenticación." });
     }
 
-    // El formato esperado es "Bearer <token>"
     const token = authHeader.split(' ')[1]; 
     if (!token) {
         return res.status(403).json({ message: "Forbidden: Formato de token inválido." });
     }
 
-    // Verificamos si el token es válido y no ha caducado
     jwt.verify(token, SECRET_KEY, (err, decoded) => {
         if (err) {
             return res.status(401).json({ message: "Unauthorized: Token no válido o expirado." });
         }
-        req.user = decoded; // Guardamos los datos del usuario por si hacen falta luego
-        next(); // ¡Todo correcto! Dejamos que la petición continúe hacia su destino
+        req.user = decoded;
+        next();
     });
 }
 // =====================================================================
-// FIN CÓDIGO EXTRA
+// FIN CÓDIGO EXTRA JWT
+// =====================================================================
+
+// =====================================================================
+// INICIO CÓDIGO EXTRA: OAuth con Google y GitHub
+// =====================================================================
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: `${process.env.BASE_URL || 'http://localhost:10000'}/auth/google/callback`
+}, (accessToken, refreshToken, profile, done) => {
+    return done(null, profile);
+}));
+
+passport.use(new GitHubStrategy({
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: `${process.env.BASE_URL || 'http://localhost:10000'}/auth/github/callback`
+}, (accessToken, refreshToken, profile, done) => {
+    return done(null, profile);
+}));
+
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
+// =====================================================================
+// FIN CÓDIGO EXTRA OAuth
 // =====================================================================
 
 const BASE_URL_API = "/api/v1";
@@ -70,18 +95,70 @@ export function loadBackEndECR(app) {
         { date: "2024-01-01", index_name: "KSE 100", region: "Asia", open: 11151.06, high: 11422.02, low: 11009.70, close: 11312.65, volume: 33074534, daily_change_percent: 1.45 }
     ];
 
-    // INICIALIZAMOS LA BASE DE DATOS NeDB
     const db = new Datastore({ filename: './dailyIndicators.db', autoload: true });
 
     // =====================================================================
-    // INICIO CÓDIGO EXTRA: Endpoint de Login
+    // MIDDLEWARE DE SESIÓN Y PASSPORT
+    // =====================================================================
+    app.use(session({
+        secret: 'session_secret_cueva',
+        resave: false,
+        saveUninitialized: false
+    }));
+    app.use(passport.initialize());
+    app.use(passport.session());
+
+    // =====================================================================
+    // RUTAS OAuth Google
+    // =====================================================================
+    app.get('/auth/google',
+        passport.authenticate('google', { scope: ['profile', 'email'] })
+    );
+
+    app.get('/auth/google/callback',
+        passport.authenticate('google', { failureRedirect: '/auth/failure' }),
+        (req, res) => {
+            const token = jwt.sign(
+                { user: req.user.displayName, email: req.user.emails[0].value },
+                SECRET_KEY,
+                { expiresIn: '1h' }
+            );
+            const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+            res.redirect(`${frontendUrl}/auth/success?token=${token}`);
+        }
+    );
+
+    // =====================================================================
+    // RUTAS OAuth GitHub
+    // =====================================================================
+    app.get('/auth/github',
+        passport.authenticate('github', { scope: ['user:email'] })
+    );
+
+    app.get('/auth/github/callback',
+        passport.authenticate('github', { failureRedirect: '/auth/failure' }),
+        (req, res) => {
+            const token = jwt.sign(
+                { user: req.user.displayName || req.user.username },
+                SECRET_KEY,
+                { expiresIn: '1h' }
+            );
+            const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+            res.redirect(`${frontendUrl}/auth/success?token=${token}`);
+        }
+    );
+
+    app.get('/auth/failure', (req, res) => {
+        res.status(401).json({ message: 'Error de autenticación OAuth' });
+    });
+
+    // =====================================================================
+    // INICIO CÓDIGO EXTRA: Endpoint de Login JWT
     // =====================================================================
     app.post(BASE_URL_API + '/login', (req, res) => {
         const { username, password } = req.body;
 
-        // Comprobación de credenciales (Usuario: admin, Contraseña: password123)
         if (username === "admin" && password === "password123") {
-            // Generamos el token válido por 1 hora
             const token = jwt.sign({ user: username }, SECRET_KEY, { expiresIn: '1h' });
             res.status(200).json({ token: token });
         } else {
@@ -89,18 +166,13 @@ export function loadBackEndECR(app) {
         }
     });
     // =====================================================================
-    // FIN CÓDIGO EXTRA
+    // FIN CÓDIGO EXTRA Login
     // =====================================================================
 
-
-    // RUTA DE DOCUMENTACIÓN
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators/docs', (req, res) => {
         res.redirect('https://documenter.getpostman.com/view/52708852/2sBXigLYL8');
     });
 
-    // =====================================================================
-    // CARGA DE DATOS INICIALES (Protegida con verificarToken)
-    // =====================================================================
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators/loadInitialData', verificarToken, (req, res) => {
         db.find({}, (err, docs) => {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
@@ -116,20 +188,13 @@ export function loadBackEndECR(app) {
         });
     });
 
-    // =====================================================================
-    // COLECCIÓN BASE
-    // =====================================================================
-
-    // GET: Devolver toda la colección (PÚBLICA)
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
         const searchQuery = {};
 
-        // Búsquedas por campos de texto (parcial, insensible a mayúsculas)
         if (req.query.date)       searchQuery.date       = new RegExp(req.query.date, 'i');
         if (req.query.index_name) searchQuery.index_name = new RegExp(req.query.index_name, 'i');
         if (req.query.region)     searchQuery.region     = new RegExp(req.query.region, 'i');
 
-        // Búsquedas por campos numéricos (exacto)
         if (req.query.open)                 searchQuery.open                 = parseFloat(req.query.open);
         if (req.query.high)                 searchQuery.high                 = parseFloat(req.query.high);
         if (req.query.low)                  searchQuery.low                  = parseFloat(req.query.low);
@@ -139,7 +204,6 @@ export function loadBackEndECR(app) {
 
         let dbQuery = db.find(searchQuery);
 
-        // Paginación
         if (req.query.limit) {
             const limit = parseInt(req.query.limit);
             if (!isNaN(limit) && limit >= 0) dbQuery = dbQuery.limit(limit);
@@ -151,20 +215,17 @@ export function loadBackEndECR(app) {
 
         dbQuery.exec((err, docs) => {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
-            res.status(200).json(docs.map(limpiarId)); // Siempre devuelve un Array
+            res.status(200).json(docs.map(limpiarId));
         });
     });
 
-    // POST: Crear un nuevo recurso (Protegida con verificarToken)
     app.post(BASE_URL_API + '/daily-global-stock-market-indicators', verificarToken, (req, res) => {
         const newData = req.body;
 
-        // Validación estricta: exactamente los campos requeridos, ni más ni menos
         if (!validarEstructura(newData)) {
             return res.status(400).json({ message: "Bad Request: La estructura del JSON no es correcta" });
         }
 
-        // Comprobamos conflicto por ID compuesto (region + index_name)
         db.find({ region: newData.region, index_name: newData.index_name }, (err, docs) => {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
@@ -174,29 +235,22 @@ export function loadBackEndECR(app) {
 
             db.insert(newData, (err, newDoc) => {
                 if (err) return res.status(500).json({ message: "Internal Server Error" });
-                res.status(201).json(limpiarId(newDoc)); // Devuelve el objeto creado
+                res.status(201).json(limpiarId(newDoc));
             });
         });
     });
 
-    // PUT: Actualizar toda la colección (NO PERMITIDO)
     app.put(BASE_URL_API + '/daily-global-stock-market-indicators', (req, res) => {
         res.status(405).json({ message: "Method Not Allowed" });
     });
 
-    // DELETE: Borrar toda la colección (Protegida con verificarToken)
     app.delete(BASE_URL_API + '/daily-global-stock-market-indicators', verificarToken, (req, res) => {
         db.remove({}, { multi: true }, (err) => {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
-            res.sendStatus(204); // Sin body
+            res.sendStatus(204);
         });
     });
 
-    // =====================================================================
-    // RECURSO CONCRETO (ID COMPUESTO: /:region/:index_name)
-    // =====================================================================
-
-    // GET: Devolver un recurso concreto (PÚBLICA)
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
         const { region, index_name } = req.params;
 
@@ -204,29 +258,25 @@ export function loadBackEndECR(app) {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
             if (docs.length > 0) {
-                res.status(200).json(limpiarId(docs[0])); // Devuelve UN OBJETO
+                res.status(200).json(limpiarId(docs[0]));
             } else {
                 res.status(404).json({ message: "Not Found" });
             }
         });
     });
 
-    // POST: Crear un recurso en una URL concreta (NO PERMITIDO)
     app.post(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', (req, res) => {
         res.status(405).json({ message: "Method Not Allowed" });
     });
 
-    // PUT: Actualizar un recurso concreto (Protegida con verificarToken)
     app.put(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', verificarToken, (req, res) => {
         const { region, index_name } = req.params;
         const updatedData = req.body;
 
-        // Validación estricta: exactamente los campos requeridos, ni más ni menos
         if (!validarEstructura(updatedData)) {
             return res.status(400).json({ message: "Bad Request: La estructura del JSON no es correcta" });
         }
 
-        // El ID del body debe coincidir con el de la URL
         if (updatedData.region !== region || updatedData.index_name !== index_name) {
             return res.status(400).json({ message: "Bad Request: Los IDs del body no coinciden con la URL" });
         }
@@ -238,7 +288,6 @@ export function loadBackEndECR(app) {
                 return res.status(404).json({ message: "Not Found" });
             }
 
-            // Devolvemos el objeto actualizado
             db.find({ region, index_name }, (err, docs) => {
                 if (err) return res.status(500).json({ message: "Internal Server Error" });
                 res.status(200).json(limpiarId(docs[0]));
@@ -246,7 +295,6 @@ export function loadBackEndECR(app) {
         });
     });
 
-    // DELETE: Borrar un recurso concreto (Protegida con verificarToken)
     app.delete(BASE_URL_API + '/daily-global-stock-market-indicators/:region/:index_name', verificarToken, (req, res) => {
         const { region, index_name } = req.params;
 
@@ -257,7 +305,7 @@ export function loadBackEndECR(app) {
                 return res.status(404).json({ message: "Not Found" });
             }
 
-            res.sendStatus(204); // Sin body
+            res.sendStatus(204);
         });
     });
 }
