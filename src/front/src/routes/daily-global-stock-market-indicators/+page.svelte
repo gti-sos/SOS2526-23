@@ -247,9 +247,19 @@
             <input type="text" placeholder="Usuario" bind:value={username} style="width: 90%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;" />
             <input type="password" placeholder="Contraseña" bind:value={password} style="width: 90%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;" />
             
-            <button on:click={login} style="background-color: #4CAF50; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; width: 95%;">
+           <button on:click={login} style="background-color: #4CAF50; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; width: 95%;">
                 Entrar
             </button>
+
+            <div style="margin-top: 20px;">
+                <p style="color: #666; margin-bottom: 10px;">O inicia sesión con:</p>
+                <a href="{BASE_URL}/auth/github" style="display: inline-block; background-color: #333; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-right: 10px;">
+                🐙 GitHub
+                </a>
+                <a href="{BASE_URL}/auth/google" style="display: inline-block; background-color: #db4437; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold;">
+                🔴 Google
+                </a>
+            </div>
         </section>
         
         <div style="text-align: center; margin-top: 20px;">
