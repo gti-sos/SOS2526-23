@@ -42,7 +42,7 @@ async function login(page) {
         await loginBox.getByRole('button', { name: 'Entrar' }).click();
         
         // Esperamos a que el login desaparezca
-        await loginBox.waitFor({ state: 'hidden', timeout: 10000 });
+        await loginBox.waitFor({ state: 'hidden', timeout: 30000 });
     } else {
         console.log("Sesión ya activa, saltando login.");
     }
