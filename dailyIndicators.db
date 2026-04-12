@@ -1,1399 +1,176 @@
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"1KAK1gkWOyukGMQo"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"9EQVRkeLNXxv7mB5"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"HP26AOW8CrRa8ori"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"IC98CgL2jXKAhBMT"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"JQXSsau8KLYYbPoJ"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"SWmsX18Fd0x2my9N"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"U0ybPNi4he8tsPxx"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"Z38cc0BNBjDIwx2r"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"vMFrQChaY9mDMAXF"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"vRA9G9pVnnhfOgx4"}
-{"$$deleted":true,"_id":"1KAK1gkWOyukGMQo"}
-{"$$deleted":true,"_id":"9EQVRkeLNXxv7mB5"}
-{"$$deleted":true,"_id":"HP26AOW8CrRa8ori"}
-{"$$deleted":true,"_id":"IC98CgL2jXKAhBMT"}
-{"$$deleted":true,"_id":"JQXSsau8KLYYbPoJ"}
-{"$$deleted":true,"_id":"SWmsX18Fd0x2my9N"}
-{"$$deleted":true,"_id":"U0ybPNi4he8tsPxx"}
-{"$$deleted":true,"_id":"Z38cc0BNBjDIwx2r"}
-{"$$deleted":true,"_id":"vMFrQChaY9mDMAXF"}
-{"$$deleted":true,"_id":"vRA9G9pVnnhfOgx4"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"I30PxGaFmFzD2fBi"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"s0o6nqMQeDV6KR6I"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"fpA4FLGWxYa4xlFm"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"zwFm0XoAmdLxmCL6"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"4YuqE6dUzgwHlAKD"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"AIXXHgkC2w6LPwG5"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"C6orjKGk7E8VKqj8"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"7L7ILyUh1NjGkA0P"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"8X6nItjZFSKBpfL5"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"NPqFNTKU6ohA3oSc"}
-{"$$deleted":true,"_id":"4YuqE6dUzgwHlAKD"}
-{"$$deleted":true,"_id":"7L7ILyUh1NjGkA0P"}
-{"$$deleted":true,"_id":"8X6nItjZFSKBpfL5"}
-{"$$deleted":true,"_id":"AIXXHgkC2w6LPwG5"}
-{"$$deleted":true,"_id":"C6orjKGk7E8VKqj8"}
-{"$$deleted":true,"_id":"I30PxGaFmFzD2fBi"}
-{"$$deleted":true,"_id":"NPqFNTKU6ohA3oSc"}
-{"$$deleted":true,"_id":"fpA4FLGWxYa4xlFm"}
-{"$$deleted":true,"_id":"s0o6nqMQeDV6KR6I"}
-{"$$deleted":true,"_id":"zwFm0XoAmdLxmCL6"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"lNZtE22HJ5QVwcSh"}
-{"$$deleted":true,"_id":"lNZtE22HJ5QVwcSh"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"HyYyWEnlA6CSbPfT"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"0ckiLCPSXffWQSKU"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"klpPjqXolKumWcfK"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"xwpfCsERgzl4l3zI"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"ZML2o8ywESQ2p3c7"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"5YKK5HsDkuCAolBq"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"Ap4XqTQGRA13AWda"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"9fywE9fqE7G7lxPa"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"jlatPL0vMPQ5dpmU"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"FVAiJAmQRn2fXm1y"}
-{"$$deleted":true,"_id":"0ckiLCPSXffWQSKU"}
-{"$$deleted":true,"_id":"5YKK5HsDkuCAolBq"}
-{"$$deleted":true,"_id":"9fywE9fqE7G7lxPa"}
-{"$$deleted":true,"_id":"Ap4XqTQGRA13AWda"}
-{"$$deleted":true,"_id":"FVAiJAmQRn2fXm1y"}
-{"$$deleted":true,"_id":"HyYyWEnlA6CSbPfT"}
-{"$$deleted":true,"_id":"ZML2o8ywESQ2p3c7"}
-{"$$deleted":true,"_id":"jlatPL0vMPQ5dpmU"}
-{"$$deleted":true,"_id":"klpPjqXolKumWcfK"}
-{"$$deleted":true,"_id":"xwpfCsERgzl4l3zI"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"wPpwrrJaYxCGhTgQ"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"GHZTeG4LqtclFm4r"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"erHne3sSUgyBUPcq"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"Ux8Tg3EtjxKWn7HJ"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"kX3ypzCEpDHwCTB4"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"dS6eiT8Y2JTvXdq9"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"4YQCkdXzyd3ZlgVS"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"CLxmKtP54Ce00bf8"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"U0gH5uIzkDACyaxx"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"HRyr6cGVDsaCbOrV"}
-{"$$deleted":true,"_id":"4YQCkdXzyd3ZlgVS"}
-{"$$deleted":true,"_id":"CLxmKtP54Ce00bf8"}
-{"$$deleted":true,"_id":"GHZTeG4LqtclFm4r"}
-{"$$deleted":true,"_id":"HRyr6cGVDsaCbOrV"}
-{"$$deleted":true,"_id":"U0gH5uIzkDACyaxx"}
-{"$$deleted":true,"_id":"Ux8Tg3EtjxKWn7HJ"}
-{"$$deleted":true,"_id":"dS6eiT8Y2JTvXdq9"}
-{"$$deleted":true,"_id":"erHne3sSUgyBUPcq"}
-{"$$deleted":true,"_id":"kX3ypzCEpDHwCTB4"}
-{"$$deleted":true,"_id":"wPpwrrJaYxCGhTgQ"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"lqL0ozzGWMJNprL0"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"DCPFzyybKHKLiWOe"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"zyp8LvwyadLiEcgr"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"QXQd5vbVV5JjXkX0"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"Csd0TNTauOKxI3SH"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"VtFh7SGDxRT0IVM7"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"e2wVAFCtakh8kVhH"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"NEvPtqp9m6qdlIOo"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"L8Z04U4kBSbnwYyg"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"CPbGkvGmofFe9Ylh"}
-{"$$deleted":true,"_id":"CPbGkvGmofFe9Ylh"}
-{"$$deleted":true,"_id":"Csd0TNTauOKxI3SH"}
-{"$$deleted":true,"_id":"DCPFzyybKHKLiWOe"}
-{"$$deleted":true,"_id":"L8Z04U4kBSbnwYyg"}
-{"$$deleted":true,"_id":"NEvPtqp9m6qdlIOo"}
-{"$$deleted":true,"_id":"QXQd5vbVV5JjXkX0"}
-{"$$deleted":true,"_id":"VtFh7SGDxRT0IVM7"}
-{"$$deleted":true,"_id":"e2wVAFCtakh8kVhH"}
-{"$$deleted":true,"_id":"lqL0ozzGWMJNprL0"}
-{"$$deleted":true,"_id":"zyp8LvwyadLiEcgr"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"EK01w07yqQmZTxHO"}
-{"$$deleted":true,"_id":"EK01w07yqQmZTxHO"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"maxZmSN6NiPZ4ohV"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"2SgWRXgiGMMQG9Kg"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"ZUZSI17L9H8yEAFb"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"lvahPmmAd8d9cWSp"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"2QroxvuE94ATqnIA"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"TBIVAxYdGVlENVSX"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"2e6KMeD65ZbDFzfx"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"iTtKYuf1FfvHBHkZ"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"TkRCL51RoGUcFRo8"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"dwPEL64pLma3ktx2"}
-{"$$deleted":true,"_id":"2QroxvuE94ATqnIA"}
-{"$$deleted":true,"_id":"2SgWRXgiGMMQG9Kg"}
-{"$$deleted":true,"_id":"2e6KMeD65ZbDFzfx"}
-{"$$deleted":true,"_id":"TBIVAxYdGVlENVSX"}
-{"$$deleted":true,"_id":"TkRCL51RoGUcFRo8"}
-{"$$deleted":true,"_id":"ZUZSI17L9H8yEAFb"}
-{"$$deleted":true,"_id":"dwPEL64pLma3ktx2"}
-{"$$deleted":true,"_id":"iTtKYuf1FfvHBHkZ"}
-{"$$deleted":true,"_id":"lvahPmmAd8d9cWSp"}
-{"$$deleted":true,"_id":"maxZmSN6NiPZ4ohV"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"6DNyY2FplSApeSLE"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"DF6CVZLWY4yVu7Rk"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"HT1ruEypAirDn8ck"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"13RmuyiGL3M43IBR"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"a0NB1UpdKD2RT3vI"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"uOaNOBpDifr3Y23W"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"4m0LRYwnKivHKGeV"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"YI7taxaFFHVfTr1c"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"EMcuQIO9dxOlxhBc"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"HX4lYDZk9AXVNolK"}
-{"$$deleted":true,"_id":"13RmuyiGL3M43IBR"}
-{"$$deleted":true,"_id":"4m0LRYwnKivHKGeV"}
-{"$$deleted":true,"_id":"6DNyY2FplSApeSLE"}
-{"$$deleted":true,"_id":"DF6CVZLWY4yVu7Rk"}
-{"$$deleted":true,"_id":"EMcuQIO9dxOlxhBc"}
-{"$$deleted":true,"_id":"HT1ruEypAirDn8ck"}
-{"$$deleted":true,"_id":"HX4lYDZk9AXVNolK"}
-{"$$deleted":true,"_id":"YI7taxaFFHVfTr1c"}
-{"$$deleted":true,"_id":"a0NB1UpdKD2RT3vI"}
-{"$$deleted":true,"_id":"uOaNOBpDifr3Y23W"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"xa7RiabWji2PWg8p"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"UPeZOvYchUrPG2ie"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"RgorTf6LtwOeBrKJ"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"iy19tOgsckmgIU9t"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"ZIrJRxjNoRyBuuCH"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"zDn9JjyD89Cy2bev"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"QeeXyPgoZl1xMDWD"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"YH32V1KzGZpt2vXf"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"GnkOOVvumLt8XSYY"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"imUoZmO1E5KpCcac"}
-{"$$deleted":true,"_id":"GnkOOVvumLt8XSYY"}
-{"$$deleted":true,"_id":"QeeXyPgoZl1xMDWD"}
-{"$$deleted":true,"_id":"RgorTf6LtwOeBrKJ"}
-{"$$deleted":true,"_id":"UPeZOvYchUrPG2ie"}
-{"$$deleted":true,"_id":"YH32V1KzGZpt2vXf"}
-{"$$deleted":true,"_id":"ZIrJRxjNoRyBuuCH"}
-{"$$deleted":true,"_id":"imUoZmO1E5KpCcac"}
-{"$$deleted":true,"_id":"iy19tOgsckmgIU9t"}
-{"$$deleted":true,"_id":"xa7RiabWji2PWg8p"}
-{"$$deleted":true,"_id":"zDn9JjyD89Cy2bev"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"smw6cPLI9BNxNq4S"}
-{"$$deleted":true,"_id":"smw6cPLI9BNxNq4S"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"dTW0S23BK27xfGzO"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"dtSXx1BTdJCRxRDy"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"SaDhPcoBGvdVhdSr"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"ObnLCOYzSQMQI9EK"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"yjYkmRTmjDk4Hdzo"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"rJnN8kBmGThVWQGa"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"vj7HJgV6QxnbE4WM"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"fLcfL4pHSrYYoCPE"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"082p5N8haLyKywrh"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"awlPOtnSRxVrpbpM"}
-{"$$deleted":true,"_id":"082p5N8haLyKywrh"}
-{"$$deleted":true,"_id":"ObnLCOYzSQMQI9EK"}
-{"$$deleted":true,"_id":"SaDhPcoBGvdVhdSr"}
-{"$$deleted":true,"_id":"awlPOtnSRxVrpbpM"}
-{"$$deleted":true,"_id":"dTW0S23BK27xfGzO"}
-{"$$deleted":true,"_id":"dtSXx1BTdJCRxRDy"}
-{"$$deleted":true,"_id":"fLcfL4pHSrYYoCPE"}
-{"$$deleted":true,"_id":"rJnN8kBmGThVWQGa"}
-{"$$deleted":true,"_id":"vj7HJgV6QxnbE4WM"}
-{"$$deleted":true,"_id":"yjYkmRTmjDk4Hdzo"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"5g4LFu27Ocf0h3pU"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"F1N8OrrQMfpfzYXX"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"nTG74GqzXPqIYBXT"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"2MhBT6RE3KcRzlFr"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"Jl3tctuC0E2RypYw"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"nHoSf6qJdnQtz6IU"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"10q6ArMh1q8lbQdP"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"d4CcwVMpFso6E38a"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"JgOHy8VE2lde4FT2"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"0Ya4alGM6xf7ExLx"}
-{"$$deleted":true,"_id":"0Ya4alGM6xf7ExLx"}
-{"$$deleted":true,"_id":"10q6ArMh1q8lbQdP"}
-{"$$deleted":true,"_id":"2MhBT6RE3KcRzlFr"}
-{"$$deleted":true,"_id":"5g4LFu27Ocf0h3pU"}
-{"$$deleted":true,"_id":"F1N8OrrQMfpfzYXX"}
-{"$$deleted":true,"_id":"JgOHy8VE2lde4FT2"}
-{"$$deleted":true,"_id":"Jl3tctuC0E2RypYw"}
-{"$$deleted":true,"_id":"d4CcwVMpFso6E38a"}
-{"$$deleted":true,"_id":"nHoSf6qJdnQtz6IU"}
-{"$$deleted":true,"_id":"nTG74GqzXPqIYBXT"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"20hRMkXRp0vrlRMP"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"xXhKdUMVSj1qN4dH"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"2FYr8HVHl1z8Ex8u"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"IxGOSmRohUdL9R9k"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"cMycbNLFFwwP4ErP"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"IWQPORiKlTRwNuiv"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"HkZo4UpUp5aC9VYx"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"4f8YDOnPTjHSU5Al"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"78alPLA8YTeV7nWA"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"8DYdh6UW050z2o9Q"}
-{"$$deleted":true,"_id":"20hRMkXRp0vrlRMP"}
-{"$$deleted":true,"_id":"2FYr8HVHl1z8Ex8u"}
-{"$$deleted":true,"_id":"4f8YDOnPTjHSU5Al"}
-{"$$deleted":true,"_id":"78alPLA8YTeV7nWA"}
-{"$$deleted":true,"_id":"8DYdh6UW050z2o9Q"}
-{"$$deleted":true,"_id":"HkZo4UpUp5aC9VYx"}
-{"$$deleted":true,"_id":"IWQPORiKlTRwNuiv"}
-{"$$deleted":true,"_id":"IxGOSmRohUdL9R9k"}
-{"$$deleted":true,"_id":"cMycbNLFFwwP4ErP"}
-{"$$deleted":true,"_id":"xXhKdUMVSj1qN4dH"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"DOZC4rgQRKsUoAd7"}
-{"$$deleted":true,"_id":"DOZC4rgQRKsUoAd7"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"6BFx24og90LNsDvt"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"n0DI4vGSsoBFTorV"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"J991YXL2snd7p19P"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"GfRgJnshaLgiI5OD"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"mtUhOQi1qeq9XCxh"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"G2HfsrNygW3qBEO8"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"8hwCwE39awpP10Uk"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"4yyZzyy0RS2p5qB7"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"k6srpBctlC9G8wBe"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"xh9jvisaJFetSRTp"}
-{"$$deleted":true,"_id":"4yyZzyy0RS2p5qB7"}
-{"$$deleted":true,"_id":"6BFx24og90LNsDvt"}
-{"$$deleted":true,"_id":"8hwCwE39awpP10Uk"}
-{"$$deleted":true,"_id":"G2HfsrNygW3qBEO8"}
-{"$$deleted":true,"_id":"GfRgJnshaLgiI5OD"}
-{"$$deleted":true,"_id":"J991YXL2snd7p19P"}
-{"$$deleted":true,"_id":"k6srpBctlC9G8wBe"}
-{"$$deleted":true,"_id":"mtUhOQi1qeq9XCxh"}
-{"$$deleted":true,"_id":"n0DI4vGSsoBFTorV"}
-{"$$deleted":true,"_id":"xh9jvisaJFetSRTp"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"dTQHx92VTuAlylX9"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"16mOAwZiJHJ35rlJ"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"bqm9DROqMAFnsFzg"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"pjlu0hAd06ikD7tk"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"1cCjcvw6DMzkCnZQ"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"6WFoKi5GZNRVNI6b"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"lGEUaG1PBJOhuVf6"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"wWe8oAkBnTOYAGTV"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"67BBiDpfcRPlqUTD"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"jZ49kG2NjVXmaDx8"}
-{"$$deleted":true,"_id":"16mOAwZiJHJ35rlJ"}
-{"$$deleted":true,"_id":"1cCjcvw6DMzkCnZQ"}
-{"$$deleted":true,"_id":"67BBiDpfcRPlqUTD"}
-{"$$deleted":true,"_id":"6WFoKi5GZNRVNI6b"}
-{"$$deleted":true,"_id":"bqm9DROqMAFnsFzg"}
-{"$$deleted":true,"_id":"dTQHx92VTuAlylX9"}
-{"$$deleted":true,"_id":"jZ49kG2NjVXmaDx8"}
-{"$$deleted":true,"_id":"lGEUaG1PBJOhuVf6"}
-{"$$deleted":true,"_id":"pjlu0hAd06ikD7tk"}
-{"$$deleted":true,"_id":"wWe8oAkBnTOYAGTV"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"X95s8dQ49nnUAcJY"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"Q0QlMFbGA9Kcwv7D"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"0ctlyUks0hmdi6Ld"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"IB3rNpta5XpSa57w"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"Yjssq1XrGeThEBwz"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"LbOMIta6X4pi8QG5"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"rvzpFbOde9jZIBHI"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"85xv03gp7Mdz6gYd"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"mwevJXm68Z5Z7Oja"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"bg8hUoKHqlk6b9h9"}
-{"$$deleted":true,"_id":"0ctlyUks0hmdi6Ld"}
-{"$$deleted":true,"_id":"85xv03gp7Mdz6gYd"}
-{"$$deleted":true,"_id":"IB3rNpta5XpSa57w"}
-{"$$deleted":true,"_id":"LbOMIta6X4pi8QG5"}
-{"$$deleted":true,"_id":"Q0QlMFbGA9Kcwv7D"}
-{"$$deleted":true,"_id":"X95s8dQ49nnUAcJY"}
-{"$$deleted":true,"_id":"Yjssq1XrGeThEBwz"}
-{"$$deleted":true,"_id":"bg8hUoKHqlk6b9h9"}
-{"$$deleted":true,"_id":"mwevJXm68Z5Z7Oja"}
-{"$$deleted":true,"_id":"rvzpFbOde9jZIBHI"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"8f2MWA9UIVvx5q2z"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"pH940W8uFtm2x4iM"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"ZPSGKZPEPVG3FFA4"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"oGJgjvFNngYlRWVp"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"tQmhsLzctwtteXgl"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"yCu8FJEchvazW3Sh"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"E8gRYjYdEJQJvSYL"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"eyvoGakwJPtDhAIc"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"voiiamugRvFN4JwO"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"hh3rCvrbdex4jEYC"}
-{"$$deleted":true,"_id":"8f2MWA9UIVvx5q2z"}
-{"$$deleted":true,"_id":"E8gRYjYdEJQJvSYL"}
-{"$$deleted":true,"_id":"ZPSGKZPEPVG3FFA4"}
-{"$$deleted":true,"_id":"eyvoGakwJPtDhAIc"}
-{"$$deleted":true,"_id":"hh3rCvrbdex4jEYC"}
-{"$$deleted":true,"_id":"oGJgjvFNngYlRWVp"}
-{"$$deleted":true,"_id":"pH940W8uFtm2x4iM"}
-{"$$deleted":true,"_id":"tQmhsLzctwtteXgl"}
-{"$$deleted":true,"_id":"voiiamugRvFN4JwO"}
-{"$$deleted":true,"_id":"yCu8FJEchvazW3Sh"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"M8eE70QKyJt9Cs8K"}
-{"$$deleted":true,"_id":"M8eE70QKyJt9Cs8K"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"lOPwTkngmnhE3deY"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"6j5yiZyELy3RxnUr"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"yIjjEyXf1ReDOzul"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"U4jhhI6mv2bDcE8o"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"yZJ4tN7GhEBcZqwV"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"mlkLDAPtUZPXJaNk"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"lztxkvapz8vZbhDm"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"65i8oLYUcr5YbEOl"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"hlPFw0KhGolL1F2m"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"UntOPQHeozKEMSRQ"}
-{"$$deleted":true,"_id":"65i8oLYUcr5YbEOl"}
-{"$$deleted":true,"_id":"6j5yiZyELy3RxnUr"}
-{"$$deleted":true,"_id":"U4jhhI6mv2bDcE8o"}
-{"$$deleted":true,"_id":"UntOPQHeozKEMSRQ"}
-{"$$deleted":true,"_id":"hlPFw0KhGolL1F2m"}
-{"$$deleted":true,"_id":"lOPwTkngmnhE3deY"}
-{"$$deleted":true,"_id":"lztxkvapz8vZbhDm"}
-{"$$deleted":true,"_id":"mlkLDAPtUZPXJaNk"}
-{"$$deleted":true,"_id":"yIjjEyXf1ReDOzul"}
-{"$$deleted":true,"_id":"yZJ4tN7GhEBcZqwV"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"ycBzB4iH4x9AtDGn"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"RPsNwATa1L38y3QP"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"4pDUst4dGdyWxAPX"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"ijN7XycTtwlz7sHl"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"VZ7wPfFPukwcUThQ"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"HQaJkB9ro8F4qDVG"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"y7Wk8KMuo0sSQ5w5"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"KWGCkbedkRKKcI0U"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"1C69lnrtNjPnQgpe"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"17JX1jlhb4ptMIdu"}
-{"$$deleted":true,"_id":"17JX1jlhb4ptMIdu"}
-{"$$deleted":true,"_id":"1C69lnrtNjPnQgpe"}
-{"$$deleted":true,"_id":"4pDUst4dGdyWxAPX"}
-{"$$deleted":true,"_id":"HQaJkB9ro8F4qDVG"}
-{"$$deleted":true,"_id":"KWGCkbedkRKKcI0U"}
-{"$$deleted":true,"_id":"RPsNwATa1L38y3QP"}
-{"$$deleted":true,"_id":"VZ7wPfFPukwcUThQ"}
-{"$$deleted":true,"_id":"ijN7XycTtwlz7sHl"}
-{"$$deleted":true,"_id":"y7Wk8KMuo0sSQ5w5"}
-{"$$deleted":true,"_id":"ycBzB4iH4x9AtDGn"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"pifDAi4r5abx7TkV"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"IuZTMm3yVzslLp37"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"JpfFOT0j1NEE3JcS"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"28vZ9afd0mMIHYKL"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"xBUB0LfLTvPDc0CZ"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"VAGHBHRpnGb5Wio5"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"BeV9yJnErO9vR1V0"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"EoMHr80pUzxINSsb"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"k4esQGFnmsK0pZ3p"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"JQbzznBbyTs21iw0"}
-{"$$deleted":true,"_id":"28vZ9afd0mMIHYKL"}
-{"$$deleted":true,"_id":"BeV9yJnErO9vR1V0"}
-{"$$deleted":true,"_id":"EoMHr80pUzxINSsb"}
-{"$$deleted":true,"_id":"IuZTMm3yVzslLp37"}
-{"$$deleted":true,"_id":"JQbzznBbyTs21iw0"}
-{"$$deleted":true,"_id":"JpfFOT0j1NEE3JcS"}
-{"$$deleted":true,"_id":"VAGHBHRpnGb5Wio5"}
-{"$$deleted":true,"_id":"k4esQGFnmsK0pZ3p"}
-{"$$deleted":true,"_id":"pifDAi4r5abx7TkV"}
-{"$$deleted":true,"_id":"xBUB0LfLTvPDc0CZ"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"5IXzxTTlH1q1EQWO"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"olAaUEat0cVOdnDJ"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"7ozz3GoOBF1FFaiD"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"Grw7ORIrmlqywGjf"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"wUAt6h3zWbUXETOp"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"qEbpjm6OxTq97A36"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"vGIAdPm3eYIs81Ga"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"W2PkLzI3fMwghuo3"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"Tn0RjayZlJGs1rF6"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"CPksAgjFJCDaopgp"}
-{"$$deleted":true,"_id":"5IXzxTTlH1q1EQWO"}
-{"$$deleted":true,"_id":"7ozz3GoOBF1FFaiD"}
-{"$$deleted":true,"_id":"CPksAgjFJCDaopgp"}
-{"$$deleted":true,"_id":"Grw7ORIrmlqywGjf"}
-{"$$deleted":true,"_id":"Tn0RjayZlJGs1rF6"}
-{"$$deleted":true,"_id":"W2PkLzI3fMwghuo3"}
-{"$$deleted":true,"_id":"olAaUEat0cVOdnDJ"}
-{"$$deleted":true,"_id":"qEbpjm6OxTq97A36"}
-{"$$deleted":true,"_id":"vGIAdPm3eYIs81Ga"}
-{"$$deleted":true,"_id":"wUAt6h3zWbUXETOp"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"akrvavdYNYGRDEpc"}
-{"$$deleted":true,"_id":"akrvavdYNYGRDEpc"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"hPB61wdeUCCazbdu"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"c2zHBF4BKFf7TFjn"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"d15QUshsRxXCqF3E"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"50ApevbE5rkP11RX"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"FUJjvrapmVgJAFLf"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"h9Sl94koEP52fogI"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"VvzQFqnag7zVILC3"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"5aHcbUIUQ5Cn1D97"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"oPtmj2c5TmsUvq40"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"0osDQBWNpBmfxu3J"}
-{"$$deleted":true,"_id":"0osDQBWNpBmfxu3J"}
-{"$$deleted":true,"_id":"50ApevbE5rkP11RX"}
-{"$$deleted":true,"_id":"5aHcbUIUQ5Cn1D97"}
-{"$$deleted":true,"_id":"FUJjvrapmVgJAFLf"}
-{"$$deleted":true,"_id":"VvzQFqnag7zVILC3"}
-{"$$deleted":true,"_id":"c2zHBF4BKFf7TFjn"}
-{"$$deleted":true,"_id":"d15QUshsRxXCqF3E"}
-{"$$deleted":true,"_id":"h9Sl94koEP52fogI"}
-{"$$deleted":true,"_id":"hPB61wdeUCCazbdu"}
-{"$$deleted":true,"_id":"oPtmj2c5TmsUvq40"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"D0JEB6InARUMY8oY"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"UADWKNfNzlOCxbYj"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"FhFcddDZ7h0rRUy3"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"El81Gu0ooq9Hrw6W"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"jiqMclaqzn4J9XWm"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"gkduDQLyWhnoy1Y5"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"xvIAD10h08b0fTcz"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"xnJe7Apd5K5EpJL3"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"YQqrBRWUQB2OLgaf"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"DMGOXgcZH8Fuwpb4"}
-{"$$deleted":true,"_id":"D0JEB6InARUMY8oY"}
-{"$$deleted":true,"_id":"DMGOXgcZH8Fuwpb4"}
-{"$$deleted":true,"_id":"El81Gu0ooq9Hrw6W"}
-{"$$deleted":true,"_id":"FhFcddDZ7h0rRUy3"}
-{"$$deleted":true,"_id":"UADWKNfNzlOCxbYj"}
-{"$$deleted":true,"_id":"YQqrBRWUQB2OLgaf"}
-{"$$deleted":true,"_id":"gkduDQLyWhnoy1Y5"}
-{"$$deleted":true,"_id":"jiqMclaqzn4J9XWm"}
-{"$$deleted":true,"_id":"xnJe7Apd5K5EpJL3"}
-{"$$deleted":true,"_id":"xvIAD10h08b0fTcz"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"vZddlvQYv25n0u5C"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"iVbekezbNHM95kyl"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Ycd0bDKxIBHBqJQb"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"j9mvCmMOlplRiYWf"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"TzG6p9mjGVCbBoFv"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"IsI8FgQkfWBuqVUl"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"0RJVWEL1qcF2gxQy"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"0OmxFxwaxvK0qhLZ"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"CiZzKL6z8plXsCgd"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"ZJS1sXWUC1Q6Kabo"}
-{"$$deleted":true,"_id":"0OmxFxwaxvK0qhLZ"}
-{"$$deleted":true,"_id":"0RJVWEL1qcF2gxQy"}
-{"$$deleted":true,"_id":"CiZzKL6z8plXsCgd"}
-{"$$deleted":true,"_id":"IsI8FgQkfWBuqVUl"}
-{"$$deleted":true,"_id":"TzG6p9mjGVCbBoFv"}
-{"$$deleted":true,"_id":"Ycd0bDKxIBHBqJQb"}
-{"$$deleted":true,"_id":"ZJS1sXWUC1Q6Kabo"}
-{"$$deleted":true,"_id":"iVbekezbNHM95kyl"}
-{"$$deleted":true,"_id":"j9mvCmMOlplRiYWf"}
-{"$$deleted":true,"_id":"vZddlvQYv25n0u5C"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"6WKGN6gSyMg3YLiS"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"s6KZjyqsdFbYaTrS"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"KXqFSCcWhPbwF3rb"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"4MqGfMWI9sQnxqHT"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"HJS6CQ5nO3Rnmhme"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"3bPkQiVBu9irxTCP"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"JDSjR8M6J5AhyO7V"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"v0aspOJB8JD1Ws7V"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"6hsuFUzx5781pBwA"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"aXJMi4SlRO3XMyAq"}
-{"$$deleted":true,"_id":"3bPkQiVBu9irxTCP"}
-{"$$deleted":true,"_id":"4MqGfMWI9sQnxqHT"}
-{"$$deleted":true,"_id":"6WKGN6gSyMg3YLiS"}
-{"$$deleted":true,"_id":"6hsuFUzx5781pBwA"}
-{"$$deleted":true,"_id":"HJS6CQ5nO3Rnmhme"}
-{"$$deleted":true,"_id":"JDSjR8M6J5AhyO7V"}
-{"$$deleted":true,"_id":"KXqFSCcWhPbwF3rb"}
-{"$$deleted":true,"_id":"aXJMi4SlRO3XMyAq"}
-{"$$deleted":true,"_id":"s6KZjyqsdFbYaTrS"}
-{"$$deleted":true,"_id":"v0aspOJB8JD1Ws7V"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"xX7mW4gzb4AleIGr"}
-{"$$deleted":true,"_id":"xX7mW4gzb4AleIGr"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"zPVjAWnpWNjYDDFl"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"F3vAkWmNLgC5AfeJ"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"uEKWvmU8rNagW1bV"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"PK7Uxle0FsfM0uUS"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"eREGn0qGfkfvQHrq"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"fxgjjfJ2MiMtyFFs"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"s8MywzUXSI5YMUQg"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"G1Df1peRL9CSudLb"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"3ukuNHU1hEZQM4hI"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"klKEsqTRjrBftjbq"}
-{"$$deleted":true,"_id":"3ukuNHU1hEZQM4hI"}
-{"$$deleted":true,"_id":"F3vAkWmNLgC5AfeJ"}
-{"$$deleted":true,"_id":"G1Df1peRL9CSudLb"}
-{"$$deleted":true,"_id":"PK7Uxle0FsfM0uUS"}
-{"$$deleted":true,"_id":"eREGn0qGfkfvQHrq"}
-{"$$deleted":true,"_id":"fxgjjfJ2MiMtyFFs"}
-{"$$deleted":true,"_id":"klKEsqTRjrBftjbq"}
-{"$$deleted":true,"_id":"s8MywzUXSI5YMUQg"}
-{"$$deleted":true,"_id":"uEKWvmU8rNagW1bV"}
-{"$$deleted":true,"_id":"zPVjAWnpWNjYDDFl"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"n5gEvdqO9AXuG94m"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"tMzH5Ilm303gNN9W"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"a34gaeToOX3HWB8P"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"VT6nvMiIOzZM9QyX"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"T6UjWGAVPkaBB4ft"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"NRE9SrlWPPVWBRhn"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"H3ORrfoVyo9zEQn7"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"YZa5XPw8hdPxhuo7"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"Cv7dWek1V9kmH9ZP"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"3jurIcbZGDlbe9u6"}
-{"$$deleted":true,"_id":"3jurIcbZGDlbe9u6"}
-{"$$deleted":true,"_id":"Cv7dWek1V9kmH9ZP"}
-{"$$deleted":true,"_id":"H3ORrfoVyo9zEQn7"}
-{"$$deleted":true,"_id":"NRE9SrlWPPVWBRhn"}
-{"$$deleted":true,"_id":"T6UjWGAVPkaBB4ft"}
-{"$$deleted":true,"_id":"VT6nvMiIOzZM9QyX"}
-{"$$deleted":true,"_id":"YZa5XPw8hdPxhuo7"}
-{"$$deleted":true,"_id":"a34gaeToOX3HWB8P"}
-{"$$deleted":true,"_id":"n5gEvdqO9AXuG94m"}
-{"$$deleted":true,"_id":"tMzH5Ilm303gNN9W"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"XnmfNUMspCoKFKpX"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"nsskZTqFc84PhvFu"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"R1TnELXocXG4hcCb"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"hwteJbTpxfN6dpHg"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"vXsthCTa5MHXggE8"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"RHJyXCrbKVBHmqXN"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"ll2vN8hPZbTVoHqh"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"hbvnRQ5z0824WSZI"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"Mej59FqDkvdfBBOh"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"fgNkDS9nhCZ9BfVZ"}
-{"$$deleted":true,"_id":"Mej59FqDkvdfBBOh"}
-{"$$deleted":true,"_id":"R1TnELXocXG4hcCb"}
-{"$$deleted":true,"_id":"RHJyXCrbKVBHmqXN"}
-{"$$deleted":true,"_id":"XnmfNUMspCoKFKpX"}
-{"$$deleted":true,"_id":"fgNkDS9nhCZ9BfVZ"}
-{"$$deleted":true,"_id":"hbvnRQ5z0824WSZI"}
-{"$$deleted":true,"_id":"hwteJbTpxfN6dpHg"}
-{"$$deleted":true,"_id":"ll2vN8hPZbTVoHqh"}
-{"$$deleted":true,"_id":"nsskZTqFc84PhvFu"}
-{"$$deleted":true,"_id":"vXsthCTa5MHXggE8"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"2uBZs9DNH1eO6l85"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"7ParpjrDprZsTkHu"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"1MCoaXwu2cbdXlIZ"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"ISN2TM5JvJgHwq5C"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"eKlRVH18rzBDfFqI"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"RaBoc9fTaocO0X2J"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"wBISR4KYVhQaXOWA"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"jHPOylwjVhRpwJXa"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"s6igutHJiSItvmEF"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"B1zEWVoCiWjwrIlG"}
-{"$$deleted":true,"_id":"1MCoaXwu2cbdXlIZ"}
-{"$$deleted":true,"_id":"2uBZs9DNH1eO6l85"}
-{"$$deleted":true,"_id":"7ParpjrDprZsTkHu"}
-{"$$deleted":true,"_id":"B1zEWVoCiWjwrIlG"}
-{"$$deleted":true,"_id":"ISN2TM5JvJgHwq5C"}
-{"$$deleted":true,"_id":"RaBoc9fTaocO0X2J"}
-{"$$deleted":true,"_id":"eKlRVH18rzBDfFqI"}
-{"$$deleted":true,"_id":"jHPOylwjVhRpwJXa"}
-{"$$deleted":true,"_id":"s6igutHJiSItvmEF"}
-{"$$deleted":true,"_id":"wBISR4KYVhQaXOWA"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"5JSfv2wqYhDn02gh"}
-{"$$deleted":true,"_id":"5JSfv2wqYhDn02gh"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"CWG012lFuP0x0iWa"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"eoPObBCrIVeORLI9"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"ixZXG3lAh2osjZsq"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"xQ7fBL7bxU3LdEjh"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"yALLT9QtuBfZtLNP"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"ObaPKkApmySogFUH"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"aTmXdnjkyBKUkUSZ"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"3l2ATqG7rvbnotgF"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"okgmTFhEAe3b9AAH"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"pa3GFFKJaGbbD5T5"}
-{"$$deleted":true,"_id":"3l2ATqG7rvbnotgF"}
-{"$$deleted":true,"_id":"CWG012lFuP0x0iWa"}
-{"$$deleted":true,"_id":"ObaPKkApmySogFUH"}
-{"$$deleted":true,"_id":"aTmXdnjkyBKUkUSZ"}
-{"$$deleted":true,"_id":"eoPObBCrIVeORLI9"}
-{"$$deleted":true,"_id":"ixZXG3lAh2osjZsq"}
-{"$$deleted":true,"_id":"okgmTFhEAe3b9AAH"}
-{"$$deleted":true,"_id":"pa3GFFKJaGbbD5T5"}
-{"$$deleted":true,"_id":"xQ7fBL7bxU3LdEjh"}
-{"$$deleted":true,"_id":"yALLT9QtuBfZtLNP"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"RwjpRbDLZUNZZGL1"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"zv4h3qoKJ4nq9bQE"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"RKeCBzg1BDHwYTdg"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"SCSOPdPstHFcAV2O"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"iJNVnJp4wwrE4Ffy"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"7Ryv3iCQjFsNzBm1"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"DPsXodKLjKzfgzrA"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"UPqy3aph4nSJl2LR"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"LbVJWA5BWRyEFY2o"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"Er7gI1HHOo00J0Fz"}
-{"$$deleted":true,"_id":"7Ryv3iCQjFsNzBm1"}
-{"$$deleted":true,"_id":"DPsXodKLjKzfgzrA"}
-{"$$deleted":true,"_id":"Er7gI1HHOo00J0Fz"}
-{"$$deleted":true,"_id":"LbVJWA5BWRyEFY2o"}
-{"$$deleted":true,"_id":"RKeCBzg1BDHwYTdg"}
-{"$$deleted":true,"_id":"RwjpRbDLZUNZZGL1"}
-{"$$deleted":true,"_id":"SCSOPdPstHFcAV2O"}
-{"$$deleted":true,"_id":"UPqy3aph4nSJl2LR"}
-{"$$deleted":true,"_id":"iJNVnJp4wwrE4Ffy"}
-{"$$deleted":true,"_id":"zv4h3qoKJ4nq9bQE"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"XphwvRvS1niB32dl"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"JDJVHjMNokPBjL6b"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Mzi9O7pnoxRPpelC"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"J660I8WgG1sTFqay"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"UfqTYGP6J38oQUmi"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"FS0gG0tj9J0TBdik"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"yzqbsSlZ34akLlgq"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"E1Kx1QG2Sg9WCOiN"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"lhVz5zYJVSl1MmG8"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"3hiWbiIAvv6twwgo"}
-{"$$deleted":true,"_id":"3hiWbiIAvv6twwgo"}
-{"$$deleted":true,"_id":"E1Kx1QG2Sg9WCOiN"}
-{"$$deleted":true,"_id":"FS0gG0tj9J0TBdik"}
-{"$$deleted":true,"_id":"J660I8WgG1sTFqay"}
-{"$$deleted":true,"_id":"JDJVHjMNokPBjL6b"}
-{"$$deleted":true,"_id":"Mzi9O7pnoxRPpelC"}
-{"$$deleted":true,"_id":"UfqTYGP6J38oQUmi"}
-{"$$deleted":true,"_id":"XphwvRvS1niB32dl"}
-{"$$deleted":true,"_id":"lhVz5zYJVSl1MmG8"}
-{"$$deleted":true,"_id":"yzqbsSlZ34akLlgq"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"rJKtP08TrwAdB7Rh"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"AmxDqhv1cUoK76OZ"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"DzKHdyDkFoeb2nqu"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"jii0NbimxPKSQ5vA"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"GYJiw7Qg2ek4FBj2"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"N7hT7nL7SDowRTQ7"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"Un2jP6mPrAMle69q"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"n0ndWGgQvU6pTfOL"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"Pjgn97S8Q9d0b9Gm"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"FTWv2SEaaVvonYwf"}
-{"$$deleted":true,"_id":"AmxDqhv1cUoK76OZ"}
-{"$$deleted":true,"_id":"DzKHdyDkFoeb2nqu"}
-{"$$deleted":true,"_id":"FTWv2SEaaVvonYwf"}
-{"$$deleted":true,"_id":"GYJiw7Qg2ek4FBj2"}
-{"$$deleted":true,"_id":"N7hT7nL7SDowRTQ7"}
-{"$$deleted":true,"_id":"Pjgn97S8Q9d0b9Gm"}
-{"$$deleted":true,"_id":"Un2jP6mPrAMle69q"}
-{"$$deleted":true,"_id":"jii0NbimxPKSQ5vA"}
-{"$$deleted":true,"_id":"n0ndWGgQvU6pTfOL"}
-{"$$deleted":true,"_id":"rJKtP08TrwAdB7Rh"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"LhibvcNJsysLeYaf"}
-{"$$deleted":true,"_id":"LhibvcNJsysLeYaf"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"emftf7r98WOkHArW"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"0gFY9jNdGtnNcaSH"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"nl4J1Wpk4Qy5xczS"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"7nn5e3b0AfMi4tbP"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"GuRB50aqQwyKWTnX"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"FYwi5kQGStKIyu7J"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"tJpfCHfeavzYoLr6"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"FNPd5knlAkAWWHwP"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"4frtph6JtN3DrHy6"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"eFvxwXbpbveRvD04"}
-{"$$deleted":true,"_id":"0gFY9jNdGtnNcaSH"}
-{"$$deleted":true,"_id":"4frtph6JtN3DrHy6"}
-{"$$deleted":true,"_id":"7nn5e3b0AfMi4tbP"}
-{"$$deleted":true,"_id":"FNPd5knlAkAWWHwP"}
-{"$$deleted":true,"_id":"FYwi5kQGStKIyu7J"}
-{"$$deleted":true,"_id":"GuRB50aqQwyKWTnX"}
-{"$$deleted":true,"_id":"eFvxwXbpbveRvD04"}
-{"$$deleted":true,"_id":"emftf7r98WOkHArW"}
-{"$$deleted":true,"_id":"nl4J1Wpk4Qy5xczS"}
-{"$$deleted":true,"_id":"tJpfCHfeavzYoLr6"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"quoiYlrgoFgakkBi"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"KfedVKuvbzJ4taXJ"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"TW7S2u738CipHNes"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"m2NANgN6cPIpCvj4"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"TO0LT2Zob5i5VGoW"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"2U6SiaTxpbSv0qnA"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"azaE2NLDRnGWFwHb"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"NvDcR0v2Out0CxHp"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"flhaN87XPg4W96a0"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"yb11v4MoxgGtQkLj"}
-{"$$deleted":true,"_id":"2U6SiaTxpbSv0qnA"}
-{"$$deleted":true,"_id":"KfedVKuvbzJ4taXJ"}
-{"$$deleted":true,"_id":"NvDcR0v2Out0CxHp"}
-{"$$deleted":true,"_id":"TO0LT2Zob5i5VGoW"}
-{"$$deleted":true,"_id":"TW7S2u738CipHNes"}
-{"$$deleted":true,"_id":"azaE2NLDRnGWFwHb"}
-{"$$deleted":true,"_id":"flhaN87XPg4W96a0"}
-{"$$deleted":true,"_id":"m2NANgN6cPIpCvj4"}
-{"$$deleted":true,"_id":"quoiYlrgoFgakkBi"}
-{"$$deleted":true,"_id":"yb11v4MoxgGtQkLj"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"cTyq5Y24LzF321QX"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"BT2003wmvb7f8WyJ"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Q4et3VbodEKA3j6V"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"4NzeMYN88Dw9HLMo"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"hNE5u4Ci8YHZsCAL"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"MUZLbPmnTKzDveGR"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"FbJ9VoDP4hXXDjJO"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"mu7j0zS3BTslJC9s"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"LV2aqeO5NzB7Lpn3"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"cdid75Ln1b4M2PPe"}
-{"$$deleted":true,"_id":"4NzeMYN88Dw9HLMo"}
-{"$$deleted":true,"_id":"BT2003wmvb7f8WyJ"}
-{"$$deleted":true,"_id":"FbJ9VoDP4hXXDjJO"}
-{"$$deleted":true,"_id":"LV2aqeO5NzB7Lpn3"}
-{"$$deleted":true,"_id":"MUZLbPmnTKzDveGR"}
-{"$$deleted":true,"_id":"Q4et3VbodEKA3j6V"}
-{"$$deleted":true,"_id":"cTyq5Y24LzF321QX"}
-{"$$deleted":true,"_id":"cdid75Ln1b4M2PPe"}
-{"$$deleted":true,"_id":"hNE5u4Ci8YHZsCAL"}
-{"$$deleted":true,"_id":"mu7j0zS3BTslJC9s"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"2ELXbNAGG0wJKIz9"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"JAjGXAoZthppM9n8"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"SNNQNXGupjTkTYv1"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"heL2aU5QQkZWAtzT"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"jz9fTguKD61rjjZ8"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"yI6viG6oGpr9qZYB"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"dGNZhRQee51PzDLB"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"nVbtspf8Qkuad97n"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"iKTCHtShGXdpUrT9"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"BvxhTc21MbZfb9Ke"}
-{"$$deleted":true,"_id":"2ELXbNAGG0wJKIz9"}
-{"$$deleted":true,"_id":"BvxhTc21MbZfb9Ke"}
-{"$$deleted":true,"_id":"JAjGXAoZthppM9n8"}
-{"$$deleted":true,"_id":"SNNQNXGupjTkTYv1"}
-{"$$deleted":true,"_id":"dGNZhRQee51PzDLB"}
-{"$$deleted":true,"_id":"heL2aU5QQkZWAtzT"}
-{"$$deleted":true,"_id":"iKTCHtShGXdpUrT9"}
-{"$$deleted":true,"_id":"jz9fTguKD61rjjZ8"}
-{"$$deleted":true,"_id":"nVbtspf8Qkuad97n"}
-{"$$deleted":true,"_id":"yI6viG6oGpr9qZYB"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"DAzzHlSU60aFV6Rg"}
-{"$$deleted":true,"_id":"DAzzHlSU60aFV6Rg"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"GSL8mpV9leUcdq2n"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"n6Ca7W9LE2WqB9eO"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"AlFze8hUxzurbsfU"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"NjI1HhhISgR4XhWV"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"Uje1pgD0XVzeG3mI"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"DcHNlvIH9JhaslCx"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"78LTnAQ5nMHGZoNp"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"iRkRdBsxxnGqBrKc"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"ZQcWcBG1vMgwjG6u"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"xlEmin1DmDlp8EDP"}
-{"$$deleted":true,"_id":"78LTnAQ5nMHGZoNp"}
-{"$$deleted":true,"_id":"AlFze8hUxzurbsfU"}
-{"$$deleted":true,"_id":"DcHNlvIH9JhaslCx"}
-{"$$deleted":true,"_id":"GSL8mpV9leUcdq2n"}
-{"$$deleted":true,"_id":"NjI1HhhISgR4XhWV"}
-{"$$deleted":true,"_id":"Uje1pgD0XVzeG3mI"}
-{"$$deleted":true,"_id":"ZQcWcBG1vMgwjG6u"}
-{"$$deleted":true,"_id":"iRkRdBsxxnGqBrKc"}
-{"$$deleted":true,"_id":"n6Ca7W9LE2WqB9eO"}
-{"$$deleted":true,"_id":"xlEmin1DmDlp8EDP"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"4PbUNVxySBwqPYZ3"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"cbln8vWbfS0HrMKh"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"AUCizOGJbe62wQRH"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"39ZYsIkw4hlryDyg"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"mjXcfGa33MQ76X39"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"KqlWnbdwtyzde1HU"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"KLzkfZQQM2W8TY8o"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"KlXFCbXsudQuc8tt"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"KDm1ZsmWMwT6dWm4"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"6n2UrpyV8rZSW0HA"}
-{"$$deleted":true,"_id":"39ZYsIkw4hlryDyg"}
-{"$$deleted":true,"_id":"4PbUNVxySBwqPYZ3"}
-{"$$deleted":true,"_id":"6n2UrpyV8rZSW0HA"}
-{"$$deleted":true,"_id":"AUCizOGJbe62wQRH"}
-{"$$deleted":true,"_id":"KDm1ZsmWMwT6dWm4"}
-{"$$deleted":true,"_id":"KLzkfZQQM2W8TY8o"}
-{"$$deleted":true,"_id":"KlXFCbXsudQuc8tt"}
-{"$$deleted":true,"_id":"KqlWnbdwtyzde1HU"}
-{"$$deleted":true,"_id":"cbln8vWbfS0HrMKh"}
-{"$$deleted":true,"_id":"mjXcfGa33MQ76X39"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"2n7twaQVXcjwFP3y"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"A96cYjsoHIWzy79k"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"rFYa7fTO8SD52MrC"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"4cNp7UaTt1DYM9RY"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"kzkAwCjnQ9nMRnWy"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"JiEKeLLfOYvbQfYr"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"cpvB10Pv1sDaIYJZ"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"VYFLSxxNVkW1E0fV"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"L6fkzMYhfVGzp060"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"tdbtZ5v4uenYgnnz"}
-{"$$deleted":true,"_id":"2n7twaQVXcjwFP3y"}
-{"$$deleted":true,"_id":"4cNp7UaTt1DYM9RY"}
-{"$$deleted":true,"_id":"A96cYjsoHIWzy79k"}
-{"$$deleted":true,"_id":"JiEKeLLfOYvbQfYr"}
-{"$$deleted":true,"_id":"L6fkzMYhfVGzp060"}
-{"$$deleted":true,"_id":"VYFLSxxNVkW1E0fV"}
-{"$$deleted":true,"_id":"cpvB10Pv1sDaIYJZ"}
-{"$$deleted":true,"_id":"kzkAwCjnQ9nMRnWy"}
-{"$$deleted":true,"_id":"rFYa7fTO8SD52MrC"}
-{"$$deleted":true,"_id":"tdbtZ5v4uenYgnnz"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"3IdmfMEDhkQgeTOr"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"tcyN4IOZENx0fnxd"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"iFRLYQs72St1Aans"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"iioiqkn5OcLmofVS"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"q3blT4D0ofTAuhQD"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"892gZA9ROa5HBrW8"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"3YoBgdYc6QXyYVXW"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"ei1kHZRvhK33P08A"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"8vTL7DKkVglT34u4"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"WgpW4uUxpemhjhOm"}
-{"$$deleted":true,"_id":"3IdmfMEDhkQgeTOr"}
-{"$$deleted":true,"_id":"3YoBgdYc6QXyYVXW"}
-{"$$deleted":true,"_id":"892gZA9ROa5HBrW8"}
-{"$$deleted":true,"_id":"8vTL7DKkVglT34u4"}
-{"$$deleted":true,"_id":"WgpW4uUxpemhjhOm"}
-{"$$deleted":true,"_id":"ei1kHZRvhK33P08A"}
-{"$$deleted":true,"_id":"iFRLYQs72St1Aans"}
-{"$$deleted":true,"_id":"iioiqkn5OcLmofVS"}
-{"$$deleted":true,"_id":"q3blT4D0ofTAuhQD"}
-{"$$deleted":true,"_id":"tcyN4IOZENx0fnxd"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"7EVf1rHGkyNj7dIK"}
-{"$$deleted":true,"_id":"7EVf1rHGkyNj7dIK"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"2tUyp4x3vg2epylg"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"vUIxFjg0u23KRNaB"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"17pCLc8WWIolOAZI"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"9dQLg5cpro1kxaoa"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"QWziVlBtaxWtWAWL"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"OGh1pyZwVmO4wuWX"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"Ea0YaSTjZifgkvBt"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"60OLEKkzs6NChQKk"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"clZcxSujraUyzQ0A"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"LqAf6WvTorWuN2JZ"}
-{"$$deleted":true,"_id":"17pCLc8WWIolOAZI"}
-{"$$deleted":true,"_id":"2tUyp4x3vg2epylg"}
-{"$$deleted":true,"_id":"60OLEKkzs6NChQKk"}
-{"$$deleted":true,"_id":"9dQLg5cpro1kxaoa"}
-{"$$deleted":true,"_id":"Ea0YaSTjZifgkvBt"}
-{"$$deleted":true,"_id":"LqAf6WvTorWuN2JZ"}
-{"$$deleted":true,"_id":"OGh1pyZwVmO4wuWX"}
-{"$$deleted":true,"_id":"QWziVlBtaxWtWAWL"}
-{"$$deleted":true,"_id":"clZcxSujraUyzQ0A"}
-{"$$deleted":true,"_id":"vUIxFjg0u23KRNaB"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"LcrfyVkD4AL0fGE9"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"GIitfOi2dj6vCtEf"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Y2i9oRtqtv4B9z1i"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"MeA0egrGduOiPXuR"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"yjyxZVw3bozOYGj4"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"6m9q8lQoPMSpYs1o"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"ajR6fknzIwtwgWy4"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"Xw2zYHB5ZPYlQIoa"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"u0J0Y3EWdg9D6aV8"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"SIp3kYIg3JcMPLO8"}
-{"$$deleted":true,"_id":"6m9q8lQoPMSpYs1o"}
-{"$$deleted":true,"_id":"GIitfOi2dj6vCtEf"}
-{"$$deleted":true,"_id":"LcrfyVkD4AL0fGE9"}
-{"$$deleted":true,"_id":"MeA0egrGduOiPXuR"}
-{"$$deleted":true,"_id":"SIp3kYIg3JcMPLO8"}
-{"$$deleted":true,"_id":"Xw2zYHB5ZPYlQIoa"}
-{"$$deleted":true,"_id":"Y2i9oRtqtv4B9z1i"}
-{"$$deleted":true,"_id":"ajR6fknzIwtwgWy4"}
-{"$$deleted":true,"_id":"u0J0Y3EWdg9D6aV8"}
-{"$$deleted":true,"_id":"yjyxZVw3bozOYGj4"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"0GycvQ2b2y0xLFzP"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"iEf9ekHL4kDAzrOP"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"RlyOuvU5jSTgHIRv"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"gO7Jwkw0PFzjNC5E"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"JaxOcRUZfnygH34K"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"eHdEiell1ik9CgRG"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"jiGCdJHLEYCPcNfy"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"lWgCtCf2RiXd70rH"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"WdjlhDMRKhtM34DZ"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"5vrOs8GfTrdNxO55"}
-{"$$deleted":true,"_id":"0GycvQ2b2y0xLFzP"}
-{"$$deleted":true,"_id":"5vrOs8GfTrdNxO55"}
-{"$$deleted":true,"_id":"JaxOcRUZfnygH34K"}
-{"$$deleted":true,"_id":"RlyOuvU5jSTgHIRv"}
-{"$$deleted":true,"_id":"WdjlhDMRKhtM34DZ"}
-{"$$deleted":true,"_id":"eHdEiell1ik9CgRG"}
-{"$$deleted":true,"_id":"gO7Jwkw0PFzjNC5E"}
-{"$$deleted":true,"_id":"iEf9ekHL4kDAzrOP"}
-{"$$deleted":true,"_id":"jiGCdJHLEYCPcNfy"}
-{"$$deleted":true,"_id":"lWgCtCf2RiXd70rH"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"3Z92xQQUOjB6IOas"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"Mh2Oapbjx0OETWgt"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"OW5c3JmWgvo0DcNS"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"RhZtc92kHcQiOGh8"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"vQ5D96HwtjRLiop2"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"MnMCjRPpm92VLCpi"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"IwM5ieM13GAugpnj"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"vvnBuoLBRuIoVcVW"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"wq65frRrZj42x9LF"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"QEBucCnkrtkh1lFo"}
-{"$$deleted":true,"_id":"3Z92xQQUOjB6IOas"}
-{"$$deleted":true,"_id":"IwM5ieM13GAugpnj"}
-{"$$deleted":true,"_id":"Mh2Oapbjx0OETWgt"}
-{"$$deleted":true,"_id":"MnMCjRPpm92VLCpi"}
-{"$$deleted":true,"_id":"OW5c3JmWgvo0DcNS"}
-{"$$deleted":true,"_id":"QEBucCnkrtkh1lFo"}
-{"$$deleted":true,"_id":"RhZtc92kHcQiOGh8"}
-{"$$deleted":true,"_id":"vQ5D96HwtjRLiop2"}
-{"$$deleted":true,"_id":"vvnBuoLBRuIoVcVW"}
-{"$$deleted":true,"_id":"wq65frRrZj42x9LF"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"xpZ0F7Ono09m4UsT"}
-{"$$deleted":true,"_id":"xpZ0F7Ono09m4UsT"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"M5IdylXn919X2ggY"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"cF3QPJmkf31zpgcv"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Jf1Gb5x1NjE9o0sI"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"HxwoSa5Yg1LY4A5H"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"Mgqnj23Fl04JJFey"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"frlPCsAvkQRXgpMf"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"cCVfbxSZKGgQIW49"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"2IIZqA9g7atzMgDu"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"QzpIKeiMVMy7g0ks"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"4EzevjPE7QCSqkfq"}
-{"$$deleted":true,"_id":"2IIZqA9g7atzMgDu"}
-{"$$deleted":true,"_id":"4EzevjPE7QCSqkfq"}
-{"$$deleted":true,"_id":"HxwoSa5Yg1LY4A5H"}
-{"$$deleted":true,"_id":"Jf1Gb5x1NjE9o0sI"}
-{"$$deleted":true,"_id":"M5IdylXn919X2ggY"}
-{"$$deleted":true,"_id":"Mgqnj23Fl04JJFey"}
-{"$$deleted":true,"_id":"QzpIKeiMVMy7g0ks"}
-{"$$deleted":true,"_id":"cCVfbxSZKGgQIW49"}
-{"$$deleted":true,"_id":"cF3QPJmkf31zpgcv"}
-{"$$deleted":true,"_id":"frlPCsAvkQRXgpMf"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"mqitcFQ2jbOk4vNj"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"c55emev8ErUvxM4H"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"slEHc7njAtQfN0in"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"cL4klCljK5sQViSP"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"eywiT3SXDApsRKMD"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"15vggPZcclbfZ7tM"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"zhNLKEOsR7mbqnts"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"c1VmpgHgJwBokOYr"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"Mi1f2BVBPb2AD3jB"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"31oBtHyqEOV9iLeW"}
-{"$$deleted":true,"_id":"15vggPZcclbfZ7tM"}
-{"$$deleted":true,"_id":"31oBtHyqEOV9iLeW"}
-{"$$deleted":true,"_id":"Mi1f2BVBPb2AD3jB"}
-{"$$deleted":true,"_id":"c1VmpgHgJwBokOYr"}
-{"$$deleted":true,"_id":"c55emev8ErUvxM4H"}
-{"$$deleted":true,"_id":"cL4klCljK5sQViSP"}
-{"$$deleted":true,"_id":"eywiT3SXDApsRKMD"}
-{"$$deleted":true,"_id":"mqitcFQ2jbOk4vNj"}
-{"$$deleted":true,"_id":"slEHc7njAtQfN0in"}
-{"$$deleted":true,"_id":"zhNLKEOsR7mbqnts"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"AL6PWM3fcoydukct"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"6r9g6SzP2qCUoz2H"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"PVA580bEid4a4opX"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"2MK7D04U5Cld9bP1"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"vTpiNvgvSFlYggKY"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"0hV86vioKG8ycAID"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"CXt5ihfoUe7qVVF8"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"yhIi61Dle5ISdvMx"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"VOyg04QbZXarCpDG"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"Prd8NIQm5bBVcaSR"}
-{"$$deleted":true,"_id":"0hV86vioKG8ycAID"}
-{"$$deleted":true,"_id":"2MK7D04U5Cld9bP1"}
-{"$$deleted":true,"_id":"6r9g6SzP2qCUoz2H"}
-{"$$deleted":true,"_id":"AL6PWM3fcoydukct"}
-{"$$deleted":true,"_id":"CXt5ihfoUe7qVVF8"}
-{"$$deleted":true,"_id":"PVA580bEid4a4opX"}
-{"$$deleted":true,"_id":"Prd8NIQm5bBVcaSR"}
-{"$$deleted":true,"_id":"VOyg04QbZXarCpDG"}
-{"$$deleted":true,"_id":"vTpiNvgvSFlYggKY"}
-{"$$deleted":true,"_id":"yhIi61Dle5ISdvMx"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"8CtFB76p7X82i3FA"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"5WZXTLrfWrtnioye"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"29yo5WhQSFRzEQw9"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"UnZy5e5xLwBz57YN"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"5uuw0hiICHWI9lma"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"mpetddzjBEOkxbg3"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"WAJUHGmdR7nm6AJH"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"GFtGY1KNy9S2T6nv"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"5Mv1YW9XWNGDjgAp"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"ZnxYZ14g9HUfWrMZ"}
-{"$$deleted":true,"_id":"29yo5WhQSFRzEQw9"}
-{"$$deleted":true,"_id":"5Mv1YW9XWNGDjgAp"}
-{"$$deleted":true,"_id":"5WZXTLrfWrtnioye"}
-{"$$deleted":true,"_id":"5uuw0hiICHWI9lma"}
-{"$$deleted":true,"_id":"8CtFB76p7X82i3FA"}
-{"$$deleted":true,"_id":"GFtGY1KNy9S2T6nv"}
-{"$$deleted":true,"_id":"UnZy5e5xLwBz57YN"}
-{"$$deleted":true,"_id":"WAJUHGmdR7nm6AJH"}
-{"$$deleted":true,"_id":"ZnxYZ14g9HUfWrMZ"}
-{"$$deleted":true,"_id":"mpetddzjBEOkxbg3"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"3C2fBqNg0FV9Hbl8"}
-{"$$deleted":true,"_id":"3C2fBqNg0FV9Hbl8"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"GHabGCP5XGKvdKW9"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"GLKVClmLVnjJRZ4v"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Hrhs4BqE059E8ih7"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"99rj0kwoPxvnfdQB"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"Dri296aQnFwZRAnI"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"EID0fJYm9BkRkWuZ"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"YqfNWiBOOjzAPzsT"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"5sMOkmUE6c0hYPJ1"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"Kif15QTBRZdAnyDb"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"iBmeH7NcWr0q7hTB"}
-{"$$deleted":true,"_id":"5sMOkmUE6c0hYPJ1"}
-{"$$deleted":true,"_id":"99rj0kwoPxvnfdQB"}
-{"$$deleted":true,"_id":"Dri296aQnFwZRAnI"}
-{"$$deleted":true,"_id":"EID0fJYm9BkRkWuZ"}
-{"$$deleted":true,"_id":"GHabGCP5XGKvdKW9"}
-{"$$deleted":true,"_id":"GLKVClmLVnjJRZ4v"}
-{"$$deleted":true,"_id":"Hrhs4BqE059E8ih7"}
-{"$$deleted":true,"_id":"Kif15QTBRZdAnyDb"}
-{"$$deleted":true,"_id":"YqfNWiBOOjzAPzsT"}
-{"$$deleted":true,"_id":"iBmeH7NcWr0q7hTB"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"e1z10pjMuYzVWCiM"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"GvCIvOVoEQrCzh90"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"iarLY8vAFr2HhW9y"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"95pIjHinLsAbdKhK"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"sDsp425NQEQs4LnY"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"mf4NGnoqigfRjNKc"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"bkZ5IMD3hAE3waTc"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"QUegPMrEMcHlpqGE"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"gx9PS6JxrDnnKpy6"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"hu1O340mG8VucBMO"}
-{"$$deleted":true,"_id":"95pIjHinLsAbdKhK"}
-{"$$deleted":true,"_id":"GvCIvOVoEQrCzh90"}
-{"$$deleted":true,"_id":"QUegPMrEMcHlpqGE"}
-{"$$deleted":true,"_id":"bkZ5IMD3hAE3waTc"}
-{"$$deleted":true,"_id":"e1z10pjMuYzVWCiM"}
-{"$$deleted":true,"_id":"gx9PS6JxrDnnKpy6"}
-{"$$deleted":true,"_id":"hu1O340mG8VucBMO"}
-{"$$deleted":true,"_id":"iarLY8vAFr2HhW9y"}
-{"$$deleted":true,"_id":"mf4NGnoqigfRjNKc"}
-{"$$deleted":true,"_id":"sDsp425NQEQs4LnY"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"JMniSyceVMfWQiaL"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"ZidSn01pQyQxGcEk"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"sEPCNXmEKwxZnmdC"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"I5YU4ZKImUa6jNde"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"JoRcOIygZtDf8oGQ"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"rNd6UhURvQKHLqFZ"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"2Mipe6KlMN6J4C7e"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"zT6e88LTIc8WTvcP"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"1aokHVo1QEbKl5eB"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"glvs6EVipjwHj81e"}
-{"$$deleted":true,"_id":"1aokHVo1QEbKl5eB"}
-{"$$deleted":true,"_id":"2Mipe6KlMN6J4C7e"}
-{"$$deleted":true,"_id":"I5YU4ZKImUa6jNde"}
-{"$$deleted":true,"_id":"JMniSyceVMfWQiaL"}
-{"$$deleted":true,"_id":"JoRcOIygZtDf8oGQ"}
-{"$$deleted":true,"_id":"ZidSn01pQyQxGcEk"}
-{"$$deleted":true,"_id":"glvs6EVipjwHj81e"}
-{"$$deleted":true,"_id":"rNd6UhURvQKHLqFZ"}
-{"$$deleted":true,"_id":"sEPCNXmEKwxZnmdC"}
-{"$$deleted":true,"_id":"zT6e88LTIc8WTvcP"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"V1H26FQH6pE2KaIm"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"1Jqtm8jMW7jTIxAZ"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"GoHtGIL1BS2KTUvT"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"twvBrCvsdKBD9kIZ"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"HeaJVRcGriF28uQ5"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"AB1MmFE3KFwW1JX4"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"szJy4BSu0y2nmU4O"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"hqt05rSLYA8tvK3g"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"ZmcF6D4M5L805GyU"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"fqkpBVYELCFOqLoz"}
-{"$$deleted":true,"_id":"1Jqtm8jMW7jTIxAZ"}
-{"$$deleted":true,"_id":"AB1MmFE3KFwW1JX4"}
-{"$$deleted":true,"_id":"GoHtGIL1BS2KTUvT"}
-{"$$deleted":true,"_id":"HeaJVRcGriF28uQ5"}
-{"$$deleted":true,"_id":"V1H26FQH6pE2KaIm"}
-{"$$deleted":true,"_id":"ZmcF6D4M5L805GyU"}
-{"$$deleted":true,"_id":"fqkpBVYELCFOqLoz"}
-{"$$deleted":true,"_id":"hqt05rSLYA8tvK3g"}
-{"$$deleted":true,"_id":"szJy4BSu0y2nmU4O"}
-{"$$deleted":true,"_id":"twvBrCvsdKBD9kIZ"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"WVdnWdHMLRGLppZ8"}
-{"$$deleted":true,"_id":"WVdnWdHMLRGLppZ8"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"lNChELPlOAtiaLIg"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"d7YspclA9okj2G04"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"qk11K4pykoBfv3fc"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"JrYY5568FwJlIUc4"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"qjDMMpCFUvP6iUEV"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"MpXQrstLRix2XM2K"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"eVVKF9bsqdvvCKM4"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"iB06uHkYnunHaGXb"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"fW8UtuRaHNyAjQzj"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"JEh9zb9Di63mUjQA"}
-{"$$deleted":true,"_id":"JEh9zb9Di63mUjQA"}
-{"$$deleted":true,"_id":"JrYY5568FwJlIUc4"}
-{"$$deleted":true,"_id":"MpXQrstLRix2XM2K"}
-{"$$deleted":true,"_id":"d7YspclA9okj2G04"}
-{"$$deleted":true,"_id":"eVVKF9bsqdvvCKM4"}
-{"$$deleted":true,"_id":"fW8UtuRaHNyAjQzj"}
-{"$$deleted":true,"_id":"iB06uHkYnunHaGXb"}
-{"$$deleted":true,"_id":"lNChELPlOAtiaLIg"}
-{"$$deleted":true,"_id":"qjDMMpCFUvP6iUEV"}
-{"$$deleted":true,"_id":"qk11K4pykoBfv3fc"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"rFyx1ZZxP3VddpHd"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"Rom2Vz3MOuuzomnU"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"OflUto1PArc32txm"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"Grg66nrDhkIZYThE"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"NxiD5fnJqgIo2QCv"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"LYYw87zCooJ05iUX"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"Cg7WIT790Uo7yk7c"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"LmBwIAWTKCknQQnj"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"vqaPYNMa10vGVonu"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"KFI3ixwJ2dhxZm9h"}
-{"$$deleted":true,"_id":"Cg7WIT790Uo7yk7c"}
-{"$$deleted":true,"_id":"Grg66nrDhkIZYThE"}
-{"$$deleted":true,"_id":"KFI3ixwJ2dhxZm9h"}
-{"$$deleted":true,"_id":"LYYw87zCooJ05iUX"}
-{"$$deleted":true,"_id":"LmBwIAWTKCknQQnj"}
-{"$$deleted":true,"_id":"NxiD5fnJqgIo2QCv"}
-{"$$deleted":true,"_id":"OflUto1PArc32txm"}
-{"$$deleted":true,"_id":"Rom2Vz3MOuuzomnU"}
-{"$$deleted":true,"_id":"rFyx1ZZxP3VddpHd"}
-{"$$deleted":true,"_id":"vqaPYNMa10vGVonu"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"MPJIv7SXLj5sUbS1"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"e7JzuZVlfWVsinqV"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"FkLHERthILRIwPJl"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"D7B3kVDABEvs6eL8"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"u0tIvhzhS6Ypn3Os"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"fO4ljZx92s9U0fcn"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"y52ELy7UnAo4Nv3t"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"WhCek6oFkxu3JUE9"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"2PGQb5Mzqx6q0MSz"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"irT3Hp3xpGX1Y7FB"}
-{"$$deleted":true,"_id":"2PGQb5Mzqx6q0MSz"}
-{"$$deleted":true,"_id":"D7B3kVDABEvs6eL8"}
-{"$$deleted":true,"_id":"FkLHERthILRIwPJl"}
-{"$$deleted":true,"_id":"MPJIv7SXLj5sUbS1"}
-{"$$deleted":true,"_id":"WhCek6oFkxu3JUE9"}
-{"$$deleted":true,"_id":"e7JzuZVlfWVsinqV"}
-{"$$deleted":true,"_id":"fO4ljZx92s9U0fcn"}
-{"$$deleted":true,"_id":"irT3Hp3xpGX1Y7FB"}
-{"$$deleted":true,"_id":"u0tIvhzhS6Ypn3Os"}
-{"$$deleted":true,"_id":"y52ELy7UnAo4Nv3t"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"EOScu2d3A3XzVq9Z"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"l1YurMsZl8UK4YX5"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Qp8CxBZWNkjmKu62"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"00lWbkkzw0vgzqe7"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"BW1kYwB6yefZPbKr"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"ou4gkOisDMycIeW9"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"ZIDucm08wqUPDUYN"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"WxO3BnjTMTgC0Knt"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"LAWwHo9zjCpYoCHN"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"QNewu5ftmEanA3Hx"}
-{"$$deleted":true,"_id":"00lWbkkzw0vgzqe7"}
-{"$$deleted":true,"_id":"BW1kYwB6yefZPbKr"}
-{"$$deleted":true,"_id":"EOScu2d3A3XzVq9Z"}
-{"$$deleted":true,"_id":"LAWwHo9zjCpYoCHN"}
-{"$$deleted":true,"_id":"QNewu5ftmEanA3Hx"}
-{"$$deleted":true,"_id":"Qp8CxBZWNkjmKu62"}
-{"$$deleted":true,"_id":"WxO3BnjTMTgC0Knt"}
-{"$$deleted":true,"_id":"ZIDucm08wqUPDUYN"}
-{"$$deleted":true,"_id":"l1YurMsZl8UK4YX5"}
-{"$$deleted":true,"_id":"ou4gkOisDMycIeW9"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"PkAVUh6e4wbLaxtB"}
-{"$$deleted":true,"_id":"PkAVUh6e4wbLaxtB"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"cajHj6zuaToN7Qo4"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"s7uNLKCe2GHpmmnd"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"g6wsc0PXrl6UNLsE"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"HL3iO57GJGXjjITS"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"mBxsLvenfAbdaygC"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"UilzJWsObtLEB7n4"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"bUrRHGiz7uU55IJP"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"nka9tKyXbPMSXPh8"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"1dY3xEJBIrbwYrFs"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"8B5nSdZ2SB2NtuMh"}
-{"$$deleted":true,"_id":"1dY3xEJBIrbwYrFs"}
-{"$$deleted":true,"_id":"8B5nSdZ2SB2NtuMh"}
-{"$$deleted":true,"_id":"HL3iO57GJGXjjITS"}
-{"$$deleted":true,"_id":"UilzJWsObtLEB7n4"}
-{"$$deleted":true,"_id":"bUrRHGiz7uU55IJP"}
-{"$$deleted":true,"_id":"cajHj6zuaToN7Qo4"}
-{"$$deleted":true,"_id":"g6wsc0PXrl6UNLsE"}
-{"$$deleted":true,"_id":"mBxsLvenfAbdaygC"}
-{"$$deleted":true,"_id":"nka9tKyXbPMSXPh8"}
-{"$$deleted":true,"_id":"s7uNLKCe2GHpmmnd"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"n3G6BynLB49oQfhp"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"6Bh0nltFdaw0pvLB"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"EG76D7UNe77n4CyU"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"23TVCzr9K6qV38mt"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"Dh0A65CXKqqrWUpU"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"abLNF8vVuEhQ0xsK"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"qHDITEyVIlWPjJJH"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"RyIk64kYJmgeBNQN"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"JkCiSQ5D8SYSstNd"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"7SXFBx7YAXhSfksK"}
-{"$$deleted":true,"_id":"23TVCzr9K6qV38mt"}
-{"$$deleted":true,"_id":"6Bh0nltFdaw0pvLB"}
-{"$$deleted":true,"_id":"7SXFBx7YAXhSfksK"}
-{"$$deleted":true,"_id":"Dh0A65CXKqqrWUpU"}
-{"$$deleted":true,"_id":"EG76D7UNe77n4CyU"}
-{"$$deleted":true,"_id":"JkCiSQ5D8SYSstNd"}
-{"$$deleted":true,"_id":"RyIk64kYJmgeBNQN"}
-{"$$deleted":true,"_id":"abLNF8vVuEhQ0xsK"}
-{"$$deleted":true,"_id":"n3G6BynLB49oQfhp"}
-{"$$deleted":true,"_id":"qHDITEyVIlWPjJJH"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"K4zrZ0dW1FFlrNFt"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"vfKInw3K41fcfNT7"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"0satq9buckUnXClW"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"UMWirFYaoX6zevxo"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"THP8OjPJoCWS24wr"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"IziZyU2SJcYnpxIh"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"F89XZEbSxo8DdOEY"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"nvqJaJGbdCS82lHH"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"nyhvkJZvxc5nHjE1"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"XDdqVjefhDK1BXXX"}
-{"$$deleted":true,"_id":"0satq9buckUnXClW"}
-{"$$deleted":true,"_id":"F89XZEbSxo8DdOEY"}
-{"$$deleted":true,"_id":"IziZyU2SJcYnpxIh"}
-{"$$deleted":true,"_id":"K4zrZ0dW1FFlrNFt"}
-{"$$deleted":true,"_id":"THP8OjPJoCWS24wr"}
-{"$$deleted":true,"_id":"UMWirFYaoX6zevxo"}
-{"$$deleted":true,"_id":"XDdqVjefhDK1BXXX"}
-{"$$deleted":true,"_id":"nvqJaJGbdCS82lHH"}
-{"$$deleted":true,"_id":"nyhvkJZvxc5nHjE1"}
-{"$$deleted":true,"_id":"vfKInw3K41fcfNT7"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"NTjJ0NAsWebemTc1"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"u6E1Uo31ePCZORqG"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"T5KUrZAFahojcRqC"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"xwFD09qraUtFFPx2"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"zNkt957R2WWZrHei"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"RmAVndGBQdeMnqTG"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"C0ohlhijAbso5nqM"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"t7UK2GlruGUxqz9O"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"ksDxcYcZP4COUpYT"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"PIrcg49qd5VYcEWM"}
-{"$$deleted":true,"_id":"C0ohlhijAbso5nqM"}
-{"$$deleted":true,"_id":"NTjJ0NAsWebemTc1"}
-{"$$deleted":true,"_id":"PIrcg49qd5VYcEWM"}
-{"$$deleted":true,"_id":"RmAVndGBQdeMnqTG"}
-{"$$deleted":true,"_id":"T5KUrZAFahojcRqC"}
-{"$$deleted":true,"_id":"ksDxcYcZP4COUpYT"}
-{"$$deleted":true,"_id":"t7UK2GlruGUxqz9O"}
-{"$$deleted":true,"_id":"u6E1Uo31ePCZORqG"}
-{"$$deleted":true,"_id":"xwFD09qraUtFFPx2"}
-{"$$deleted":true,"_id":"zNkt957R2WWZrHei"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"sFTQOf127mMLqxbY"}
-{"$$deleted":true,"_id":"sFTQOf127mMLqxbY"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"yoliJPYlk0K7Uy6R"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"qPHgBN8mswzFvlGE"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"59cJtx742F2Mtxhz"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"QC7NLebKDdYlpWXJ"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"eJG2t1yTLwGw0POi"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"cZAuN4FZDtnLoajU"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"u8hC3mM516fcerQk"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"tt4Y02nnpwni4tcX"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"ZnHGbedmG7q4zH2n"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"CSMlU9vGWjI740xn"}
-{"$$deleted":true,"_id":"59cJtx742F2Mtxhz"}
-{"$$deleted":true,"_id":"CSMlU9vGWjI740xn"}
-{"$$deleted":true,"_id":"QC7NLebKDdYlpWXJ"}
-{"$$deleted":true,"_id":"ZnHGbedmG7q4zH2n"}
-{"$$deleted":true,"_id":"cZAuN4FZDtnLoajU"}
-{"$$deleted":true,"_id":"eJG2t1yTLwGw0POi"}
-{"$$deleted":true,"_id":"qPHgBN8mswzFvlGE"}
-{"$$deleted":true,"_id":"tt4Y02nnpwni4tcX"}
-{"$$deleted":true,"_id":"u8hC3mM516fcerQk"}
-{"$$deleted":true,"_id":"yoliJPYlk0K7Uy6R"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"CW5y8qQO0LR9Cs4J"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"yaby4D5ti9ar3E63"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Mh3UWDAsUfKDz4RF"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"4U39jZNoM3hWzDqy"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"uaei9vtWwmsgllD9"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"uQwVWkfTuGSuH8lb"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"YWdKXOL7jYoXYdjB"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"Lpu0koEc26QrTef4"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"rEX5S1cf03UWXDSA"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"2DQhjgqvvkwOakCK"}
-{"$$deleted":true,"_id":"2DQhjgqvvkwOakCK"}
-{"$$deleted":true,"_id":"4U39jZNoM3hWzDqy"}
-{"$$deleted":true,"_id":"CW5y8qQO0LR9Cs4J"}
-{"$$deleted":true,"_id":"Lpu0koEc26QrTef4"}
-{"$$deleted":true,"_id":"Mh3UWDAsUfKDz4RF"}
-{"$$deleted":true,"_id":"YWdKXOL7jYoXYdjB"}
-{"$$deleted":true,"_id":"rEX5S1cf03UWXDSA"}
-{"$$deleted":true,"_id":"uQwVWkfTuGSuH8lb"}
-{"$$deleted":true,"_id":"uaei9vtWwmsgllD9"}
-{"$$deleted":true,"_id":"yaby4D5ti9ar3E63"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"N8mJk0q84H0bIN6i"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"oMitjRdaOTTF869U"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"WPD3ylzSaORzRONF"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"qFFmupgbns2sWGbX"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"RlqAn4SBw6uXYkLh"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"dj34rqUDeYfCvex7"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"Pve1pBaRd9dPNdfV"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"3DFbOjfnwur8G8Il"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"LxrRTsQdQzmGKfiL"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"l9G7L7mbX0Ze0aJ6"}
-{"$$deleted":true,"_id":"3DFbOjfnwur8G8Il"}
-{"$$deleted":true,"_id":"LxrRTsQdQzmGKfiL"}
-{"$$deleted":true,"_id":"N8mJk0q84H0bIN6i"}
-{"$$deleted":true,"_id":"Pve1pBaRd9dPNdfV"}
-{"$$deleted":true,"_id":"RlqAn4SBw6uXYkLh"}
-{"$$deleted":true,"_id":"WPD3ylzSaORzRONF"}
-{"$$deleted":true,"_id":"dj34rqUDeYfCvex7"}
-{"$$deleted":true,"_id":"l9G7L7mbX0Ze0aJ6"}
-{"$$deleted":true,"_id":"oMitjRdaOTTF869U"}
-{"$$deleted":true,"_id":"qFFmupgbns2sWGbX"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"ez3IxzzxcKyOxxte"}
-{"$$deleted":true,"_id":"ez3IxzzxcKyOxxte"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"dVOTX3LfcDEaqqPX"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"BsYuu7RyAraGPr9K"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"H8SNVmFHNpOcXpZR"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"q8EkXKSeJVIAbmoN"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"UaGXlDwBnpGy0jEI"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"rt79h08PYLUlkJ7u"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"mkQ6Oy1H0jb92uYT"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"k1VCwVqNDHczkiZj"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"iD3EODttUrP3Swfn"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"PAcE1CXmh99oVRV2"}
-{"$$deleted":true,"_id":"BsYuu7RyAraGPr9K"}
-{"$$deleted":true,"_id":"H8SNVmFHNpOcXpZR"}
-{"$$deleted":true,"_id":"PAcE1CXmh99oVRV2"}
-{"$$deleted":true,"_id":"UaGXlDwBnpGy0jEI"}
-{"$$deleted":true,"_id":"dVOTX3LfcDEaqqPX"}
-{"$$deleted":true,"_id":"iD3EODttUrP3Swfn"}
-{"$$deleted":true,"_id":"k1VCwVqNDHczkiZj"}
-{"$$deleted":true,"_id":"mkQ6Oy1H0jb92uYT"}
-{"$$deleted":true,"_id":"q8EkXKSeJVIAbmoN"}
-{"$$deleted":true,"_id":"rt79h08PYLUlkJ7u"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"rW3kraNIbLf3FF7k"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"1IlNPnQG6jGW7VUX"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"s1H11YwQzkLfz7QW"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"Jsgozih74quOWyvc"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"OLEdqdLouXrTF8yQ"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"g7dI7mRnhnXGPMxQ"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"bqKLOVwnJuVHqARf"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"15dl5PrEfGS98uzq"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"Zv319IgTbOOQRO7R"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"kGUKIBCiWzYHhrYk"}
-{"$$deleted":true,"_id":"15dl5PrEfGS98uzq"}
-{"$$deleted":true,"_id":"1IlNPnQG6jGW7VUX"}
-{"$$deleted":true,"_id":"Jsgozih74quOWyvc"}
-{"$$deleted":true,"_id":"OLEdqdLouXrTF8yQ"}
-{"$$deleted":true,"_id":"Zv319IgTbOOQRO7R"}
-{"$$deleted":true,"_id":"bqKLOVwnJuVHqARf"}
-{"$$deleted":true,"_id":"g7dI7mRnhnXGPMxQ"}
-{"$$deleted":true,"_id":"kGUKIBCiWzYHhrYk"}
-{"$$deleted":true,"_id":"rW3kraNIbLf3FF7k"}
-{"$$deleted":true,"_id":"s1H11YwQzkLfz7QW"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"j59moM7oq9Pt8CEx"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"BfbxQ0hXkBgAXIQG"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"FezIy53oMkF5pHo1"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"xyx3JcVn26uJtoSM"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"8Fh0jnOsPBx63Wh3"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"ONc2xMEhAOlQXY4d"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"hhnDBeLk17l4LLiC"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"ZQ8wJNsXo4oH4Eki"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"PzkF6uRtCMVO3l8r"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"M2tpcvHohz5AE0ld"}
-{"$$deleted":true,"_id":"8Fh0jnOsPBx63Wh3"}
-{"$$deleted":true,"_id":"BfbxQ0hXkBgAXIQG"}
-{"$$deleted":true,"_id":"FezIy53oMkF5pHo1"}
-{"$$deleted":true,"_id":"M2tpcvHohz5AE0ld"}
-{"$$deleted":true,"_id":"ONc2xMEhAOlQXY4d"}
-{"$$deleted":true,"_id":"PzkF6uRtCMVO3l8r"}
-{"$$deleted":true,"_id":"ZQ8wJNsXo4oH4Eki"}
-{"$$deleted":true,"_id":"hhnDBeLk17l4LLiC"}
-{"$$deleted":true,"_id":"j59moM7oq9Pt8CEx"}
-{"$$deleted":true,"_id":"xyx3JcVn26uJtoSM"}
-{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"Xx7NHWoW3swK296B"}
-{"$$deleted":true,"_id":"Xx7NHWoW3swK296B"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"uaH5Xn1M6tjHaLVK"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"OYkRwVbwwUsM2uK0"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"F3miOqzJVBQD1wvv"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"NCgS204EkNWUDE1r"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"6IMMPKHl72MoTy2F"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"YrLLxPuerJsMj34I"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"uuMgARzVAjuLch6a"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"SlRzPJ6iszEjLSYM"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"T35gmQTJCNL4HNlq"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"FV8NLSo4LB21cVj9"}
-{"$$deleted":true,"_id":"6IMMPKHl72MoTy2F"}
-{"$$deleted":true,"_id":"F3miOqzJVBQD1wvv"}
-{"$$deleted":true,"_id":"FV8NLSo4LB21cVj9"}
-{"$$deleted":true,"_id":"NCgS204EkNWUDE1r"}
-{"$$deleted":true,"_id":"OYkRwVbwwUsM2uK0"}
-{"$$deleted":true,"_id":"SlRzPJ6iszEjLSYM"}
-{"$$deleted":true,"_id":"T35gmQTJCNL4HNlq"}
-{"$$deleted":true,"_id":"YrLLxPuerJsMj34I"}
-{"$$deleted":true,"_id":"uaH5Xn1M6tjHaLVK"}
-{"$$deleted":true,"_id":"uuMgARzVAjuLch6a"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"nx0eO0SEyCmmmgXW"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"K9hvsvZJLVx3rH1A"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"RbJew0cDk8pAmJNp"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"PRFq6OdfynDe0khH"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"qUakHEzh48GdYf8r"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"Dq947z6FCkqsdMUB"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"NUqJZNGbi2aekl9t"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"oa2gkRUXfnof7VOS"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"l3ENeaw1bSNyIMGX"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"FderdxjRnAaWuu3H"}
-{"$$deleted":true,"_id":"Dq947z6FCkqsdMUB"}
-{"$$deleted":true,"_id":"FderdxjRnAaWuu3H"}
-{"$$deleted":true,"_id":"K9hvsvZJLVx3rH1A"}
-{"$$deleted":true,"_id":"NUqJZNGbi2aekl9t"}
-{"$$deleted":true,"_id":"PRFq6OdfynDe0khH"}
-{"$$deleted":true,"_id":"RbJew0cDk8pAmJNp"}
-{"$$deleted":true,"_id":"l3ENeaw1bSNyIMGX"}
-{"$$deleted":true,"_id":"nx0eO0SEyCmmmgXW"}
-{"$$deleted":true,"_id":"oa2gkRUXfnof7VOS"}
-{"$$deleted":true,"_id":"qUakHEzh48GdYf8r"}
-{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"kdiQIN9OMDAaY3MM"}
-{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"FJGb9ZTaegAO4s6L"}
-{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"GQnOnB6CekST9qeN"}
-{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"Y4CFDa3gooDX136q"}
-{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"DtbbjBxeFN4Ek6ZD"}
-{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"4bTFiwabwCLaCQ25"}
-{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"vP8tlH0EOFY0iHab"}
-{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"CprnooFcwnyFivKG"}
-{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"BZfTgOln5Qm7YtMZ"}
-{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"bh7mSqwiQITEQcvQ"}
-{"date":"2024-01-01","index_name":"IBEX 35","region":"Europe","open":10100.5,"high":10250,"low":10020.25,"close":10180.75,"volume":14500000,"daily_change_percent":0.79,"_id":"8qknwZLcevsLFZK6"}
-{"date":"2024-01-02","index_name":"IBEX 35","region":"Europe","open":10100.5,"high":10250,"low":10020.25,"close":10200,"volume":15500000,"daily_change_percent":0.98,"_id":"8qknwZLcevsLFZK6"}
-{"$$deleted":true,"_id":"8qknwZLcevsLFZK6"}
-{"$$deleted":true,"_id":"4bTFiwabwCLaCQ25"}
-{"$$deleted":true,"_id":"BZfTgOln5Qm7YtMZ"}
-{"$$deleted":true,"_id":"CprnooFcwnyFivKG"}
-{"$$deleted":true,"_id":"DtbbjBxeFN4Ek6ZD"}
-{"$$deleted":true,"_id":"FJGb9ZTaegAO4s6L"}
-{"$$deleted":true,"_id":"GQnOnB6CekST9qeN"}
-{"$$deleted":true,"_id":"Y4CFDa3gooDX136q"}
-{"$$deleted":true,"_id":"bh7mSqwiQITEQcvQ"}
-{"$$deleted":true,"_id":"kdiQIN9OMDAaY3MM"}
-{"$$deleted":true,"_id":"vP8tlH0EOFY0iHab"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"z0Rvf6LdQKFT69SS"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"7GcLtkVYw6ORM4Pf"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"f69DOpeRAIcaoRms"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"jKbLV5mIUiyhGIMm"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"atYb0YCMCXU2w3l2"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"JKtTQzdYf9eat6r9"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"blWGLw7a4JwGTdA1"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"ctd2Q8qccy2mwKSl"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"skaOxpQErwZVGGPV"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"PU5Bh74W1hpL1F9x"}
+{"$$deleted":true,"_id":"7GcLtkVYw6ORM4Pf"}
+{"$$deleted":true,"_id":"JKtTQzdYf9eat6r9"}
+{"$$deleted":true,"_id":"PU5Bh74W1hpL1F9x"}
+{"$$deleted":true,"_id":"atYb0YCMCXU2w3l2"}
+{"$$deleted":true,"_id":"blWGLw7a4JwGTdA1"}
+{"$$deleted":true,"_id":"ctd2Q8qccy2mwKSl"}
+{"$$deleted":true,"_id":"f69DOpeRAIcaoRms"}
+{"$$deleted":true,"_id":"jKbLV5mIUiyhGIMm"}
+{"$$deleted":true,"_id":"skaOxpQErwZVGGPV"}
+{"$$deleted":true,"_id":"z0Rvf6LdQKFT69SS"}
+{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"aZr3U7wRqecnSSep"}
+{"$$deleted":true,"_id":"aZr3U7wRqecnSSep"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"9i08uZ9JWpUZUMOM"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"1HPL0wubyQxRLRef"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"6sklMXWpexwmlsdg"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"ALvgMInMZzDVwHIf"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"57CIKm6ylzTSZC0b"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"4Skr27YzbSlNTYSv"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"gg9AAsMP8MwhA6hq"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"Haduomw7JYxcJYfP"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"oWJGwq9JJqNh5WwD"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"3kDAfXjChl2DtRYf"}
+{"$$deleted":true,"_id":"1HPL0wubyQxRLRef"}
+{"$$deleted":true,"_id":"3kDAfXjChl2DtRYf"}
+{"$$deleted":true,"_id":"4Skr27YzbSlNTYSv"}
+{"$$deleted":true,"_id":"57CIKm6ylzTSZC0b"}
+{"$$deleted":true,"_id":"6sklMXWpexwmlsdg"}
+{"$$deleted":true,"_id":"9i08uZ9JWpUZUMOM"}
+{"$$deleted":true,"_id":"ALvgMInMZzDVwHIf"}
+{"$$deleted":true,"_id":"Haduomw7JYxcJYfP"}
+{"$$deleted":true,"_id":"gg9AAsMP8MwhA6hq"}
+{"$$deleted":true,"_id":"oWJGwq9JJqNh5WwD"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"ZcILDMuBdIMUMsVN"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"4HD0zPDcMqDUeNWD"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"sfIl7cB4ncT86Vs4"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"DBqyoz94gfo4Q61U"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"4pLgkrg90NmiPi62"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"GPQdb3CFdhr1giKs"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"qC9ZGauRbWbWnBRL"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"iFmKna514YaJLrgC"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"mY05wEzgbkgV57zB"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"gnLOD2cYIrB9ZHco"}
+{"$$deleted":true,"_id":"4HD0zPDcMqDUeNWD"}
+{"$$deleted":true,"_id":"4pLgkrg90NmiPi62"}
+{"$$deleted":true,"_id":"DBqyoz94gfo4Q61U"}
+{"$$deleted":true,"_id":"GPQdb3CFdhr1giKs"}
+{"$$deleted":true,"_id":"ZcILDMuBdIMUMsVN"}
+{"$$deleted":true,"_id":"gnLOD2cYIrB9ZHco"}
+{"$$deleted":true,"_id":"iFmKna514YaJLrgC"}
+{"$$deleted":true,"_id":"mY05wEzgbkgV57zB"}
+{"$$deleted":true,"_id":"qC9ZGauRbWbWnBRL"}
+{"$$deleted":true,"_id":"sfIl7cB4ncT86Vs4"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"PQBbjaGfnn9ZRYIT"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"o0lSg9jKr6FBJCdu"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"kypJcUWzkFoqit3F"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"SvbvD2MEpN0piizw"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"8A7WYZxFNu48B03W"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"Cra8xMLDsX2pLDjj"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"z5i0zyflTtcBIeY1"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"9a78FJcY5zVPog61"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"nWIGp5jlFDt0ZMJb"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"bhnEaSuJwOLLvJIi"}
+{"$$deleted":true,"_id":"8A7WYZxFNu48B03W"}
+{"$$deleted":true,"_id":"9a78FJcY5zVPog61"}
+{"$$deleted":true,"_id":"Cra8xMLDsX2pLDjj"}
+{"$$deleted":true,"_id":"PQBbjaGfnn9ZRYIT"}
+{"$$deleted":true,"_id":"SvbvD2MEpN0piizw"}
+{"$$deleted":true,"_id":"bhnEaSuJwOLLvJIi"}
+{"$$deleted":true,"_id":"kypJcUWzkFoqit3F"}
+{"$$deleted":true,"_id":"nWIGp5jlFDt0ZMJb"}
+{"$$deleted":true,"_id":"o0lSg9jKr6FBJCdu"}
+{"$$deleted":true,"_id":"z5i0zyflTtcBIeY1"}
+{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"glkOntBHtecd91Nn"}
+{"$$deleted":true,"_id":"glkOntBHtecd91Nn"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"pDgHyKI8ZptwLz4z"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"ublxTSVFUMuPxM6k"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"0k0hj9ZkYTYMg6M5"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"eKUCs8vhImT2fv90"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"sLIKrTqeehSFX62S"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"sxbIC3TfCwuv1LNl"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"SPSO7kQRAkxI1SsS"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"7WLzltqTCy213DBM"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"oD2KKGo8iBBfvGPt"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"bIayiSwRppKIwjKv"}
+{"$$deleted":true,"_id":"0k0hj9ZkYTYMg6M5"}
+{"$$deleted":true,"_id":"7WLzltqTCy213DBM"}
+{"$$deleted":true,"_id":"SPSO7kQRAkxI1SsS"}
+{"$$deleted":true,"_id":"bIayiSwRppKIwjKv"}
+{"$$deleted":true,"_id":"eKUCs8vhImT2fv90"}
+{"$$deleted":true,"_id":"oD2KKGo8iBBfvGPt"}
+{"$$deleted":true,"_id":"pDgHyKI8ZptwLz4z"}
+{"$$deleted":true,"_id":"sLIKrTqeehSFX62S"}
+{"$$deleted":true,"_id":"sxbIC3TfCwuv1LNl"}
+{"$$deleted":true,"_id":"ublxTSVFUMuPxM6k"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"brcpoATpgBCiiWki"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"k3oU1SWg1xnzMAlE"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"ARM0Qt9iWycs7tOf"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"YdieRrumeDud1kPT"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"kgCTrzsJCvMOXtgo"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"7ZCY5jfMeFfZ9CpV"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"HDSDTr1kbdEJqUQx"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"aoWimd80PV0yzLjL"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"gyLPA4PZUxmWuhzh"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"Wpcew16WDUBiW4G0"}
+{"$$deleted":true,"_id":"7ZCY5jfMeFfZ9CpV"}
+{"$$deleted":true,"_id":"ARM0Qt9iWycs7tOf"}
+{"$$deleted":true,"_id":"HDSDTr1kbdEJqUQx"}
+{"$$deleted":true,"_id":"Wpcew16WDUBiW4G0"}
+{"$$deleted":true,"_id":"YdieRrumeDud1kPT"}
+{"$$deleted":true,"_id":"aoWimd80PV0yzLjL"}
+{"$$deleted":true,"_id":"brcpoATpgBCiiWki"}
+{"$$deleted":true,"_id":"gyLPA4PZUxmWuhzh"}
+{"$$deleted":true,"_id":"k3oU1SWg1xnzMAlE"}
+{"$$deleted":true,"_id":"kgCTrzsJCvMOXtgo"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"RppSdTodnyDax0no"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"hj1hqrFB3q13NLdu"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"38Xi4xisdxG31G8x"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"BRIBgYtt6Az8u3u0"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"3UiCyB2yudGolJaf"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"3uQpzJUteJyv50Ce"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"itOiA0NKuUgoay4c"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"0PzSd2OZSqVGOkBW"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"9A3iTD2Wgl2OKOAn"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"I6DoOlItq9wAv1bn"}
+{"$$deleted":true,"_id":"0PzSd2OZSqVGOkBW"}
+{"$$deleted":true,"_id":"38Xi4xisdxG31G8x"}
+{"$$deleted":true,"_id":"3UiCyB2yudGolJaf"}
+{"$$deleted":true,"_id":"3uQpzJUteJyv50Ce"}
+{"$$deleted":true,"_id":"9A3iTD2Wgl2OKOAn"}
+{"$$deleted":true,"_id":"BRIBgYtt6Az8u3u0"}
+{"$$deleted":true,"_id":"I6DoOlItq9wAv1bn"}
+{"$$deleted":true,"_id":"RppSdTodnyDax0no"}
+{"$$deleted":true,"_id":"hj1hqrFB3q13NLdu"}
+{"$$deleted":true,"_id":"itOiA0NKuUgoay4c"}
+{"date":"2026-05-05","index_name":"IndexTest","region":"RegionTestE2E","open":100,"high":110,"low":90,"close":105,"volume":1000,"daily_change_percent":5,"_id":"RzfJpXc7EjLTPMiH"}
+{"$$deleted":true,"_id":"RzfJpXc7EjLTPMiH"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"b7jNmqNBKPmR938H"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"T4ZdZsxdCuTwRFP7"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"Xz0Y40CXdJSyJltE"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"6Cy2svyw95nMVs7K"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"xS1R3RQHmFWSORX8"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"yaDvJWnZzRP13n7k"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"YzyrG428fi0t3kOW"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"ib28p8e9dluP2La0"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"vHSvbzD8vCVLs1JT"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"GQIqy7o0ZlhqWXxB"}
+{"$$deleted":true,"_id":"6Cy2svyw95nMVs7K"}
+{"$$deleted":true,"_id":"GQIqy7o0ZlhqWXxB"}
+{"$$deleted":true,"_id":"T4ZdZsxdCuTwRFP7"}
+{"$$deleted":true,"_id":"Xz0Y40CXdJSyJltE"}
+{"$$deleted":true,"_id":"YzyrG428fi0t3kOW"}
+{"$$deleted":true,"_id":"b7jNmqNBKPmR938H"}
+{"$$deleted":true,"_id":"ib28p8e9dluP2La0"}
+{"$$deleted":true,"_id":"vHSvbzD8vCVLs1JT"}
+{"$$deleted":true,"_id":"xS1R3RQHmFWSORX8"}
+{"$$deleted":true,"_id":"yaDvJWnZzRP13n7k"}
+{"date":"2024-01-01","index_name":"S&P 500","region":"North America","open":37740.57,"high":38171.04,"low":37552.74,"close":38125.97,"volume":34594679,"daily_change_percent":1.02,"_id":"mWTfwUlgtIuYnPH7"}
+{"date":"2024-01-01","index_name":"NASDAQ Composite","region":"North America","open":12519.37,"high":12926.14,"low":12249.5,"close":12654.15,"volume":39548535,"daily_change_percent":1.08,"_id":"vcx1ObDQgflIHSAP"}
+{"date":"2024-01-01","index_name":"Dow Jones","region":"North America","open":39555.85,"high":39966.85,"low":39531.34,"close":39740.61,"volume":8398121,"daily_change_percent":0.47,"_id":"ecGWnQVtrJHPwQEE"}
+{"date":"2024-01-01","index_name":"FTSE 100","region":"Europe","open":18850.59,"high":19341.92,"low":18646.31,"close":19214.54,"volume":44763368,"daily_change_percent":1.93,"_id":"JFOzgYa4GogGdcsB"}
+{"date":"2024-01-01","index_name":"Nikkei 225","region":"Asia","open":15708.36,"high":15734.9,"low":15130.62,"close":15396.17,"volume":41135726,"daily_change_percent":-1.99,"_id":"obaVTi4RQzV6eHwT"}
+{"date":"2024-01-01","index_name":"Hang Seng","region":"Asia","open":4023.53,"high":4218.66,"low":4007.54,"close":4104.75,"volume":39061503,"daily_change_percent":2.02,"_id":"pn2QEG8l65aXYuQg"}
+{"date":"2024-01-01","index_name":"DAX","region":"Europe","open":19256.09,"high":19262.37,"low":18884.1,"close":18898.03,"volume":25254324,"daily_change_percent":-1.86,"_id":"mL5eUCYANLRz7Y5s"}
+{"date":"2024-01-01","index_name":"CAC 40","region":"Europe","open":4264.55,"high":4502.93,"low":3711.5,"close":3997.91,"volume":12578040,"daily_change_percent":-6.25,"_id":"H50IhNZ8oZg8pOja"}
+{"date":"2024-01-01","index_name":"SSE Composite","region":"Asia","open":15689.85,"high":16064.29,"low":15579.67,"close":15986.31,"volume":35348196,"daily_change_percent":1.89,"_id":"MjEC2bbnUQZjhy3Q"}
+{"date":"2024-01-01","index_name":"KSE 100","region":"Asia","open":11151.06,"high":11422.02,"low":11009.7,"close":11312.65,"volume":33074534,"daily_change_percent":1.45,"_id":"v4eh9IeDNSFdfGBB"}

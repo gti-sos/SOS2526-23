@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import util from 'util';
 util.isDate = function(d) { return d instanceof Date; };
 util.isRegExp = function(re) { return re instanceof RegExp; };
@@ -97,9 +100,6 @@ export function loadBackEndECR(app) {
 
     const db = new Datastore({ filename: './dailyIndicators.db', autoload: true });
 
-    // =====================================================================
-    // MIDDLEWARE DE SESIÓN Y PASSPORT
-    // =====================================================================
     app.use(session({
         secret: 'session_secret_cueva',
         resave: false,
@@ -108,9 +108,6 @@ export function loadBackEndECR(app) {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    // =====================================================================
-    // RUTAS OAuth Google
-    // =====================================================================
     app.get('/auth/google',
         passport.authenticate('google', { scope: ['profile', 'email'] })
     );
@@ -128,9 +125,6 @@ export function loadBackEndECR(app) {
         }
     );
 
-    // =====================================================================
-    // RUTAS OAuth GitHub
-    // =====================================================================
     app.get('/auth/github',
         passport.authenticate('github', { scope: ['user:email'] })
     );
@@ -152,9 +146,6 @@ export function loadBackEndECR(app) {
         res.status(401).json({ message: 'Error de autenticación OAuth' });
     });
 
-    // =====================================================================
-    // INICIO CÓDIGO EXTRA: Endpoint de Login JWT
-    // =====================================================================
     app.post(BASE_URL_API + '/login', (req, res) => {
         const { username, password } = req.body;
 
@@ -165,9 +156,6 @@ export function loadBackEndECR(app) {
             res.status(401).json({ message: "Unauthorized: Usuario o contraseña incorrectos" });
         }
     });
-    // =====================================================================
-    // FIN CÓDIGO EXTRA Login
-    // =====================================================================
 
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators/docs', (req, res) => {
         res.redirect('https://documenter.getpostman.com/view/52708852/2sBXigLYL8');
