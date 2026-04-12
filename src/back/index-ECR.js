@@ -157,6 +157,22 @@ export function loadBackEndECR(app) {
         }
     });
 
+    app.post(BASE_URL_API + '/auth0-login', (req, res) => {
+    const { email, name } = req.body;
+    
+    if (!email) {
+        return res.status(400).json({ message: "Bad Request: Se requiere email" });
+    }
+
+    const token = jwt.sign(
+        { user: name || email, email: email },
+        SECRET_KEY,
+        { expiresIn: '1h' }
+    );
+    
+    res.status(200).json({ token });
+});
+
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators/docs', (req, res) => {
         res.redirect('https://documenter.getpostman.com/view/52708852/2sBXigLYL8');
     });
