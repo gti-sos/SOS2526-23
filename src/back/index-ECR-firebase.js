@@ -16,7 +16,7 @@ const serviceAccount = process.env.FIREBASE_CREDENTIALS
     ? JSON.parse(process.env.FIREBASE_CREDENTIALS)
     : JSON.parse(readFileSync('./firebase-credentials.json', 'utf8'));
 
-console.log('Firebase credentials loaded:', serviceAccount ? 'OK' : 'FAILED'); // 👈 debug
+console.log('Firebase credentials loaded:', serviceAccount ? 'OK' : 'FAILED');
 
 if (!admin.apps.length) {
     admin.initializeApp({
@@ -96,6 +96,7 @@ export function loadBackEndECRFirebase(app) {
             await batch.commit();
             res.status(201).json(datosIndices);
         } catch (e) {
+            console.error('Firebase error [loadInitialData]:', e.message);
             res.status(500).json({ message: "Internal Server Error" });
         }
     });
@@ -116,6 +117,7 @@ export function loadBackEndECRFirebase(app) {
 
             res.status(200).json(docs);
         } catch (e) {
+            console.error('Firebase error [GET all]:', e.message);
             res.status(500).json({ message: "Internal Server Error" });
         }
     });
@@ -132,6 +134,7 @@ export function loadBackEndECRFirebase(app) {
             await coleccion.doc(id).set(newData);
             res.status(201).json(newData);
         } catch (e) {
+            console.error('Firebase error [POST]:', e.message);
             res.status(500).json({ message: "Internal Server Error" });
         }
     });
@@ -148,6 +151,7 @@ export function loadBackEndECRFirebase(app) {
             await batch.commit();
             res.sendStatus(204);
         } catch (e) {
+            console.error('Firebase error [DELETE all]:', e.message);
             res.status(500).json({ message: "Internal Server Error" });
         }
     });
@@ -160,6 +164,7 @@ export function loadBackEndECRFirebase(app) {
             if (!doc.exists) return res.status(404).json({ message: "Not Found" });
             res.status(200).json(doc.data());
         } catch (e) {
+            console.error('Firebase error [GET one]:', e.message);
             res.status(500).json({ message: "Internal Server Error" });
         }
     });
@@ -182,6 +187,7 @@ export function loadBackEndECRFirebase(app) {
             await coleccion.doc(id).set(updatedData);
             res.status(200).json(updatedData);
         } catch (e) {
+            console.error('Firebase error [PUT one]:', e.message);
             res.status(500).json({ message: "Internal Server Error" });
         }
     });
@@ -195,6 +201,7 @@ export function loadBackEndECRFirebase(app) {
             await coleccion.doc(id).delete();
             res.sendStatus(204);
         } catch (e) {
+            console.error('Firebase error [DELETE one]:', e.message);
             res.status(500).json({ message: "Internal Server Error" });
         }
     });
