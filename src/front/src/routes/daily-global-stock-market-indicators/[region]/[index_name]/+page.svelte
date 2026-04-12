@@ -2,6 +2,8 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
 
+    const BASE_URL = import.meta.env.VITE_API_URL || '';
+
     // Obtenemos los parámetros exactos de la URL
     let region = $page.params.region;
     let index_name = $page.params.index_name;
@@ -32,12 +34,11 @@
     // 1. Cargar los datos actuales al entrar en la página
     async function cargarIndicador() {
         try {
-            // PROTECCIÓN: Leer token de forma segura
             const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
             const cabeceras = token ? { 'Authorization': `Bearer ${token}` } : {};
 
-            const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
-                headers: cabeceras // ¡Aquí estaba el fallo! Enviamos el token para poder LEER.
+            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
+                headers: cabeceras
             });
             
             if (res.ok) {
@@ -52,7 +53,6 @@
 
     // 2. Guardar los cambios (Hacer el PUT)
     async function actualizarIndicador() {
-        // Validación frontend
         const camposVacios = Object.values(indicador).some(valor => valor === '' || valor === null);
         if (camposVacios) {
             mostrarMensaje('Error: Todos los campos son obligatorios.', true);
@@ -66,7 +66,7 @@
         }
 
         try {
-            const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
+            const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
