@@ -1,32 +1,28 @@
 <script>
     import { onMount } from 'svelte';
+    import { createAuth0Client } from '@auth0/auth0-spa-js';
 
     const BASE_URL = import.meta.env.VITE_API_URL || '';
 
-    // 🌟 EXTRA: Variables para controlar el login y el token
     let token = $state('');
     let isLoggedIn = $state(false);
     let username = $state('');
     let password = $state('');
+    let auth0 = null;
 
-    // Aquí guardaremos los datos que vengan de la API
     let indicadores = $state([]);
     
-    // Objeto para el formulario de creación
     let nuevoIndicador = $state({
         date: '', index_name: '', region: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: ''
     });
 
-    // --- VARIABLES DE BÚSQUEDA ---
     let busqueda = $state({
         date: '', region: '', index_name: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: '', limit: 10, offset: 0 
     });
 
-    // Variables para los mensajes de aviso
     let mensaje = $state('');
     let esError = $state(false);
 
-    // Función para mostrar mensajes amigables
     function mostrarMensaje(texto, error = false) {
         mensaje = texto;
         esError = error;
@@ -76,7 +72,6 @@
         mostrarMensaje('Has cerrado sesión correctamente.');
     }
 
-    // 1. Obtener recursos 
     async function cargarIndicadores() {
         try {
             const params = new URLSearchParams();
@@ -122,7 +117,6 @@
         cargarIndicadores();
     }
   
-    // 2. Crear un recurso 
     async function crearIndicador() {
         const camposVacios = Object.values(nuevoIndicador).some(valor => valor === '' || valor === null);
         if (camposVacios) {
@@ -156,7 +150,6 @@
         }
     }
 
-    // 3. Borrar un recurso concreto
     async function borrarIndicador(region, index_name) {
         try {
             const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
@@ -177,7 +170,6 @@
         }
     }
 
-    // 4. Borrar TODOS los recursos
     async function borrarTodos() {
         if (!confirm('¿Estás seguro de que quieres borrar TODOS los datos?')) return;
 
@@ -198,7 +190,6 @@
         }
     }
 
-    // 5. Cargar datos iniciales
     async function cargarDatosIniciales() {
         try {
             const res = await fetch(`${BASE_URL}/api/v1/daily-global-stock-market-indicators/loadInitialData`, {
@@ -216,7 +207,19 @@
         }
     }
 
-    onMount(() => {
+    async function loginAuth0Google() {
+        await auth0.loginWithRedirect({
+            authorizationParams: { connection: 'google-oauth2' }
+        });
+    }
+
+    async function loginAuth0GitHub() {
+        await auth0.loginWithRedirect({
+            authorizationParams: { connection: 'github' }
+        });
+    }
+
+    onMount(async () => {
         if (typeof window !== 'undefined') {
             const sesionActiva = sessionStorage.getItem('isLoggedIn');
             const tokenGuardado = localStorage.getItem('token');
@@ -225,6 +228,23 @@
                 isLoggedIn = true;
                 cargarIndicadores();
             }
+        }
+
+        auth0 = await createAuth0Client({
+            domain: 'dev-wagdyedujxhal8aa.eu.auth0.com',
+            clientId: 'PpWPyyPQJatSb1RJiCRl9njXHmXRHTIM',
+            authorizationParams: {
+                redirect_uri: window.location.origin + '/daily-global-stock-market-indicators'
+            }
+        });
+
+        if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+            await auth0.handleRedirectCallback();
+            window.history.replaceState({}, document.title, window.location.pathname);
+            const authUser = await auth0.getUser();
+            isLoggedIn = true;
+            mostrarMensaje(`¡Bienvenido ${authUser.name} (Auth0)!`);
+            cargarIndicadores();
         }
     });
 </script>
@@ -247,23 +267,35 @@
             <input type="text" placeholder="Usuario" bind:value={username} style="width: 90%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px;" />
             <input type="password" placeholder="Contraseña" bind:value={password} style="width: 90%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px;" />
             
-           <button on:click={login} style="background-color: #4CAF50; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; width: 95%;">
+            <button on:click={login} style="background-color: #4CAF50; color: white; border: none; padding: 12px 20px; cursor: pointer; border-radius: 4px; font-weight: bold; width: 95%;">
                 Entrar
             </button>
 
             <div style="margin-top: 20px;">
                 <p style="color: #666; margin-bottom: 10px;">O inicia sesión con:</p>
                 <a href="{BASE_URL}/auth/github" style="display: inline-block; background-color: #333; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-right: 10px;">
-                🐙 GitHub
+                    🐙 GitHub
                 </a>
                 <a href="{BASE_URL}/auth/google" style="display: inline-block; background-color: #db4437; color: white; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold;">
-                🔴 Google
+                    🔴 Google
                 </a>
+            </div>
+
+            <hr style="margin: 20px 0;">
+
+            <div>
+                <p style="color: #666; margin-bottom: 10px;">O inicia sesión con Auth0:</p>
+                <button on:click={loginAuth0Google} style="display: inline-block; background-color: #4285F4; color: white; padding: 10px 20px; border-radius: 4px; font-weight: bold; border: none; cursor: pointer; margin-right: 10px;">
+                    🔵 Google (Auth0)
+                </button>
+                <button on:click={loginAuth0GitHub} style="display: inline-block; background-color: #6e5494; color: white; padding: 10px 20px; border-radius: 4px; font-weight: bold; border: none; cursor: pointer;">
+                    🟣 GitHub (Auth0)
+                </button>
             </div>
         </section>
         
         <div style="text-align: center; margin-top: 20px;">
-             <a href="/" style="color: #666;">&larr; Volver a la página principal</a>
+            <a href="/" style="color: #666;">&larr; Volver a la página principal</a>
         </div>
     {:else}
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
