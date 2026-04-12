@@ -6,6 +6,7 @@ import { handler } from './src/front/build/handler.js';
 import { loadBackEndMRR } from './src/back/index-MRR.js';
 import { loadBackEndDAV } from './src/back/index-DAV.js';
 import { loadBackEndECR } from './src/back/index-ECR.js';
+import { loadBackEndECRFirebase } from './src/back/index-ECR-firebase.js'; // 👈 nuevo
 
 let PORT = process.env.PORT || 3000;
 
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 loadBackEndDAV(app);
 loadBackEndECR(app);
 loadBackEndMRR(app);
+loadBackEndECRFirebase(app); // 👈 nuevo
 
 app.use(handler);
 
