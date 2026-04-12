@@ -126,7 +126,7 @@ export function loadBackEndECR(app) {
     );
 
     app.get('/auth/github',
-        passport.authenticate('github', { scope: ['user:email'] })
+        passport.authenticate('github', { scope: ['user:email'], prompt: 'login' })
     );
 
     app.get('/auth/github/callback',
