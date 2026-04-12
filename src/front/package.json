@@ -36,7 +36,6 @@
 		"@auth0/auth0-spa-js": "^2.19.0",
 		"@sveltejs/adapter-auto": "^7.0.1",
 		"@sveltestrap/sveltestrap": "^7.1.0",
-		"bootstrap": "^5.3.8",
-		"sveltestrap": "^5.11.3"
+		"bootstrap": "^5.3.8"
 	}
 }
