@@ -16,6 +16,5 @@
   - https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/docs (developed by Emilio Cuevas Rendón)
   - https://sos2526-23.onrender.com/api/v1/online-sales-popular-marketplaces/docs (developed by María Rodríguez Romero)
 
-## Despliegue en plataformas cloud (Emilio Cuevas Rendón)
-  - **Frontend (Vercel):** https://sos-2526-23.vercel.app
-  - **Backend (Railway):** https://sos2526-23-production.up.railway.app
+## Despliegue en plataformas cloud distinta a Render
+  - **Frontend/Backend (Railway):** https://sos2526-23-production.up.railway.app (Emilio Cuevas Rendón)
