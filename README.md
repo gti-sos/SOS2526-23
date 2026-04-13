@@ -19,4 +19,4 @@
 ## Despliegue en plataformas cloud distinta a Render
   - **Frontend/Backend (Railway):** https://sos2526-23-production.up.railway.app (Emilio Cuevas Rendón)
 
-[![Known Vulnerabilities](https://snyk.io/test/github/gti-sos/SOS2526-23/badge.svg)](https://snyk.io/test/github/gti-sos/SOS2526-23)
+[![Snyk](https://snyk.io/test/github/gti-sos/SOS2526-23/badge.svg?targetFile=package.json)](https://snyk.io/test/github/gti-sos/SOS2526-23?targetFile=package.json)
