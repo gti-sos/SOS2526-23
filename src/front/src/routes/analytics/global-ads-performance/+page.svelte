@@ -2,6 +2,9 @@
     import { onMount } from 'svelte';
     import { browser } from '$app/environment';
 
+    /**
+	 * @type {string | import("highcharts").Options | HTMLElement}
+	 */
     let chartContainer;
     let errorMessage = '';
 
@@ -52,7 +55,7 @@
                 // 4. RENDERIZADO
                 Highcharts.chart(chartContainer, {
                     chart: { type: 'sankey' },
-                    title: { text: 'Flujo de Ingresos Publicitarios' },
+                    title: { text: 'Flujo de Ingresos Publicitarios 2024' },
                     subtitle: { text: 'Región → Plataforma → Industria' },
                     accessibility: { enabled: false }, // Evita advertencias en consola
                     tooltip: {
@@ -106,7 +109,7 @@
 </script>
 
 <main>
-    <h2>Dashboard global de Analíticas</h2>
+    <h2>Dashboard global de Analíticas 2024</h2>
     {#if errorMessage}
         <div class="alert">{errorMessage}</div>
     {/if}

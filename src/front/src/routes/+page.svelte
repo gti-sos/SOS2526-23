@@ -144,8 +144,8 @@
     <h2>Analytics (Gráficas)</h2>
     <div class="button-group">
             <a class="buttonEnlace" href="/analytics" target="_blank">Gráfica Conjunta (Grupo)</a>
-            <a class="buttonEnlace" href="/analytics/global-ads-performance" target="_blank">Analytics DAV</a>
-         <a class="buttonEnlace" href="/analytics/daily-global-stock-market-indicators" target="_blank">Analytics ECR</a>
-        <a class="buttonEnlace" href="/analytics/online-sales-popular-marketplaces" target="_blank">Analytics MRR</a>
+            <a class="buttonEnlace" href="/analytics/global-ads-performance" target="_blank">Gráfica global-ads-performance</a>
+         <a class="buttonEnlace" href="/analytics/daily-global-stock-market-indicators" target="_blank">Gráfica daily-global-stock-market-indicators</a>
+        <a class="buttonEnlace" href="/analytics/online-sales-popular-marketplaces" target="_blank">Gráfica online-sales-popular-marketplaces</a>
     </div>
 </div>
