@@ -140,4 +140,12 @@
         <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52708852/2sBXigLYL8" target="_blank">daily-global-stock-market-indicators</a>
         <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52406430/2sBXigLYQR" target="_blank">online-sales-popular-marketplaces</a>
     </div>
+
+    <h2>Analytics (Gráficas)</h2>
+    <div class="button-group">
+            <a class="buttonEnlace" href="/analytics" target="_blank">Gráfica Conjunta (Grupo)</a>
+            <a class="buttonEnlace" href="/analytics/global-ads-performance" target="_blank">Analytics DAV</a>
+         <a class="buttonEnlace" href="/analytics/daily-global-stock-market-indicators" target="_blank">Analytics ECR</a>
+        <a class="buttonEnlace" href="/analytics/online-sales-popular-marketplaces" target="_blank">Analytics MRR</a>
+    </div>
 </div>
