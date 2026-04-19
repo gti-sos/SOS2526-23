@@ -3,8 +3,8 @@
     import { browser } from '$app/environment';
 
     /**
-	 * @type {string | import("highcharts").Options | HTMLElement}
-	 */
+     * @type {string | import("highcharts").Options | HTMLElement}
+     */
     let chartContainer;
     let errorMessage = '';
 
@@ -110,18 +110,34 @@
 
 <main>
     <h2>Dashboard global de Analíticas 2024</h2>
+    
     {#if errorMessage}
         <div class="alert">{errorMessage}</div>
     {/if}
+    
     <div bind:this={chartContainer} class="chart-container"></div>
+    
+    <div class="button-map">
+        <a class="buttonEnlace" href="/analytics/global-ads-performance/map">🌍 Ver Mapa Interactivo</a>
+    </div>
 </main>
 
 <style>
+    h2 {
+        text-align: center;
+        color: #1a202c;
+        margin-bottom: 20px;
+    }
+
     .chart-container {
         width: 100%;
         height: 550px;
         background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        margin-bottom: 20px; /* Da un poco de aire antes del botón */
     }
+
     .alert {
         color: #721c24;
         background-color: #f8d7da;
@@ -129,5 +145,34 @@
         border-radius: 4px;
         text-align: center;
         margin-bottom: 10px;
+        border: 1px solid #f5c6cb;
+    }
+
+    /* Agrupación y centrado del botón */
+    .button-map {
+        display: flex;
+        justify-content: center; /* Esto centra el botón en la pantalla */
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* Estilos del botón (recuperados de tu home) */
+    .buttonEnlace {
+        display: inline-block;
+        padding: 12px 24px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+    }
+
+    .buttonEnlace:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
     }
 </style>
