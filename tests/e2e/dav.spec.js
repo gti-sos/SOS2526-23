@@ -237,7 +237,7 @@ test('Filter data using the search panel', async ({ page }) => {
 
   await newPage.getByRole('button', { name: 'Cargar Datos Iniciales' }).click();
   
-  await newPage.getByPlaceholder('Región').fill('Europe');
+  await newPage.getByPlaceholder('Europe').fill('Europe');
 
   await newPage.getByRole('button', { name: 'Buscar' }).click();
 

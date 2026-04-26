@@ -15,6 +15,7 @@ export function loadBackEndDAV(app) {
     });
 
 
+
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
     app.get(BASE_URL_API + "/global-ads-performance/loadInitialData", (req, res) => {
         db.find({}, (err, docs) => {
