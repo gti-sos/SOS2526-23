@@ -33,6 +33,18 @@
     let searchFrom = $state("");
     let searchTo = $state("");
 
+    // Campos numéricos para búsqueda avanzada
+    let searchImpressionMin = $state("");
+    let searchImpressionMax = $state("");
+    let searchClickMin = $state("");
+    let searchClickMax = $state("");
+    let searchAdSpendMin = $state("");
+    let searchAdSpendMax = $state("");
+    let searchConversionMin = $state("");
+    let searchConversionMax = $state("");
+    let searchRevenueMin = $state("");
+    let searchRevenueMax = $state("");
+
     if (dev)
         API = "http://localhost:3000"+API;
     
@@ -176,16 +188,39 @@ async function loadInitialData() {
     }
 
 
-    // 3. Nuevas funciones para manejar la búsqueda y limpiar los filtros
+// 3. Nuevas funciones para manejar la búsqueda y limpiar los filtros
     async function searchData() {
         // ⬇️ REEMPLAZAMOS: new URLSearchParams() por new SvelteURLSearchParams()
         const params = new SvelteURLSearchParams();
 
+        // Campos de texto y fecha originales
         if (searchRegion) params.append("region", searchRegion);
         if (searchPlatform) params.append("platform", searchPlatform);
         if (searchIndustry) params.append("industry", searchIndustry);
-        if (searchFrom) params.append("from", searchFrom);
-        if (searchTo) params.append("to", searchTo);
+        if (searchFrom) params.append("from", searchFrom); 
+        if (searchTo) params.append("to", searchTo);       
+
+        // --- Nuevos campos numéricos (Min / Max) ---
+        
+        // Impression
+        if (searchImpressionMin) params.append("impression_min", searchImpressionMin);
+        if (searchImpressionMax) params.append("impression_max", searchImpressionMax);
+        
+        // Click
+        if (searchClickMin) params.append("click_min", searchClickMin);
+        if (searchClickMax) params.append("click_max", searchClickMax);
+        
+        // Ad Spend
+        if (searchAdSpendMin) params.append("ad_spend_min", searchAdSpendMin);
+        if (searchAdSpendMax) params.append("ad_spend_max", searchAdSpendMax);
+        
+        // Conversion
+        if (searchConversionMin) params.append("conversion_min", searchConversionMin);
+        if (searchConversionMax) params.append("conversion_max", searchConversionMax);
+        
+        // Revenue
+        if (searchRevenueMin) params.append("revenue_min", searchRevenueMin);
+        if (searchRevenueMax) params.append("revenue_max", searchRevenueMax);
 
         const queryString = params.toString();
         const url = queryString ? `${API}?${queryString}` : API;
@@ -207,11 +242,29 @@ async function loadInitialData() {
     }
 
     function clearSearch() {
+        // Limpiamos campos de texto y fecha
         searchRegion = "";
         searchPlatform = "";
         searchIndustry = "";
         searchFrom = "";
         searchTo = "";
+        
+        // Limpiamos los campos numéricos (Min / Max)
+        searchImpressionMin = "";
+        searchImpressionMax = "";
+        
+        searchClickMin = "";
+        searchClickMax = "";
+        
+        searchAdSpendMin = "";
+        searchAdSpendMax = "";
+        
+        searchConversionMin = "";
+        searchConversionMax = "";
+        
+        searchRevenueMin = "";
+        searchRevenueMax = "";
+        
         getData();
     }
 
