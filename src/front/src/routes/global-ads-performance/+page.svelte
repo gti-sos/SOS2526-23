@@ -33,6 +33,13 @@
     let searchFrom = $state("");
     let searchTo = $state("");
 
+    // Campos numéricos para búsqueda avanzada
+    let searchImpression = $state("");
+    let searchClick = $state("");
+    let searchAdSpend = $state("");
+    let searchConversion = $state("");
+    let searchRevenue = $state("");
+
     if (dev)
         API = "http://localhost:3000"+API;
     
@@ -175,17 +182,24 @@ async function loadInitialData() {
         }
     }
 
-
-    // 3. Nuevas funciones para manejar la búsqueda y limpiar los filtros
+// 3. Nuevas funciones para manejar la búsqueda y limpiar los filtros (Valor Exacto)
     async function searchData() {
-        // ⬇️ REEMPLAZAMOS: new URLSearchParams() por new SvelteURLSearchParams()
+        // Usamos la clase que tenías definida
         const params = new SvelteURLSearchParams();
 
+        // Campos de texto y fecha
         if (searchRegion) params.append("region", searchRegion);
         if (searchPlatform) params.append("platform", searchPlatform);
         if (searchIndustry) params.append("industry", searchIndustry);
-        if (searchFrom) params.append("from", searchFrom);
-        if (searchTo) params.append("to", searchTo);
+        if (searchFrom) params.append("from", searchFrom); 
+        if (searchTo) params.append("to", searchTo);       
+
+        // Campos numéricos por valor exacto (permitiendo el 0)
+        if (searchImpression !== "") params.append("impression", searchImpression);
+        if (searchClick !== "") params.append("click", searchClick);
+        if (searchAdSpend !== "") params.append("ad_spend", searchAdSpend);
+        if (searchConversion !== "") params.append("conversion", searchConversion);
+        if (searchRevenue !== "") params.append("revenue", searchRevenue);
 
         const queryString = params.toString();
         const url = queryString ? `${API}?${queryString}` : API;
@@ -207,11 +221,20 @@ async function loadInitialData() {
     }
 
     function clearSearch() {
+        // Limpiamos campos de texto y fecha
         searchRegion = "";
         searchPlatform = "";
         searchIndustry = "";
         searchFrom = "";
         searchTo = "";
+        
+        // Limpiamos los campos numéricos exactos
+        searchImpression = "";
+        searchClick = "";
+        searchAdSpend = "";
+        searchConversion = "";
+        searchRevenue = "";
+        
         getData();
     }
 
@@ -244,28 +267,45 @@ async function loadInitialData() {
         </Col>
     </Row>
 
-        <Card class="shadow-sm mb-4 border-info">
+<Card class="shadow-sm mb-4 border-info">
         <CardHeader class="bg-info text-white fw-bold">
             🔍 Buscar / Filtrar Recursos
         </CardHeader>
         <CardBody>
             <Row class="g-3">
                 <Col md="2">
-                    <Input type="text" bind:value={searchRegion} placeholder="Región (Ej: Europe)" bsSize="sm" />
+                    <Input type="text" bind:value={searchRegion} placeholder="Europe" bsSize="sm" />
                 </Col>
                 <Col md="2">
-                    <Input type="text" bind:value={searchPlatform} placeholder="Plataforma (Ej: Google)" bsSize="sm" />
+                    <Input type="text" bind:value={searchPlatform} placeholder="TikTok Ads" bsSize="sm" />
                 </Col>
                 <Col md="2">
-                    <Input type="text" bind:value={searchIndustry} placeholder="Industria" bsSize="sm" />
+                    <Input type="text" bind:value={searchIndustry} placeholder="Fintech" bsSize="sm" />
+                </Col>
+                <Col md="3">
+                    <Input type="date" bind:value={searchFrom} placeholder="Desde" bsSize="sm" />
+                </Col>
+                <Col md="3">
+                    <Input type="date" bind:value={searchTo} placeholder="Hasta" bsSize="sm" />
+                </Col>
+
+                <Col md="2">
+                    <Input type="number" bind:value={searchImpression} placeholder="Impresiones" bsSize="sm" />
                 </Col>
                 <Col md="2">
-                    <Input type="number" bind:value={searchFrom} placeholder="Desde año (Ej: 2000)" bsSize="sm" />
+                    <Input type="number" bind:value={searchClick} placeholder="Clicks" bsSize="sm" />
                 </Col>
                 <Col md="2">
-                    <Input type="number" bind:value={searchTo} placeholder="Hasta año (Ej: 2017)" bsSize="sm" />
+                    <Input type="number" bind:value={searchAdSpend} placeholder="Gasto (€)" bsSize="sm" />
                 </Col>
-                <Col md="2" class="d-flex gap-2">
+                <Col md="2">
+                    <Input type="number" bind:value={searchConversion} placeholder="Conversiones" bsSize="sm" />
+                </Col>
+                <Col md="2">
+                    <Input type="number" bind:value={searchRevenue} placeholder="Ingresos (€)" bsSize="sm" />
+                </Col>
+                
+                <Col md="2" class="d-flex flex-column gap-2 justify-content-center">
                     <Button color="primary" size="sm" class="w-100" onclick={searchData}>
                         Buscar
                     </Button>
