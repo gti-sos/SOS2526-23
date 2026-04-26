@@ -11,10 +11,6 @@
             const HighchartsModule = await import('highcharts');
             const Highcharts = HighchartsModule.default || HighchartsModule;
 
-            const MoreModule = await import('highcharts/highcharts-more');
-            const initMore = MoreModule.default || MoreModule;
-            if (typeof initMore === 'function') initMore(Highcharts);
-
             const response = await fetch('/api/v1/daily-global-stock-market-indicators');
             if (!response.ok) throw new Error('Error cargando la API');
             const apiData = await response.json();
@@ -24,44 +20,44 @@
                 return;
             }
 
-            const grouped = {};
-            apiData.forEach(item => {
-                if (!grouped[item.index_name]) grouped[item.index_name] = [];
-                grouped[item.index_name].push([
-                    parseFloat(item.close),
-                    parseFloat(item.daily_change_percent),
-                    Math.sqrt(parseFloat(item.volume)) / 1000
-                ]);
+            // Fechas únicas ordenadas
+            const fechas = [...new Set(apiData.map(d => d.date))].sort();
+
+            // Índices únicos
+            const indices = [...new Set(apiData.map(d => d.index_name))];
+
+            // Para cada índice, un punto por fecha (null si no hay dato ese día)
+            const series = indices.map(index_name => {
+                const porFecha = {};
+                apiData
+                    .filter(d => d.index_name === index_name)
+                    .forEach(d => { porFecha[d.date] = parseFloat(d.close); });
+
+                return {
+                    name: index_name,
+                    data: fechas.map(f => porFecha[f] ?? null)
+                };
             });
 
-            const series = Object.entries(grouped).map(([name, data]) => ({
-                name,
-                data
-            }));
-
             Highcharts.chart(chartContainer, {
-                chart: { type: 'bubble', plotBorderWidth: 1, zoomType: 'xy' },
-                title: { text: 'Indicadores Bursátiles Globales 2024' },
-                subtitle: { text: 'Cierre vs Variación Diaria · Tamaño = Volumen' },
+                chart: { type: 'bar' },
+                title: { text: 'Precio de Cierre por Índice y Fecha' },
+                subtitle: { text: 'Todos los índices bursátiles · Datos completos API' },
                 accessibility: { enabled: false },
                 xAxis: {
-                    title: { text: 'Precio de Cierre' },
-                    labels: { format: '{value}' },
-                    gridLineWidth: 1
+                    categories: fechas,
+                    title: { text: 'Fecha' }
                 },
                 yAxis: {
-                    title: { text: 'Variación Diaria (%)' },
-                    labels: { format: '{value}%' }
+                    title: { text: 'Precio de Cierre (pts)' }
                 },
                 tooltip: {
-                    useHTML: true,
-                    headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: 'Cierre: <b>{point.x:.2f}</b><br>Variación: <b>{point.y:.2f}%</b><br>Volumen (rel.): <b>{point.z:.2f}</b>'
+                    valueSuffix: ' pts'
                 },
                 plotOptions: {
-                    bubble: {
-                        minSize: 5,
-                        maxSize: 40
+                    bar: {
+                        grouping: true,
+                        dataLabels: { enabled: false }
                     }
                 },
                 series
@@ -75,7 +71,7 @@
 </script>
 
 <main>
-    <h2>Análisis Bursátil: Mercados Globales 2024</h2>
+    <h2>Análisis Integrado: Mercados Bursátiles Globales</h2>
 
     {#if errorMessage}
         <div class="alert">{errorMessage}</div>
@@ -83,10 +79,8 @@
 
     <div bind:this={chartContainer} class="chart-container"></div>
 
-    <div class="button-link">
-        <a href="/analytics/daily-global-stock-market-indicators/integrated" class="btn-integrated">
-            📈 Ver análisis integrado por fechas
-        </a>
+    <div class="back-button">
+        <a href="/analytics/daily-global-stock-market-indicators" class="btn-back">← Volver al análisis individual</a>
     </div>
 </main>
 
@@ -99,7 +93,7 @@
 
     .chart-container {
         width: 100%;
-        height: 550px;
+        height: 600px;
         background: white;
         border: 1px solid #e2e8f0;
         border-radius: 8px;
@@ -115,25 +109,21 @@
         border: 1px solid #f5c6cb;
     }
 
-    .button-link {
+    .back-button {
         display: flex;
         justify-content: center;
         margin-top: 24px;
     }
 
-    .btn-integrated {
+    .btn-back {
         display: inline-block;
-        padding: 12px 24px;
-        background-color: #007bff;
+        padding: 10px 20px;
+        background-color: #4a5568;
         color: white;
         text-decoration: none;
         border-radius: 6px;
-        font-weight: 500;
-        transition: all 0.2s ease-in-out;
+        transition: background-color 0.2s;
     }
 
-    .btn-integrated:hover {
-        background-color: #0056b3;
-        transform: translateY(-2px);
-    }
+    .btn-back:hover { background-color: #2d3748; }
 </style>
