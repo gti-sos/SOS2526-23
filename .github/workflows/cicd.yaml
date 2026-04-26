@@ -1,9 +1,8 @@
 name: CI API Tests
 
-# Indicamos que se ejecute al hacer push o abrir un Pull Request
+# Indicamos que se ejecute al hacer push (en CUALQUIER rama) o abrir un Pull Request (hacia main)
 on:
   push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
