@@ -274,13 +274,13 @@ async function loadInitialData() {
         <CardBody>
             <Row class="g-3">
                 <Col md="2">
-                    <Input type="text" bind:value={searchRegion} placeholder="Region" bsSize="sm" />
+                    <Input type="text" bind:value={searchRegion} placeholder="Europe" bsSize="sm" />
                 </Col>
                 <Col md="2">
-                    <Input type="text" bind:value={searchPlatform} placeholder="Plataforma" bsSize="sm" />
+                    <Input type="text" bind:value={searchPlatform} placeholder="TikTok Ads" bsSize="sm" />
                 </Col>
                 <Col md="2">
-                    <Input type="text" bind:value={searchIndustry} placeholder="Industria" bsSize="sm" />
+                    <Input type="text" bind:value={searchIndustry} placeholder="Fintech" bsSize="sm" />
                 </Col>
                 <Col md="3">
                     <Input type="date" bind:value={searchFrom} placeholder="Desde" bsSize="sm" />
