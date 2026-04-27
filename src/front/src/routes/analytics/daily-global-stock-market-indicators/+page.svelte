@@ -110,6 +110,12 @@
     <p>Este gráfico de <b>burbujas</b> integra todas las variables: el Precio define la altura, el Volumen el tamaño de la burbuja, y el Color indica si el mercado subió (Verde) o bajó (Rojo).</p>
 
     <div bind:this={chartContainer} style="width: 100%; height: 600px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"></div>
+
+    <div class="map-button-container">
+        <a href="/analytics/daily-global-stock-market-indicators/map" class="btn-mapa">
+            🌍 Ver Mapa Geoespacial de Mercados
+        </a>
+    </div>
 </main>
 
 <style>
@@ -120,4 +126,27 @@
         margin: 0 auto;
     }
     h2 { color: #333; }
+
+    /* Estilos para el botón del mapa */
+    .map-button-container {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .btn-mapa {
+        background-color: #0056b3;
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 1.1em;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .btn-mapa:hover {
+        background-color: #003d82;
+    }
 </style>
