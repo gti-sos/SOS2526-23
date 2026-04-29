@@ -137,6 +137,7 @@
     <h2>Documentación de Postman</h2>
     <div class="button-group">
         <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52707486/2sBXigLYQP" target="_blank">global-ads-performance</a>
+        <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52707486/2sBXqJLgYm" target="_blank">global-ads-performance (v2)</a>
         <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52708852/2sBXigLYL8" target="_blank">daily-global-stock-market-indicators</a>
         <a class="buttonEnlace" href="https://documenter.getpostman.com/view/52406430/2sBXigLYQR" target="_blank">online-sales-popular-marketplaces</a>
     </div>
