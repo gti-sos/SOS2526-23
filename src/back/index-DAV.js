@@ -5,8 +5,9 @@ const BASE_URL_API_V2 = "/api/v2";
 
 const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 
-// Inicializamos la base de datos en memoria
-const db = new dataStore();
+// Inicializamos las dos bases de datos en memoria
+const dbV1 = new dataStore();
+const dbV2 = new dataStore();
 
 export function loadBackEndDAV(app) {
 
@@ -20,7 +21,7 @@ export function loadBackEndDAV(app) {
 
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
     app.get(BASE_URL_API + "/global-ads-performance/loadInitialData", (req, res) => {
-        db.find({}, (err, docs) => {
+        dbV1.find({}, (err, docs) => {
             if (docs.length === 0) {
                 // Aquí metemos el array exacto para que NeDB lo inserte
                 const newData = [
@@ -37,7 +38,7 @@ export function loadBackEndDAV(app) {
                     { region: "Asia", date: "2024-04-22", platform: "Meta Ads", industry: "E-commerce", impression: 98264, click: 3144, ad_spend: 4904.64, conversion: 129, revenue: 23127.27 }
                 ];
                 
-                db.insert(newData, (err, newDocs) => {
+                dbV1.insert(newData, (err, newDocs) => {
                     res.status(201).json(newDocs); // 201 Created
                 });
             } else {
@@ -64,7 +65,7 @@ export function loadBackEndDAV(app) {
         if (req.query.revenue) searchQuery.revenue = parseFloat(req.query.revenue);
 
         // Preparamos la consulta a la base de datos (SIN el callback todavía)
-        let dbQuery = db.find(searchQuery);
+        let dbQuery = dbV1.find(searchQuery);
 
         
         // --- LÓGICA DE PAGINACIÓN (Requisito 4) ---
@@ -108,11 +109,11 @@ export function loadBackEndDAV(app) {
         }
 
         // Comprobamos si ya existe la clave primaria correcta (region + date)
-        db.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
+        dbV1.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
             if (docs.length > 0) {
                 return res.sendStatus(409); // 409 Conflict (Ya existe)
             }
-            db.insert(newResource, (err, newDoc) => {
+            dbV1.insert(newResource, (err, newDoc) => {
                 res.sendStatus(201); // 201 Created
             });
         });
@@ -122,7 +123,7 @@ export function loadBackEndDAV(app) {
     // 4. DELETE COLECCIÓN COMPLETA
     app.delete(BASE_URL_API + "/global-ads-performance", (req, res) => {
         // {} borra todos los documentos, {multi: true} permite borrar más de uno a la vez
-        db.remove({}, { multi: true }, (err, numRemoved) => {
+        dbV1.remove({}, { multi: true }, (err, numRemoved) => {
             res.sendStatus(200); // 200 OK
         });
     });
@@ -131,7 +132,7 @@ export function loadBackEndDAV(app) {
     app.get(BASE_URL_API + '/global-ads-performance/:region/:date', (req, res) => {
         const { region, date } = req.params;
 
-        db.find({ region, date }, (err, docs) => {
+        dbV1.find({ region, date }, (err, docs) => {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
             if (docs.length > 0) {
@@ -146,7 +147,7 @@ export function loadBackEndDAV(app) {
     app.delete(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
 
-        db.remove({ region: region, date: date }, {}, (err, numRemoved) => {
+        dbV1.remove({ region: region, date: date }, {}, (err, numRemoved) => {
             if (numRemoved === 0) {
                 return res.sendStatus(404); // 404 Not Found si no existía
             }
@@ -164,7 +165,7 @@ export function loadBackEndDAV(app) {
             return res.sendStatus(400); // 400 Bad Request
         }
 
-        db.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => {
+        dbV1.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => {
             if (numReplaced === 0) {
                 return res.sendStatus(404); // 404 Not Found si no existe el que queremos actualizar
             }
@@ -194,10 +195,9 @@ VERSION 2
 --------------------------------------------------------------------------------
 */
 
-
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
     app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) => {
-        db.find({}, (err, docs) => {
+        dbV2.find({}, (err, docs) => {
             if (docs.length === 0) {
                 // Aquí metemos el array exacto para que NeDB lo inserte
                 const newData = [
@@ -302,7 +302,7 @@ VERSION 2
                 { region: "Asia", date: "2024-09-22", platform: "TikTok Ads", industry: "SaaS", impression: 81619, click: 3623, ad_spend: 1702.81, conversion: 222, revenue: 46448.44 }
             ];
                 
-                db.insert(newData, (err, newDocs) => {
+                dbV2.insert(newData, (err, newDocs) => {
                     res.status(201).json(newDocs); // 201 Created
                 });
             } else {
@@ -330,7 +330,7 @@ VERSION 2
         if (req.query.revenue) searchQuery.revenue = parseFloat(req.query.revenue);
 
         // Preparamos la consulta a la base de datos (SIN el callback todavía)
-        let dbQuery = db.find(searchQuery);
+        let dbQuery = dbV2.find(searchQuery);
 
         
         // --- LÓGICA DE PAGINACIÓN (Requisito 4) ---
@@ -374,11 +374,11 @@ VERSION 2
         }
 
         // Comprobamos si ya existe la clave primaria correcta (region + date)
-        db.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
+        dbV2.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
             if (docs.length > 0) {
                 return res.sendStatus(409); // 409 Conflict (Ya existe)
             }
-            db.insert(newResource, (err, newDoc) => {
+            dbV2.insert(newResource, (err, newDoc) => {
                 res.sendStatus(201); // 201 Created
             });
         });
@@ -388,7 +388,7 @@ VERSION 2
     // 4. DELETE COLECCIÓN COMPLETA
     app.delete(BASE_URL_API_V2 + "/global-ads-performance", (req, res) => {
         // {} borra todos los documentos, {multi: true} permite borrar más de uno a la vez
-        db.remove({}, { multi: true }, (err, numRemoved) => {
+        dbV2.remove({}, { multi: true }, (err, numRemoved) => {
             res.sendStatus(200); // 200 OK
         });
     });
@@ -397,7 +397,7 @@ VERSION 2
     app.get(BASE_URL_API_V2 + '/global-ads-performance/:region/:date', (req, res) => {
         const { region, date } = req.params;
 
-        db.find({ region, date }, (err, docs) => {
+        dbV2.find({ region, date }, (err, docs) => {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
             if (docs.length > 0) {
@@ -412,7 +412,7 @@ VERSION 2
     app.delete(BASE_URL_API_V2 + "/global-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
 
-        db.remove({ region: region, date: date }, {}, (err, numRemoved) => {
+        dbV2.remove({ region: region, date: date }, {}, (err, numRemoved) => {
             if (numRemoved === 0) {
                 return res.sendStatus(404); // 404 Not Found si no existía
             }
@@ -430,7 +430,7 @@ VERSION 2
             return res.sendStatus(400); // 400 Bad Request
         }
 
-        db.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => {
+        dbV2.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => {
             if (numReplaced === 0) {
                 return res.sendStatus(404); // 404 Not Found si no existe el que queremos actualizar
             }
