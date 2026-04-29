@@ -184,7 +184,7 @@ export function loadBackEndDAV(app) {
     });
 
 
-}
+
 
 
 /*
@@ -447,3 +447,5 @@ VERSION 2
     app.put(BASE_URL_API_V2 + "/global-ads-performance", (req, res) => {
         res.sendStatus(405); // Method Not Allowed
     });
+
+}
