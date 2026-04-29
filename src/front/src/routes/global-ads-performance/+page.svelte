@@ -261,6 +261,9 @@ async function loadInitialData() {
             <Button color="info" outline onclick={loadInitialData}>
                 🔄 Cargar Datos Iniciales
             </Button>
+            <Button color="success" outline onclick={() => window.location.href = "/global-ads-performance/v2"}>
+                Version 2
+            </Button>
             <Button color="danger" onclick={deleteAll} disabled={global_ad.length === 0}>
                 🗑️ Borrar Todo
             </Button>
