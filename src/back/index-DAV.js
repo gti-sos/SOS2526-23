@@ -1,4 +1,4 @@
-import dataStore from "nedb";
+import DataStore from "nedb";
 
 const BASE_URL_API = "/api/v1";
 const BASE_URL_API_V2 = "/api/v2";
@@ -6,8 +6,8 @@ const BASE_URL_API_V2 = "/api/v2";
 const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 
 // Inicializamos las dos bases de datos en memoria
-const dbV1 = new dataStore();
-const dbV2 = new datastore({autoload: true });
+const dbV1 = new DataStore();
+const dbV2 = new DataStore({ autoload: true });
 
 
 export function loadBackEndDAV(app) {
