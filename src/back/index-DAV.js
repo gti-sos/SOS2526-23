@@ -7,6 +7,8 @@ const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 
 // Inicializamos las dos bases de datos en memoria
 const dbV1 = new dataStore();
+const dbV2 = new datastore({autoload: true });
+
 
 export function loadBackEndDAV(app) {
 
@@ -193,8 +195,7 @@ VERSION 2
 
 --------------------------------------------------------------------------------
 */
-// Inicializo la base de datos
-const dbV2 = new datastore({ filename: './data/global-ads-performance-v2.db', autoload: true });
+
 
 const datosInicialesV2 = [
     { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
