@@ -34,7 +34,9 @@
 	"dependencies": {
 		"@highcharts/map-collection": "^2.3.2",
 		"@sveltestrap/sveltestrap": "^7.1.0",
+		"apexcharts": "^5.10.6",
 		"bootstrap": "^5.3.8",
+		"echarts": "^6.0.0",
 		"highcharts": "^12.6.0",
 		"sveltestrap": "^5.11.3"
 	}
