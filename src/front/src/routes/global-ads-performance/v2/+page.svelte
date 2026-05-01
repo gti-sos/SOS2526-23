@@ -9,7 +9,7 @@
         Alert, Badge, Card, CardBody, CardHeader
     } from '@sveltestrap/sveltestrap';
     
-    let API = "/api/v1/global-ads-performance";
+    let API = "/api/v2/global-ads-performance";
 
     // @ts-ignore
     let global_ad= $state([]);
@@ -260,9 +260,6 @@ async function loadInitialData() {
         <Col class="text-end">
             <Button color="info" outline onclick={loadInitialData}>
                 🔄 Cargar Datos Iniciales
-            </Button>
-            <Button color="success" outline onclick={() => window.location.href = "/global-ads-performance/v2"}>
-                Version 2
             </Button>
             <Button color="danger" onclick={deleteAll} disabled={global_ad.length === 0}>
                 🗑️ Borrar Todo
