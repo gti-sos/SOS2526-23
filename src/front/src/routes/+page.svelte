@@ -148,4 +148,9 @@
          <a class="buttonEnlace" href="/analytics/daily-global-stock-market-indicators" target="_blank">Gráfica daily-global-stock-market-indicators</a>
         <a class="buttonEnlace" href="/analytics/online-sales-popular-marketplaces" target="_blank">Gráfica online-sales-popular-marketplaces</a>
     </div>
+
+    <h2>Integraciones</h2>
+    <div class="button-group">
+        <a class="buttonEnlace" href="/integrations/github" target="_blank">GitHub</a>
+    </div>
 </div>
