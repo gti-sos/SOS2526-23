@@ -195,7 +195,7 @@ VERSION 2
 --------------------------------------------------------------------------------
 */
 // Inicializo la base de datos
-const dbV2 = new Datastore({ filename: './data/global-ads-performance-v2.db', autoload: true });
+const dbV2 = new dataStoreatastore({ filename: './data/global-ads-performance-v2.db', autoload: true });
 
 const datosInicialesV2 = [
     { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
