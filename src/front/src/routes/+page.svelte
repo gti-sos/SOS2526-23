@@ -153,5 +153,6 @@
     <h2>Integraciones</h2>
     <div class="button-group">
         <a class="buttonEnlace" href="/integrations/github" target="_blank">GitHub</a>
+        <a class="buttonEnlace" href="/integrations/twitch" target="_blank">Twitch</a>
     </div>
 </div>
