@@ -162,13 +162,15 @@ export function loadBackEndECR(app) {
     });
 
     // =====================================================================
-    // INTEGRACIÓN GITHUB - PROXY
+    // INTEGRACIÓN GITHUB - PROXY (ACTUALIZADO)
     // =====================================================================
     app.get(BASE_URL_API + '/integrations/github', async (req, res) => {
         try {
+            console.log("Iniciando petición al proxy de GitHub...");
             const token = process.env.GITHUB_TOKEN;
 
             if (!token) {
+                console.error("❌ Faltan credenciales: No se encontró GITHUB_TOKEN en el .env");
                 return res.status(500).json({ message: "Falta GITHUB_TOKEN en .env" });
             }
 
@@ -177,11 +179,21 @@ export function loadBackEndECR(app) {
 
             for (const repo of repos) {
                 const response = await fetch(`https://api.github.com/repos/${repo}`, {
+                    method: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' + token,
-                        'Accept': 'application/vnd.github+json'
+                        'Accept': 'application/vnd.github+json',
+                        'User-Agent': 'SOS2526-23-App-Emilio' // <-- ¡ESTO EVITA EL BLOQUEO!
                     }
                 });
+
+                // Si GitHub nos bloquea, lo imprimimos claramente en la consola
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error(`❌ Error de GitHub en el repo ${repo}: Código ${response.status} - ${errorText}`);
+                    throw new Error(`GitHub respondió con estado ${response.status} para el repo ${repo}`);
+                }
+
                 const data = await response.json();
                 results.push({
                     name: data.name,
@@ -195,7 +207,7 @@ export function loadBackEndECR(app) {
             res.status(200).json(results);
 
         } catch (error) {
-            console.error('❌ Error GitHub:', error);
+            console.error('💥 ERROR FATAL EN PROXY GITHUB:', error);
             res.status(500).json({ message: "Error en proxy GitHub", error: error.message });
         }
     });
