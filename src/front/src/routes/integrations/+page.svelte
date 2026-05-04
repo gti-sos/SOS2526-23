@@ -11,6 +11,31 @@
     </ul>
 </div>
 
+<div class="integrations">
+    <h1>Integraciones — David Ayllón Vela</h1>
+    <ul>
+        <li><a href="/integrations/">API EXTRA 2</a></li>
+        <li><a href="/integrations/">API EXTRA 2</a></li>
+        <li><a href="/integrations/">API EXTRA 3</a></li>
+        
+        <li><a href="/integrations/sos/beneficial-ownership-merchant-fleets">G28 — Beneficial Ownership Merchant Fleets (SOS)</a></li>
+        <li><a href="/integrations/sos/social-drinking-behaviors">G25 — Social Drinking Behaviors (SOS)</a></li>
+    </ul>
+</div>
+
+<div class="integrations">
+    <h1>Integraciones — Maria Rodríguez Romero </h1>
+    <ul>
+        <li><a href="/integrations/">API EXTRA 2</a></li>
+        <li><a href="/integrations/">API EXTRA 2</a></li>
+        <li><a href="/integrations/">API EXTRA 3</a></li>
+        
+        <li><a href="/integrations/sos/">G2x —  (SOS)</a></li>
+        <li><a href="/integrations/sos/">G2x — (SOS)</a></li>
+    </ul>
+</div>
+
+
 <style>
     .integrations {
         max-width: 800px;
