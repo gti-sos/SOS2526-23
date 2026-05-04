@@ -33,6 +33,7 @@
     "dotenv": "^17.4.2",
     "echarts": "^6.0.0",
     "express": "^5.2.1",
+    "highcharts": "^12.6.0",
     "leaflet": "^1.9.4",
     "nedb": "^1.8.0",
     "path": "^0.12.7",
