@@ -47,51 +47,49 @@
         //FUNCION CARGAR DATOS INICIALES
     
 async function loadInitialData() {
-        // 1. Comprobamos si ya hay datos en la tabla
-        if (global_ad.length > 0) {
-            const userWantsToContinue = confirm("A continuación se borrará el contenido a cambio de los datos iniciales");
-            
-            if (!userWantsToContinue) {
-                return; 
-            }
+    // 1. Comprobamos si hay datos
+    if (global_ad.length > 0) {
+        const userWantsToContinue = confirm("Se borrará el contenido actual para cargar los datos iniciales.");
+        if (!userWantsToContinue) return;
 
-            // 2. Si acepta, primero borramos TODOS los datos del servidor para evitar el error 409 (Conflicto) al intentar cargar los iniciales.
-            try {
-                await fetch(API, { method: 'DELETE' });
-            } catch (e) {
-                console.error("Error al limpiar la base de datos:", e);
-            }
-        }
-
-        // 3. Una vez limpio el backend (o si ya estaba vacío), cargamos los datos por defecto
         try {
-            const res = await fetch(API + "/loadInitialData", {
-                method: 'GET'
-            }); 
-            
-            resultStatusCode = res.status;
-
-            if (res.ok || res.status === 201) {
-                // En lugar de asignar el json directo, llamamos a getData() 
-                // para asegurarnos de que traemos el estado real y actualizado de la base de datos
-                getData();
-            } else {
-                console.error("Error al cargar los datos iniciales. Status:", res.status);
-            }
-        } catch (error) {
-            console.error("Error de red:", error);
+            // Borramos y esperamos a que el servidor confirme
+            await fetch(API, { method: 'DELETE' });
+            global_ad = []; // Vaciamos localmente para feedback visual inmediato
+        } catch (e) {
+            console.error("Error al limpiar:", e);
         }
     }
+
+    // 2. Cargamos los datos iniciales
+    try {
+        const res = await fetch(API + "/loadInitialData", { method: 'GET' }); 
+        resultStatusCode = res.status;
+
+        if (res.ok || res.status === 201) {
+            // IMPORTANTE: Esperamos a que getData actualice el estado de global_ad
+            await getData(); 
+            console.log("Datos cargados y tabla actualizada");
+        }
+    } catch (error) {
+        console.error("Error de red:", error);
+    }
+}
 
 
         //FUNCION GET TODOS LOS DATOS
-    async function getData() {
-        const res = await fetch(API,{
-            method: 'GET'
-        });
-        const data = await res.json();
-        global_ad = data;
+async function getData() {
+    try {
+        const res = await fetch(API, { method: 'GET' });
+        if (res.ok) {
+            const data = await res.json();
+            // Esto dispara la reactividad en Svelte 5
+            global_ad = data; 
+        }
+    } catch (e) {
+        console.error("Error obteniendo datos:", e);
     }
+}
 
 
         //FUNCION POST UN ELEMENTO
