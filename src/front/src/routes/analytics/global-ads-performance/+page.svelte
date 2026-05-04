@@ -7,7 +7,38 @@
      */
     let chartContainer;
     let errorMessage = '';
+    let API = "/api/v1/global-ads-performance";
 
+    async function loadInitialData() {
+        errorMessage = "Cargando datos en la base de datos...";
+        try {
+            const res = await fetch(API + "/loadInitialData", { method: "GET" });
+            const resultStatusCode = await res.status;
+            
+            if (resultStatusCode == 200 || resultStatusCode == 409) {
+                // Primero dibujamos la gráfica con los nuevos datos
+                await onMount(); // Reutilizamos el mismo código de montaje para recargar la gráfica
+                
+                // DESPUÉS ponemos el mensaje de éxito
+                if (resultStatusCode == 200) {
+                    errorMessage = "¡Datos cargados con éxito!";
+                } else {
+                    errorMessage = "Los datos ya estaban cargados en el sistema.";
+                }
+
+                // Hacemos que el mensaje desaparezca a los 3.5 segundos
+                setTimeout(() => {
+                    errorMessage = "";
+                }, 3500);
+
+            } else {
+                errorMessage = "Error inesperado al cargar los datos iniciales.";
+            }
+        } catch (error) {
+            errorMessage = "Error de conexión con el servidor.";
+        }
+    }
+    
     onMount(async () => {
         if (browser) {
             try {
@@ -110,7 +141,10 @@
 
 <main>
     <h2>Dashboard global de Analíticas 2024</h2>
-    
+    <button class="buttonEnlace" onclick={loadInitialData} style="margin-bottom: 20px;">
+        Cargar Datos Iniciales
+    </button>
+
     {#if errorMessage}
         <div class="alert">{errorMessage}</div>
     {/if}
@@ -120,6 +154,7 @@
     <div class="button-map">
         <a class="buttonEnlace" href="/analytics/global-ads-performance/map">🌍 Ver Mapa Interactivo</a>
     </div>
+    
 </main>
 
 <style>
