@@ -1,16 +1,18 @@
-import { redirect, isRedirect } from '@sveltejs/kit'; // Añadimos isRedirect
+import { redirect, isRedirect } from '@sveltejs/kit';
 import { google } from 'googleapis';
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
-import { PUBLIC_BASE_URL } from '$env/static/public';
+// CAMBIO AQUÍ: Usamos dynamic en lugar de static
+import { env } from '$env/dynamic/private';
+import { env as envPublic } from '$env/dynamic/public';
 
 export const GET = async ({ url, cookies }) => {
     const code = url.searchParams.get('code');
     if (!code) throw redirect(302, '/?error=No_Code');
 
+    // CAMBIO AQUÍ: Llamamos a las variables desde el objeto env
     const oauth2Client = new google.auth.OAuth2(
-        GOOGLE_CLIENT_ID,
-        GOOGLE_CLIENT_SECRET,
-        `${PUBLIC_BASE_URL}/auth/callback`
+        env.GOOGLE_CLIENT_ID,
+        env.GOOGLE_CLIENT_SECRET,
+        `${envPublic.PUBLIC_BASE_URL}/auth/callback`
     );
 
     try {
