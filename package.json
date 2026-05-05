@@ -33,10 +33,13 @@
     "dotenv": "^17.4.2",
     "echarts": "^6.0.0",
     "express": "^5.2.1",
+    "googleapis": "^171.4.0",
     "highcharts": "^12.6.0",
     "leaflet": "^1.9.4",
     "nedb": "^1.8.0",
     "path": "^0.12.7",
+    "plotly": "^1.0.6",
+    "plotly.js-dist-min": "^3.5.1",
     "undici": "^8.1.0"
   },
   "devDependencies": {

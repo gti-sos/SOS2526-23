@@ -14,9 +14,9 @@
 <div class="integrations">
     <h1>Integraciones — David Ayllón Vela</h1>
     <ul>
-        <li><a href="/integrations/">API EXTRA 2</a></li>
-        <li><a href="/integrations/">API EXTRA 2</a></li>
-        <li><a href="/integrations/">API EXTRA 3</a></li>
+        <li><a href="/integrations/global-ads-performance/api-calendar">Google Calendar — Ads Performance</a></li>
+        <li><a href="/integrations/global-ads-performance/api2">API EXTRA 2</a></li>
+        <li><a href="/integrations/global-ads-performance/api3">API EXTRA 3</a></li>
         
         <li><a href="/integrations/sos/DAV-beneficial-ownership-merchant-fleets">G28 — Beneficial Ownership Merchant Fleets (SOS)</a></li>
         <li><a href="/integrations/sos/DAV-social-drinking-behaviors">G25 — Social Drinking Behaviors (SOS)</a></li>
