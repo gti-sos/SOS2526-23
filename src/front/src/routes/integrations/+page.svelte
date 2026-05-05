@@ -18,8 +18,9 @@
         <li><a href="/integrations/">API EXTRA 2</a></li>
         <li><a href="/integrations/">API EXTRA 3</a></li>
         
-        <li><a href="/integrations/sos/beneficial-ownership-merchant-fleets">G28 — Beneficial Ownership Merchant Fleets (SOS)</a></li>
-        <li><a href="/integrations/sos/social-drinking-behaviors">G25 — Social Drinking Behaviors (SOS)</a></li>
+        <li><a href="/integrations/sos/DAV-beneficial-ownership-merchant-fleets">G28 — Beneficial Ownership Merchant Fleets (SOS)</a></li>
+        <li><a href="/integrations/sos/DAV-social-drinking-behaviors">G25 — Social Drinking Behaviors (SOS)</a></li>
+        <li><a href="/integrations/sos/DAV-cereal-productions">G18 — Cereal Production (SOS)</a></li>
     </ul>
 </div>
 
