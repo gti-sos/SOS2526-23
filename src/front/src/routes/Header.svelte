@@ -10,6 +10,7 @@
                 </svg>
                 <span>GitHub</span>
             </a>
+             <a href="/about" class="nav-link">Acerca de</a>
         </nav>
     </div>
 </header>
