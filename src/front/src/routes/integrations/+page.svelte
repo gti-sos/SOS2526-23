@@ -3,6 +3,7 @@
     <ul>
         <li><a href="/integrations/github">GitHub — Actividad de repositorios (ECharts Heatmap)</a></li>
         <li><a href="/integrations/twitch">Twitch — Viewers por categoría (Plotly Scatter)</a></li>
+        <li><a href="/integrations/store">Tienda — Volumen Bolsa vs Precio Productos (Highcharts)</a></li>
         
         <li><a href="/integrations/sos/deaths-aids-stats">G21 — Deaths AIDS Stats (SOS)</a></li>
         <li><a href="/integrations/sos/company-esg-scores">G28 — Company ESG Scores (SOS)</a></li>
@@ -63,9 +64,11 @@
         color: #333;
         font-size: 1rem;
         border: 1px solid #ddd;
-        transition: background 0.2s ease;
+        transition: all 0.2s ease;
     }
     li a:hover {
         background: #e8e8e8;
+        transform: translateX(5px); /* Pequeño efecto visual al pasar el ratón */
+        border-color: #bbb;
     }
 </style>
