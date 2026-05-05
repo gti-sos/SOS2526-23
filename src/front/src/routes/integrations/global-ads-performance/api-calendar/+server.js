@@ -30,7 +30,7 @@ export const GET = async ({ cookies, fetch }) => {
         const resEvents = await calendar.events.list({
             calendarId: 'primary',
             timeMin: (new Date('2024-01-01')).toISOString(),
-            maxResults: 100,
+            maxResults: 1000,
             singleEvents: true,
             orderBy: 'startTime',
         });

@@ -58,12 +58,21 @@
 
             if (!res.ok) throw new Error("Error al obtener datos del servidor");
 
-            const { adsData, events } = await res.json();
-            todosLosAds = adsData;
+const { adsData, events } = await res.json();
 
-            // Filtrar eventos coincidentes
-            eventosValidos = events.filter(ev => 
-                adsData.some(ad => ad.date === ev.date)
+            // Función para asegurar que todas las fechas sean formato YYYY-MM-DD
+            const limpiarFecha = (fecha) => {
+                try { return new Date(fecha).toISOString().split('T')[0]; } 
+                catch (e) { return fecha; }
+            };
+
+            // Limpiamos ambos arrays antes de cruzarlos
+            todosLosAds = adsData.map(ad => ({ ...ad, date: limpiarFecha(ad.date) }));
+            const eventosLimpios = events.map(ev => ({ ...ev, date: limpiarFecha(ev.date) }));
+
+            // Ahora filtramos usando los datos limpios
+            eventosValidos = eventosLimpios.filter(ev => 
+                todosLosAds.some(ad => ad.date === ev.date)
             );
 
             // Seleccionar por defecto
@@ -89,11 +98,11 @@
                 subtitle: { text: `Análisis global del día: <b>${eventoSeleccionado.date}</b>`, useHTML: true },
                 pane: { startAngle: -90, endAngle: 89.9, center: ['50%', '75%'], size: '130%', background: null },
                 yAxis: {
-                    min: 0, max: 300000,
+                    min: 0, max: 200000,
                     plotBands: [
-                        { from: 0, to: 100000, color: '#DF5353', thickness: 25, label: { text: 'Bajo' } },
-                        { from: 100000, to: 200000, color: '#DDDF0D', thickness: 25, label: { text: 'Medio' } },
-                        { from: 200000, to: 300000, color: '#55BF3B', thickness: 25, label: { text: 'Óptimo' } }
+                        { from: 0, to: 75000, color: '#DF5353', thickness: 25, label: { text: 'Bajo' } },
+                        { from: 75000, to: 125000, color: '#DDDF0D', thickness: 25, label: { text: 'Medio' } },
+                        { from: 125000, to: 200000, color: '#55BF3B', thickness: 25, label: { text: 'Óptimo' } }
                     ]
                 },
                 series: [{
