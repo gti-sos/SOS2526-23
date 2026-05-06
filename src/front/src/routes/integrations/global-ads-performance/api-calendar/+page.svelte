@@ -104,7 +104,7 @@ const { adsData, events } = await res.json();
                         { from: 75000, to: 125000, color: '#DDDF0D', thickness: 25, label: { text: 'Medio' } },
                         { from: 125000, to: 200000, color: '#55BF3B', thickness: 25, label: { text: 'Óptimo' } }
                     ]
-                },
+                }, 
                 series: [{
                     name: 'Revenue Global',
                     data: [Math.round(revenueActual)],
