@@ -1,45 +1,73 @@
 <script>
     import { onMount, tick } from 'svelte';
-    // Estados de Svelte 5
-    let chartContainer = $state();
-    let chartInstance = $state();
+    
+    // ==========================================
+    // 1. DEFINICIÓN DE ESTADOS (SVELTE 5 REACTIVITY)
+    // ==========================================
+    // Svelte 5 usa $state() para declarar variables reactivas. 
+    // Si el valor de estas variables cambia, el HTML se actualiza automáticamente.
+    
+    // Referencias al DOM y a la librería
+    let chartContainer = $state(); // Apunta al <div> donde se dibuja la gráfica
+    let chartInstance = $state();  // Guarda el objeto interno de Highcharts para poder actualizarlo sin recargar
+    
+    // Control de la Interfaz de Usuario (UI)
     let autenticado = $state(true);
     let cargando = $state(true);
     let errorCarga = $state("");
 
-    // Datos maestros
+    // Datos maestros descargados de las APIs
     let todosLosAds = $state([]);
-    let eventosValidos = $state([]);
+    let eventosValidos = $state([]); // Eventos filtrados que sí tienen coincidencia con Ads
     
-    // Selección actual
-    let eventoSeleccionado = $state(null);
-    let revenueActual = $state(0);
+    // Estado de la vista actual
+    let eventoSeleccionado = $state(null); // Objeto del evento elegido en el desplegable
+    let revenueActual = $state(0);         // Suma de dinero generada ese día
 
-    // Función para calcular el total de todos los continentes de una fecha
+    // ==========================================
+    // 2. FUNCIONES AUXILIARES
+    // ==========================================
+
+    /**
+     * Filtra la lista global de Ads buscando los registros de una fecha concreta
+     * y suma el 'revenue' de todos los continentes en ese día.
+     */
     const calcularTotalDia = (fecha) => {
         return todosLosAds
             .filter(ad => ad.date === fecha)
             .reduce((sum, ad) => sum + Number(ad.revenue), 0);
     };
 
-    // Función para actualizar la gráfica cuando cambia el selector
+    /**
+     * Se ejecuta cada vez que el usuario cambia el valor del <select>.
+     * Calcula el nuevo total y anima la aguja del velocímetro sin redibujar toda la página.
+     */
     const actualizarGrafica = () => {
         if (!eventoSeleccionado || !chartInstance) return;
 
+        // Recalculamos ingresos para la nueva fecha
         const nuevoTotal = calcularTotalDia(eventoSeleccionado.date);
         revenueActual = nuevoTotal;
 
-        // Actualizamos título y datos de la aguja
+        // Actualizamos los textos (título/subtítulo) de la gráfica
         chartInstance.update({
             title: { text: `Impacto: ${eventoSeleccionado.title}` },
             subtitle: { text: `Análisis global del día: <b>${eventoSeleccionado.date}</b>`, useHTML: true }
         });
+        
+        // Movemos la aguja a la nueva posición
         chartInstance.series[0].points[0].update(Math.round(nuevoTotal));
     };
 
+    // ==========================================
+    // 3. CICLO DE VIDA: INICIALIZACIÓN (onMount)
+    // ==========================================
     onMount(async () => {
         try {
-            // IMPORTACIÓN DINÁMICA
+            // IMPORTACIÓN DINÁMICA DE HIGHCHARTS
+            // Lo importamos aquí (y no arriba) para evitar el error "SeriesRegistry is undefined".
+            // Así garantizamos que la librería de gráficos solo se cargue en el navegador (Cliente) 
+            // y no durante la compilación en el servidor de Render (SSR).
             const Highcharts = (await import('highcharts')).default;
             const HighchartsMore = (await import('highcharts/highcharts-more')).default;
             const Accessibility = (await import('highcharts/modules/accessibility')).default;
@@ -47,9 +75,11 @@
             if (typeof HighchartsMore === 'function') HighchartsMore(Highcharts);
             if (typeof Accessibility === 'function') Accessibility(Highcharts);
 
-            // Carga de datos desde tu Proxy
+            // LLAMADA AL PROXY
+            // Pedimos los datos cruzados a nuestro backend
             const res = await fetch('/integrations/global-ads-performance/api-calendar'); 
             
+            // Si el proxy responde 401, el usuario no tiene token de Google. Paramos la carga.
             if (res.status === 401) {
                 autenticado = false;
                 cargando = false;
@@ -58,40 +88,52 @@
 
             if (!res.ok) throw new Error("Error al obtener datos del servidor");
 
-const { adsData, events } = await res.json();
+            const { adsData, events } = await res.json();
 
-            // Función para asegurar que todas las fechas sean formato YYYY-MM-DD
+            // NORMALIZACIÓN DE FECHAS
+            // Aseguramos que tanto Google como nuestra API hablen el mismo "idioma" de fechas (YYYY-MM-DD)
+            // para que el cruce de datos sea exacto.
             const limpiarFecha = (fecha) => {
                 try { return new Date(fecha).toISOString().split('T')[0]; } 
                 catch (e) { return fecha; }
             };
 
-            // Limpiamos ambos arrays antes de cruzarlos
+            // Aplicamos la limpieza
             todosLosAds = adsData.map(ad => ({ ...ad, date: limpiarFecha(ad.date) }));
             const eventosLimpios = events.map(ev => ({ ...ev, date: limpiarFecha(ev.date) }));
 
-            // Ahora filtramos usando los datos limpios
+            // CRUZAR DATOS (INNER JOIN)
+            // Nos quedamos exclusivamente con los eventos del calendario que ocurrieron en un día
+            // donde también tenemos registros de publicidad.
             eventosValidos = eventosLimpios.filter(ev => 
                 todosLosAds.some(ad => ad.date === ev.date)
             );
 
-            // Seleccionar por defecto
+            // ESTADO POR DEFECTO
+            // Cargamos el primer evento disponible en el selector al entrar a la página
             if (eventosValidos.length > 0) {
                 eventoSeleccionado = eventosValidos[0];
             } else {
+                // Failsafe: Si no hay eventos cruzados, mostramos el último día con métricas
                 const ultimaFecha = adsData[adsData.length - 1].date;
                 eventoSeleccionado = { title: "Últimos datos disponibles", date: ultimaFecha };
             }
 
+            // Calculamos el revenue de este primer evento para poner la aguja en su sitio
             revenueActual = calcularTotalDia(eventoSeleccionado.date);
 
-            // 1. Quitamos la pantalla de carga
-            cargando = false;
+            // ==========================================
+            // 4. RENDERIZADO DE LA GRÁFICA
+            // ==========================================
             
-            // 2. Esperamos a que Svelte dibuje el <div> en la pantalla
+            cargando = false; // Quitamos el estado de carga
+            
+            // EL TRUCO DEL TICK()
+            // Svelte necesita un instante para quitar el "Cargando..." y dibujar el <div bind:this={chartContainer}> en el HTML.
+            // tick() hace una micropausa obligatoria para garantizar que el div ya existe antes de que Highcharts intente usarlo.
             await tick();
 
-            // Crear la gráfica inicial
+            // Inyectamos la gráfica en el contenedor
             chartInstance = Highcharts.chart(chartContainer, {
                 chart: { type: 'gauge', backgroundColor: 'transparent', spacingBottom: 40 },
                 title: { text: `Impacto: ${eventoSeleccionado.title}`, style: { fontWeight: 'bold' } },
@@ -99,7 +141,7 @@ const { adsData, events } = await res.json();
                 pane: { startAngle: -90, endAngle: 89.9, center: ['50%', '75%'], size: '130%', background: null },
                 yAxis: {
                     min: 0, max: 200000,
-                    plotBands: [
+                    plotBands: [ // Definimos las zonas de semáforo de ingresos
                         { from: 0, to: 75000, color: '#DF5353', thickness: 25, label: { text: 'Bajo' } },
                         { from: 75000, to: 125000, color: '#DDDF0D', thickness: 25, label: { text: 'Medio' } },
                         { from: 125000, to: 200000, color: '#55BF3B', thickness: 25, label: { text: 'Óptimo' } }
@@ -112,10 +154,9 @@ const { adsData, events } = await res.json();
                     dial: { radius: '80%', backgroundColor: 'gray', baseWidth: 12 },
                     pivot: { radius: 6, backgroundColor: 'gray' }
                 }],
-                credits: { enabled: false }
+                credits: { enabled: false } // Oculta el logo de Highcharts
             });
 
-            cargando = false;
         } catch (error) {
             errorCarga = error.message;
             cargando = false;
@@ -124,6 +165,7 @@ const { adsData, events } = await res.json();
 </script>
 
 <main style="padding: 2rem; max-width: 1000px; margin: 0 auto; font-family: sans-serif;">
+    
     {#if !autenticado}
         <div style="text-align: center; padding: 4rem; border: 2px dashed #4285F4; border-radius: 15px;">
             <h2>🔓 Área de Clientes</h2>
@@ -131,12 +173,15 @@ const { adsData, events } = await res.json();
                 Conectar con Google Calendar
             </button>
         </div>
+        
     {:else if errorCarga}
         <p style="color: red; text-align: center;"><strong>Error:</strong> {errorCarga}</p>
+        
     {:else if cargando}
         <div style="text-align: center; padding: 4rem;">
             <p style="font-size: 18px; color: #4285F4; font-weight: bold;">🔄 Sincronizando con Google Calendar...</p>
         </div>
+        
     {:else}
         <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; border: 1px solid #dee2e6; text-align: center;">
             <label for="event-select" style="display: block; margin-bottom: 0.5rem; font-weight: bold; color: #495057;">
@@ -176,6 +221,7 @@ const { adsData, events } = await res.json();
 </main>
 
 <style>
+    /* Estilo encapsulado para el botón de acceso de Google */
     .btn-google {
         background: #4285F4;
         color: white;
