@@ -12,7 +12,7 @@ export const GET = async ({ url, cookies }) => {
     const oauth2Client = new google.auth.OAuth2(
         env.GOOGLE_CLIENT_ID_DAVID,
         env.GOOGLE_CLIENT_SECRET_DAVID,
-        `${envPublic.PUBLIC_BASE_URL}/auth/callback`
+        `${envPublic.BASE_URL}/auth/callback`
     );
 
     try {
