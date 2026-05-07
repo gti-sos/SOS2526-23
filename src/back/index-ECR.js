@@ -224,6 +224,7 @@ export function loadBackEndECR(app) {
             const clientSecret = process.env.TWITCH_CLIENT_SECRET_EMILIO;
 
             if (!clientId || !clientSecret) {
+                console.error("❌ Faltan variables de entorno de Twitch");
                 return res.status(500).json({ message: "Faltan TWITCH_CLIENT_ID_EMILIO o TWITCH_CLIENT_SECRET_EMILIO en el .env" });
             }
 
@@ -240,7 +241,11 @@ export function loadBackEndECR(app) {
             const accessToken = tokenData.access_token;
 
             if (!accessToken) {
-                throw new Error("No se pudo obtener el Access Token de Twitch");
+                console.error("❌ Twitch no devolvió access_token:", JSON.stringify(tokenData));
+                return res.status(502).json({ 
+                    message: "No se pudo obtener el Access Token de Twitch",
+                    twitchResponse: tokenData
+                });
             }
 
             const twitchDataResponse = await fetch('https://api.twitch.tv/helix/games/top?first=5', {
@@ -252,6 +257,15 @@ export function loadBackEndECR(app) {
             });
             const twitchData = await twitchDataResponse.json();
 
+            if (!twitchData.data) {
+                console.error("❌ Twitch no devolvió .data:", JSON.stringify(twitchData));
+                return res.status(502).json({ 
+                    message: "Twitch no devolvió datos válidos",
+                    twitchResponse: twitchData
+                });
+            }
+
+            console.log("✅ Twitch OK, juegos recibidos:", twitchData.data.length);
             res.status(200).json(twitchData.data);
 
         } catch (error) {
@@ -259,7 +273,7 @@ export function loadBackEndECR(app) {
             res.status(500).json({ message: "Error interno del servidor al conectar con Twitch", error: error.message });
         }
     });
-
+    
     // =====================================================================
     // INTEGRACIÓN FAKESTORE - PROXY (PRODUCTOS vs BOLSA)
     // =====================================================================
