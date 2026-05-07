@@ -4,6 +4,7 @@ util.isRegExp = function(re) { return re instanceof RegExp; };
 
 import https from 'https';
 import Datastore from 'nedb';
+import cors from 'cors'; // <--- NUEVA IMPORTACIÓN
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
@@ -25,6 +26,9 @@ function limpiarId(doc) {
 }
 
 export function loadBackEndECR(app) {
+    // ACTIVAMOS CORS para que el frontend (5173) pueda acceder al backend (3000)
+    app.use(cors());
+    
     const datosIndices = [
         { date: "2024-01-01", index_name: "S&P 500", region: "North America", open: 37740.57, high: 38171.04, low: 37552.74, close: 38125.97, volume: 34594679, daily_change_percent: 1.02 },
         { date: "2024-01-01", index_name: "NASDAQ Composite", region: "North America", open: 12519.37, high: 12926.14, low: 12249.50, close: 12654.15, volume: 39548535, daily_change_percent: 1.08 },
@@ -162,7 +166,7 @@ export function loadBackEndECR(app) {
     });
 
     // =====================================================================
-    // INTEGRACIÓN GITHUB - PROXY (ACTUALIZADO)
+    // USO GITHUB - PROXY
     // =====================================================================
     app.get(BASE_URL_API + '/integrations/github', async (req, res) => {
         try {
@@ -183,11 +187,10 @@ export function loadBackEndECR(app) {
                     headers: {
                         'Authorization': 'Bearer ' + token,
                         'Accept': 'application/vnd.github+json',
-                        'User-Agent': 'SOS2526-23-App-Emilio' // <-- ¡ESTO EVITA EL BLOQUEO!
+                        'User-Agent': 'SOS2526-23-App-Emilio'
                     }
                 });
 
-                // Si GitHub nos bloquea, lo imprimimos claramente en la consola
                 if (!response.ok) {
                     const errorText = await response.text();
                     console.error(`❌ Error de GitHub en el repo ${repo}: Código ${response.status} - ${errorText}`);
@@ -213,7 +216,7 @@ export function loadBackEndECR(app) {
     });
 
     // =====================================================================
-    // INTEGRACIÓN TWITCH - PROXY OAUTH (MÁXIMA PUNTUACIÓN)
+    // INTEGRACIÓN TWITCH - PROXY OAUTH 
     // =====================================================================
     app.get(BASE_URL_API + '/proxy/twitch', async (req, res) => {
         try {
@@ -224,7 +227,6 @@ export function loadBackEndECR(app) {
                 return res.status(500).json({ message: "Faltan TWITCH_CLIENT_ID o TWITCH_CLIENT_SECRET en el .env" });
             }
 
-            // 1. Pedir el Token de acceso (OAuth - Client Credentials)
             const tokenResponse = await fetch('https://id.twitch.tv/oauth2/token', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -241,7 +243,6 @@ export function loadBackEndECR(app) {
                 throw new Error("No se pudo obtener el Access Token de Twitch");
             }
 
-            // 2. Usar el Token para pedir datos a la API de Twitch (ej. Top 5 Juegos)
             const twitchDataResponse = await fetch('https://api.twitch.tv/helix/games/top?first=5', {
                 method: 'GET',
                 headers: {
@@ -251,7 +252,6 @@ export function loadBackEndECR(app) {
             });
             const twitchData = await twitchDataResponse.json();
 
-            // 3. Devolver los datos al frontend
             res.status(200).json(twitchData.data);
 
         } catch (error) {
@@ -259,4 +259,29 @@ export function loadBackEndECR(app) {
             res.status(500).json({ message: "Error interno del servidor al conectar con Twitch", error: error.message });
         }
     });
+
+    // =====================================================================
+    // INTEGRACIÓN FAKESTORE - PROXY (PRODUCTOS vs BOLSA)
+    // =====================================================================
+    app.get(BASE_URL_API + '/proxy/store', async (req, res) => {
+        try {
+            const storeResponse = await fetch('https://fakestoreapi.com/products?limit=5', {
+                method: 'GET'
+            });
+
+            if (!storeResponse.ok) {
+                throw new Error("Fallo al obtener datos de la tienda");
+            }
+
+            const storeData = await storeResponse.json();
+
+            // Devolvemos los datos de los productos al frontend
+            res.status(200).json(storeData);
+
+        } catch (error) {
+            console.error("❌ Error en el proxy de FakeStore:", error);
+            res.status(500).json({ message: "Error conectando con la tienda", error: error.message });
+        }
+    });
+
 }
