@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { google } from 'googleapis';
 // CAMBIO AQUÍ
 import { env } from '$env/dynamic/private';
-import { env as envPublic } from '$env/dynamic/public';
+import { env as envPublic } from '$env/dynamic/private';
 
 export const GET = async () => {
     const oauth2Client = new google.auth.OAuth2(
