@@ -169,7 +169,7 @@
     {#if !autenticado}
         <div style="text-align: center; padding: 4rem; border: 2px dashed #4285F4; border-radius: 15px;">
             <h2>🔓 Área de Clientes</h2>
-            <button onclick={() => window.location.href = '/auth/login'} class="btn-google">
+            <button onclick={() => window.location.href = '/auth/calendar/login'} class="btn-google">
                 Conectar con Google Calendar
             </button>
         </div>
