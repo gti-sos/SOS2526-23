@@ -2,7 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 
 export const GET = async ({ url, cookies }) => {
-    // 1. Extraemos el código que nos envía HubSpot en la URL
+    // 1. Extraemos el código temporal que nos envía HubSpot en la URL
     const code = url.searchParams.get('code');
     
     if (!code) {
