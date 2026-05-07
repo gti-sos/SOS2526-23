@@ -171,11 +171,11 @@ export function loadBackEndECR(app) {
     app.get(BASE_URL_API + '/integrations/github', async (req, res) => {
         try {
             console.log("Iniciando petición al proxy de GitHub...");
-            const token = process.env.GITHUB_TOKEN;
+            const token = process.env.GITHUB_TOKEN_EMILIO;
 
             if (!token) {
-                console.error("❌ Faltan credenciales: No se encontró GITHUB_TOKEN en el .env");
-                return res.status(500).json({ message: "Falta GITHUB_TOKEN en .env" });
+                console.error("❌ Faltan credenciales: No se encontró GITHUB_TOKEN_EMILIO en el .env");
+                return res.status(500).json({ message: "Falta GITHUB_TOKEN_EMILIO en .env" });
             }
 
             const repos = ['facebook/react', 'vuejs/vue', 'angular/angular', 'sveltejs/svelte', 'nodejs/node'];
@@ -220,11 +220,11 @@ export function loadBackEndECR(app) {
     // =====================================================================
     app.get(BASE_URL_API + '/proxy/twitch', async (req, res) => {
         try {
-            const clientId = process.env.TWITCH_CLIENT_ID;
-            const clientSecret = process.env.TWITCH_CLIENT_SECRET;
+            const clientId = process.env.TWITCH_CLIENT_ID_EMILIO;
+            const clientSecret = process.env.TWITCH_CLIENT_SECRET_EMILIO;
 
             if (!clientId || !clientSecret) {
-                return res.status(500).json({ message: "Faltan TWITCH_CLIENT_ID o TWITCH_CLIENT_SECRET en el .env" });
+                return res.status(500).json({ message: "Faltan TWITCH_CLIENT_ID_EMILIO o TWITCH_CLIENT_SECRET_EMILIO en el .env" });
             }
 
             const tokenResponse = await fetch('https://id.twitch.tv/oauth2/token', {
