@@ -41,7 +41,7 @@
     let searchRevenue = $state("");
 
     if (dev)
-        API = "http://localhost:3000"+API;
+        API = ""+API;
     
 
         //FUNCION CARGAR DATOS INICIALES

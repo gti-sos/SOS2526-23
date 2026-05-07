@@ -11,7 +11,7 @@
 
     let API = '/api/v1/online-sales-popular-marketplaces';
     if (dev){
-        API = 'http://localhost:3000' + API;
+        API = '' + API;
     }
 
     // @ts-ignore
