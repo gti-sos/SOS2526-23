@@ -15,8 +15,8 @@ export const GET = async ({ url, cookies }) => {
         // HubSpot requiere que enviemos los datos como x-www-form-urlencoded
         const formData = new URLSearchParams();
         formData.append('grant_type', 'authorization_code');
-        formData.append('client_id', env.HUBSPOT_CLIENT_ID);
-        formData.append('client_secret', env.HUBSPOT_CLIENT_SECRET);
+        formData.append('client_id', env.HUBSPOT_CLIENT_ID_DAVID);
+        formData.append('client_secret', env.HUBSPOT_CLIENT_SECRET_DAVID);
         formData.append('redirect_uri', `${env.BASE_URL}/auth/hubspot/callback`);
         formData.append('code', code);
 

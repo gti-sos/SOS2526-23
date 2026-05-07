@@ -9,7 +9,7 @@ export const GET = async () => {
     const redirectUri = encodeURIComponent(`${env.BASE_URL}/auth/hubspot/callback`);
     
     // 3. Montamos la URL oficial de autorización de HubSpot
-    const hubspotAuthUrl = `https://app.hubspot.com/oauth/authorize?client_id=${env.HUBSPOT_CLIENT_ID}&redirect_uri=${redirectUri}&scope=${scope}`;
+    const hubspotAuthUrl = `https://app.hubspot.com/oauth/authorize?client_id=${env.HUBSPOT_CLIENT_ID_DAVID}&redirect_uri=${redirectUri}&scope=${scope}`;
 
     // 4. Redirigimos al usuario a la pantalla de permisos de HubSpot
     throw redirect(302, hubspotAuthUrl);
