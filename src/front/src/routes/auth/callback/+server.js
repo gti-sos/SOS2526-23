@@ -2,7 +2,7 @@ import { redirect, isRedirect } from '@sveltejs/kit';
 import { google } from 'googleapis';
 // CAMBIO AQUÍ: Usamos dynamic en lugar de static
 import { env } from '$env/dynamic/private';
-import { env as envPublic } from '$env/dynamic/public';
+import { env as envPublic } from '$env/dynamic/private';
 
 export const GET = async ({ url, cookies }) => {
     const code = url.searchParams.get('code');
