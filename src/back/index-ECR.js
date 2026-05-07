@@ -4,7 +4,7 @@ util.isRegExp = function(re) { return re instanceof RegExp; };
 
 import https from 'https';
 import Datastore from 'nedb';
-import cors from 'cors'; // <--- NUEVA IMPORTACIÓN
+import cors from 'cors';
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
@@ -26,7 +26,6 @@ function limpiarId(doc) {
 }
 
 export function loadBackEndECR(app) {
-    // ACTIVAMOS CORS para que el frontend (5173) pueda acceder al backend (3000)
     app.use(cors());
     
     const datosIndices = [
@@ -43,6 +42,21 @@ export function loadBackEndECR(app) {
     ];
 
     const db = new Datastore({ filename: './dailyIndicators.db', autoload: true });
+
+    // ✅ AUTO-CARGA: si la BD está vacía al arrancar, inserta los datos iniciales
+    db.find({}, (err, docs) => {
+        if (!err && docs.length === 0) {
+            db.insert(datosIndices, (insertErr) => {
+                if (insertErr) {
+                    console.error("❌ Error al insertar datos iniciales ECR:", insertErr);
+                } else {
+                    console.log("✅ Datos iniciales ECR insertados automáticamente:", datosIndices.length, "registros");
+                }
+            });
+        } else {
+            console.log("ℹ️ BD ECR ya tiene datos:", docs.length, "registros");
+        }
+    });
 
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators/docs', (req, res) => {
         res.redirect('https://documenter.getpostman.com/view/52708852/2sBXigLYL8');
@@ -224,6 +238,7 @@ export function loadBackEndECR(app) {
             const clientSecret = process.env.TWITCH_CLIENT_SECRET_EMILIO;
 
             if (!clientId || !clientSecret) {
+                console.error("❌ Faltan variables de entorno de Twitch");
                 return res.status(500).json({ message: "Faltan TWITCH_CLIENT_ID_EMILIO o TWITCH_CLIENT_SECRET_EMILIO en el .env" });
             }
 
@@ -240,7 +255,11 @@ export function loadBackEndECR(app) {
             const accessToken = tokenData.access_token;
 
             if (!accessToken) {
-                throw new Error("No se pudo obtener el Access Token de Twitch");
+                console.error("❌ Twitch no devolvió access_token:", JSON.stringify(tokenData));
+                return res.status(502).json({ 
+                    message: "No se pudo obtener el Access Token de Twitch",
+                    twitchResponse: tokenData
+                });
             }
 
             const twitchDataResponse = await fetch('https://api.twitch.tv/helix/games/top?first=5', {
@@ -252,6 +271,15 @@ export function loadBackEndECR(app) {
             });
             const twitchData = await twitchDataResponse.json();
 
+            if (!twitchData.data) {
+                console.error("❌ Twitch no devolvió .data:", JSON.stringify(twitchData));
+                return res.status(502).json({ 
+                    message: "Twitch no devolvió datos válidos",
+                    twitchResponse: twitchData
+                });
+            }
+
+            console.log("✅ Twitch OK, juegos recibidos:", twitchData.data.length);
             res.status(200).json(twitchData.data);
 
         } catch (error) {
@@ -259,7 +287,7 @@ export function loadBackEndECR(app) {
             res.status(500).json({ message: "Error interno del servidor al conectar con Twitch", error: error.message });
         }
     });
-
+    
     // =====================================================================
     // INTEGRACIÓN FAKESTORE - PROXY (PRODUCTOS vs BOLSA)
     // =====================================================================
@@ -274,8 +302,6 @@ export function loadBackEndECR(app) {
             }
 
             const storeData = await storeResponse.json();
-
-            // Devolvemos los datos de los productos al frontend
             res.status(200).json(storeData);
 
         } catch (error) {
@@ -283,5 +309,4 @@ export function loadBackEndECR(app) {
             res.status(500).json({ message: "Error conectando con la tienda", error: error.message });
         }
     });
-
 }
