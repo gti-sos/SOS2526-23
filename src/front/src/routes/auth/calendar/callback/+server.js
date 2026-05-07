@@ -27,7 +27,7 @@ export const GET = async ({ url, cookies }) => {
         });
 
         // 302 a la ruta de tu integración para que veas la gráfica directamente
-        throw redirect(302, '/integrations');
+        throw redirect(302, '/integrations/global-ads-performance/api-calendar');
         
     } catch (error) {
         // SI ES UN REDIRECT, LO LANZAMOS DE NUEVO (esto evita el fallo)
