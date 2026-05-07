@@ -4,7 +4,7 @@ util.isRegExp = function(re) { return re instanceof RegExp; };
 
 import https from 'https';
 import Datastore from 'nedb';
-import cors from 'cors'; // <--- NUEVA IMPORTACIÓN
+import cors from 'cors';
 
 const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
@@ -26,7 +26,6 @@ function limpiarId(doc) {
 }
 
 export function loadBackEndECR(app) {
-    // ACTIVAMOS CORS para que el frontend (5173) pueda acceder al backend (3000)
     app.use(cors());
     
     const datosIndices = [
@@ -43,6 +42,21 @@ export function loadBackEndECR(app) {
     ];
 
     const db = new Datastore({ filename: './dailyIndicators.db', autoload: true });
+
+    // ✅ AUTO-CARGA: si la BD está vacía al arrancar, inserta los datos iniciales
+    db.find({}, (err, docs) => {
+        if (!err && docs.length === 0) {
+            db.insert(datosIndices, (insertErr) => {
+                if (insertErr) {
+                    console.error("❌ Error al insertar datos iniciales ECR:", insertErr);
+                } else {
+                    console.log("✅ Datos iniciales ECR insertados automáticamente:", datosIndices.length, "registros");
+                }
+            });
+        } else {
+            console.log("ℹ️ BD ECR ya tiene datos:", docs.length, "registros");
+        }
+    });
 
     app.get(BASE_URL_API + '/daily-global-stock-market-indicators/docs', (req, res) => {
         res.redirect('https://documenter.getpostman.com/view/52708852/2sBXigLYL8');
@@ -288,8 +302,6 @@ export function loadBackEndECR(app) {
             }
 
             const storeData = await storeResponse.json();
-
-            // Devolvemos los datos de los productos al frontend
             res.status(200).json(storeData);
 
         } catch (error) {
@@ -297,5 +309,4 @@ export function loadBackEndECR(app) {
             res.status(500).json({ message: "Error conectando con la tienda", error: error.message });
         }
     });
-
 }
