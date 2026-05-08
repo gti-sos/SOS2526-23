@@ -37,8 +37,8 @@
         try {
             // Peticiones en paralelo para ganar velocidad
             const [resBolsa, resStore] = await Promise.all([
-                fetch('http://localhost:3000/api/v1/daily-global-stock-market-indicators'),
-                fetch('http://localhost:3000/api/v1/proxy/store')
+                fetch('/api/v1/daily-global-stock-market-indicators'),
+                fetch('/api/v1/proxy/store')
             ]);
 
             if (!resBolsa.ok || !resStore.ok) throw new Error("Error en las APIs");

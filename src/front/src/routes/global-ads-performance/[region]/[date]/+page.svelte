@@ -30,7 +30,7 @@
     let updatedRevenue = $state(0);
 
     if (dev)
-        API = "http://localhost:3000"+API;
+        API = ""+API;
     
 
         //FUNCION GET
