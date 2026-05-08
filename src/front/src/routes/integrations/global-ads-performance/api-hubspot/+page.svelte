@@ -75,9 +75,11 @@
 
             // Formateamos los datos para que el widget los digiera fácilmente
             datosCompletos = fechasUnicas.map(fecha => {
+                
+                // CAMBIO AQUÍ: Ahora sumamos 'ad_spend' en lugar de 'revenue'
                 const sumaAds = ads
                     .filter(ad => limpiarFecha(ad.date) === fecha)
-                    .reduce((sum, ad) => sum + Number(ad.revenue || 0), 0);
+                    .reduce((sum, ad) => sum + Number(ad.ad_spend || 0), 0);
                     
                 const sumaVentas = sales
                     .filter(deal => limpiarFecha(deal.properties.closedate) === fecha)
@@ -98,8 +100,9 @@
                 data: {
                     labels: [],
                     datasets: [
-                        { label: 'Ingresos Ads', data: [], backgroundColor: '#36a2eb', borderRadius: 4 },
-                        { label: 'Ventas CRM', data: [], backgroundColor: '#4bc0c0', borderRadius: 4 }
+                        // CAMBIO DE ETIQUETA AQUÍ
+                        { label: 'Inversión Ads (Spend)', data: [], backgroundColor: '#36a2eb', borderRadius: 4 },
+                        { label: 'Ventas CRM (Ingreso)', data: [], backgroundColor: '#4bc0c0', borderRadius: 4 }
                     ]
                 },
                 options: {
@@ -142,7 +145,7 @@
             
             <div class="cards-grid">
                 <div class="card">
-                    <h4>Total Ingresos (Ads)</h4>
+                    <h4>Inversión Total (Ads)</h4>
                     <strong class="text-blue">{Math.round(totalAds).toLocaleString()} USD</strong>
                 </div>
                 <div class="card">
@@ -175,7 +178,6 @@
 </main>
 
 <style>
-    /* Estilos del Widget para darle apariencia profesional y compacta */
     .widget-container {
         padding: 2rem;
         max-width: 1000px;
@@ -229,7 +231,6 @@
         border-radius: 8px;
     }
 
-    /* Estilos Login */
     .auth-box {
         text-align: center; 
         padding: 4rem; 
