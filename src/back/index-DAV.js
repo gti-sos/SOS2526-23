@@ -5,26 +5,31 @@ const BASE_URL_API_V2 = "/api/v2";
 
 const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 
-// Inicializamos las dos bases de datos en memoria
+// INICIALIZACIÓN DE BASE DE DATOS
+// Usamos NeDB porque es un motor en memoria/ligero ideal para desarrollo ágil y prototipado.
+// Separamos físicamente V1 de V2 para garantizar que los datos y experimentos de una versión 
+// no corrompan ni afecten a la otra.
 const dbV1 = new DataStore();
-const dbV2 = new DataStore({ autoload: true });
-
+const dbV2 = new DataStore({ autoload: true }); // autoload asegura que la base de datos esté lista al iniciar
 
 export function loadBackEndDAV(app) {
 
-       // GET /DOCS
+    // =========================================================================
+    // API VERSIÓN 1 (V1)
+    // =========================================================================
+
+    // GET /DOCS - Redirección a la documentación oficial en Postman
     app.get(BASE_URL_API + "/global-ads-performance/docs", (req, res) => {
         res.redirect(DOC_URL);
-
     });
 
-
-
     // 1. CARGA DE DATOS INICIALES (loadInitialData)
+    // Propósito: Poblar la base de datos rápidamente para pruebas.
     app.get(BASE_URL_API + "/global-ads-performance/loadInitialData", (req, res) => {
+        // Primero verificamos si ya hay datos para evitar duplicados masivos
         dbV1.find({}, (err, docs) => {
             if (docs.length === 0) {
-                // Aquí metemos el array exacto para que NeDB lo inserte
+                // Si está vacía, preparamos el array de datos semilla (Seed Data)
                 const newData = [
                     { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
                     { region: "Europe", date: "2024-01-22", platform: "TikTok Ads", industry: "EdTech", impression: 135608, click: 5220, ad_spend: 6159.60, conversion: 411, revenue: 64126.68 },
@@ -40,37 +45,40 @@ export function loadBackEndDAV(app) {
                 ];
                 
                 dbV1.insert(newData, (err, newDocs) => {
-                    res.status(201).json(newDocs); // 201 Created
+                    res.status(201).json(newDocs); // 201 Created: El estándar REST para recursos creados con éxito
                 });
             } else {
-                res.status(409).json({ message: "Ya existen datos" }); // 409 Conflict
+                res.status(409).json({ message: "Ya existen datos" }); // 409 Conflict: Indica que la acción choca con el estado actual del servidor
             }
         });
     });
 
-// 2. GET COLECCIÓN COMPLETA (Con Búsquedas y Paginación - Requisitos 3 y 4)
+    // 2. GET COLECCIÓN COMPLETA (Con Búsquedas y Paginación - Requisitos 3 y 4)
     app.get(BASE_URL_API + "/global-ads-performance", (req, res) => {
         
+        // Construimos un objeto de búsqueda dinámico basado en los query params recibidos
         const searchQuery = {};
 
         // --- LÓGICA DE BÚSQUEDAS (Requisito 3) ---
+        // Strings directos
         if (req.query.region) searchQuery.region = req.query.region;
         if (req.query.date) searchQuery.date = req.query.date;
         if (req.query.platform) searchQuery.platform = req.query.platform;
         if (req.query.industry) searchQuery.industry = req.query.industry;
         
+        // Parseo estricto de números para que el motor de base de datos pueda compararlos matemáticamente
         if (req.query.impression) searchQuery.impression = parseInt(req.query.impression);
         if (req.query.click) searchQuery.click = parseInt(req.query.click);
         if (req.query.ad_spend) searchQuery.ad_spend = parseFloat(req.query.ad_spend);
         if (req.query.conversion) searchQuery.conversion = parseInt(req.query.conversion);
         if (req.query.revenue) searchQuery.revenue = parseFloat(req.query.revenue);
 
-        // Preparamos la consulta a la base de datos (SIN el callback todavía)
+        // Preparamos la consulta a la base de datos (SIN ejecutarla todavía)
         let dbQuery = dbV1.find(searchQuery);
 
         
         // --- LÓGICA DE PAGINACIÓN (Requisito 4) ---
-        // Si el usuario envía "?limit=X", limitamos los resultados
+        // limit: Controla la cantidad máxima de resultados devueltos por página
         if (req.query.limit) {
             const limit = parseInt(req.query.limit);
             if (!isNaN(limit) && limit >= 0) {
@@ -78,7 +86,7 @@ export function loadBackEndDAV(app) {
             }
         }
 
-        // Si el usuario envía "?offset=X", nos saltamos X resultados
+        // offset: Controla cuántos resultados saltar (para ir a la página 2, 3, etc.)
         if (req.query.offset) {
             const offset = parseInt(req.query.offset);
             if (!isNaN(offset) && offset >= 0) {
@@ -90,7 +98,9 @@ export function loadBackEndDAV(app) {
         dbQuery.exec((err, data) => {
             if (err) return res.sendStatus(500);
             
-            // Eliminamos el _id de NeDB para el Requisito 11
+            // Requisito 11: Mapeo de datos para sanitizar la salida (Patrón DTO)
+            // Eliminamos el _id interno de NeDB porque el cliente no necesita conocer
+            // la estructura interna de nuestra base de datos, solo nuestros datos de negocio.
             const cleanData = data.map(resource => {
                 delete resource._id;
                 return resource;
@@ -104,15 +114,15 @@ export function loadBackEndDAV(app) {
     app.post(BASE_URL_API + "/global-ads-performance", (req, res) => {
         const newResource = req.body;
         
-        // Validación de estructura básica: debe tener todos los campos
+        // Validación de estructura básica: Aseguramos la integridad de los datos entrantes (campos obligatorios)
         if (!newResource.region || !newResource.date || !newResource.platform || !newResource.industry) {
-            return res.sendStatus(400); // 400 Bad Request
+            return res.sendStatus(400); // 400 Bad Request: El cliente envió un formato inválido
         }
 
-        // Comprobamos si ya existe la clave primaria correcta (region + date)
+        // Comprobamos si ya existe la CLAVE PRIMARIA COMPUESTA (region + date)
         dbV1.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
             if (docs.length > 0) {
-                return res.sendStatus(409); // 409 Conflict (Ya existe)
+                return res.sendStatus(409); // 409 Conflict: Violación de restricción de unicidad
             }
             dbV1.insert(newResource, (err, newDoc) => {
                 res.sendStatus(201); // 201 Created
@@ -123,13 +133,13 @@ export function loadBackEndDAV(app) {
 
     // 4. DELETE COLECCIÓN COMPLETA
     app.delete(BASE_URL_API + "/global-ads-performance", (req, res) => {
-        // {} borra todos los documentos, {multi: true} permite borrar más de uno a la vez
+        // {} selecciona todos los documentos. {multi: true} autoriza a NeDB a borrar más de un registro a la vez
         dbV1.remove({}, { multi: true }, (err, numRemoved) => {
             res.sendStatus(200); // 200 OK
         });
     });
 
-    // 5. GET RECURSO ESPECÍFICO (region + date)
+    // 5. GET RECURSO ESPECÍFICO (Busca por clave primaria compuesta: region + date)
     app.get(BASE_URL_API + '/global-ads-performance/:region/:date', (req, res) => {
         const { region, date } = req.params;
 
@@ -137,9 +147,9 @@ export function loadBackEndDAV(app) {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
             if (docs.length > 0) {
-                res.status(200).json((docs[0])); // Devuelve UN OBJETO
+                res.status(200).json((docs[0])); // IMPORTANTE: Se devuelve un OBJETO, no un array de 1 elemento
             } else {
-                res.status(404).json({ message: "Not Found" });
+                res.status(404).json({ message: "Not Found" }); // 404: El recurso no existe
             }
         });
     });
@@ -150,25 +160,26 @@ export function loadBackEndDAV(app) {
 
         dbV1.remove({ region: region, date: date }, {}, (err, numRemoved) => {
             if (numRemoved === 0) {
-                return res.sendStatus(404); // 404 Not Found si no existía
+                return res.sendStatus(404); // 404 Not Found si intentan borrar algo que ya no está
             }
             res.sendStatus(200); // 200 OK
         });
     });
 
-    // 7. PUT RECURSO ESPECÍFICO (Actualizar)
+    // 7. PUT RECURSO ESPECÍFICO (Actualización completa del recurso)
     app.put(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
         const updatedResource = req.body;
 
-        // Comprobar que el ID de la URL coincide con el ID del body (Requisito F06 de errores básicos)
+        // Validamos que la URL a la que se ataca coincide con la clave primaria del body enviado.
+        // Esto previene corrupciones donde un usuario intenta actualizar un ID pero manda los datos de otro. (Requisito F06)
         if (region !== updatedResource.region || date !== updatedResource.date) {
             return res.sendStatus(400); // 400 Bad Request
         }
 
         dbV1.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => {
             if (numReplaced === 0) {
-                return res.sendStatus(404); // 404 Not Found si no existe el que queremos actualizar
+                return res.sendStatus(404); // 404 Not Found si no existe el registro a actualizar
             }
             res.sendStatus(200); // 200 OK
         });
@@ -176,27 +187,27 @@ export function loadBackEndDAV(app) {
     
 
     // MÉTODOS PROHIBIDOS (Tabla Azul L05)
+    // El estándar REST dicta que no se puede hacer POST sobre un ID específico (solo sobre la colección)
     app.post(BASE_URL_API + "/global-ads-performance/:region/:date", (req, res) => {
-        res.sendStatus(405); // Method Not Allowed
+        res.sendStatus(405); // 405 Method Not Allowed
     });
     
+    // No se permite hacer un PUT masivo a toda la colección en el diseño de esta API
     app.put(BASE_URL_API + "/global-ads-performance", (req, res) => {
-        res.sendStatus(405); // Method Not Allowed
+        res.sendStatus(405); // 405 Method Not Allowed
     });
-
-
-
 
 
 /*
 --------------------------------------------------------------------------------
 
-VERSION 2
+VERSION 2 (V2) - Arquitectura idéntica a V1 pero apuntando a dbV2 y BASE_URL_API_V2
+Esto asegura retrocompatibilidad para clientes antiguos mientras evolucionamos la API.
 
 --------------------------------------------------------------------------------
 */
 
-
+// Array masivo de datos para la versión 2
 const datosInicialesV2 = [
     { region: "Asia", date: "2024-01-21", platform: "Google Ads", industry: "Fintech", impression: 59886, click: 2113, ad_spend: 2662.38, conversion: 159, revenue: 4803.43 },
     { region: "Europe", date: "2024-01-22", platform: "TikTok Ads", industry: "EdTech", impression: 135608, click: 5220, ad_spend: 6159.60, conversion: 411, revenue: 64126.68 },
@@ -302,6 +313,8 @@ const datosInicialesV2 = [
 // =========================================================================
 // NUEVO BLOQUE: AUTO-CARGA SILENCIOSA PARA V2
 // Esto hace que la API sea "estable" para tu compañero sin necesidad de botón
+// Argumento de defensa: Resiliencia de la API. Nos adelantamos al problema
+// de integraciones fallidas por bases de datos vacías al levantar el entorno.
 // =========================================================================
 dbV2.find({}, (err, docs) => {
     if (err) {
@@ -318,7 +331,8 @@ dbV2.find({}, (err, docs) => {
     }
 });
 
-// 1. CARGA DE DATOS INICIALES (loadInitialData)
+// 1. CARGA DE DATOS INICIALES (loadInitialData) V2
+// Mantenemos el endpoint manual por si es necesario forzar un reseteo desde Frontend
 app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) => {
     dbV2.find({}, (err, docs) => {
         if (docs.length === 0) {
@@ -339,7 +353,7 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
     });
 });
 
-// 2. GET COLECCIÓN COMPLETA (Con Búsquedas y Paginación - Requisitos 3 y 4)
+// 2. GET COLECCIÓN COMPLETA (Con Búsquedas y Paginación - Requisitos 3 y 4) V2
     app.get(BASE_URL_API_V2 + "/global-ads-performance", (req, res) => {
         
         const searchQuery = {};
@@ -357,7 +371,7 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
         if (req.query.revenue) searchQuery.revenue = parseFloat(req.query.revenue);
 
         // Preparamos la consulta a la base de datos (SIN el callback todavía)
-        let dbQuery = dbV2.find(searchQuery);
+        let dbQuery = dbV2.find(searchQuery); // Cambiado a dbV2
 
         
         // --- LÓGICA DE PAGINACIÓN (Requisito 4) ---
@@ -391,7 +405,7 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
         });
     });
 
-    // 3. POST A LA COLECCIÓN (Añadir recurso)
+    // 3. POST A LA COLECCIÓN (Añadir recurso) V2
     app.post(BASE_URL_API_V2 + "/global-ads-performance", (req, res) => {
         const newResource = req.body;
         
@@ -401,7 +415,7 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
         }
 
         // Comprobamos si ya existe la clave primaria correcta (region + date)
-        dbV2.find({ region: newResource.region, date: newResource.date }, (err, docs) => {
+        dbV2.find({ region: newResource.region, date: newResource.date }, (err, docs) => { // Cambiado a dbV2
             if (docs.length > 0) {
                 return res.sendStatus(409); // 409 Conflict (Ya existe)
             }
@@ -412,19 +426,19 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
     });
 
 
-    // 4. DELETE COLECCIÓN COMPLETA
+    // 4. DELETE COLECCIÓN COMPLETA V2
     app.delete(BASE_URL_API_V2 + "/global-ads-performance", (req, res) => {
         // {} borra todos los documentos, {multi: true} permite borrar más de uno a la vez
-        dbV2.remove({}, { multi: true }, (err, numRemoved) => {
+        dbV2.remove({}, { multi: true }, (err, numRemoved) => { // Cambiado a dbV2
             res.sendStatus(200); // 200 OK
         });
     });
 
-    // 5. GET RECURSO ESPECÍFICO (region + date)
+    // 5. GET RECURSO ESPECÍFICO (region + date) V2
     app.get(BASE_URL_API_V2 + '/global-ads-performance/:region/:date', (req, res) => {
         const { region, date } = req.params;
 
-        dbV2.find({ region, date }, (err, docs) => {
+        dbV2.find({ region, date }, (err, docs) => { // Cambiado a dbV2
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
             if (docs.length > 0) {
@@ -435,11 +449,11 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
         });
     });
 
-    // 6. DELETE RECURSO ESPECÍFICO
+    // 6. DELETE RECURSO ESPECÍFICO V2
     app.delete(BASE_URL_API_V2 + "/global-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
 
-        dbV2.remove({ region: region, date: date }, {}, (err, numRemoved) => {
+        dbV2.remove({ region: region, date: date }, {}, (err, numRemoved) => { // Cambiado a dbV2
             if (numRemoved === 0) {
                 return res.sendStatus(404); // 404 Not Found si no existía
             }
@@ -447,7 +461,7 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
         });
     });
 
-    // 7. PUT RECURSO ESPECÍFICO (Actualizar)
+    // 7. PUT RECURSO ESPECÍFICO (Actualizar) V2
     app.put(BASE_URL_API_V2 + "/global-ads-performance/:region/:date", (req, res) => {
         const { region, date } = req.params;
         const updatedResource = req.body;
@@ -457,7 +471,7 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
             return res.sendStatus(400); // 400 Bad Request
         }
 
-        dbV2.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => {
+        dbV2.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => { // Cambiado a dbV2
             if (numReplaced === 0) {
                 return res.sendStatus(404); // 404 Not Found si no existe el que queremos actualizar
             }
@@ -466,7 +480,7 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
     });
     
 
-    // MÉTODOS PROHIBIDOS (Tabla Azul L05)
+    // MÉTODOS PROHIBIDOS (Tabla Azul L05) V2
     app.post(BASE_URL_API_V2 + "/global-ads-performance/:region/:date", (req, res) => {
         res.sendStatus(405); // Method Not Allowed
     });
@@ -476,4 +490,3 @@ app.get(BASE_URL_API_V2 + "/global-ads-performance/loadInitialData", (req, res) 
     });
 
 }
-

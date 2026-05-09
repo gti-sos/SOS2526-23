@@ -1,406 +1,367 @@
 <script>
-    import {dev} from '$app/environment';
-    import {onMount } from 'svelte';
-    import { SvelteURLSearchParams } from 'svelte/reactivity';
+    import { onMount } from 'svelte';
 
-    // Importamos los componentes de Sveltestrap que necesitamos
-    import {
-        Table, Button, Input, Container, Row, Col, 
-        Alert, Badge, Card, CardBody, CardHeader
-    } from '@sveltestrap/sveltestrap';
-    
-    let API = "/api/v1/global-ads-performance";
+    let chartContainer;
+    let errorMessage = $state("");
 
-    // @ts-ignore
-    let global_ad= $state([]);
-    let resultStatusCode = $state(0);
-
-    let newRegion = $state("newRegion");
-    let newDate = $state("newDate");
-    let newPlatform = $state("newPlatform");
-    let newIndustry = $state("newIndustry");
-    let newImpression = $state(0);
-    let newClick = $state(0);
-    let newAdSpend = $state(0);
-    let newConversion = $state(0);
-    let newRevenue = $state(0);
-
-    //
-    // 2. Nuevos estados reactivos para los campos de búsqueda
-    let searchRegion = $state("");
-    let searchPlatform = $state("");
-    let searchIndustry = $state("");
-    let searchFrom = $state("");
-    let searchTo = $state("");
-
-    // Campos numéricos para búsqueda avanzada
-    let searchImpression = $state("");
-    let searchClick = $state("");
-    let searchAdSpend = $state("");
-    let searchConversion = $state("");
-    let searchRevenue = $state("");
-
-    if (dev)
-        API = ""+API;
-    
-
-        //FUNCION CARGAR DATOS INICIALES
-    
-async function loadInitialData() {
-    // 1. Comprobamos si hay datos
-    if (global_ad.length > 0) {
-        const userWantsToContinue = confirm("Se borrará el contenido actual para cargar los datos iniciales.");
-        if (!userWantsToContinue) return;
+    onMount(async () => {
+        // ✅ Imports dinámicos dentro del onMount para evitar el problema de SSR
+        // ARGUMENTO DE DEFENSA: Control de Módulos y SSR.
+        // Como Highcharts manipula directamente el DOM (el 'window'), si el servidor de SvelteKit 
+        // intenta pre-renderizarlo, dará error. Importarlo dinámicamente aquí asegura que 
+        // solo se ejecute en el navegador del cliente.
+        const Highcharts = (await import('highcharts')).default;
+        
+        // Importación del módulo de accesibilidad. Esto es una buena práctica para cumplir 
+        // con estándares web (WCAG), permitiendo que lectores de pantalla interactúen con la gráfica.
+        const { default: AccessibilityModule } = await import('highcharts/modules/accessibility');
+        if (typeof AccessibilityModule === 'function') {
+            AccessibilityModule(Highcharts);
+        }
 
         try {
-            // Borramos y esperamos a que el servidor confirme
-            await fetch(API, { method: 'DELETE' });
-            global_ad = []; // Vaciamos localmente para feedback visual inmediato
-        } catch (e) {
-            console.error("Error al limpiar:", e);
-        }
-    }
+            // ARGUMENTO DE DEFENSA: Optimización de Red (Promise.all).
+            // No hacemos las peticiones en cascada (una tras otra, usando 'await' secuenciales),
+            // lo cual sería muy lento. Usamos Promise.all para disparar las tres llamadas a 
+            // nuestras diferentes APIs (Bolsa, Publicidad, Ventas) AL MISMO TIEMPO y en paralelo.
+            // El código solo avanza cuando TODAS han respondido.
+            const [stockRes, adsRes, salesRes] = await Promise.all([
+                fetch('/api/v1/daily-global-stock-market-indicators'),
+                fetch('/api/v1/global-ads-performance'),
+                fetch('/api/v1/online-sales-popular-marketplaces')
+            ]);
 
-    // 2. Cargamos los datos iniciales
-    try {
-        const res = await fetch(API + "/loadInitialData", { method: 'GET' }); 
-        resultStatusCode = res.status;
+            // Validación de robustez: Si ALGUNA de las APIs de mis compañeros falla, abortamos
+            // controladamente en lugar de mostrar una gráfica rota o datos parciales.
+            if (!stockRes.ok || !adsRes.ok || !salesRes.ok) {
+                throw new Error("Una de las APIs no respondió correctamente");
+            }
 
-        if (res.ok || res.status === 201) {
-            // IMPORTANTE: Esperamos a que getData actualice el estado de global_ad
-            await getData(); 
-            console.log("Datos cargados y tabla actualizada");
-        }
-    } catch (error) {
-        console.error("Error de red:", error);
-    }
-}
+            // Parseo simultáneo a JSON
+            const stockData = await stockRes.json();
+            const adsData   = await adsRes.json();
+            const salesData = await salesRes.json();
 
+            // ARGUMENTO DE DEFENSA: Normalización del Eje X (Regiones).
+            // Para poder comparar peras con manzanas (Bolsa vs Ads vs Ventas), necesitamos 
+            // un eje común. Aquí extraemos todas las regiones únicas de las tres APIs 
+            // combinando arreglos, usando un Set() para eliminar duplicados y .filter(Boolean) 
+            // para limpiar posibles valores nulos o vacíos.
+            const regions = [...new Set([
+                ...stockData.map(d => d.region),
+                ...adsData.map(d => d.region),
+                ...salesData.map(d => d.region)
+            ])].filter(Boolean);
 
-        //FUNCION GET TODOS LOS DATOS
-async function getData() {
-    try {
-        const res = await fetch(API, { method: 'GET' });
-        if (res.ok) {
-            const data = await res.json();
-            // Esto dispara la reactividad en Svelte 5
-            global_ad = data; 
-        }
-    } catch (e) {
-        console.error("Error obteniendo datos:", e);
-    }
-}
+            // Arrays que guardarán los datos finales procesados para Highcharts
+            const stockSeries = [];
+            const adsSeries   = [];
+            const salesSeries = [];
 
+            // ARGUMENTO DE DEFENSA: Algoritmo de Agrupación y Reducción (Map-Reduce pattern).
+            // Iteramos sobre las regiones unificadas y "pescamos" los datos correspondientes
+            // en cada uno de los 3 datasets originales.
+            regions.forEach(region => {
+                // Normalizamos el string (minúsculas y sin espacios extra) porque al ser APIs 
+                // construidas por personas diferentes, "Asia", "asia" o " Asia " podrían no cruzar bien.
+                const regionNorm = region.toLowerCase().trim();
 
-        //FUNCION POST UN ELEMENTO
-    async function insertAd() {
-        // 1. Ocultar alerta de estado anterior para forzar la reactividad
-        resultStatusCode = 0; 
+                // 1. Procesamiento API Bolsa (Media del precio de cierre)
+                const regionStocks = stockData.filter(d => d.region?.toLowerCase().trim() === regionNorm);
+                const avgClose = regionStocks.length
+                    ? regionStocks.reduce((sum, d) => sum + Number(d.close || 0), 0) / regionStocks.length
+                    : 0;
+                stockSeries.push(Number(avgClose.toFixed(2))); // Redondeo a 2 decimales para evitar problemas de coma flotante
 
-        let newAd = {
-            region: newRegion,
-            date: newDate,
-            platform: newPlatform,
-            industry: newIndustry,
-            impression: newImpression,
-            click: newClick,
-            ad_spend: newAdSpend,
-            conversion: newConversion,
-            revenue: newRevenue
-        };
+                // 2. Procesamiento API Publicidad (Suma total de ingresos)
+                const regionAds = adsData.filter(d => d.region?.toLowerCase().trim() === regionNorm);
+                const totalAdsRevenue = regionAds.reduce((sum, d) => sum + Number(d.revenue || 0), 0);
+                adsSeries.push(Number(totalAdsRevenue.toFixed(2)));
 
-        try {
-            const res = await fetch(API, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newAd)
+                // 3. Procesamiento API Ventas (Suma total de ventas)
+                const regionSales = salesData.filter(d => d.region?.toLowerCase().trim() === regionNorm);
+                const totalSales = regionSales.reduce((sum, d) => sum + Number(d.total || 0), 0);
+                salesSeries.push(Number(totalSales.toFixed(2)));
             });
 
-            // 2. Asignamos el nuevo estado devuelto por el servidor
-            resultStatusCode = res.status;
+            // RENDERIZADO DEL GRÁFICO MULTI-EJE
+            Highcharts.chart(chartContainer, {
+                chart: {
+                    zoomType: 'xy', // Permite al usuario hacer zoom arrastrando el ratón en ambos ejes
+                    style: { fontFamily: 'Arial, sans-serif' },
+                    marginLeft: 170, // Espacio extra a la izquierda para los Ejes Y múltiples
+                    marginRight: 80,
+                    // Evento de renderizado: Se dibuja una línea vertical punteada para separar/decorar
+                    events: {
+                        render: function () {
+                            const chart = this;
+                            const axis0 = chart.yAxis[0];
 
-            // 3. Evaluamos la respuesta
-            if (res.ok || res.status === 201) {
-                // Éxito: recargamos la tabla para ver el nuevo dato
-                await getData();
-                console.log("Inserción exitosa (201).");
-            } else if (res.status === 409) {
-                // Conflicto: Ya existe (mismo id o claves compuestas)
-                console.warn("Conflicto: El recurso ya existe (409).");
-                alert("Atención: Ya existe un registro para esta Región y Fecha. (Error 409)");
-            } else {
-                // Otro tipo de error (400, 500, etc.)
-                console.error("El servidor devolvió un código de error:", res.status);
-            }
+                            const x = axis0.left - 5;
+                            const y1 = chart.plotTop;
+                            const y2 = chart.plotTop + chart.plotHeight;
+
+                            if (chart.separatorLine) chart.separatorLine.destroy();
+                            chart.separatorLine = chart.renderer
+                                .path(['M', x, y1, 'L', x, y2])
+                                .attr({ stroke: '#ddd', 'stroke-width': 1.5, 'stroke-dasharray': '4,3' })
+                                .add();
+                        }
+                    }
+                },
+                title: {
+                    text: 'Análisis Integrado: Bolsa, Publicidad y Ventas Online',
+                    style: { fontSize: '16px', fontWeight: '700', color: '#222' }
+                },
+                subtitle: {
+                    text: 'Publicidad (barras) · Bolsa y Ventas Online (líneas con ejes propios)',
+                    style: { color: '#777', fontSize: '12px' }
+                },
+                accessibility: { enabled: true },
+
+                xAxis: {
+                    categories: regions, // El Eje X es nuestra lista normalizada de continentes
+                    crosshair: true, // Línea vertical que sigue al ratón para mejorar la lectura
+                    labels: { style: { fontSize: '13px', color: '#444' } }
+                },
+
+                // ARGUMENTO DE DEFENSA: Manejo de Múltiples Ejes Y.
+                // Como los valores de la Bolsa (puntos/índices) y los del dinero ($) tienen
+                // escalas totalmente distintas, usamos ejes Y separados. Si pusiéramos todo en el 
+                // mismo eje, la línea de la Bolsa (valores pequeños) quedaría aplastada en el fondo a nivel 0.
+                yAxis: [
+                    // Eje Y 1: Publicidad (Izquierda)
+                    {
+                        title: {
+                            text: 'Publicidad ($)',
+                            style: { color: '#4e9af1', fontWeight: '600' }
+                        },
+                        labels: {
+                            // Formateo inteligente de números largos para evitar que el eje sea ilegible
+                            formatter: function () {
+                                if (this.value >= 1000000) return '$' + (this.value / 1000000).toFixed(1) + 'M';
+                                if (this.value >= 1000)    return '$' + (this.value / 1000).toFixed(0) + 'K';
+                                return '$' + this.value;
+                            },
+                            style: { color: '#4e9af1' }
+                        },
+                        gridLineColor: '#ebebeb',
+                        offset: 0,
+                        min: 0
+                    },
+                    // Eje Y 2: Bolsa (Derecha, indicado por 'opposite: true')
+                    {
+                        title: {
+                            text: 'Bolsa (pts)',
+                            style: { color: '#8bbc21', fontWeight: '600' }
+                        },
+                        labels: {
+                            formatter: function () {
+                                if (this.value >= 1000) return (this.value / 1000).toFixed(0) + 'K pts';
+                                return this.value + ' pts';
+                            },
+                            style: { color: '#8bbc21' }
+                        },
+                        opposite: true, 
+                        gridLineWidth: 0, // Quitamos las líneas de fondo de este eje para no saturar
+                        offset: 0,
+                        min: 0
+                    },
+                    // Eje Y 3: Ventas Online (Desplazado a la izquierda mediante 'offset: 90')
+                    {
+                        title: {
+                            text: 'Ventas Online ($)',
+                            style: { color: '#e85d04', fontWeight: '600' },
+                            margin: 15
+                        },
+                        labels: {
+                            formatter: function () {
+                                if (this.value >= 1000) return '$' + (this.value / 1000).toFixed(1) + 'K';
+                                return '$' + this.value;
+                            },
+                            style: { color: '#e85d04' }
+                        },
+                        opposite: false,
+                        gridLineWidth: 0,
+                        offset: 90, // Desplaza este eje hacia fuera para que no pise al Eje 1
+                        min: 0
+                    }
+                ],
+
+                // Tooltip compartido: Al pasar por encima de una región, muestra los 3 valores a la vez
+                tooltip: {
+                    shared: true,
+                    backgroundColor: 'rgba(255,255,255,0.97)',
+                    borderColor: '#ddd',
+                    borderRadius: 8,
+                    shadow: true,
+                    style: { fontSize: '13px' },
+                    // Formateador personalizado para controlar sufijos y prefijos dependiendo de la serie
+                    formatter: function () {
+                        let s = `<b>${this.points[0].key}</b><br/>`; // Título del tooltip (ej. 'Europe')
+                        this.points.forEach(p => {
+                            const color = p.series.color;
+                            let val = '';
+                            if (p.series.name === 'Cierre Medio Bolsa') {
+                                val = Highcharts.numberFormat(p.y, 2) + ' pts';
+                            } else {
+                                val = '$' + Highcharts.numberFormat(p.y, 2);
+                            }
+                            s += `<span style="color:${color}">●</span> ${p.series.name}: <b>${val}</b><br/>`;
+                        });
+                        return s;
+                    }
+                },
+
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    itemStyle: { fontSize: '12px', fontWeight: '500', color: '#333' }
+                },
+
+                // Opciones de visualización general
+                plotOptions: {
+                    column: {
+                        borderRadius: 5,
+                        borderWidth: 0,
+                        pointPadding: 0.15,
+                        groupPadding: 0.2,
+                        // Etiquetas flotantes sobre cada columna
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                if (this.y >= 1000000) return '$' + (this.y / 1000000).toFixed(1) + 'M';
+                                if (this.y >= 1000)    return '$' + (this.y / 1000).toFixed(0) + 'K';
+                                return '$' + this.y;
+                            },
+                            style: {
+                                fontSize: '11px',
+                                fontWeight: '600',
+                                color: '#4e9af1',
+                                textOutline: 'none'
+                            }
+                        }
+                    },
+                    spline: { // Las líneas de tendencia suavizadas
+                        lineWidth: 2.5,
+                        marker: {
+                            radius: 5,
+                            lineWidth: 2,
+                            fillColor: 'white'
+                        },
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function () {
+                                if (this.series.name === 'Cierre Medio Bolsa') {
+                                    if (this.y >= 1000) return (this.y / 1000).toFixed(1) + 'K';
+                                    return this.y;
+                                }
+                                if (this.y >= 1000) return '$' + (this.y / 1000).toFixed(1) + 'K';
+                                return '$' + this.y;
+                            },
+                            style: {
+                                fontSize: '11px',
+                                fontWeight: '600',
+                                textOutline: 'none'
+                            }
+                        }
+                    }
+                },
+
+                // INYECCIÓN FINAL DE DATOS A LA GRÁFICA
+                series: [
+                    {
+                        name: 'Ingresos por Publicidad',
+                        type: 'column', // Gráfico de barras
+                        yAxis: 0, // Se ata al primer eje Y (izquierda, offset 0)
+                        data: adsSeries,
+                        color: '#4e9af1',
+                        tooltip: { valuePrefix: '$' }
+                    },
+                    {
+                        name: 'Cierre Medio Bolsa',
+                        type: 'spline', // Línea suavizada
+                        yAxis: 1, // Se ata al segundo eje Y (derecha)
+                        data: stockSeries,
+                        color: '#8bbc21',
+                        tooltip: { valueSuffix: ' pts' },
+                        marker: { lineColor: '#8bbc21' },
+                        dataLabels: { color: '#8bbc21' }
+                    },
+                    {
+                        name: 'Ventas Online Totales',
+                        type: 'spline',
+                        yAxis: 2, // Se ata al tercer eje Y (izquierda, separado)
+                        data: salesSeries,
+                        color: '#e85d04',
+                        tooltip: { valuePrefix: '$' },
+                        marker: { lineColor: '#e85d04' },
+                        dataLabels: { color: '#e85d04' }
+                    }
+                ]
+            });
 
         } catch (error) {
-            console.error("Fallo la petición fetch:", error);
-            resultStatusCode = 500;
-            alert("Error de conexión con el servidor. Revisa la consola.");
+            console.error("Error procesando los datos:", error);
+            // Captura errores globales si el Promise.all falla o si la lógica de mapeo se rompe
+            errorMessage = "Hubo un problema al cargar los datos combinados.";
         }
-    }
-
-        //FUNCION DELETE TODO
-    async function deleteAll() {
-        if (!confirm("¿Estás seguro de que quieres borrar TODOS los registros?")) return;
-        try {
-            const res = await fetch(API, { method: 'DELETE' });
-            resultStatusCode = res.status;
-            if (res.ok) {
-                global_ad = []; // Vaciamos la lista en el cliente
-            }
-        } catch (e) {
-            console.error("Error al borrar todo:", e);
-        }
-    }
-
-    
-        //FUNCION DELETE UN ELEMENTO
-    /** @param {{region: string, date: string}} ad */
-    async function deleteAd(ad) {
-        // CORRECCIÓN: Cambiamos los query params (?region=...) por parámetros de ruta (/.../...)
-        const url = `${API}/${encodeURIComponent(ad.region)}/${encodeURIComponent(ad.date)}`;
-        
-        try {
-            const res = await fetch(url, { method: 'DELETE' });
-            resultStatusCode = res.status;
-
-            if (res.ok) {
-                // "Filtramos" el array: dejamos todos los que NO coincidan con el que borramos
-                global_ad = global_ad.filter(item => 
-                    !(item.region === ad.region && item.date === ad.date)
-                );
-            } else {
-                alert("No se pudo eliminar el recurso del servidor. Status: " + res.status);
-            }
-        } catch (error) {
-            console.error('Error de red:', error);
-        }
-    }
-
-// 3. Nuevas funciones para manejar la búsqueda y limpiar los filtros (Valor Exacto)
-    async function searchData() {
-        // Usamos la clase que tenías definida
-        const params = new SvelteURLSearchParams();
-
-        // Campos de texto y fecha
-        if (searchRegion) params.append("region", searchRegion);
-        if (searchPlatform) params.append("platform", searchPlatform);
-        if (searchIndustry) params.append("industry", searchIndustry);
-        if (searchFrom) params.append("from", searchFrom); 
-        if (searchTo) params.append("to", searchTo);       
-
-        // Campos numéricos por valor exacto (permitiendo el 0)
-        if (searchImpression !== "") params.append("impression", searchImpression);
-        if (searchClick !== "") params.append("click", searchClick);
-        if (searchAdSpend !== "") params.append("ad_spend", searchAdSpend);
-        if (searchConversion !== "") params.append("conversion", searchConversion);
-        if (searchRevenue !== "") params.append("revenue", searchRevenue);
-
-        const queryString = params.toString();
-        const url = queryString ? `${API}?${queryString}` : API;
-
-        try {
-            const res = await fetch(url, { method: 'GET' });
-            resultStatusCode = res.status;
-            
-            if (res.ok) {
-                global_ad = await res.json();
-            } else {
-                console.warn("No se encontraron resultados o hubo un error:", res.status);
-                global_ad = [];
-            }
-        } catch (error) {
-            console.error("Error en la búsqueda:", error);
-            resultStatusCode = 500;
-        }
-    }
-
-    function clearSearch() {
-        // Limpiamos campos de texto y fecha
-        searchRegion = "";
-        searchPlatform = "";
-        searchIndustry = "";
-        searchFrom = "";
-        searchTo = "";
-        
-        // Limpiamos los campos numéricos exactos
-        searchImpression = "";
-        searchClick = "";
-        searchAdSpend = "";
-        searchConversion = "";
-        searchRevenue = "";
-        
-        getData();
-    }
-
-//------------------------------------------------------------------------------
-
-    onMount(() => {
-        getData();
     });
-
 </script>
 
-<svelte:head>
-    <title>Global Ads List</title>
-    <meta name="description" content="Gestión avanzada de métricas publicitarias en el proyecto SOS2526-23" />
-</svelte:head>  
+<main>
+    <div class="header">
+        <h1>Dashboard Global Combinado</h1>
+        <a href="/" class="btn-back">← Volver al inicio</a>
+    </div>
 
-<Container class="mt-4">
-    <Row class="align-items-center mb-4">
-        <Col>
-            <h2 class="text-primary">Global Ads Performance</h2>
-            <p class="text-muted">Gestión avanzada de métricas publicitarias</p>
-        </Col>
-        <Col class="text-end">
-            <Button color="info" outline onclick={loadInitialData}>
-                🔄 Cargar Datos Iniciales
-            </Button>
-            <Button color="success" outline onclick={() => window.location.href = "/global-ads-performance/v2"}>
-                Version 2
-            </Button>
-            <Button color="danger" onclick={deleteAll} disabled={global_ad.length === 0}>
-                🗑️ Borrar Todo
-            </Button>
-        </Col>
-    </Row>
-
-<Card class="shadow-sm mb-4 border-info">
-        <CardHeader class="bg-info text-white fw-bold">
-            🔍 Buscar / Filtrar Recursos
-        </CardHeader>
-        <CardBody>
-            <Row class="g-3">
-                <Col md="2">
-                    <Input type="text" bind:value={searchRegion} placeholder="Europe" bsSize="sm" />
-                </Col>
-                <Col md="2">
-                    <Input type="text" bind:value={searchPlatform} placeholder="TikTok Ads" bsSize="sm" />
-                </Col>
-                <Col md="2">
-                    <Input type="text" bind:value={searchIndustry} placeholder="Fintech" bsSize="sm" />
-                </Col>
-                <Col md="3">
-                    <Input type="date" bind:value={searchFrom} placeholder="Desde" bsSize="sm" />
-                </Col>
-                <Col md="3">
-                    <Input type="date" bind:value={searchTo} placeholder="Hasta" bsSize="sm" />
-                </Col>
-
-                <Col md="2">
-                    <Input type="number" bind:value={searchImpression} placeholder="Impresiones" bsSize="sm" />
-                </Col>
-                <Col md="2">
-                    <Input type="number" bind:value={searchClick} placeholder="Clicks" bsSize="sm" />
-                </Col>
-                <Col md="2">
-                    <Input type="number" bind:value={searchAdSpend} placeholder="Gasto (€)" bsSize="sm" />
-                </Col>
-                <Col md="2">
-                    <Input type="number" bind:value={searchConversion} placeholder="Conversiones" bsSize="sm" />
-                </Col>
-                <Col md="2">
-                    <Input type="number" bind:value={searchRevenue} placeholder="Ingresos (€)" bsSize="sm" />
-                </Col>
-                
-                <Col md="2" class="d-flex flex-column gap-2 justify-content-center">
-                    <Button color="primary" size="sm" class="w-100" onclick={searchData}>
-                        Buscar
-                    </Button>
-                    <Button color="secondary" size="sm" outline class="w-100" onclick={clearSearch}>
-                        Limpiar
-                    </Button>
-                </Col>
-            </Row>
-        </CardBody>
-    </Card>
-
-    <Card class="shadow-sm mb-4">
-        <CardBody>
-            <Table hover responsive class="align-middle">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Region</th>
-                        <th>Fecha</th>
-                        <th>Plataforma</th>
-                        <th>Industria</th>
-                        <th>Impresiones</th>
-                        <th>Clicks</th>
-                        <th>Gasto (€)</th>
-                        <th>Conv.</th>
-                        <th>Ingresos (€)</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr class="table-light">
-                        <td><Input type="text" bind:value={newRegion} placeholder="Region" bsSize="sm" /></td>
-                        <td><Input type="text" bind:value={newDate} placeholder="YYYY-MM-DD" bsSize="sm" /></td>
-                        <td><Input type="text" bind:value={newPlatform} placeholder="Plataforma" bsSize="sm" /></td>
-                        <td><Input type="text" bind:value={newIndustry} placeholder="Industria" bsSize="sm" /></td>
-                        
-                        <td><Input type="number" bind:value={newImpression} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={newClick} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={newAdSpend} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={newConversion} bsSize="sm" /></td>
-                        <td><Input type="number" bind:value={newRevenue} bsSize="sm" /></td>
-                        <td>
-                            <Button color="success" size="sm" class="w-100" onclick={insertAd}>
-                                Insertar
-                            </Button>
-                        </td>
-                    </tr>
-                    {#each global_ad as ad, i (i)}
-                    <tr data-testid="GlobalAd-row">
-                            <td>
-                                <a href="/global-ads-performance/{ad.region}/{ad.date}" class="text-decoration-none fw-bold">
-                                    {ad.region}
-                                </a>
-                            </td>
-                            <td><Badge color="light" class="text-dark">{ad.date}</Badge></td>
-                            <td>{ad.platform}</td>
-                            <td>{ad.industry}</td>
-                            <td>{ad.impression}</td>
-                            <td>{ad.click}</td>
-                            <td class="text-danger">-{ad.ad_spend}</td>
-                            <td>{ad.conversion}</td>
-                            <td class="text-success fw-bold">+{ad.revenue}</td>
-                            <td>
-                                <Button color="outline-danger" size="sm" onclick={() => deleteAd(ad)}>
-                                    Eliminar
-                                </Button>
-                            </td>
-                        </tr>
-                    {:else}
-                        <tr>
-                            <td colspan="10" class="text-center py-4 text-muted">
-                                No hay datos disponibles. Pulsa "Cargar Datos Iniciales".
-                            </td>
-                        </tr>
-                    {/each}
-                </tbody>
-            </Table>
-        </CardBody>
-    </Card>
-
-    {#if resultStatusCode !== 0}
-        <Alert color={resultStatusCode >= 200 && resultStatusCode < 300 ? 'success' : 'warning'} dismissible>
-        <div class="info-message">
-            <strong>Estado de la operación:</strong> {resultStatusCode} 
+    {#if errorMessage}
+        <div class="error-box">
+            <p>{errorMessage}</p>
         </div>
-        </Alert>
     {/if}
-</Container>
+
+    <div class="chart-wrapper">
+        <div bind:this={chartContainer} style="width: 100%; height: 560px;"></div>
+    </div>
+</main>
 
 <style>
-    :global(body) {
-        background-color: #f8f9fa;
+    main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
     }
-    :global(.table td) {
-        font-size: 0.9rem;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+    h1 { color: #333; margin: 0; }
+    .btn-back {
+        background-color: #6c757d;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+    .btn-back:hover { background-color: #5a6268; }
+    .error-box {
+        background-color: #ffebee;
+        color: #c62828;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        border: 1px solid #ef9a9a;
+    }
+    .chart-wrapper {
+        background: white;
+        padding: 20px 15px 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 </style>

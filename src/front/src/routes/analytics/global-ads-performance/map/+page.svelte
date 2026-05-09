@@ -2,33 +2,46 @@
     import { onMount } from 'svelte';
 
     let chartContainer;
+    
+    // ARGUMENTO DE DEFENSA: Svelte 5 (Runas).
+    // Usamos $state() para declarar variables reactivas. Esto demuestra que el proyecto
+    // está al día con la última versión de Svelte, optimizando el rendimiento y 
+    // haciendo que el estado sea más predecible que con la reactividad tradicional de Svelte 3/4.
     let isLoading = $state(true);
     let errorMessage = $state("");
 
     onMount(async () => {
         try {
-            // Importaciones seguras para SvelteKit/Vite
+            // 1. IMPORTACIONES SEGURAS Y LAZY LOADING
+            // ARGUMENTO DE DEFENSA: Al igual que en la gráfica Sankey, importamos Highmaps 
+            // de forma dinámica. Esto evita que la librería rompa el Server-Side Rendering (SSR) 
+            // de SvelteKit y reduce el peso del bundle inicial (la página carga más rápido).
             const hcMaps = await import('highcharts/highmaps');
             const Highcharts = hcMaps.default || hcMaps;
             
+            // Módulo de exportación (Permite al usuario descargar el mapa en PNG/PDF)
             const hcExport = await import('highcharts/modules/exporting');
             const HC_exporting = typeof hcExport === 'function' ? hcExport : (hcExport.default || null);
             
-            // Solo lo ejecutamos si realmente existe la función
+            // Solo lo ejecutamos si realmente existe la función (manejo robusto de errores de módulos)
             if (typeof HC_exporting === 'function') {
                 HC_exporting(Highcharts);
             }
 
-            // 3. Fetch de la topología (El mapa base)
+            // 3. FETCH DE LA TOPOLOGÍA (El mapa base)
+            // ARGUMENTO DE DEFENSA: Consumo de APIs de terceros. 
+            // En lugar de guardar un archivo GeoJSON gigante en nuestro proyecto, 
+            // consumimos la topología mundial oficial de Highcharts en tiempo real.
             const topology = await fetch('https://code.highcharts.com/mapdata/custom/world.topo.json')
                                     .then(response => response.json());
 
-            // 4. Fetch de tus datos desde la API
+            // 4. FETCH DE TUS DATOS DESDE LA API (Nuestra API interna)
             const response = await fetch('/api/v1/global-ads-performance');
             if (!response.ok) throw new Error("Error al cargar la API");
             const rawData = await response.json();
 
-            // 5. Lógica de agrupación por región
+            // 5. LÓGICA DE AGRUPACIÓN POR REGIÓN
+            // Inicializamos un acumulador para sumar los ingresos ('revenue') de cada región.
             const regionTotals = { "Asia": 0, "Europe": 0, "North America": 0 };
             
             rawData.forEach(item => {
@@ -37,7 +50,13 @@
                 }
             });
 
-            // 6. Traductor de continentes a países
+            // 6. TRADUCTOR DE CONTINENTES A PAÍSES (El corazón de este script)
+            // ARGUMENTO DE DEFENSA: Adaptación de Granularidad de Datos.
+            // Nuestra API agrupa los datos por macro-regiones ("Europe", "Asia"). Sin embargo, 
+            // un mapa interactivo Choropleth necesita iluminar "Países" específicos usando 
+            // códigos estándar ISO-A3 (ej. 'ESP' para España). 
+            // Implementamos este diccionario para "proyectar" el valor de la región entera 
+            // sobre todos los países que la componen en el mapa visual.
             const countryMapping = {
                 "North America": ['USA', 'CAN', 'MEX', 'CUB', 'GTM', 'HND', 'PAN', 'CRI', 'DOM'],
                 "Europe": ['GBR', 'FRA', 'DEU', 'ITA', 'ESP', 'POL', 'NLD', 'BEL', 'SWE', 'NOR', 'FIN', 'DNK', 'PRT', 'GRC', 'CHE', 'AUT', 'CZE', 'ROU', 'UKR', 'BLR', 'RUS', 'IRL', 'HUN'],
@@ -46,23 +65,30 @@
 
             const mapData = [];
 
+            // Aplanamos el objeto bidimensional en un array de objetos para Highcharts
             Object.keys(regionTotals).forEach(region => {
                 const totalRevenue = regionTotals[region];
                 const countriesInRegion = countryMapping[region] || [];
                 
                 countriesInRegion.forEach(countryCode => {
                     mapData.push({
-                        code: countryCode,
-                        value: totalRevenue,
-                        regionName: region 
+                        code: countryCode, // El código ISO que lee el mapa
+                        value: totalRevenue, // El color dependerá de este valor
+                        regionName: region // Guardamos el nombre original para mostrarlo en el Tooltip
                     });
                 });
             });
 
-            // Al usar Svelte 5, cambiar esto actualiza el DOM automáticamente e instantáneamente
+            // Al usar Svelte 5, cambiar esto actualiza el DOM automáticamente e instantáneamente.
+            // Oculta el cartel de "Cargando..." y muestra el <div> del mapa.
             isLoading = false;
 
-            // 7. Dibujar el mapa
+            // 7. DIBUJAR EL MAPA
+            // ARGUMENTO DE DEFENSA: Sincronización del DOM (El porqué del setTimeout a 0).
+            // Al poner isLoading a 'false', Svelte inyecta el 'chartContainer' en el HTML.
+            // Si llamamos a Highcharts.mapChart inmediatamente, podría intentar pintar en un div 
+            // que aún no existe físicamente en el DOM. El setTimeout(..., 0) empuja el renderizado 
+            // del mapa al final de la cola de eventos (Event Loop), asegurando que el div ya esté listo.
             setTimeout(() => {
                 Highcharts.mapChart(chartContainer, {
                     chart: {
@@ -82,6 +108,10 @@
                             verticalAlign: 'bottom'
                         }
                     },
+                    // ARGUMENTO DE DEFENSA: Escala de colores (Choropleth).
+                    // Configuramos un eje de color lineal que va del blanco/celeste al azul oscuro
+                    // dependiendo del 'value' inyectado antes, permitiendo ver de un vistazo 
+                    // qué región genera más ingresos.
                     colorAxis: {
                         min: 0,
                         type: 'linear',
@@ -93,6 +123,7 @@
                     },
                     tooltip: {
                         formatter: function () {
+                            // Interpolación de strings limpia y formateo local de moneda
                             return `<b>${this.point.name}</b> (${this.point.regionName})<br/>` +
                                    `Ingresos de la región: <b>$${this.point.value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>`;
                         }
@@ -100,7 +131,8 @@
                     series: [{
                         name: 'Ingresos por Región',
                         data: mapData,
-                        joinBy: ['iso-a3', 'code'],
+                        // 'joinBy' es crucial: Enlaza nuestra propiedad 'code' con la propiedad 'iso-a3' del mapa topológico
+                        joinBy: ['iso-a3', 'code'], 
                         dataLabels: {
                             enabled: true,
                             format: '{point.name}',
