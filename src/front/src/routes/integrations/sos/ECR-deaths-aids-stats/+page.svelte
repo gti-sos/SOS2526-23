@@ -1,6 +1,6 @@
 <script>
     import { onMount, tick } from 'svelte';
-    import 'billboard.js/dist/billboard.css'; // ✨ Ponemos el CSS aquí arriba
+    // ⚠️ NO importamos billboard.js aquí, lo cargamos por CDN abajo en <svelte:head>
 
     let cargando = $state(true);
     let errorCarga = $state(false);
@@ -8,9 +8,6 @@
 
     onMount(async () => {
         try {
-            const bbModule = await import('billboard.js');
-            const bb = bbModule.default || bbModule.bb;
-
             // Peticiones en paralelo
             const [resBolsa, resSos] = await Promise.all([
                 fetch('/api/v1/daily-global-stock-market-indicators'),
@@ -33,7 +30,7 @@
                 etiquetas.push(misDatosBolsa[i].index_name);
                 serieBolsa.push(Math.round(misDatosBolsa[i].volume / 1000000));
                 
-                // Buscamos dinámicamente el primer número en el JSON del compañero (excluyendo años)
+                // Buscamos dinámicamente el primer número en el JSON del compañero
                 let valorCompi = 0;
                 for (let key in datosCompi[i]) {
                     if (typeof datosCompi[i][key] === 'number' && key !== 'year' && key !== 'id') {
@@ -47,41 +44,46 @@
             cargando = false;
             await tick();
 
-            if (contenedorGrafica && etiquetas.length > 0) {
-                bb.generate({
-                    bindto: contenedorGrafica,
-                    data: {
-                        columns: [
-                            serieBolsa,
-                            serieCompi
-                        ],
-                        types: {
-                            "Volumen Bolsa (M)": "bar",
-                            "Estadísticas VIH": "area-step" // Gráfico de área escalonada
+            // Usamos la variable global 'bb' que viene de internet (CDN)
+            // Hacemos un pequeño setTimeout para asegurar que el script del CDN haya descargado
+            setTimeout(() => {
+                if (contenedorGrafica && etiquetas.length > 0 && window.bb) {
+                    window.bb.generate({
+                        bindto: contenedorGrafica,
+                        data: {
+                            columns: [
+                                serieBolsa,
+                                serieCompi
+                            ],
+                            types: {
+                                "Volumen Bolsa (M)": "bar",
+                                "Estadísticas VIH": "area-step"
+                            },
+                            axes: {
+                                "Volumen Bolsa (M)": "y",
+                                "Estadísticas VIH": "y2"
+                            },
+                            colors: {
+                                "Volumen Bolsa (M)": "#1f77b4",
+                                "Estadísticas VIH": "#d62728"
+                            }
                         },
-                        axes: {
-                            "Volumen Bolsa (M)": "y",
-                            "Estadísticas VIH": "y2" // Eje Y secundario
+                        axis: {
+                            x: {
+                                type: "category",
+                                categories: etiquetas
+                            },
+                            y2: {
+                                show: true
+                            }
                         },
-                        colors: {
-                            "Volumen Bolsa (M)": "#1f77b4",
-                            "Estadísticas VIH": "#d62728"
+                        title: {
+                            text: "Integración SOS: Bolsa vs VIH (Billboard.js)"
                         }
-                    },
-                    axis: {
-                        x: {
-                            type: "category",
-                            categories: etiquetas
-                        },
-                        y2: {
-                            show: true // Mostramos el segundo eje a la derecha
-                        }
-                    },
-                    title: {
-                        text: "Integración SOS: Bolsa vs VIH (Billboard.js)"
-                    }
-                });
-            }
+                    });
+                }
+            }, 500);
+
         } catch (error) {
             console.error("Error cargando datos:", error);
             errorCarga = true;
@@ -90,9 +92,14 @@
     });
 </script>
 
+<svelte:head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.pkgd.min.js"></script>
+</svelte:head>
+
 <main style="padding: 20px; font-family: sans-serif; max-width: 900px; margin: 0 auto;">
     <h2>🤝 Integración API Compañeros (SOS)</h2>
-    <p>Visualización <strong>Mixta (Barra + Area-Step)</strong> usando <strong>Billboard.js</strong>.</p>
+    <p>Visualización <strong>Mixta (Barra + Area-Step)</strong> usando <strong>Billboard.js (CDN)</strong>.</p>
 
     {#if errorCarga}
         <div style="background: #fee; color: #c00; padding: 10px; border-radius: 5px;">
