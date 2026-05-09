@@ -1,31 +1,47 @@
 import { json } from '@sveltejs/kit';
-// 1. Cambiamos 'static' por 'dynamic' e importamos 'env'
 import { env } from '$env/dynamic/private';
 
-export const POST = async ({ request }) => {
-    try {
-        // 2. Leemos las variables desde el objeto env
-        const NOTION_TOKEN_DAVID = env.NOTION_TOKEN_DAVID;
-        const DATABASE_ID_DAVID = env.DATABASE_ID_DAVID;
+/**
+ * PATRÓN PROXY (BFF - Backend For Frontend)
+ * Este endpoint actúa como un intermediario seguro entre nuestra interfaz web y las APIs.
+ */
+export const GET = async ({ cookies, fetch }) => {
+    // CLAVE 1: SEGURIDAD (Zero Trust)
+    // Leemos el token directamente de la cookie segura del servidor (httpOnly). 
+    // Así evitamos que el Token viaje al navegador y lo exponemos a robos (ataques XSS).
+    const token = cookies.get('hubspot_token');
+    
+    if (!token) {
+        return json({ error: 'No autenticado en HubSpot' }, { status: 401 });
+    }
 
-        const response = await fetch(`https://api.notion.com/v1/databases/${DATABASE_ID_DAVID}/query`, {
-            method: 'POST',
+    try {
+        // CLAVE 2: ORQUESTACIÓN DE DATOS (Paso 1)
+        // El servidor hace la petición a nuestra propia API de Ads para obtener la inversión publicitaria.
+        const resAds = await fetch('https://sos2526-23.onrender.com/api/v2/global-ads-performance');
+        const adsData = await resAds.json();
+
+        // CLAVE 3: EVASIÓN DE CORS Y LLAMADA EXTERNA (Paso 2)
+        // Hacemos la petición a HubSpot desde el backend para evitar bloqueos CORS del navegador.
+        // Inyectamos el Bearer Token aquí, de forma invisible para el usuario.
+        const resHubspot = await fetch('https://api.hubapi.com/crm/v3/objects/deals?properties=amount,closedate,dealname', {
             headers: {
-                'Authorization': `Bearer ${NOTION_TOKEN_DAVID}`,
-                'Notion-Version': '2022-06-28',
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         });
-
-        const data = await response.json();
         
-        if (!response.ok) {
-            return json({ error: 'Error en Notion', details: data }, { status: response.status });
-        }
+        const hubspotData = await resHubspot.json();
 
-        return json(data.results);
+        // CLAVE 4: CUMPLIMIENTO DE REQUISITOS (Data Pura)
+        // No devolvemos un widget ni HTML prefabricado. Agrupamos los datos crudos de ambas 
+        // fuentes y enviamos un único JSON unificado para que el frontend lo procese y dibuje.
+        return json({ 
+            ads: adsData, 
+            sales: hubspotData.results || [] 
+        });
 
     } catch (error) {
-        return json({ error: error.message }, { status: 500 });
+        return json({ error: 'Fallo al procesar datos combinados' }, { status: 500 });
     }
 };
