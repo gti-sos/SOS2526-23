@@ -12,28 +12,20 @@
 
     onMount(async () => {
         try {
-            // 1. Cargamos las librerías dinámicamente
-            const HighchartsModule = await import('highcharts');
-            const Highcharts = HighchartsModule.default || HighchartsModule;
-            
-            const AccessibilityModule = await import('highcharts/modules/accessibility');
-            const Accessibility = AccessibilityModule.default || AccessibilityModule;
-            
-            // Inicializamos el módulo de accesibilidad
-            if (typeof Accessibility === 'function') {
-                Accessibility(Highcharts);
-            }
+            // 1. Cargamos ApexCharts dinámicamente
+            const ApexChartsModule = await import('apexcharts');
+            const ApexCharts = ApexChartsModule.default || ApexChartsModule;
 
             // 2. Cargamos los datos
-            await cargarYDibujar(Highcharts);
+            await cargarYDibujar(ApexCharts);
         } catch (e) {
-            console.error("Error al inicializar:", e);
+            console.error("Error al inicializar ApexCharts:", e);
             errorCarga = true;
             cargando = false;
         }
     });
 
-    async function cargarYDibujar(Highcharts) {
+    async function cargarYDibujar(ApexCharts) {
         try {
             // Peticiones en paralelo para ganar velocidad
             const [resBolsa, resStore] = await Promise.all([
@@ -54,7 +46,9 @@
 
             for (let i = 0; i < limite; i++) {
                 categorias.push(`${misDatosBolsa[i].index_name} / ${productosDatos[i].title.substring(0, 10)}...`);
-                serieBolsa.push(misDatosBolsa[i].volume / 1000000);
+                // Redondeamos el volumen para que quede limpio en millones
+                serieBolsa.push(Math.round(misDatosBolsa[i].volume / 1000000));
+                // Precios de la tienda
                 serieProducto.push(productosDatos[i].price);
             }
 
@@ -63,21 +57,54 @@
             // CRUCIAL: Esperamos a que Svelte cree el DIV en el DOM
             await tick();
 
-            // Verificamos que el contenedor exista antes de pintar (Evita Error #13)
+            // Verificamos que el contenedor exista antes de pintar
             if (contenedorGrafica && categorias.length > 0) {
-                Highcharts.chart(contenedorGrafica, {
-                    chart: { type: 'column' },
-                    title: { text: 'Comparativa Bolsa vs Tienda' },
-                    xAxis: { categories: categorias },
-                    yAxis: [
-                        { title: { text: 'Volumen (M)' } },
-                        { title: { text: 'Precio ($)' }, opposite: true }
+                const opciones = {
+                    series: [{
+                        name: 'Volumen Bolsa (M)',
+                        type: 'column', // Tipo barra para el volumen
+                        data: serieBolsa
+                    }, {
+                        name: 'Precio Producto ($)',
+                        type: 'line', // Tipo línea para el precio
+                        data: serieProducto
+                    }],
+                    chart: {
+                        height: 500,
+                        type: 'line', // El contenedor general es de tipo line
+                        fontFamily: 'sans-serif',
+                        toolbar: {
+                            show: true
+                        }
+                    },
+                    stroke: {
+                        width: [0, 4] // Sin borde para las barras, 4px de grosor para la línea
+                    },
+                    title: {
+                        text: 'Comparativa Bolsa vs Tienda (ApexCharts)',
+                        align: 'center'
+                    },
+                    colors: ['#2a9d8f', '#e9c46a'],
+                    xaxis: {
+                        categories: categorias
+                    },
+                    yaxis: [
+                        {
+                            title: { text: 'Volumen (Millones)' },
+                        }, 
+                        {
+                            opposite: true, // Ponemos el eje del precio a la derecha
+                            title: { text: 'Precio ($)' }
+                        }
                     ],
-                    series: [
-                        { name: 'Volumen Bolsa', data: serieBolsa, color: '#2a9d8f' },
-                        { name: 'Precio Producto', data: serieProducto, color: '#e9c46a', yAxis: 1 }
-                    ]
-                });
+                    tooltip: {
+                        shared: true,
+                        intersect: false
+                    }
+                };
+
+                const chart = new ApexCharts(contenedorGrafica, opciones);
+                chart.render();
             }
         } catch (error) {
             console.error("Error cargando datos:", error);
@@ -87,22 +114,28 @@
     }
 </script>
 
-<main style="padding: 20px; font-family: sans-serif;">
-    <h2>Integración: Mi API Bolsa + FakeStore API</h2>
+<main style="padding: 20px; font-family: sans-serif; max-width: 900px; margin: 0 auto;">
+    <h2>🛒 Integración: Mi API Bolsa + FakeStore API</h2>
+    <p>Visualización <strong>Mixta (Barra + Línea) con doble eje</strong> usando <strong>ApexCharts</strong>.</p>
 
     {#if errorCarga}
         <div style="background: #fee; color: #c00; padding: 10px; border-radius: 5px;">
             ⚠️ <strong>Error:</strong> No se han podido cargar los datos. 
-            Asegúrate de que el backend en el puerto 3000 está corriendo.
+            Asegúrate de que el backend está corriendo.
         </div>
     {/if}
 
     {#if cargando}
-        <p>⏳ Cargando datos y generando gráfica...</p>
+        <div style="text-align: center; padding: 40px; color: #666;">
+            <p>⏳ Cargando datos y generando gráfica...</p>
+        </div>
     {/if}
 
     <div 
         bind:this={contenedorGrafica} 
-        style="width: 100%; height: 500px; margin-top: 20px; {cargando ? 'display:none' : 'display:block'}"
+        style="width: 100%; margin-top: 20px; {cargando ? 'display:none' : 'display:block'}"
     ></div>
+
+    <br>
+    <a href="/integrations" style="display: inline-block; margin-top: 20px; text-decoration: none; color: #007bff; font-weight: bold;">⬅ Volver a Integraciones</a>
 </main>
