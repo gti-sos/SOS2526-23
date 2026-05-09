@@ -53,7 +53,7 @@
             // Fetch puro a nuestro proxy
             const res = await fetch('/integrations/global-ads-performance/api-hubspot');
             
-            if (res.status === 401) {
+            if (res.status === 401) { 
                 autenticado = false;
                 cargando = false;
                 return;
