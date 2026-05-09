@@ -1,14 +1,13 @@
 <div class="integrations">
     <h1>Integraciones — Emilio Cuevas Rendón</h1>
     <ul>
-        <li><a href="/integrations/github">GitHub — Actividad de repositorios (ECharts Heatmap)</a></li>
+        <li><a href="/integrations/github">GitHub — Actividad de repositorios (ECharts Radar)</a></li>
         <li><a href="/integrations/twitch">Twitch — Viewers por categoría (Plotly Scatter)</a></li>
-        <li><a href="/integrations/store">Tienda — Volumen Bolsa vs Precio Productos (Highcharts)</a></li>
+        <li><a href="/integrations/store">Tienda — Volumen Bolsa vs Precio Productos (ApexCharts Mixta)</a></li>
         
-        <li><a href="/integrations/sos/deaths-aids-stats">G21 — Deaths AIDS Stats (SOS)</a></li>
-        <li><a href="/integrations/sos/company-esg-scores">G28 — Company ESG Scores (SOS)</a></li>
-        <li><a href="/integrations/sos/recreation-culture">G24 — Recreation Culture Expenditure (SOS)</a></li>
-        <li><a href="/integrations/sos/religious-believes">G21 — Religious Believes Stats (SOS)</a></li>
+        <li><a href="/integrations/sos/ECR-deaths-aids-stats">G21 — Deaths AIDS Stats (SOS)</a></li>
+        <li><a href="/integrations/sos/ECR-company-esg-scores">G28 — Company ESG Scores (SOS)</a></li>
+        <li><a href="/integrations/sos/ECR-recreation-culture">G24 — Recreation Culture Expenditure (SOS)</a></li>
     </ul>
 </div>
 

@@ -309,4 +309,24 @@ export function loadBackEndECR(app) {
             res.status(500).json({ message: "Error conectando con la tienda", error: error.message });
         }
     });
+
+    // =====================================================================
+    // INTEGRACIÓN API COMPAÑEROS SOS (G21-deaths-aids-stats) - PROXY
+    // =====================================================================
+    app.get(BASE_URL_API + '/proxy/sos-aids', async (req, res) => {
+        try {
+            const externalResponse = await fetch('https://soporte-sos.onrender.com/api/v1/aids-deaths-stats');
+            
+            if (!externalResponse.ok) {
+                throw new Error("Fallo al obtener datos del compañero de SOS");
+            }
+
+            const data = await externalResponse.json();
+            res.status(200).json(data);
+
+        } catch (error) {
+            console.error("❌ Error en el proxy de SOS Aids:", error);
+            res.status(500).json({ message: "Error conectando con la API del compañero", error: error.message });
+        }
+    });
 }
