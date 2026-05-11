@@ -16,7 +16,7 @@
     <ul>
         <li><a href="/integrations/global-ads-performance/api-calendar">Google Calendar — Ads Performance</a></li>
         <li><a href="/integrations/global-ads-performance/api-hubspot">HubSpot — Ads Performance</a></li>
-        <li><a href="/integrations/global-ads-performance/api-wordpress">Wordpress - Ads Performance</a></li>
+        <li><a href="/integrations/global-ads-performance/api-notion">Notion — Ads Performance</a></li>
         
         <li><a href="/integrations/sos/DAV-beneficial-ownership-merchant-fleets">G28 — Beneficial Ownership Merchant Fleets (SOS)</a></li>
         <li><a href="/integrations/sos/DAV-social-drinking-behaviors">G25 — Social Drinking Behaviors (SOS)</a></li>
