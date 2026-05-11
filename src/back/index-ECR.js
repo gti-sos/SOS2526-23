@@ -289,30 +289,27 @@ export function loadBackEndECR(app) {
     });
     
     // =====================================================================
-    // INTEGRACIÓN FAKESTORE - PROXY (PRODUCTOS vs BOLSA)
+    // INTEGRACIÓN DUMMYJSON - PROXY (PRODUCTOS vs BOLSA)
     // =====================================================================
     app.get(BASE_URL_API + '/proxy/store', async (req, res) => {
         try {
-            const storeResponse = await fetch('https://fakestoreapi.com/products?limit=5', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    // Simular un navegador real para evitar bloqueos por bot/servidor
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-                }
+            // Cambiamos a DummyJSON, que no bloquea a Render
+            const storeResponse = await fetch('https://dummyjson.com/products?limit=5', {
+                method: 'GET'
             });
 
             if (!storeResponse.ok) {
-                // ¡IMPORTANTE! Imprimir el estado real para saber por qué falla FakeStore
-                console.error(`❌ FakeStore devolvió error: ${storeResponse.status} ${storeResponse.statusText}`);
-                throw new Error(`Fallo al obtener datos de la tienda (Status: ${storeResponse.status})`);
+                throw new Error("Fallo al obtener datos de la tienda");
             }
 
             const storeData = await storeResponse.json();
+            
+            // DummyJSON devuelve un objeto con un array 'products' dentro. 
+            // Lo enviamos tal cual al frontend.
             res.status(200).json(storeData);
 
         } catch (error) {
-            console.error("❌ Error en el proxy de FakeStore:", error);
+            console.error("❌ Error en el proxy de DummyJSON:", error);
             res.status(500).json({ message: "Error conectando con la tienda", error: error.message });
         }
     });

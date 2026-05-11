@@ -30,18 +30,28 @@
             // Peticiones en paralelo para ganar velocidad
             const [resBolsa, resStore] = await Promise.all([
                 fetch('/api/v1/daily-global-stock-market-indicators'),
-                fetch('/api/v1/proxy/store')
+                fetch('/api/v1/proxy/store') // Asumo que mantuviste esta misma ruta en el backend
             ]);
 
             if (!resBolsa.ok || !resStore.ok) throw new Error("Error en las APIs");
 
             misDatosBolsa = await resBolsa.json();
-            productosDatos = await resStore.json();
+            
+            // ⚠️ CAMBIO CRUCIAL PARA DUMMYJSON: 
+            // DummyJSON devuelve un objeto { products: [...] }, así que accedemos a .products
+            const datosStoreRespuesta = await resStore.json();
+            productosDatos = datosStoreRespuesta.products;
 
             // Procesar datos para la gráfica
             let categorias = [];
             let serieBolsa = [];
             let serieProducto = [];
+            
+            // Verificamos que tengamos arrays válidos antes de continuar
+            if (!Array.isArray(misDatosBolsa) || !Array.isArray(productosDatos)) {
+                throw new Error("Formato de datos incorrecto");
+            }
+
             const limite = Math.min(misDatosBolsa.length, productosDatos.length, 5);
 
             for (let i = 0; i < limite; i++) {
@@ -115,7 +125,7 @@
 </script>
 
 <main style="padding: 20px; font-family: sans-serif; max-width: 900px; margin: 0 auto;">
-    <h2>🛒 Integración: Mi API Bolsa + FakeStore API</h2>
+    <h2>🛒 Integración: Mi API Bolsa + DummyJSON API</h2>
     <p>Visualización <strong>Mixta (Barra + Línea) con doble eje</strong> usando <strong>ApexCharts</strong>.</p>
 
     {#if errorCarga}
