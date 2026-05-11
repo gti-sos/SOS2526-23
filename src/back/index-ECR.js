@@ -294,11 +294,18 @@ export function loadBackEndECR(app) {
     app.get(BASE_URL_API + '/proxy/store', async (req, res) => {
         try {
             const storeResponse = await fetch('https://fakestoreapi.com/products?limit=5', {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    // Simular un navegador real para evitar bloqueos por bot/servidor
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                }
             });
 
             if (!storeResponse.ok) {
-                throw new Error("Fallo al obtener datos de la tienda");
+                // ¡IMPORTANTE! Imprimir el estado real para saber por qué falla FakeStore
+                console.error(`❌ FakeStore devolvió error: ${storeResponse.status} ${storeResponse.statusText}`);
+                throw new Error(`Fallo al obtener datos de la tienda (Status: ${storeResponse.status})`);
             }
 
             const storeData = await storeResponse.json();
