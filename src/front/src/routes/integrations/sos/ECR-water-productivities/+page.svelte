@@ -6,7 +6,7 @@
   let datos    = $state([]);
   let cargando = $state(true);
   let error    = $state('');
-  let canvas   = $state(null);   // $state para que $effect lo detecte
+  let canvas   = $state(null);
   let chartInstance = null;
 
   function loadScript(src) {
@@ -20,10 +20,6 @@
     });
   }
 
-  // $effect reemplaza afterUpdate en Svelte 5.
-  // Se re-ejecuta automáticamente cada vez que canvas o datos cambian.
-  // Flujo: onMount pone datos → Svelte monta el <canvas> → bind:this asigna canvas
-  //        → $effect detecta el cambio → renderiza el gráfico.
   $effect(() => {
     if (!canvas || datos.length === 0) return;
 
@@ -57,7 +53,6 @@
       }
     });
 
-    // Cleanup cuando el componente se desmonta
     return () => { if (chartInstance) { chartInstance.destroy(); chartInstance = null; } };
   });
 
@@ -97,11 +92,34 @@
     <div class="chart-box">
       <canvas bind:this={canvas}></canvas>
     </div>
+
     <details>
-      <summary>Ver datos técnicos recibidos</summary>
-      <div class="raw-data">
-        <p><strong>Total registros:</strong> {datos.length}</p>
-        <pre>{JSON.stringify(datos.slice(0, 3), null, 2)}</pre>
+      <summary>Ver todos los datos recibidos ({datos.length} registros)</summary>
+      <div class="tabla-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>País</th>
+              <th>Código</th>
+              <th>Año</th>
+              <th>Productividad hídrica</th>
+              <th>Estrés hídrico</th>
+              <th>Agua dulce anual</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#each datos as d}
+              <tr>
+                <td>{d.country}</td>
+                <td>{d.countryCode}</td>
+                <td>{d.year}</td>
+                <td>{d.waterProductivity}</td>
+                <td>{d.waterStress}</td>
+                <td>{d.annualFreshwater}</td>
+              </tr>
+            {/each}
+          </tbody>
+        </table>
       </div>
     </details>
   {/if}
@@ -114,8 +132,13 @@
   .chart-box { height: 500px; background: #fff; border-radius: 12px; padding: 1rem; border: 1px solid #eee; }
   .msg { padding: 2rem; background: #f8f9fa; border-radius: 10px; text-align: center; color: #555; }
   .error { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
+
   details { margin-top: 2rem; background: #fafafa; padding: 1rem; border-radius: 8px; }
   summary { cursor: pointer; font-weight: 600; color: #4a5568; }
-  .raw-data { margin-top: 1rem; font-size: 0.8rem; }
-  pre { background: #2d3748; color: #edf2f7; padding: 1rem; border-radius: 6px; overflow-x: auto; }
+
+  .tabla-wrapper { overflow-x: auto; margin-top: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th { background: #2d3748; color: #edf2f7; padding: 0.5rem 0.75rem; text-align: left; }
+  td { padding: 0.4rem 0.75rem; border-bottom: 1px solid #e2e8f0; color: #2d3748; }
+  tr:hover td { background: #f7fafc; }
 </style>
