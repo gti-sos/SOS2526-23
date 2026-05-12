@@ -333,4 +333,21 @@ export function loadBackEndECR(app) {
             res.status(500).json({ message: "Error conectando con la API del compañero", error: error.message });
         }
     });
+
+    // =====================================================================
+    // INTEGRACIÓN API COMPAÑEROS SOS (G24 - Recreation Culture Expenditure) - PROXY
+    // =====================================================================
+    app.get(BASE_URL_API + '/proxy/recreation-culture', async (req, res) => {
+        try {
+            const externalResponse = await fetch('https://sos2526-24.onrender.com/api/v2/recreation-culture-expenditure');
+            if (!externalResponse.ok) {
+                throw new Error(`Error HTTP ${externalResponse.status}`);
+            }
+            const data = await externalResponse.json();
+            res.status(200).json(data);
+        } catch (error) {
+            console.error('❌ Error en proxy recreation-culture:', error);
+            res.status(500).json({ message: "Error conectando con API G24", error: error.message });
+        }
+    });
 }
