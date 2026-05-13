@@ -14,10 +14,40 @@
                 fetch('/api/v1/proxy/sos-aids')
             ]);
 
-            if (!resBolsa.ok || !resSos.ok) throw new Error("Error en las APIs");
+            if (!resBolsa.ok || !resSos.ok) {
+                throw new Error(`Error en las APIs - Bolsa: ${resBolsa.status}, Compi: ${resSos.status}`);
+            }
 
-            const misDatosBolsa = await resBolsa.json();
-            const datosCompi = await resSos.json();
+            const misDatosBolsaBrutos = await resBolsa.json();
+            const datosCompiBrutos = await resSos.json();
+
+            // 🕵️‍♂️ CHIVATOS PARA LA CONSOLA (F12)
+            console.log("👀 Datos brutos de MI bolsa:", misDatosBolsaBrutos);
+            console.log("👀 Datos brutos del COMPI:", datosCompiBrutos);
+
+            // =========================================================
+            // 🛡️ LÓGICA DE EXTRACCIÓN SEGURA (El arreglo principal)
+            // =========================================================
+            
+            // 1. Asegurar mis datos
+            const misDatosBolsa = Array.isArray(misDatosBolsaBrutos) ? misDatosBolsaBrutos : [];
+
+            // 2. Asegurar los datos del compañero (por si manda un objeto en vez de array)
+            let datosCompi = [];
+            if (Array.isArray(datosCompiBrutos)) {
+                datosCompi = datosCompiBrutos;
+            } else if (typeof datosCompiBrutos === 'object' && datosCompiBrutos !== null) {
+                // Buscamos dinámicamente el primer array dentro de su objeto de respuesta
+                const arrayEncontrado = Object.values(datosCompiBrutos).find(val => Array.isArray(val));
+                datosCompi = arrayEncontrado || [];
+            }
+
+            console.log("✅ Array final Compi a procesar:", datosCompi);
+
+            if (misDatosBolsa.length === 0 || datosCompi.length === 0) {
+                console.warn("⚠️ Atención: Uno de los arrays está vacío. ¿Tiene la base de datos registros?");
+                throw new Error("No hay suficientes datos para dibujar la gráfica.");
+            }
 
             // Preparar datos para Billboard.js
             let etiquetas = [];
@@ -33,8 +63,10 @@
                 // Buscamos dinámicamente el primer número en el JSON del compañero
                 let valorCompi = 0;
                 for (let key in datosCompi[i]) {
-                    if (typeof datosCompi[i][key] === 'number' && key !== 'year' && key !== 'id') {
-                        valorCompi = datosCompi[i][key];
+                    // Mejorado: comprobamos si es número o si es un string numérico (ej: "150")
+                    let posibleNumero = parseFloat(datosCompi[i][key]);
+                    if (!isNaN(posibleNumero) && key !== 'year' && key !== 'id') {
+                        valorCompi = posibleNumero;
                         break;
                     }
                 }
@@ -45,7 +77,6 @@
             await tick();
 
             // Usamos la variable global 'bb' que viene de internet (CDN)
-            // Hacemos un pequeño setTimeout para asegurar que el script del CDN haya descargado
             setTimeout(() => {
                 if (contenedorGrafica && etiquetas.length > 0 && window.bb) {
                     window.bb.generate({
@@ -85,7 +116,7 @@
             }, 500);
 
         } catch (error) {
-            console.error("Error cargando datos:", error);
+            console.error("❌ Error cargando la gráfica:", error);
             errorCarga = true;
             cargando = false;
         }
@@ -102,8 +133,9 @@
     <p>Visualización <strong>Mixta (Barra + Area-Step)</strong> usando <strong>Billboard.js (CDN)</strong>.</p>
 
     {#if errorCarga}
-        <div style="background: #fee; color: #c00; padding: 10px; border-radius: 5px;">
-            ⚠️ <strong>Error:</strong> No se han podido cargar los datos de la API de compañeros.
+        <div style="background: #fee; color: #c00; padding: 15px; border-radius: 5px; text-align: center;">
+            ⚠️ <strong>Error:</strong> No se han podido cargar o cruzar los datos de la API de compañeros.
+            <br><small>Abre la consola (F12) para ver los detalles.</small>
         </div>
     {/if}
 
@@ -119,5 +151,7 @@
     ></div>
 
     <br>
-    <a href="/integrations" style="display: inline-block; margin-top: 20px; text-decoration: none; color: #007bff; font-weight: bold;">⬅ Volver a Integraciones</a>
+    <div style="text-align: center;">
+        <a href="/integrations" style="display: inline-block; margin-top: 20px; text-decoration: none; color: #007bff; font-weight: bold; padding: 10px 20px; border: 1px solid #007bff; border-radius: 5px;">⬅ Volver a Integraciones</a>
+    </div>
 </main>

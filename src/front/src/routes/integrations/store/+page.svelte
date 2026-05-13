@@ -7,16 +7,16 @@
     let cargando = $state(true);
     let errorCarga = $state(false);
     
-    // Referencia directa al elemento del DOM
+    // Referencia directa al elemento del DOM para ApexCharts
     let contenedorGrafica = $state(null);
 
     onMount(async () => {
         try {
-            // 1. Cargamos ApexCharts dinámicamente
+            // 1. Cargamos ApexCharts dinámicamente para evitar errores de SSR
             const ApexChartsModule = await import('apexcharts');
             const ApexCharts = ApexChartsModule.default || ApexChartsModule;
 
-            // 2. Cargamos los datos
+            // 2. Cargamos los datos de las APIs y dibujamos
             await cargarYDibujar(ApexCharts);
         } catch (e) {
             console.error("Error al inicializar ApexCharts:", e);
@@ -27,62 +27,77 @@
 
     async function cargarYDibujar(ApexCharts) {
         try {
-            // Peticiones en paralelo para ganar velocidad
+            // Peticiones en paralelo. 
+            // IMPORTANTE: He cambiado 'dummyjson' por 'store' para que coincida con tu backend
             const [resBolsa, resStore] = await Promise.all([
                 fetch('/api/v1/daily-global-stock-market-indicators'),
-                fetch('/api/v1/proxy/store')
+                fetch('/api/v1/proxy/store') 
             ]);
 
-            if (!resBolsa.ok || !resStore.ok) throw new Error("Error en las APIs");
+            if (!resBolsa.ok || !resStore.ok) {
+                throw new Error(`Error en las APIs: Bolsa(${resBolsa.status}) Tienda(${resStore.status})`);
+            }
 
+            // Guardamos datos de la bolsa
             misDatosBolsa = await resBolsa.json();
-            productosDatos = await resStore.json();
+            
+            // Procesamos respuesta de DummyJSON (viene dentro de .products)
+            const datosStoreRespuesta = await resStore.json();
+            productosDatos = datosStoreRespuesta.products;
 
-            // Procesar datos para la gráfica
+            // Verificamos que ambos tengan datos antes de seguir
+            if (!Array.isArray(misDatosBolsa) || !Array.isArray(productosDatos)) {
+                throw new Error("El formato de los datos recibidos no es un array válido");
+            }
+
+            // Preparar arrays para la gráfica
             let categorias = [];
             let serieBolsa = [];
             let serieProducto = [];
+            
+            // Limitamos a 5 elementos para que la gráfica no se amontone
             const limite = Math.min(misDatosBolsa.length, productosDatos.length, 5);
 
             for (let i = 0; i < limite; i++) {
+                // Eje X: Nombre del índice + Nombre del producto (recortado)
                 categorias.push(`${misDatosBolsa[i].index_name} / ${productosDatos[i].title.substring(0, 10)}...`);
-                // Redondeamos el volumen para que quede limpio en millones
+                
+                // Serie 1: Volumen de bolsa (en millones para que la escala sea manejable)
                 serieBolsa.push(Math.round(misDatosBolsa[i].volume / 1000000));
-                // Precios de la tienda
+                
+                // Serie 2: Precio de DummyJSON
                 serieProducto.push(productosDatos[i].price);
             }
 
             cargando = false;
             
-            // CRUCIAL: Esperamos a que Svelte cree el DIV en el DOM
+            // Esperamos a que Svelte actualice el DOM y el div 'contenedorGrafica' exista
             await tick();
 
-            // Verificamos que el contenedor exista antes de pintar
             if (contenedorGrafica && categorias.length > 0) {
                 const opciones = {
                     series: [{
                         name: 'Volumen Bolsa (M)',
-                        type: 'column', // Tipo barra para el volumen
+                        type: 'column',
                         data: serieBolsa
                     }, {
                         name: 'Precio Producto ($)',
-                        type: 'line', // Tipo línea para el precio
+                        type: 'line',
                         data: serieProducto
                     }],
                     chart: {
                         height: 500,
-                        type: 'line', // El contenedor general es de tipo line
-                        fontFamily: 'sans-serif',
-                        toolbar: {
-                            show: true
-                        }
+                        type: 'line',
+                        fontFamily: 'Arial, sans-serif',
+                        toolbar: { show: true }
                     },
                     stroke: {
-                        width: [0, 4] // Sin borde para las barras, 4px de grosor para la línea
+                        width: [0, 4] // 0 para barras, 4px para la línea
                     },
                     title: {
-                        text: 'Comparativa Bolsa vs Tienda (ApexCharts)',
-                        align: 'center'
+                        text: 'Comparativa: Mi Bolsa vs DummyJSON Store',
+                        align: 'center',
+                        style: { fontSize: '20px' }
                     },
                     colors: ['#2a9d8f', '#e9c46a'],
                     xaxis: {
@@ -90,11 +105,11 @@
                     },
                     yaxis: [
                         {
-                            title: { text: 'Volumen (Millones)' },
+                            title: { text: 'Volumen (Millones de $)' },
                         }, 
                         {
-                            opposite: true, // Ponemos el eje del precio a la derecha
-                            title: { text: 'Precio ($)' }
+                            opposite: true, // Eje de precio a la derecha
+                            title: { text: 'Precio Producto ($)' }
                         }
                     ],
                     tooltip: {
@@ -107,35 +122,48 @@
                 chart.render();
             }
         } catch (error) {
-            console.error("Error cargando datos:", error);
+            console.error("❌ Error cargando datos en el frontend:", error);
             errorCarga = true;
             cargando = false;
         }
     }
 </script>
 
-<main style="padding: 20px; font-family: sans-serif; max-width: 900px; margin: 0 auto;">
-    <h2>🛒 Integración: Mi API Bolsa + FakeStore API</h2>
-    <p>Visualización <strong>Mixta (Barra + Línea) con doble eje</strong> usando <strong>ApexCharts</strong>.</p>
+<main style="padding: 20px; font-family: sans-serif; max-width: 1000px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2>🛒 Integración Real: API Bolsa + DummyJSON</h2>
+        <p>Consumiendo datos externos a través de un <strong>Proxy Seguro</strong> en el Backend.</p>
+    </div>
 
     {#if errorCarga}
-        <div style="background: #fee; color: #c00; padding: 10px; border-radius: 5px;">
-            ⚠️ <strong>Error:</strong> No se han podido cargar los datos. 
-            Asegúrate de que el backend está corriendo.
+        <div style="background: #fff5f5; color: #c53030; padding: 20px; border: 1px solid #feb2b2; border-radius: 8px; text-align: center;">
+            <p>⚠️ <strong>¡Ups! Algo ha fallado:</strong></p>
+            <p>No se han podido cargar los datos. Revisa que el Backend esté desplegado en Render y que las rutas coincidan.</p>
         </div>
     {/if}
 
-    {#if cargando}
-        <div style="text-align: center; padding: 40px; color: #666;">
-            <p>⏳ Cargando datos y generando gráfica...</p>
+    {#if cargando && !errorCarga}
+        <div style="text-align: center; padding: 50px;">
+            <div style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 40px; height: 40px; animation: spin 2s linear infinite; margin: 0 auto;"></div>
+            <p style="margin-top: 15px; color: #666;">Obteniendo datos de los servidores...</p>
         </div>
     {/if}
 
     <div 
         bind:this={contenedorGrafica} 
-        style="width: 100%; margin-top: 20px; {cargando ? 'display:none' : 'display:block'}"
+        style="width: 100%; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); {cargando ? 'display:none' : 'display:block'}"
     ></div>
 
-    <br>
-    <a href="/integrations" style="display: inline-block; margin-top: 20px; text-decoration: none; color: #007bff; font-weight: bold;">⬅ Volver a Integraciones</a>
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="/integrations" style="text-decoration: none; color: #4a5568; font-weight: bold; padding: 10px 20px; border: 1px solid #cbd5e0; border-radius: 5px; background: #edf2f7;">
+            ⬅ Volver al Panel de Integraciones
+        </a>
+    </div>
 </main>
+
+<style>
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
