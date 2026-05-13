@@ -75,20 +75,57 @@
             if (typeof HighchartsMore === 'function') HighchartsMore(Highcharts);
             if (typeof Accessibility === 'function') Accessibility(Highcharts);
 
-            // LLAMADA AL PROXY
-            // Pedimos los datos cruzados a nuestro backend
-            const res = await fetch('/integrations/global-ads-performance/api-calendar'); 
-            
-            // Si el proxy responde 401, el usuario no tiene token de Google. Paramos la carga.
-            if (res.status === 401) {
+            // ==========================================
+            // NUEVA LLAMADA: PROXY .PIPE() + FETCH DIRECTO
+            // ==========================================
+
+            // 1. Extraer el token de las cookies (Svelte lo lee del navegador)
+            const getCookie = (name) => {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+                return null;
+            };
+            const token = getCookie('google_calendar_token');
+
+            if (!token) {
                 autenticado = false;
                 cargando = false;
                 return;
             }
 
-            if (!res.ok) throw new Error("Error al obtener datos del servidor");
+            // 2. Pedimos los Ads directamente a tu API en Render
+            const resAds = await fetch('https://sos2526-23.onrender.com/api/v2/global-ads-performance');
+            if (!resAds.ok) throw new Error("Fallo al cargar Ads");
+            const adsData = await resAds.json();
 
-            const { adsData, events } = await res.json();
+            // 3. Pedimos los eventos a Google pasando por tu nuevo Proxy "Tubo"
+            const localProxy = "http://localhost:3000"; // Ruta local para desarrollo
+            const googleUrl = localProxy + '/api/proxy-calendar/calendar/v3/calendars/primary/events?timeMin=2024-01-01T00:00:00Z&singleEvents=true&orderBy=startTime&maxResults=1000';
+            
+            const resCal = await fetch(googleUrl, {
+                headers: {
+                    'Authorization': `Bearer ${token}`, // ¡Vital para que Google te deje pasar!
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (resCal.status === 401) {
+                autenticado = false;
+                cargando = false;
+                return;
+            }
+            if (!resCal.ok) throw new Error("Error en Google Calendar");
+
+            const rawCalendarData = await resCal.json();
+
+            // 4. Transformamos el formato de Google a nuestro formato simple
+            const events = (rawCalendarData.items || []).map(event => ({
+                date: event.start?.date || (event.start?.dateTime ? event.start.dateTime.split('T')[0] : null),
+                title: event.summary || "Evento sin título"
+            })).filter(e => e.date !== null);
+
+            // ==========================================
 
             // NORMALIZACIÓN DE FECHAS
             // Aseguramos que tanto Google como nuestra API hablen el mismo "idioma" de fechas (YYYY-MM-DD)

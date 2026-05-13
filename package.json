@@ -43,6 +43,7 @@
     "path": "^0.12.7",
     "plotly": "^1.0.6",
     "plotly.js-dist-min": "^3.5.1",
+    "request": "^2.88.2",
     "undici": "^8.1.0"
   },
   "devDependencies": {
