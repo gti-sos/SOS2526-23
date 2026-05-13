@@ -43,26 +43,57 @@
     };
 
     // ==========================================
-    // CARGA DE DATOS (CUMPLIENDO LA NORMA DEL FETCH)
+    // CARGA DE DATOS (NUEVA ARQUITECTURA PROXY PIPE)
     // ==========================================
     onMount(async () => {
         try {
             const { Chart, registerables } = await import('chart.js');
             Chart.register(...registerables);
 
-            // Fetch puro a nuestro proxy
-            const res = await fetch('/integrations/global-ads-performance/api-hubspot');
-            
-            if (res.status === 401) { 
+            // 1. Extraer el token de HubSpot de las cookies del navegador
+            const getCookie = (name) => {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+                return null;
+            };
+            const token = getCookie('hubspot_token');
+
+            if (!token) {
                 autenticado = false;
                 cargando = false;
                 return;
             }
-            if (!res.ok) throw new Error("Error al obtener datos combinados del servidor");
 
-            // Recogemos el JSON
-            const { ads, sales } = await res.json();
+            // 2. Llamada directa a Render (Ads)
+            const resAds = await fetch('https://sos2526-23.onrender.com/api/v2/global-ads-performance');
+            if (!resAds.ok) throw new Error("Fallo al obtener datos de Ads");
+            const ads = await resAds.json();
 
+            // 3. Llamada a HubSpot a través del Proxy "Tubo" en Express
+            const baseProxy = window.location.hostname === 'localhost' ? 'http://localhost:3000' : '';
+            const hubspotUrl = `${baseProxy}/api/proxy-hubspot/crm/v3/objects/deals?properties=amount,closedate,dealname`;
+
+            const resHubspot = await fetch(hubspotUrl, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (resHubspot.status === 401) { 
+                autenticado = false;
+                cargando = false;
+                return;
+            }
+            if (!resHubspot.ok) throw new Error("Error al comunicarse con HubSpot mediante el proxy");
+
+            const hubspotData = await resHubspot.json();
+            const sales = hubspotData.results || [];
+
+            // ==========================================
+            // NORMALIZACIÓN Y COMBINACIÓN DE DATOS
+            // ==========================================
             const limpiarFecha = (fecha) => fecha ? fecha.split('T')[0] : null;
 
             // Sacamos todas las fechas únicas
@@ -75,8 +106,6 @@
 
             // Formateamos los datos para que el widget los digiera fácilmente
             datosCompletos = fechasUnicas.map(fecha => {
-                
-                // CAMBIO AQUÍ: Ahora sumamos 'ad_spend' en lugar de 'revenue'
                 const sumaAds = ads
                     .filter(ad => limpiarFecha(ad.date) === fecha)
                     .reduce((sum, ad) => sum + Number(ad.ad_spend || 0), 0);
@@ -94,13 +123,12 @@
             cargando = false;
             await tick();
 
-            // Inicializamos el gráfico (vacío, se llena con actualizarWidget)
+            // Inicializamos el gráfico
             chartInstance = new Chart(canvasElement, {
-                type: 'bar', // Gráfico de barras (NO de línea)
+                type: 'bar',
                 data: {
                     labels: [],
                     datasets: [
-                        // CAMBIO DE ETIQUETA AQUÍ
                         { label: 'Inversión Ads (Spend)', data: [], backgroundColor: '#36a2eb', borderRadius: 4 },
                         { label: 'Ventas CRM (Ingreso)', data: [], backgroundColor: '#4bc0c0', borderRadius: 4 }
                     ]
