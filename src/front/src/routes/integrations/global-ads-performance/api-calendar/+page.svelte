@@ -100,8 +100,8 @@
             const adsData = await resAds.json();
 
             // 3. Pedimos los eventos a Google pasando por tu nuevo Proxy "Tubo"
-            const localProxy = "http://localhost:3000"; // Ruta local para desarrollo
-            const googleUrl = localProxy + '/api/proxy-calendar/calendar/v3/calendars/primary/events?timeMin=2024-01-01T00:00:00Z&singleEvents=true&orderBy=startTime&maxResults=1000';
+            // const localProxy = "http://localhost:3000"; // Ruta local para desarrollo
+            const googleUrl ='/api/proxy-calendar/calendar/v3/calendars/primary/events?timeMin=2024-01-01T00:00:00Z&singleEvents=true&orderBy=startTime&maxResults=1000';
             
             const resCal = await fetch(googleUrl, {
                 headers: {

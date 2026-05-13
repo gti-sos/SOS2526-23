@@ -36,7 +36,7 @@ export const GET = async ({ url, cookies }) => {
         // Nota: HubSpot suele dar tokens que duran 30 minutos.
         cookies.set('hubspot_token', tokens.access_token, {
             path: '/',
-            httpOnly: true,
+            httpOnly: false, // Permitir acceso desde JS para futuras llamadas al proxy
             sameSite: 'lax',
             secure: true,
             maxAge: tokens.expires_in // Usamos la duración que nos da HubSpot

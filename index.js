@@ -4,6 +4,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import { handler } from './src/front/build/handler.js';
 import proxyDeDavid from "./src/back/server_proxy/proxy-DAV.js";
+import proxyHubspot from "./src/back/server_proxy/proxy-hubspot.js";
+
 
 import { loadBackEndMRR } from './src/back/index-MRR.js';
 import { loadBackEndDAV } from './src/back/index-DAV.js';
@@ -22,8 +24,9 @@ loadBackEndDAV(app);
 loadBackEndECR(app);
 loadBackEndMRR(app);
 
-//Llamada al porxy de David para el calendario de Google y los datos de Ads
+//Llamada al proxy
 proxyDeDavid(app);
+proxyHubspot(app);
 
 //Hace el build y construye
 app.use(handler);

@@ -7,7 +7,7 @@ const DOC_URL = "https://documenter.getpostman.com/view/52707486/2sBXigLYQP";
 
 // Inicializamos las dos bases de datos en memoria
 const dbV1 = new DataStore();
-const dbV2 = new DataStore({ autoload: true });
+const dbV2 = new DataStore({ filename: "./global-ads-performance-v2.db", autoload: true });
 
 
 export function loadBackEndDAV(app) {
