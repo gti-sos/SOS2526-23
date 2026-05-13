@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import { handler } from './src/front/build/handler.js';
 import proxyDeDavid from "./src/back/server_proxy/proxy-DAV.js";
 import proxyHubspot from "./src/back/server_proxy/proxy-hubspot.js";
-import proxyNotion from "./src/back/server_proxy/proxy-notion.js";
 
 
 import { loadBackEndMRR } from './src/back/index-MRR.js';
@@ -28,7 +27,6 @@ loadBackEndMRR(app);
 //Llamada al proxy
 proxyDeDavid(app);
 proxyHubspot(app);
-proxyNotion(app);
 
 //Hace el build y construye
 app.use(handler);
