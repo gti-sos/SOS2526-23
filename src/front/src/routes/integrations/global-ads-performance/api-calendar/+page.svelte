@@ -77,7 +77,7 @@
 
             // LLAMADA AL PROXY
             // Pedimos los datos cruzados a nuestro backend
-            const res = await fetch('/integrations/global-ads-performance/api-calendar'); 
+            const res = await fetch('/src/back/server_proxy'); 
             
             // Si el proxy responde 401, el usuario no tiene token de Google. Paramos la carga.
             if (res.status === 401) {
