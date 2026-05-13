@@ -20,7 +20,7 @@ export const GET = async ({ url, cookies }) => {
 
         cookies.set('google_calendar_token', tokens.access_token, {
             path: '/',
-            httpOnly: true,
+            httpOnly: false,
             sameSite: 'lax',
             secure: process.env.NODE_ENV === 'production',
             maxAge: 60 * 60 * 24
