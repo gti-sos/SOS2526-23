@@ -1,6 +1,10 @@
+# El nombre que aparece en la pestaña Actions de GitHub, solo es visual
 name: CI API Tests
 
-# Indicamos que se ejecute al hacer push (en CUALQUIER rama) o abrir un Pull Request (hacia main)
+# Aquí definimos cuándo se ejecuta todo esto
+# - push: se lanza cada vez que subo código a cualquier rama
+# - pull_request a main: también se lanza cuando alguien quiere mergear a main
+#   así me aseguro de que nadie rompe main sin que pasen los tests primero
 on:
   push:
   pull_request:
@@ -8,50 +12,61 @@ on:
 
 jobs:
   test:
-    # Se ejecutará en la última versión de Ubuntu
+    # GitHub nos da una máquina virtual Ubuntu limpia para ejecutar todo
+    # uso Ubuntu porque es lo más parecido a un servidor real de producción
     runs-on: ubuntu-latest
-    
+
     steps:
-      # 1. Clona tu repositorio en la máquina virtual de GitHub
+
+      # Sin esto la máquina está vacía, esto hace básicamente un git clone
       - name: Checkout del código
         uses: actions/checkout@v4
-        
-      # 2. Configura Node.js (Usamos la versión 22 por compatibilidad con NeDB)
+
+      # Instalo Node 22 porque versiones anteriores dan problemas con NeDB
       - name: Configurar Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          
-      # 3. Instala las dependencias del backend (Express, NeDB, Newman...)
+
+      # Instalo las dependencias del backend (Express, NeDB, Newman...)
       - name: Instalar dependencias del Backend
         run: npm install
 
-      # 4. Construye el frontend para que el backend no falle al arrancar
+      # El backend sirve los archivos del frontend, si no los construyo
+      # antes el servidor peta al arrancar. El --legacy-peer-deps es para
+      # que npm no se queje de conflictos entre paquetes del frontend
       - name: Instalar dependencias del Frontend y construir
         run: |
           cd src/front
           npm install --legacy-peer-deps
           npm run build
-          
-      # 5. Lanza los tests usando el script que ya preparamos
+
+      # Ejecuto los tests de Newman (colecciones de Postman por consola)
       - name: Ejecutar pruebas
         run: npm test
 
-      # 6. Lanza el servidor y ESPERA a que esté listo para evitar el Race Condition
+      # Arranco el servidor en segundo plano con el & para que no bloquee
+      # el pipeline, y luego wait-on espera hasta que el puerto 3000 responde
+      # si no hago esto Playwright empieza antes de que el servidor esté listo
       - name: Start the server and wait
         run: |
           npm start &
           npx wait-on http://127.0.0.1:3000
-        
-      # 7. Instala Playwright y sus dependencias para ejecutar los tests E2E  
+
+      # Playwright necesita descargar los navegadores aparte porque son muy
+      # pesados para meterlos en node_modules. --with-deps instala también
+      # las librerías de Linux que necesitan para funcionar
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-        
-      # 8. Lanza las pruebas de Playwright
+
+      # Aquí es donde Playwright simula un usuario real usando el navegador,
+      # a diferencia de Newman que solo prueba la API sin interfaz gráfica
       - name: Run Playwright tests
         run: npx playwright test
-        
-      # 9. Guarda el reporte visual si algo falla para poder revisarlo luego
+
+      # Guardo el reporte HTML que genera Playwright para poder ver qué
+      # ha fallado y con capturas de pantalla. El !cancelled() hace que
+      # se guarde siempre, tanto si pasa como si falla
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
@@ -59,7 +74,9 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      # 10. Despliegue automático en Render si las pruebas pasan (Punto 6)
+      # Solo despliega en Render si todo lo anterior ha ido bien.
+      # La URL del hook está en los secrets de GitHub para que no quede
+      # expuesta en el código, cualquiera con ella podría desplegar en producción
       - name: Deploy to Render
         if: success()
         run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
