@@ -1,3 +1,6 @@
+//Es simplemente un archivo de configuración del editor. Lo pusimos para que a todos los miembros del grupo 
+// nos recomendara instalar las mismas extensiones (como la de Svelte o Prettier) y así tener todos el editor configurado igual
+
 {
 	"recommendations": ["svelte.svelte-vscode", "esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
 }

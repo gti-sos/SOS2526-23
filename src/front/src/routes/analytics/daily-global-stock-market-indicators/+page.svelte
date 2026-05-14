@@ -1,12 +1,17 @@
 <script>
+    // Importamos la función de Svelte que se ejecuta justo cuando la página carga
     import { onMount } from 'svelte';
+    // Importamos la librería principal para hacer gráficos guapos
     import Highcharts from 'highcharts';
+    // Importamos el "DLC" o extra de Highcharts que nos deja hacer gráficos de burbujas
     import HighchartsMore from 'highcharts/highcharts-more';
 
+    // Aquí guardaremos la referencia al <div> de abajo donde se va a pintar el gráfico
     let chartContainer;
 
+    // Todo lo que hay aquí dentro se ejecuta nada más abrir la página web
     onMount(async () => {
-        // Inicializar el módulo para burbujas
+        // Un pequeño truco técnico para asegurarnos de que el módulo de burbujas carga bien en Svelte
         if (typeof HighchartsMore === 'function') {
             HighchartsMore(Highcharts);
         } else if (HighchartsMore && typeof HighchartsMore.default === 'function') {
@@ -14,30 +19,41 @@
         }
         
         try {
+            // Le pedimos a nuestra API (nuestro backend) que nos dé los datos de la bolsa
             const response = await fetch('/api/v1/daily-global-stock-market-indicators'); 
+            
+            // Si el backend da un error (ej. un 404 o 500), lanzamos una alerta y paramos
             if (!response.ok) throw new Error(`Error API: ${response.status}`);
+            
+            // Transformamos la respuesta de texto del backend en un JSON (un array de objetos que JavaScript entiende)
             const data = await response.json();
 
-            // 1. Extraer categorías para el Eje X (Nombres de los índices)
+            // 1. Extraer categorías: Sacamos solo los nombres de los índices (Ibex, Nasdaq...) para ponerlos abajo en el eje X
             const categoriasEjeX = data.map(item => item.index_name);
 
-            // 2. Transformar los datos con colores dinámicos
+            // 2. Transformar los datos: Cogemos los datos crudos y los preparamos como a Highcharts le gusta
             const serieDatos = data.map((item, index) => {
-                // Lógica de colores: Verde si sube, Rojo si baja
-                let colorBurbuja = 'rgba(158, 158, 158, 0.6)'; // Gris por defecto
+                // Por defecto la burbuja será gris translúcida
+                let colorBurbuja = 'rgba(158, 158, 158, 0.6)'; 
+                
+                // Si el porcentaje diario es positivo (subió), la pintamos de verde
                 if (item.daily_change_percent > 0) {
-                    colorBurbuja = 'rgba(76, 175, 80, 0.6)'; // Verde translúcido
+                    colorBurbuja = 'rgba(76, 175, 80, 0.6)'; 
+                // Si el porcentaje diario es negativo (bajó), la pintamos de rojo
                 } else if (item.daily_change_percent < 0) {
-                    colorBurbuja = 'rgba(244, 67, 54, 0.6)'; // Rojo translúcido
+                    colorBurbuja = 'rgba(244, 67, 54, 0.6)'; 
                 }
 
+                // Devolvemos el "molde" de la burbuja para este dato concreto
                 return {
-                    x: index,            // Posición horizontal (0, 1, 2...)
-                    y: item.close,       // Eje Y: Precio de cierre
-                    z: item.volume,      // Tamaño: Volumen
-                    name: item.index_name,
-                    color: colorBurbuja, // Inyectamos el color directamente
-                    // Datos extra para el tooltip
+                    x: index,            // Su posición en la línea horizontal (0, 1, 2...)
+                    y: item.close,       // Su altura en el gráfico (precio de cierre)
+                    z: item.volume,      // Lo gorda que será la burbuja (volumen de ventas)
+                    name: item.index_name, // Nombre para saber cuál es
+                    color: colorBurbuja, // Le enchufamos el color que hemos calculado arriba
+                    
+                    // Todo esto de abajo es "información extra" que guardamos de forma invisible 
+                    // para mostrarla luego en el cuadrito (tooltip) cuando pases el ratón por encima
                     fecha: item.date,
                     region: item.region,
                     open: item.open,
@@ -47,38 +63,40 @@
                 };
             });
 
-            // 3. Pintar el gráfico con el nuevo diseño
+            // 3. ¡Pintamos el gráfico! Le decimos a Highcharts que se meta en nuestro <div> y le pasamos todas estas opciones
             Highcharts.chart(chartContainer, {
                 chart: { 
-                    type: 'bubble', 
-                    plotBorderWidth: 1, 
-                    zoomType: 'xy',
-                    backgroundColor: '#fcfcfc' // Fondo un poco más elegante
+                    type: 'bubble', // Tipo de gráfico: Burbujas
+                    plotBorderWidth: 1, // Borde fino alrededor del gráfico entero
+                    zoomType: 'xy', // Nos deja hacer zoom con el ratón arrastrando para ver detalles
+                    backgroundColor: '#fcfcfc' // Un fondito gris muy clarito para que quede más limpio
                 },
                 title: { 
-                    text: 'Análisis Multidimensional de Índices Bursátiles' 
+                    text: 'Análisis Multidimensional de Índices Bursátiles' // El titulazo principal
                 },
                 xAxis: { 
-                    categories: categoriasEjeX, // Ahora los índices están separados
-                    title: { text: 'Índices' },
-                    gridLineWidth: 1 // Líneas verticales para guiar la vista
+                    categories: categoriasEjeX, // Aquí le pasamos la lista de nombres que sacamos al principio (Eje horizontal)
+                    title: { text: 'Índices' }, // Título del eje horizontal
+                    gridLineWidth: 1 // Ponemos unas rayitas verticales de fondo para que no te pierdas leyendo
                 },
                 yAxis: { 
-                    title: { text: 'Precio de Cierre (Close)' } 
+                    title: { text: 'Precio de Cierre (Close)' } // Título del eje vertical
                 },
                 plotOptions: {
                     bubble: {
-                        minSize: '5%',  // Evita que las burbujas sean minúsculas
-                        maxSize: '25%', // Evita que ocupen toda la pantalla
+                        minSize: '5%',  // Tamaño mínimo para que las burbujas chicas no sean invisibles
+                        maxSize: '25%', // Tamaño máximo para que las grandes no tapen todo el gráfico
                         marker: {
-                            lineColor: '#555', // Borde oscuro para definirlas mejor
-                            lineWidth: 1
+                            lineColor: '#555', // Les ponemos un bordecito gris oscuro a las burbujas
+                            lineWidth: 1 // Grosor de ese bordecito
                         }
                     }
                 },
                 tooltip: {
-                    useHTML: true,
-                    headerFormat: '<table>',
+                    useHTML: true, // Le decimos que vamos a diseñar el cuadrito flotante de información usando HTML puro
+                    headerFormat: '<table>', // Abrimos una tabla para organizar los datos que salen al pasar el ratón
+                    
+                    // Aquí diseñamos la "tarjeta" metiendo las variables que preparamos en el Paso 2 (fíjate en los {point.algo})
                     pointFormat: `
                         <tr><th colspan="2" style="font-size: 1.1em; text-align: center;"><b>{point.name}</b> ({point.region})</th></tr>
                         <tr><td colspan="2"><hr/></td></tr>
@@ -89,17 +107,18 @@
                         <tr><th>Volumen:</th><td>{point.z}</td></tr>
                         <tr><th>Cambio Diario:</th><td style="color: {point.color}; font-weight: bold;">{point.cambio}%</td></tr>
                     `,
-                    footerFormat: '</table>',
-                    followPointer: true
+                    footerFormat: '</table>', // Cerramos la tabla
+                    followPointer: true // El cuadrito perseguirá a tu ratón mientras lo mueves por la burbuja
                 },
                 series: [{ 
                     name: 'Mercados', 
-                    data: serieDatos,
-                    showInLegend: false // Quitamos la leyenda porque ya está claro en el eje X
+                    data: serieDatos, // ¡Aquí le metemos todos los datos que procesamos en el paso 2!
+                    showInLegend: false // Quitamos la leyenda de abajo porque ya se ve qué es cada cosa en el eje X
                 }],
-                credits: { enabled: false } // Quitamos el logo de Highcharts abajo a la derecha
+                credits: { enabled: false } // Modo pro: quitamos la marca de agua de "Highcharts.com" abajo a la derecha
             });
         } catch (error) {
+            // Si algo revienta en el proceso (ej: se cae el backend), nos lo chivamos por la consola del navegador
             console.error("Fallo al cargar o pintar los datos:", error);
         }
     });
@@ -119,6 +138,7 @@
 </main>
 
 <style>
+    /* CSS estándar para dejarlo todo bonito. Márgenes, tipografía, colores del botón... Nada de lógica aquí, solo chapa y pintura. */
     main { 
         padding: 20px; 
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -127,7 +147,6 @@
     }
     h2 { color: #333; }
 
-    /* Estilos para el botón del mapa */
     .map-button-container {
         text-align: center;
         margin-top: 30px;
