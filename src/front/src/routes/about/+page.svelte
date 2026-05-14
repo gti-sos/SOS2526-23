@@ -1,5 +1,5 @@
 <script>
-    // Separamos la información en un objeto para mantener el template limpio y fácil de mantener
+    // Configuración centralizada del proyecto SOS2526-23
     const projectInfo = {
         title: "SOS2526-23",
         description: "Our research focuses on analyzing the complex relationship between Google Ads performance, e-Commerce sales flow, and their impact on stock market index fluctuations. Our objective is identify the patterns that drive digital marketplace liquidity and influence investor sentiment.",
@@ -14,6 +14,11 @@
             { url: "https://sos2526-23.onrender.com/api/v1/global-ads-performance/docs", developer: "David Ayllón Vela" },
             { url: "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/docs", developer: "Emilio Cuevas Rendón" },
             { url: "https://sos2526-23.onrender.com/api/v1/online-sales-popular-marketplaces/docs", developer: "María Rodríguez Romero" }
+        ],
+        videos: [
+            { title: "Video David Ayllón", url: "https://youtu.be/m4d0QvaXlGA" }, // Actualizado con tu link de YouTube
+            { title: "Video Emilio", url: "#" },
+            { title: "Video María", url: "#" }
         ]
     };
 </script>
@@ -23,7 +28,7 @@
 </svelte:head>
 
 <style>
-    /* Estilos globales básicos aplicados solo a esta vista para mejorar la fuente y el fondo */
+    /* Estilos globales y contenedores */
     :global(body) {
         font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         background-color: #f4f7f6;
@@ -32,7 +37,6 @@
         padding: 0;
     }
 
-    /* Contenedor principal tipo tarjeta */
     .container {
         max-width: 800px;
         margin: 40px auto;
@@ -42,7 +46,6 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
 
-    /* Títulos */
     h1 {
         text-align: center;
         color: #1a202c;
@@ -57,7 +60,6 @@
         margin-bottom: 15px;
     }
 
-    /* Descripción del proyecto */
     .description {
         text-align: center;
         color: #4a5568;
@@ -68,7 +70,6 @@
         border-bottom: 2px solid #edf2f7;
     }
 
-    /* Listas estilizadas para Team y APIs */
     .list-style {
         list-style-type: none;
         padding: 0;
@@ -83,7 +84,6 @@
         font-size: 0.95rem;
     }
 
-    /* Enlaces dentro de las listas */
     .inline-link {
         color: #007bff;
         text-decoration: none;
@@ -101,7 +101,6 @@
         margin-top: 4px;
     }
 
-    /* Enlace estilo botón para Repo y Deploy */
     .github-link {
         display: inline-flex;
         align-items: center;
@@ -150,6 +149,15 @@
             <li>
                 <a class="inline-link" style="margin-left: 0; font-weight: 500;" href={api.url} target="_blank">{api.url}</a>
                 <span class="developer-text">Developed by: {api.developer}</span>
+            </li>
+        {/each}
+    </ul>
+
+    <h2>Videos</h2>
+    <ul class="list-style">
+        {#each projectInfo.videos as video}
+            <li>
+                <a class="inline-link" style="margin-left: 0; font-weight: 500;" href={video.url} target="_blank">{video.title}</a>
             </li>
         {/each}
     </ul>
