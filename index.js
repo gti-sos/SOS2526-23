@@ -1,15 +1,20 @@
 import 'dotenv/config'
-import express from 'express';
-import cors from 'cors';
 import bodyParser from 'body-parser';
-import { handler } from './src/front/build/handler.js';
-import proxyDeDavid from "./src/back/server_proxy/proxy-DAV.js";
-import proxyHubspot from "./src/back/server_proxy/proxy-hubspot.js";
 
 
 import { loadBackEndMRR } from './src/back/index-MRR.js';
 import { loadBackEndDAV } from './src/back/index-DAV.js';
 import { loadBackEndECR } from './src/back/index-ECR.js';
+
+import express from 'express';
+
+import proxyDeDavid from "./src/back/server_proxy/proxy-DAV.js";
+import proxyHubspot from "./src/back/server_proxy/proxy-hubspot.js";
+
+
+import cors from 'cors';
+import { handler } from './src/front/build/handler.js';
+
 
 let PORT = process.env.PORT || 3000;
 
@@ -28,7 +33,7 @@ loadBackEndMRR(app);
 proxyDeDavid(app);
 proxyHubspot(app);
 
-//Hace el build y construye
+//Hace el build y construye, obligatoriamente detras de las llamadas a los backends
 app.use(handler);
 
 
