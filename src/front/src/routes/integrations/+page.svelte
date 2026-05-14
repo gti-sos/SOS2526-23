@@ -28,9 +28,11 @@
     <h1>Integraciones — Maria Rodríguez Romero </h1>
     <ul>
         <li><a href="/integrations/online-sales-popular-marketplaces/api-health">Google Health (online-sales-popular-marketplaces)</a></li>
-        <li><a href="/integrations/online-sales-popular-marketplaces/api-ebay">eBay (online-sales-popular-marketplaces)</a></li>
-        <li><a href="/integrations/online-sales-popular-marketplaces/">API EXTRA 3</a></li>
-        
+        <li><a href="/integrations/online-sales-popular-marketplaces/api-internet">Individuals using the Internet (online-sales-popular-marketplaces)</a></li>
+        <li><a href="/integrations/online-sales-popular-marketplaces/api-itunes">iTunes (online-sales-popular-marketplaces)</a></li>
+        <li><a href="/integrations/online-sales-popular-marketplaces/api-poblaciones">Población (online-sales-popular-marketplaces)</a></li>
+
+
         <li><a href="/integrations/sos/MRR-birth-death-growth-rates">G12 - birth-death-growth-rates (SOS)</a></li>
         <li><a href="/integrations/sos/MRR-drinking-water-services">G27 - drinking-water-services (SOS)</a></li>
     </ul>
