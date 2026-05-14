@@ -200,6 +200,34 @@ export function loadBackEndMRR(app){
         res.status(200, "OK").json({message: "Dato eliminado"});
     });
 
+    
+    app.post(BASE_URL_API + "/online-sales-popular-marketplaces/ebay-trends", async (req, res) => {
+        try {
+            const { keywords } = req.body; // Recibe la búsqueda del frontal
+            
+            const response = await fetch(`https://${process.env.EBAY_API_HOST_MARIA}/findPrice`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-rapidapi-key': process.env.EBAY_API_KEY_MARIA,
+                    'x-rapidapi-host': process.env.EBAY_API_HOST_MARIA
+                },
+                body: JSON.stringify({
+                    "keywords": keywords || "Smartphone", // Valor por defecto si no hay búsqueda
+                    "max_search_results": "10",
+                    "remove_outliers": true
+                })
+            });
+
+            if (!response.ok) return res.status(response.status).json({ message: "Error API eBay" });
+
+            const data = await response.json();
+            res.status(200).json(data); // Enviamos todo el objeto de eBay al frontal
+        } catch (error) {
+            res.status(500).json({ message: "Error de conexión" });
+        }
+    });
+
 
 }
 
