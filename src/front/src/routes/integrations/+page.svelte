@@ -27,9 +27,8 @@
 <div class="integrations">
     <h1>Integraciones — Maria Rodríguez Romero </h1>
     <ul>
-        <li><a href="/integrations/online-sales-popular-marketplaces/api-health">Google Health (online-sales-popular-marketplaces)</a></li>
+        <li><a href="/integrations/online-sales-popular-marketplaces/api-divisas">Divisas (online-sales-popular-marketplaces)</a></li>
         <li><a href="/integrations/online-sales-popular-marketplaces/api-internet">Individuals using the Internet (online-sales-popular-marketplaces)</a></li>
-        <li><a href="/integrations/online-sales-popular-marketplaces/api-itunes">iTunes (online-sales-popular-marketplaces)</a></li>
         <li><a href="/integrations/online-sales-popular-marketplaces/api-poblaciones">Población (online-sales-popular-marketplaces)</a></li>
 
 
