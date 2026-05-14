@@ -12,7 +12,7 @@ const dbV2 = new DataStore({ filename: "./global-ads-performance-v2.db", autoloa
 
 export function loadBackEndDAV(app) {
 
-       // GET /DOCS
+       // GET /DOCS POSTMAN
     app.get(BASE_URL_API + "/global-ads-performance/docs", (req, res) => {
         res.redirect(DOC_URL);
 
@@ -104,7 +104,7 @@ export function loadBackEndDAV(app) {
     app.post(BASE_URL_API + "/global-ads-performance", (req, res) => {
         const newResource = req.body;
         
-        // Validación de estructura básica: debe tener todos los campos
+        //Si no tiene todos los campos
         if (!newResource.region || !newResource.date || !newResource.platform || !newResource.industry) {
             return res.sendStatus(400); // 400 Bad Request
         }
@@ -115,7 +115,7 @@ export function loadBackEndDAV(app) {
                 return res.sendStatus(409); // 409 Conflict (Ya existe)
             }
             dbV1.insert(newResource, (err, newDoc) => {
-                res.sendStatus(201); // 201 Created
+                res.sendStatus(201); // 201 Created (si no existía, lo creamos)
             });
         });
     });
@@ -123,7 +123,7 @@ export function loadBackEndDAV(app) {
 
     // 4. DELETE COLECCIÓN COMPLETA
     app.delete(BASE_URL_API + "/global-ads-performance", (req, res) => {
-        // {} borra todos los documentos, {multi: true} permite borrar más de uno a la vez
+        // {} borra todos los elementos, {multi: true} permite borrar más de uno a la vez
         dbV1.remove({}, { multi: true }, (err, numRemoved) => {
             res.sendStatus(200); // 200 OK
         });
@@ -137,7 +137,7 @@ export function loadBackEndDAV(app) {
             if (err) return res.status(500).json({ message: "Internal Server Error" });
 
             if (docs.length > 0) {
-                res.status(200).json((docs[0])); // Devuelve UN OBJETO
+                res.status(200).json((docs[0])); // Devuelve UN OBJETO si hay coincidencia
             } else {
                 res.status(404).json({ message: "Not Found" });
             }
@@ -150,7 +150,7 @@ export function loadBackEndDAV(app) {
 
         dbV1.remove({ region: region, date: date }, {}, (err, numRemoved) => {
             if (numRemoved === 0) {
-                return res.sendStatus(404); // 404 Not Found si no existía
+                return res.sendStatus(404); // numRemoved es 0 si no se ha encontrado el recurso a borrar
             }
             res.sendStatus(200); // 200 OK
         });
@@ -163,7 +163,7 @@ export function loadBackEndDAV(app) {
 
         // Comprobar que el ID de la URL coincide con el ID del body (Requisito F06 de errores básicos)
         if (region !== updatedResource.region || date !== updatedResource.date) {
-            return res.sendStatus(400); // 400 Bad Request
+            return res.sendStatus(400); // 400 Bad Request si no coinciden los IDs (region + date) entre la URL y el body
         }
 
         dbV1.update({ region: region, date: date }, updatedResource, {}, (err, numReplaced) => {
@@ -303,6 +303,7 @@ const datosInicialesV2 = [
 // NUEVO BLOQUE: AUTO-CARGA SILENCIOSA PARA V2
 // Esto hace que la API sea "estable" para tu compañero sin necesidad de botón
 // =========================================================================
+
 dbV2.find({}, (err, docs) => {
     if (err) {
         console.error("Error comprobando la BD de V2 en el arranque:", err);

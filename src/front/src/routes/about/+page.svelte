@@ -14,6 +14,12 @@
             { url: "https://sos2526-23.onrender.com/api/v1/global-ads-performance/docs", developer: "David Ayllón Vela" },
             { url: "https://sos2526-23.onrender.com/api/v1/daily-global-stock-market-indicators/docs", developer: "Emilio Cuevas Rendón" },
             { url: "https://sos2526-23.onrender.com/api/v1/online-sales-popular-marketplaces/docs", developer: "María Rodríguez Romero" }
+        ],
+        // Añadimos la nueva sección de vídeos aquí
+        videos: [
+            { title: "Video David", url: "#" },
+            { title: "Video Emilio", url: "#" },
+            { title: "Video María", url: "#" }
         ]
     };
 </script>
@@ -68,7 +74,7 @@
         border-bottom: 2px solid #edf2f7;
     }
 
-    /* Listas estilizadas para Team y APIs */
+    /* Listas estilizadas para Team, APIs y Videos */
     .list-style {
         list-style-type: none;
         padding: 0;
@@ -150,6 +156,15 @@
             <li>
                 <a class="inline-link" style="margin-left: 0; font-weight: 500;" href={api.url} target="_blank">{api.url}</a>
                 <span class="developer-text">Developed by: {api.developer}</span>
+            </li>
+        {/each}
+    </ul>
+
+    <h2>Videos</h2>
+    <ul class="list-style">
+        {#each projectInfo.videos as video}
+            <li>
+                <a class="inline-link" style="margin-left: 0; font-weight: 500;" href={video.url} target="_blank">{video.title}</a>
             </li>
         {/each}
     </ul>
