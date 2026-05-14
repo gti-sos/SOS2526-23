@@ -12,6 +12,8 @@
     let API = "/api/v1/global-ads-performance";
 
     // @ts-ignore
+    // $state si el valor de esta variable cambia en el código,
+    // el HTML de la página web se actualiza instantáneamente de forma automática
     let global_ad= $state([]);
     let resultStatusCode = $state(0);
 
@@ -25,15 +27,12 @@
     let newConversion = $state(0);
     let newRevenue = $state(0);
 
-    //
-    // 2. Nuevos estados reactivos para los campos de búsqueda
     let searchRegion = $state("");
     let searchPlatform = $state("");
     let searchIndustry = $state("");
     let searchFrom = $state("");
     let searchTo = $state("");
 
-    // Campos numéricos para búsqueda avanzada
     let searchImpression = $state("");
     let searchClick = $state("");
     let searchAdSpend = $state("");
@@ -43,9 +42,7 @@
     if (dev)
         API = ""+API;
     
-
-        //FUNCION CARGAR DATOS INICIALES
-    
+    //FUNCION CARGAR DATOS INICIALES    
 async function loadInitialData() {
     // 1. Comprobamos si hay datos
     if (global_ad.length > 0) {
@@ -77,7 +74,7 @@ async function loadInitialData() {
 }
 
 
-        //FUNCION GET TODOS LOS DATOS
+    //FUNCION GET TODOS LOS DATOS
 async function getData() {
     try {
         const res = await fetch(API, { method: 'GET' });
@@ -92,10 +89,10 @@ async function getData() {
 }
 
 
-        //FUNCION POST UN ELEMENTO
-    async function insertAd() {
+    //FUNCION POST UN ELEMENTO
+async function insertAd() {
         // 1. Ocultar alerta de estado anterior para forzar la reactividad
-        resultStatusCode = 0; 
+        resultStatusCode = 0;
 
         let newAd = {
             region: newRegion,
