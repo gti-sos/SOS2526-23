@@ -158,6 +158,6 @@
     <h2>Vídeos de demostración</h2>
     <div class="button-group">
         <a class="buttonEnlace" href="https://drive.google.com/file/d/1AuD_WptL2pojSQ1r6-BOgVpfzaD5bIwE/view?usp=sharing" target="_blank">📹 Emilio Cuevas Rendón</a>
-        <a class="buttonEnlace" href="https://youtu.be/m4d0QvaXlGA" target="_blank">📹 David Ayllón Vela</a>
+        <a class="buttonEnlace" href="https://youtu.be/m4d0QvaXlGA" target="_blank">📹 D. Ayllón Vela</a>
     </div>
 </div>
