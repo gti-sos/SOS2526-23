@@ -1,54 +1,48 @@
 <script>
+    // Importamos onMount para que los datos se carguen automáticamente al entrar en la página
     import { onMount } from 'svelte';
 
-    // Aquí guardaremos los datos que vengan de la API
+    // Usamos $state (novedad de Svelte 5) para crear variables "reactivas".
+    // Esto significa que si cambiamos el valor de estas variables en JavaScript, 
+    // el HTML de la página se actualizará automáticamente sin tener que hacer nada más.
+    
+    // Aquí guardaremos la lista de indicadores que nos devuelva la API
     let indicadores = $state([]);
     
-    // Objeto para el formulario de creación
+    // Este objeto guarda en tiempo real lo que el usuario va escribiendo en el formulario de "Añadir nuevo registro"
     let nuevoIndicador = $state({
-        date: '',
-        index_name: '',
-        region: '',
-        open: '',
-        high: '',
-        low: '',
-        close: '',
-        volume: '',
-        daily_change_percent: ''
+        date: '', index_name: '', region: '', open: '', high: '', 
+        low: '', close: '', volume: '', daily_change_percent: ''
     });
 
-    // --- VARIABLES DE BÚSQUEDA (TODAS las que permite la API) ---
+    // --- VARIABLES DE BÚSQUEDA Y PAGINACIÓN ---
+    // Guarda lo que el usuario escribe en los filtros de arriba del todo.
+    // Incluimos limit (cuántos ver) y offset (cuántos saltar) para la paginación.
     let busqueda = $state({
-        date: '',
-        region: '',
-        index_name: '',
-        open: '',
-        high: '',
-        low: '',
-        close: '',
-        volume: '',
-        daily_change_percent: '',
-        limit: 10, // Por defecto 10
-        offset: 0   // Por defecto 0
+        date: '', region: '', index_name: '', open: '', high: '', low: '', 
+        close: '', volume: '', daily_change_percent: '', limit: 10, offset: 0 
     });
 
-    // Variables para los mensajes de aviso
+    // Variables para controlar las notificaciones (los cartelitos verdes o rojos que salen)
     let mensaje = $state('');
     let esError = $state(false);
 
-    // Función para mostrar mensajes amigables
+    // Función auxiliar para mostrar notificaciones al usuario
     function mostrarMensaje(texto, error = false) {
         mensaje = texto;
-        esError = error;
-        // Ocultar el mensaje a los 5 segundos
+        esError = error; // Si es true, el cartel saldrá rojo. Si es false, verde.
+        // Programamos un temporizador para que el cartel desaparezca solo a los 5 segundos (5000 ms)
         setTimeout(() => { mensaje = ''; }, 5000);
     }
 
-    // 1. Obtener recursos (Cargar la tabla y aplicar TODOS los filtros)
+    // 1. LEER RECURSOS (GET) - Carga la tabla y aplica los filtros si los hay
     async function cargarIndicadores() {
         try {
-            // Construimos la URL con los parámetros de búsqueda si están rellenados
+            // URLSearchParams es una herramienta de JS para construir URLs de búsqueda limpias
+            // Ejemplo: pasa de {region: 'Europe'} a "?region=Europe"
             const params = new URLSearchParams();
+            
+            // Vamos mirando filtro por filtro. Si el usuario ha escrito algo, lo añadimos a la URL.
             if (busqueda.date) params.append('date', busqueda.date);
             if (busqueda.region) params.append('region', busqueda.region);
             if (busqueda.index_name) params.append('index_name', busqueda.index_name);
@@ -59,22 +53,26 @@
             if (busqueda.volume) params.append('volume', busqueda.volume);
             if (busqueda.daily_change_percent) params.append('daily_change_percent', busqueda.daily_change_percent);
             
-            // Paginación
+            // Añadimos siempre la paginación
             if (busqueda.limit !== '') params.append('limit', busqueda.limit);
             if (busqueda.offset !== '') params.append('offset', busqueda.offset);
 
+            // Juntamos la ruta de nuestra API con los parámetros que acabamos de construir
             const queryString = params.toString();
             const url = '/api/v1/daily-global-stock-market-indicators' + (queryString ? `?${queryString}` : '');
 
+            // Hacemos la petición GET al backend
             const res = await fetch(url);
+            
             if (res.ok) {
-                indicadores = await res.json();
+                indicadores = await res.json(); // Actualizamos la tabla con los datos que llegan
                 
-                // Comprobamos si el usuario ha escrito algo en los campos de búsqueda reales (ignorando limit y offset)
+                // Comprobamos si el usuario había escrito algo en los filtros de texto/números
                 const hayFiltrosTexto = busqueda.date || busqueda.region || busqueda.index_name || 
                                         busqueda.open || busqueda.high || busqueda.low || 
                                         busqueda.close || busqueda.volume || busqueda.daily_change_percent;
                 
+                // Si buscó algo pero la API devolvió una lista vacía, le avisamos
                 if (indicadores.length === 0 && hayFiltrosTexto) {
                     mostrarMensaje('No se han encontrado datos con esos filtros.', true);
                 }
@@ -86,38 +84,41 @@
         }
     }
 
-    // Limpiar TODOS los filtros y recargar
+    // Botón de "Limpiar Filtros": Vuelve a poner todo en blanco y recarga la tabla
     function limpiarFiltros() {
         busqueda = { 
-            date: '', region: '', index_name: '', 
-            open: '', high: '', low: '', close: '', 
-            volume: '', daily_change_percent: '', 
+            date: '', region: '', index_name: '', open: '', high: '', 
+            low: '', close: '', volume: '', daily_change_percent: '', 
             limit: 10, offset: 0 
         };
         cargarIndicadores();
     }
   
-    // 2. Crear un recurso (Añadir a la tabla)
+    // 2. CREAR UN RECURSO (POST) - Añade lo escrito en el formulario a la base de datos
     async function crearIndicador() {
+        // Comprobamos si hay algún campo del formulario vacío (Object.values saca todos los valores de nuevoIndicador)
         const camposVacios = Object.values(nuevoIndicador).some(valor => valor === '' || valor === null);
         
         if (camposVacios) {
             mostrarMensaje('Error: Todos los campos son obligatorios. Por favor, rellénalos todos.', true);
-            return; 
+            return; // Cortamos la función aquí para que no mande la petición a la API
         }
 
         try {
             const res = await fetch('/api/v1/daily-global-stock-market-indicators', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(nuevoIndicador)
+                body: JSON.stringify(nuevoIndicador) // Convertimos el objeto JS a texto JSON para enviarlo
             });
 
+            // Si la API responde 201 (Created), todo ha ido genial
             if (res.status === 201) {
                 mostrarMensaje('¡Dato del mercado añadido correctamente!');
-                cargarIndicadores();
+                cargarIndicadores(); // Recargamos la tabla para que se vea el nuevo dato
+                // Vaciamos el formulario para poder meter otro nuevo
                 nuevoIndicador = { date: '', index_name: '', region: '', open: '', high: '', low: '', close: '', volume: '', daily_change_percent: '' };
             } else if (res.status === 409) {
+                // 409 (Conflict) - El backend nos dice que ya existe (claves primarias duplicadas)
                 mostrarMensaje('Error: Ya existe un registro para esa región y ese índice.', true);
             } else if (res.status === 400) {
                 mostrarMensaje('Error: Faltan datos por rellenar o el formato es incorrecto.', true);
@@ -129,16 +130,17 @@
         }
     }
 
-    // 3. Borrar un recurso concreto
+    // 3. BORRAR UN RECURSO (DELETE) - Se ejecuta al pulsar el botón "Eliminar" de una fila
     async function borrarIndicador(region, index_name) {
         try {
+            // Mandamos la orden de borrado a la ruta exacta del recurso (combinando región e índice)
             const res = await fetch(`/api/v1/daily-global-stock-market-indicators/${region}/${index_name}`, {
                 method: 'DELETE'
             });
 
-            if (res.status === 204 || res.status === 200) {
+            if (res.status === 204 || res.status === 200) { // 204 es "No Content" (borrado con éxito)
                 mostrarMensaje('Dato eliminado con éxito.');
-                cargarIndicadores(); 
+                cargarIndicadores(); // Recargamos la tabla para que desaparezca la fila borrada
             } else if (res.status === 404) {
                 mostrarMensaje('Error: No se encontró el dato que intentas borrar.', true);
             } else {
@@ -149,8 +151,9 @@
         }
     }
 
-    // 4. Borrar TODOS los recursos
+    // 4. BORRAR TODOS LOS RECURSOS (DELETE) - El botón de peligro rojo
     async function borrarTodos() {
+        // Ventana emergente del navegador para evitar borrados por accidente
         if (!confirm('¿Estás seguro de que quieres borrar TODOS los datos de la tabla? Esta acción no se puede deshacer.')) return;
 
         try {
@@ -160,7 +163,7 @@
 
             if (res.status === 204 || res.status === 200) {
                 mostrarMensaje('¡Todos los datos han sido borrados de la base de datos!');
-                cargarIndicadores();
+                cargarIndicadores(); // Recargamos la tabla (que ahora estará vacía)
             } else {
                 mostrarMensaje('Error al intentar vaciar la base de datos.', true);
             }
@@ -169,14 +172,14 @@
         }
     }
 
-    // 5. Cargar datos iniciales
+    // 5. CARGAR DATOS INICIALES - Llama a la API para rellenar la base de datos automáticamente
     async function cargarDatosIniciales() {
         try {
             const res = await fetch('/api/v1/daily-global-stock-market-indicators/loadInitialData');
             
             if (res.ok) {
                 mostrarMensaje('¡Datos iniciales cargados correctamente!');
-                cargarIndicadores(); 
+                cargarIndicadores(); // Refrescamos la tabla para ver los datos recién cargados
             } else {
                 mostrarMensaje('Error al cargar los datos iniciales.', true);
             }
@@ -185,6 +188,7 @@
         }
     }
 
+    // Al arrancar la página, llamamos a esta función para que la tabla se llene con lo que haya en la BD
     onMount(cargarIndicadores);
 </script>
 
@@ -203,6 +207,7 @@
 
     <section style="background-color: #fff9e6; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #ffe082;">
         <h3 style="margin-top: 0;">🔍 Buscar y Filtrar (Múltiples criterios)</h3>
+        
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 15px;">
             <input type="text" placeholder="Fecha (ej. 2024)" bind:value={busqueda.date} />
             <input type="text" placeholder="Región (ej. Europe)" bind:value={busqueda.region} />
@@ -258,8 +263,7 @@
         </button>
     </div>
 
-    <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 800px;">
+    <div style="overflow-x: auto;"> <table style="width: 100%; border-collapse: collapse; text-align: left; min-width: 800px;">
             <thead>
                 <tr style="background-color: #333; color: white;">
                     <th style="padding: 12px; border: 1px solid #ccc;">Fecha</th>
