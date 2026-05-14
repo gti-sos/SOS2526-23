@@ -1,11 +1,18 @@
+<!-- Punto de entrada HTML de toda la aplicación, generado por SvelteKit.
+     No se toca casi nunca, SvelteKit lo gestiona él solo. -->
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		%sveltekit.head%
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-	</body>
+    <head>
+        <meta charset="utf-8" />
+        <!-- Para que la web se vea bien en móviles -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- SvelteKit inyecta aquí lo que haga falta (favicon, estilos, etc.) -->
+        %sveltekit.head%
+    </head>
+    <!-- Precarga las páginas al pasar el ratón por encima de los enlaces -->
+    <body data-sveltekit-preload-data="hover">
+        <!-- Aquí es donde SvelteKit mete el contenido de cada página -->
+        <div style="display: contents">%sveltekit.body%</div>
+    </body>
 </html>
